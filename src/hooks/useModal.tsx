@@ -1,18 +1,11 @@
-// src/hooks/useModal.ts
-import { useState } from 'react'
+import { useContext } from 'react'
+import { ModalContext } from '../context/ModalContext'
+import { ModalContextType } from '../types/modal.types'
 
-export const useModal = (initialState = false) => {
-    const [isOpen, setIsOpen] = useState(initialState)
-
-    const openModal = () => setIsOpen(true)
-    const closeModal = () => {
-        console.log('Modal cerrado', isOpen)
-        setIsOpen(false)
+export const useModal = (): ModalContextType => {
+    const context = useContext(ModalContext)
+    if (!context) {
+        throw new Error('useModal debe ser usado dentro de ModalProvider')
     }
-
-    return {
-        isOpen,
-        openModal,
-        closeModal,
-    }
+    return context
 }

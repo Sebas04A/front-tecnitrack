@@ -1,0 +1,118 @@
+import {
+    adapterPerfilJuridico,
+    createAddapterPerfilNatural,
+    parseAdapterPerfilesJuridicosCrud,
+    parseAdapterPerfilJuridico,
+    parseAdapterPerfilNatural,
+    parseAdapterPersonasNaturalCrud,
+} from '../adapters/perfil'
+import { AdministradorService, ClientesService } from '../api'
+import { ClienteEmpresaCrud, ClienteNaturalCrud } from '../types/usuario'
+import { PerfilEmpresaData, PerfilPersonaNaturalData } from '../validation/perfil.schema'
+
+export async function getPerfilesJuridicos(): Promise<ClienteEmpresaCrud[]> {
+    const data = await AdministradorService.getApiAdministradorListaClientesEmpresa()
+    console.log('Datos obtenidos de perfiles jurídicos:', data.data)
+    return parseAdapterPerfilesJuridicosCrud(data.data || [])
+}
+export async function getPerfilJuridicoById(clienteId: number): Promise<PerfilEmpresaData> {
+    const data = await AdministradorService.getApiAdministradorObtenerClienteEmpresa({
+        clienteId: clienteId,
+    })
+    console.log('Datos obtenidos del perfil jurídico por ID:', data)
+    if (!data || !data.data) {
+        throw new Error('No se encontraron datos del perfil jurídico')
+    }
+    return parseAdapterPerfilJuridico(data.data)
+}
+export async function getPerfilJuridico(): Promise<PerfilEmpresaData> {
+    try {
+        const data = await ClientesService.getApiClientesMiEmpresa()
+        console.log('Datos obtenidos del perfil jurídico:', data)
+        if (!data || !data.data) {
+            throw new Error('No se encontraron datos del perfil jurídico')
+        }
+        return parseAdapterPerfilJuridico(data.data)
+    } catch (e) {
+        console.error('Error obteniendo perfil jurídico:', e)
+        throw e
+    }
+}
+export async function crearPerfilJuridico(data: PerfilEmpresaData) {
+    const requestBody = adapterPerfilJuridico(data)
+    console.log('Datos del perfil jurídico a crear:', requestBody)
+    try {
+        const response = await ClientesService.postApiClientesCrearEmpresa({ requestBody })
+        return response
+    } catch (e) {
+        console.error('Error creando perfil jurídico:', e)
+        throw e
+    }
+}
+export async function updatePerfilJuridico(data: PerfilEmpresaData) {
+    const requestBody = adapterPerfilJuridico(data)
+    console.log('Datos del perfil jurídico a actualizar:', requestBody)
+    try {
+        const response = await ClientesService.putApiClientesActualizarMiEmpresa({ requestBody })
+        return response
+    } catch (e) {
+        console.error('Error actualizando perfil jurídico:', e)
+        throw e
+    }
+}
+export async function getTipoPerfil() {
+    const response = await ClientesService.getApiClientesTipoCliente()
+    console.log('Tipos de perfil obtenidos:', response)
+    return response.data?.tipoCliente
+}
+export async function getPerfilesNaturales(): Promise<ClienteNaturalCrud[]> {
+    const data = await AdministradorService.getApiAdministradorListaClientesNaturales()
+    console.log('Datos obtenidos de perfiles naturales:', data.data)
+    return parseAdapterPersonasNaturalCrud(data.data || [])
+}
+export async function getPerfilNatural(): Promise<PerfilPersonaNaturalData> {
+    try {
+        const data = await ClientesService.getApiClientesMisDatos()
+        console.log('Datos obtenidos del perfil natural:', data)
+        if (!data || !data.data) {
+            throw new Error('No se encontraron datos del perfil natural')
+        }
+        return parseAdapterPerfilNatural(data.data)
+    } catch (e) {
+        console.error('Error obteniendo perfil natural:', e)
+        throw e
+    }
+}
+export async function getPerfilNaturalById(clienteId: number): Promise<PerfilPersonaNaturalData> {
+    const data = await AdministradorService.getApiAdministradorObtenerClienteNatural({
+        clienteId: clienteId,
+    })
+    console.log('Datos obtenidos del perfil natural por ID:', data)
+    if (!data || !data.data) {
+        throw new Error('No se encontraron datos del perfil natural')
+    }
+    return parseAdapterPerfilNatural(data.data)
+}
+export async function createPerfilNatural(data: PerfilPersonaNaturalData) {
+    const requestBody = createAddapterPerfilNatural(data)
+    console.log('Datos del perfil natural a crear:', requestBody)
+    try {
+        const response = await ClientesService.postApiClientesCrearCliente({ requestBody })
+        return response
+    } catch (e) {
+        console.error('Error creando perfil natural:', e)
+        throw e
+    }
+}
+
+export async function updatePerfilNatural(data: PerfilPersonaNaturalData) {
+    const requestBody = createAddapterPerfilNatural(data)
+    console.log('Datos del perfil natural a actualizar:', requestBody)
+    try {
+        const response = await ClientesService.putApiClientesActualizarMisDatos({ requestBody })
+        return response
+    } catch (e) {
+        console.error('Error actualizando perfil natural:', e)
+        throw e
+    }
+}

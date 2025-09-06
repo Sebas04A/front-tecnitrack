@@ -1,24 +1,22 @@
 import { useForm } from 'react-hook-form'
 import GenericSelect from '../form/Controls/GenericSelect'
 import GenericForm from '../form/GenericForm'
-import GenericRowForm from '../form/GenericRowForm'
-import { tipoPersonaType } from '../../types/formsProfile'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { TIPO_PERSONA_TYPE } from '../../constants/perfil'
 
 export default function ProfileHeader({
     setTipoPersona,
 }: {
-    setTipoPersona: (tipo: tipoPersonaType) => void
+    setTipoPersona: (tipo: TIPO_PERSONA_TYPE | null) => void
 }) {
-    const profileForm = useForm<{ tipoPersona: tipoPersonaType }>({
+    const profileForm = useForm<{ tipoPersona: TIPO_PERSONA_TYPE | null }>({
         defaultValues: {
-            tipoPersona: '',
+            tipoPersona: null,
         },
         mode: 'onChange',
     })
 
     return (
-        <div className='flex w-full justify-between items-center p-6 bg-background-accent-auto mb-10 border-b rounded-xl shadow-md max-w-4xl mx-auto'>
+        <div className='flex w-full justify-between items-center p-6 bg-background-accent-auto rounded-xl shadow-md max-w-4xl mx-auto '>
             <GenericForm
                 title='Tipo de Perfil'
                 onSubmit={profileForm.handleSubmit((data: any) =>
@@ -34,11 +32,12 @@ export default function ProfileHeader({
                             name='tipoPersona'
                             register={profileForm.register}
                             errors={profileForm.formState.errors}
-                            options={[
-                                { value: '', label: 'Tipo de Persona' },
-                                { value: 'Natural', label: 'Persona Natural' },
-                                { value: 'Juridica', label: 'Persona Jurídica' },
-                            ]}
+                            // options={[
+                            //     { value: '', label: 'Tipo de Persona' },
+                            //     { value: 'Natural', label: 'Persona Natural' },
+                            //     { value: 'Juridica', label: 'Persona Jurídica' },
+                            // ]}
+                            tipoCatalogo={'tipoCliente'}
                         />
                     </div>
                     <div className='flex h-full mb-[1.5rem]'>
@@ -46,7 +45,8 @@ export default function ProfileHeader({
                             type='submit'
                             className='bg-primary-auto px-4 py-2 rounded hover:bg-primary-light text-white font-semibold transition-all duration-300 shadow-md hover:shadow-lg'
                             onClick={() => {
-                                const tipo: tipoPersonaType = profileForm.getValues('tipoPersona')
+                                const tipo: TIPO_PERSONA_TYPE | null =
+                                    profileForm.getValues('tipoPersona')
                                 setTipoPersona(tipo)
                             }}
                         >

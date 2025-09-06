@@ -1,34 +1,33 @@
-import { useState } from 'react'
 import GenericInput from './GenericInput'
-import { FieldError, FieldErrors, UseFormRegister } from 'react-hook-form'
+import { FieldErrors, UseFormRegister } from 'react-hook-form'
 import { getNestedError } from '../../../utils/formError'
 
 type GenericTextInputProps = {
     label?: string
-    type: 'email' | 'password' | 'text'
+    type?: 'text' | 'email' | 'password' | 'number' | 'tel' | 'url' | 'search'
     name: string
-    register: UseFormRegister<any>
+    register?: UseFormRegister<any>
     errors?: FieldErrors
     className?: string
     isReadOnly?: boolean
-    // requiredMessage?: string
-}
+    placeholder?: string
+    required?: boolean
+} & Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'name' | 'className' | 'required'>
 
 const GenericTextInput: React.FC<GenericTextInputProps> = ({
     label,
-    type,
+    type = 'text',
     name,
     register,
     errors,
     className,
     isReadOnly,
-    // requiredMessage,
+    placeholder,
+    required,
+    ...rest
 }) => {
-    if (!register) {
-        throw new Error('Register function is required for GenericTextInput')
-    }
     const errorObject = errors ? getNestedError(errors, name) : undefined
-    const errorMessage = errorObject?.message
+    const errorMessage = errorObject?.message as string | undefined
 
     return (
         <GenericInput
@@ -39,7 +38,9 @@ const GenericTextInput: React.FC<GenericTextInputProps> = ({
             error={errorMessage}
             className={className}
             isReadOnly={isReadOnly}
-            // required={isRequired}
+            placeholder={placeholder}
+            required={required}
+            {...rest}
         />
     )
 }

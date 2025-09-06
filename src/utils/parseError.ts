@@ -1,5 +1,4 @@
 // src/utils/parseError.ts
-import { AxiosError } from 'axios'
 
 export function parseAxiosError(error: unknown): string {
     // console.log('Parsing error:', error)

@@ -9,7 +9,11 @@ import { tecniTrackTheme } from './themes/tecniTrack'
 import { defaultTheme } from './themes/default'
 import { empresaXTheme } from './themes/empresaX'
 import { empresaYTheme } from './themes/empresaY'
-import { AuthProvider } from './hooks/useAuth'
+import { AuthProvider } from './context/AuthProvider'
+import { setupApi } from './api/setupApi'
+import { ModalProvider } from './context/ModalContext'
+
+setupApi()
 
 // Detectar tenant (por subdominio, token, etc.)
 // const host = window.location.hostname.split('.')[0]
@@ -22,9 +26,12 @@ createRoot(document.getElementById('root')!).render(
     <StrictMode>
         <AuthProvider>
             <ThemeProvider theme={theme}>
-                <BrowserRouter>
-                    <App />
-                </BrowserRouter>
+                <ModalProvider>
+                    <BrowserRouter>
+                        <App />
+                    </BrowserRouter>
+                </ModalProvider>
+                {/* <ModalManager /> */}
             </ThemeProvider>
         </AuthProvider>
     </StrictMode>

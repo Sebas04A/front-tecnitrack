@@ -1,10 +1,8 @@
-import { UseFormReturn } from 'react-hook-form'
-
 export type TabKeyType = 'personal' | 'direccion' | 'contacto'
-export type tabInfoType = {
-    key: TabKeyType
+export type tabInfoType<T> = {
+    key: T
     label: string
     icon: React.ReactNode
-    form: UseFormReturn<any>
+    // form: UseFormReturn<any>
 }
-export type tabsInfoType = tabInfoType[]
+export type tabsInfoType<T> = tabInfoType<T>[]

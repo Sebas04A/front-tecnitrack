@@ -3,15 +3,18 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { CitaRequest } from '../models/CitaRequest';
+import type { CitaResponseApiResponse } from '../models/CitaResponseApiResponse';
+import type { CitaResponseListApiResponse } from '../models/CitaResponseListApiResponse';
+import type { ObjectApiResponse } from '../models/ObjectApiResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 export class CitasService {
     /**
-     * @returns void
+     * @returns CitaResponseListApiResponse OK
      * @throws ApiError
      */
-    public static getApiCitasObtenerCitas(): CancelablePromise<void> {
+    public static getApiCitasObtenerCitas(): CancelablePromise<CitaResponseListApiResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/Citas/obtener-citas',
@@ -21,13 +24,14 @@ export class CitasService {
         });
     }
     /**
-     * @param requestBody
-     * @returns void
+     * @returns CitaResponseApiResponse OK
      * @throws ApiError
      */
-    public static postApiCitasCrearCita(
+    public static postApiCitasCrearCita({
+        requestBody,
+    }: {
         requestBody?: CitaRequest,
-    ): CancelablePromise<void> {
+    }): CancelablePromise<CitaResponseApiResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/Citas/crear-cita',
@@ -35,37 +39,42 @@ export class CitasService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
             },
         });
     }
     /**
-     * @param requestBody
-     * @returns void
+     * @returns ObjectApiResponse OK
      * @throws ApiError
      */
-    public static putApiCitasCancelarCita(
-        requestBody?: number,
-    ): CancelablePromise<void> {
+    public static putApiCitasCancelarCita({
+        id,
+    }: {
+        id: number,
+    }): CancelablePromise<ObjectApiResponse> {
         return __request(OpenAPI, {
             method: 'PUT',
-            url: '/api/Citas/cancelar-cita',
-            body: requestBody,
-            mediaType: 'application/json',
+            url: '/api/Citas/cancelar-cita/{id}',
+            path: {
+                'id': id,
+            },
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
             },
         });
     }
     /**
-     * @returns void
+     * @returns CitaResponseListApiResponse OK
      * @throws ApiError
      */
-    public static getApiCitasVerCitas(): CancelablePromise<void> {
+    public static getApiCitasVerCitas(): CancelablePromise<CitaResponseListApiResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/Citas/ver-citas',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
             },
         });
     }

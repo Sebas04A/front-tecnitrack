@@ -18,6 +18,7 @@ export const defaultTheme: ThemeColors = {
     error: '#dc3545',
     warning: '#ffc107',
     info: '#0dcaf0',
+    unavailable: '#6c757d',
 
     onPrimary: '#ffffff',
     onPrimaryLight: '#000000',
@@ -29,4 +30,5 @@ export const defaultTheme: ThemeColors = {
     onError: '#ffffff',
     onWarning: '#000000',
     onInfo: '#000000',
+    onUnavailable: '#ffffff',
 }

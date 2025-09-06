@@ -8,7 +8,7 @@ export const tecniTrackTheme: ThemeColors = {
     secondaryLight: '#81D4FA', // Azul muy claro
     secondaryDark: '#0288D1', // Azul profundo
     accent: '#FFD600', // Amarillo vibrante
-    background: '#f0f0f0ff', // Gris claro
+    background: '#f3f4f6', // Gris claro
     backgroundAccent: '#fdfdfdff', // Gris medio
     text: '#424242', // Gris oscuro
     border: '#BDBDBD', // Gris medio

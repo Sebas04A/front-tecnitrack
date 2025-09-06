@@ -3,15 +3,12 @@
 /* tslint:disable */
 /* eslint-disable */
 export type DireccionRequest = {
-    callePrincipal?: string | null;
-    calleSecundaria?: string | null;
-    numero?: string | null;
-    ciudad?: string | null;
-    provincia?: string | null;
+    direccionExacta: string;
+    paisId: number;
+    provinciaId: number;
+    ciudadId: number;
     codigoPostal?: string | null;
-    pais?: string | null;
-    tipo?: string | null;
+    tipo: string;
     principal?: boolean;
-    descripcion?: string | null;
 };
 

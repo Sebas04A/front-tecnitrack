@@ -21,6 +21,10 @@ export default {
     content: ['./index.html', './src/**/*.{ts,tsx,js,jsx}'],
     theme: {
         extend: {
+            fontFamily: {
+                sans: ['Inter', 'sans-serif'],
+                mono: ['Fira Code', 'monospace'],
+            },
             colors: {
                 primary: 'var(--color-primary)',
                 'primary-light': 'var(--color-primary-light)',
@@ -58,7 +62,11 @@ export default {
             },
         },
         keyframes: { 'fade-in': { '0%': { opacity: '0' }, '100%': { opacity: '1' } } },
-        animation: { 'fade-in': 'fade-in 0.5s ease-out' },
+        animation: {
+            fadeIn: 'fadeIn 0.3s ease-out',
+            slideIn: 'slideIn 0.3s ease-out',
+            // ... más animaciones
+        },
     },
     darkMode: 'class',
     safelist: [

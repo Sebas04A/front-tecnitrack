@@ -3,19 +3,31 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import MainLayout from '../layouts/MainLayout'
 import AuthLayout from '../layouts/AuthLayout'
 import ProtectedRoute from './ProtectedRoute'
-
-import Home from '../pages/Home'
 import Login from '../pages/Login'
 import NotFoundPage from '../pages/NofoundPage'
 import ColorPalette from '../components/ex/ColorPallete'
 import DashboardPage from '../pages/Dashboard'
 import TableroPage from '../pages/Tablero'
-import Usuario from '../pages/Usuario'
 import Register from '../pages/Register'
 import { CitasCalendar } from '../pages/CitasCalendar'
 import ConfirmEmail from '../pages/ConfirmarEmail'
 import UserProfileTabs from '../pages/Perfil'
-// import Items from '../pages/Items'
+import InternalLayout from '../layouts/InternalLayout'
+import RecuperContra from '../pages/RecuperContra'
+import RestablecerContra from '../pages/RestablecerContra'
+import CatalogosCrud from '../components/crudGrid/cruds/Catalogos/CatalogosCrud'
+import CrudInternos from '../pages/Internos/CrudInternos'
+import CrudClientes from '../pages/Internos/CrudClientes'
+// import ComponentePadreEx from '../components/ex/ComponentePadreEx'
+import ModalExamples from '../components/ex/ModalEx'
+import ExamplePage from '../components/ex/ModalEx'
+import { UserList, WelcomeScreen } from '../components/ex/UserList'
+import CrudCitas from '../pages/Internos/Citas'
+import Citas from '../pages/Internos/Citas'
+import GenericLocalidadesSelect from '../components/form/Controls/GenericLocalidadesSelect'
+import MantenimientoIngreso from '../components/mantenimiento/MantenimientoIngreso'
+import { PaisesCrud } from '../components/crudGrid/cruds/Localidades/Paises/PaisCrud'
+import CatalogoLocalidades from '../pages/Internos/CatalogoLocalidades'
 
 const AppRouter: React.FC = () => {
     return (
@@ -27,21 +39,34 @@ const AppRouter: React.FC = () => {
                 <Route path='colors' element={<ColorPalette />} />
                 <Route path='calendario' element={<CitasCalendar />} />
                 <Route path='confirmar-email' element={<ConfirmEmail />} />
+                <Route path='forgotpassword' element={<RecuperContra />} />
+                <Route path='resetpassword' element={<RestablecerContra />} />
+                {/* <Route path='ex' element={<WelcomeScreen />} /> */}
+                <Route path='ex' element={<PaisesCrud />} />
             </Route>
-
+            <Route element={<ProtectedRoute requiredRol='interno' />}>
+                <Route path='/interno' element={<InternalLayout />}>
+                    <Route path='usuarios' element={<CrudInternos />} />
+                    <Route path='clientes' element={<CrudClientes />} />
+                    <Route path='configuracion/catalogos/generales' element={<CatalogosCrud />} />
+                    <Route
+                        path='configuracion/catalogos/localidades'
+                        element={<CatalogoLocalidades />}
+                    />
+                    <Route path='citas' element={<Citas />} />
+                </Route>
+            </Route>
             {/* Rutas privadas */}
-            <Route element={<ProtectedRoute />}>
+            <Route element={<ProtectedRoute requiredRol='usuario' />}>
                 <Route path='/' element={<MainLayout />}>
                     <Route index element={<Navigate to='home' replace />} />
-                    <Route path='home' element={<Home />} />
+                    <Route path='home' element={<TableroPage />} />
                     <Route path='tablero' element={<TableroPage />} />
-                    {/* <Route path='usuario' element={<Usuario />} /> */}
                     <Route path='mantenimientos' element={<DashboardPage />} />
 
                     <Route path='usuario' element={<UserProfileTabs />} />
 
-                    {/* <Route path='items' element={<Items />} /> */}
-                    {/* <Route path='settings' element={<Settings />} /> */}
+                    {/* <Route path='ejCrud' element={<DireccionesCrud />} /> */}
                 </Route>
             </Route>
 

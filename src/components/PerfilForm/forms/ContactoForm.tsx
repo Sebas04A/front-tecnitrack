@@ -10,6 +10,7 @@ import {
 } from '../../../validation/perfil.schema'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { FormProfileProps } from '../../../types/formsProfile'
+import { TIPO_PERSONA } from '../../../constants/perfil'
 
 function ContactoUnico({
     form,
@@ -50,7 +51,7 @@ function ContactoUnico({
                 type='email'
                 register={register}
                 errors={errors}
-                isReadOnly={!estaEditando || (tipoPersona === 'Natural' && index === 0)}
+                isReadOnly={!estaEditando || (tipoPersona === TIPO_PERSONA.NATURAL && index === 0)}
                 className='min-w-[20ch] flex-[4_1_auto]'
             />
         </GenericRowForm>

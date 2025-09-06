@@ -1,95 +1,128 @@
-// src/components/citas/CitasCalendar.tsx
-import React, { useState } from 'react'
-import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
-import { useCitas } from '../hooks/useCitas'
-import { CalendarGrid } from '../components/citas/CalendarGrid'
-import { TimeSlots } from '../components/citas/TimeSlots'
+// src/pages/CitasCalendar.tsx
+import React from 'react'
 import { useModal } from '../hooks/useModal'
-import { Modal } from '../components/common/Modal'
-import ModalConfirmarCita from '../components/citas/ModalConfirmarCita'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useAuth } from '../hooks/useAuth'
+import IngresarCitaModal from '../components/citas/IngresarCitaModal'
+import { useModalActions } from '../hooks/useModalActions'
+import DateTimeSelector, { DateTimeSelection } from '../components/citas/DateTimeSelector'
 
 export const CitasCalendar: React.FC = () => {
-    // const {
-    //     isOpen: isErrorOpen,
-    //     openModal: openErrorModal,
-    //     closeModal: closeErrorModal,
-    // } = useModal()
+    const { user } = useAuth()
+    const navigate = useNavigate()
+    const location = useLocation()
 
-    const {
-        loading,
-        now,
-        currentDate,
-        selectedDate,
-        diasCompletos,
-        horasDisponibles,
-        horasOcupadas,
-        handleDateSelect,
-        goToNextMonth,
-        goToPrevMonth,
-    } = useCitas(new Date()) // Iniciar en el mes actual
+    const modalActions = useModalActions()
+    const modal = useModal()
 
-    const [selectedSlot, setSelectedSlot] = useState<string | null>(null)
+    const [selection, setSelection] = React.useState<DateTimeSelection>({
+        selectedDate: null,
+        selectedSlot: null,
+        fechaHoraISO: null,
+        fecha: null,
+    })
 
-    const monthName = new Intl.DateTimeFormat('es-ES', { month: 'long' }).format(currentDate)
+    // Tomar selección inicial desde location.state
+    const citaSel = (location.state as any)?.citaSeleccionada as
+        | { dateISO: string; slot: string }
+        | undefined
+    const defaultSelectedDate = React.useMemo(
+        () => (citaSel?.dateISO ? new Date(citaSel.dateISO) : null),
+        [citaSel]
+    )
+    const defaultSelectedSlot = citaSel?.slot ?? null
 
-    const handleSlotSelect = (hora: string) => {
-        setSelectedSlot(hora)
-        openModal()
+    // Limpiar state de navegación al montar
+    React.useEffect(() => {
+        if (citaSel?.dateISO && citaSel?.slot) {
+            navigate(location.pathname, { replace: true })
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    React.useEffect(() => {
+        if (selection.fecha && selection.selectedSlot) {
+            console.log('Abriendo modal para fecha:', selection.fecha)
+            abrirModalConfirmarFecha(selection.fecha)
+        }
+    }, [selection])
+
+    const handleConfirmCita = () => {
+        const selectedDate = selection.selectedDate
+        console.log({ selection })
+        if (!selectedDate || !selection.fechaHoraISO) return
+
+        // No logeado: mandar a login con retorno a calendario y conservar selección
+        if (!user) {
+            navigate('/login', {
+                state: {
+                    returnTo: '/calendario',
+                    citaSeleccionada: {
+                        dateISO: selection.fechaHoraISO,
+                        slot: selection.selectedSlot,
+                    },
+                },
+            })
+            return
+        }
+
+        // // Autenticado: construir payload listo para API
+        // const [h, m] = selectedSlot.split(':').map(Number)
+        // const inicio = new Date(selectedDate)
+        // inicio.setHours(h, m, 0, 0)
+
+        // console.log(inicio)
+        // console.log('Cita confirmada:', {
+        //     fechaHoraInicio: inicio.toISOString(),
+        //     slot: selectedSlot,
+        // })
+
+        abrirModalCita(selection.fechaHoraISO)
     }
 
-    const { isOpen: isConfirmOpen, openModal: openModal, closeModal: closeModal } = useModal()
+    function abrirModalCita(fechaISO: string) {
+        const id = modal.openModal({
+            component: IngresarCitaModal,
+            props: {
+                fecha: fechaISO || '',
+                isOpen: true,
+                onClose: () => {
+                    modal.closeModal(id)
+                    setSelection({
+                        selectedDate: null,
+                        selectedSlot: null,
+                        fechaHoraISO: null,
+                        fecha: null,
+                    })
+                },
+            },
+        })
+    }
+
+    function abrirModalConfirmarFecha(date: Date) {
+        const slot = date.toTimeString().slice(0, 5)
+        console.warn({ selection })
+        console.warn('Abriendo modal para fecha:', date)
+        const id = modalActions.showConfirm({
+            title: 'Confirmar Cita',
+            message: `¿Deseas confirmar la cita para el ${date.toLocaleDateString()} a las ${slot}?`,
+            confirmText: 'Sí, confirmar',
+            cancelText: 'No, cancelar',
+            onConfirm: () => {
+                modalActions.closeModal(id)
+                handleConfirmCita()
+            },
+            onCancel: () => modalActions.closeModal(id),
+            type: 'info',
+        })
+    }
+
     return (
         <div>
-            <div className='mb-6'>
-                <div className='flex justify-between items-center mb-4'>
-                    <button
-                        onClick={goToPrevMonth}
-                        className='p-2 rounded-full hover:bg-gray-200 transition-colors'
-                        aria-label='Mes anterior'
-                    >
-                        <FiChevronLeft className='h-5 w-5 text-primary' />
-                    </button>
-                    <h2 className='text-xl font-bold text-primary capitalize'>{monthName}</h2>
-                    <button
-                        onClick={goToNextMonth}
-                        className='p-2 rounded-full hover:bg-gray-200 transition-colors'
-                        aria-label='Mes siguiente'
-                    >
-                        <FiChevronRight className='h-5 w-5 text-primary' />
-                    </button>
-                </div>
-                <h3 className='text-center text-lg font-semibold '>Selecciona una fecha</h3>
-            </div>
-
-            {loading ? (
-                <div className='text-center text-muted'>Cargando citas...</div>
-            ) : (
-                <>
-                    <CalendarGrid
-                        now={now}
-                        currentDate={currentDate}
-                        selectedDate={selectedDate}
-                        diasCompletos={diasCompletos}
-                        onDateSelect={handleDateSelect}
-                    />
-
-                    <hr className='my-6 border-gray-200' />
-
-                    <TimeSlots
-                        now={now}
-                        selectedDate={selectedDate}
-                        horasDisponibles={horasDisponibles}
-                        horasOcupadas={horasOcupadas}
-                        onSlotSelect={handleSlotSelect}
-                    />
-                </>
-            )}
-            {/* Modal para Confirmar Cita */}
-            <ModalConfirmarCita
-                selectedDate={selectedDate}
-                selectedSlot={selectedSlot}
-                closeModal={closeModal}
-                isOpen={isConfirmOpen}
+            <DateTimeSelector
+                defaultSelectedDate={defaultSelectedDate}
+                onSelectionChange={s => setSelection(s)}
+                // onSlotSelect={date => abrirModalConfirmarFecha(date)}
             />
         </div>
     )

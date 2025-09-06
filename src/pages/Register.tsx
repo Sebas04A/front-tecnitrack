@@ -8,17 +8,14 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useState } from 'react'
 import GenericTextInput from '../components/form/Controls/GenericTextInput'
 import GenericButton from '../components/form/Controls/GenericButton'
-import ModalConfirmarEmail from '../components/registro/ModalConfirmarEmail'
-import { useModal } from '../hooks/useModal'
 import GenericLink from '../components/form/Controls/GenericLink'
+import { useModalActions } from '../hooks/useModalActions'
 
 export default function Register() {
     const { signup } = useAuth() // asumiendo que AuthContext expone signup
-    const navigate = useNavigate()
     // const intl = useIntl()
 
     const [error, setError] = useState('')
-
     const {
         register,
         handleSubmit,
@@ -27,22 +24,18 @@ export default function Register() {
         formState: { errors, isSubmitting },
     } = useForm<RegisterFormData>({
         mode: 'onChange',
-        defaultValues: {
-            email: 'testing@example.com',
-            password: 'Password*123',
-            confirmPassword: 'Password*123',
-        },
+
         resolver: yupResolver(registerSchema), // si usas yup
     })
 
     const onSubmit: SubmitHandler<RegisterFormData> = async ({ email, password }) => {
         setError('')
         try {
-            await signup(email, password)
+            const res = await signup(email, password)
+            console.log(res)
             openModal()
             reset()
-            navigate('/login', { replace: true })
-        } catch (err: unknown) {
+        } catch (err) {
             const message = parseAxiosError(err)
             console.error('Error during registration:', message)
             setError(message)
@@ -50,7 +43,19 @@ export default function Register() {
         }
     }
 
-    const { isOpen, openModal, closeModal } = useModal()
+    const modal = useModalActions()
+
+    function openModal() {
+        console.log('Abriendo modal')
+        modal.confirm({
+            title: 'Correo Enviado!',
+            message:
+                'Se ha enviado un correo electrónico de confirmación. Por favor, verifica tu bandeja de entrada.',
+            onConfirm: () => {
+                // Acción a realizar al confirmar
+            },
+        })
+    }
 
     return (
         <>
@@ -87,7 +92,6 @@ export default function Register() {
                     </p>
                 </div>
             </GenericForm>
-            <ModalConfirmarEmail isOpen={isOpen} closeModal={closeModal} openModal={openModal} />
         </>
     )
 }

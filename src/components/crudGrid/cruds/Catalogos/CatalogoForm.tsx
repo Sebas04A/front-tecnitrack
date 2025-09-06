@@ -1,0 +1,49 @@
+import GenericTextInput from '../../../form/Controls/GenericTextInput'
+import { UseFormRegister } from 'react-hook-form'
+import { CatalogoFormData } from '../../../../validation/catalogo.schema'
+import GenericSelect from '../../../form/Controls/GenericSelect'
+
+export default function CatalogoForm({
+    register,
+    errors,
+    readOnly,
+}: {
+    register: UseFormRegister<CatalogoFormData>
+    errors: any
+    readOnly?: boolean
+}) {
+    return (
+        <>
+            <GenericTextInput
+                label='Valor'
+                name='valor'
+                type='text'
+                register={register}
+                errors={errors}
+                isReadOnly={readOnly}
+                required
+            />
+            <GenericTextInput
+                label='Descripción'
+                name='descripcion'
+                type='text'
+                register={register}
+                errors={errors}
+                isReadOnly={readOnly}
+                required
+            />
+            <GenericSelect
+                label='Estado'
+                name='activo'
+                register={register}
+                errors={errors}
+                options={[
+                    { value: 'true', label: 'Activo' },
+                    { value: 'false', label: 'Inactivo' },
+                ]}
+                isReadOnly={readOnly}
+                required
+            />
+        </>
+    )
+}

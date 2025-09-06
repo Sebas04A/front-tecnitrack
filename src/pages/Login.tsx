@@ -1,15 +1,15 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import GenericTextInput from '../components/form/Controls/GenericTextInput'
 import GenericButton from '../components/form/Controls/GenericButton'
 import GenericForm from '../components/form/GenericForm'
 import GenericLink from '../components/form/Controls/GenericLink'
 import { useAuth } from '../hooks/useAuth'
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
 import { LoginFormData, loginSchema } from '../validation/login.schema'
-import { GenericCheckbox } from '../components/form/Controls/GenericCheckbox'
 import { parseAxiosError } from '../utils/parseError'
+import { Resolver, useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import GenericCheckbox from '../components/form/Controls/GenericCheckbox'
 
 interface LoginProps {
     onLogin: () => void
@@ -18,25 +18,41 @@ interface LoginProps {
 const Login: React.FC<LoginProps> = ({ onLogin }) => {
     const { login } = useAuth()
     const navigate = useNavigate()
+    const location = useLocation() as { state?: any }
 
     const {
         register,
         handleSubmit,
+        watch,
         formState: { errors, isSubmitting },
     } = useForm<LoginFormData>({
-        resolver: yupResolver(loginSchema),
+        resolver: yupResolver(loginSchema) as Resolver<LoginFormData>,
         mode: 'onChange',
     })
+
+    const interno = watch('interno', false)
+    useEffect(() => {
+        handleSubmit(() => {})(/* no-op */)
+    }, [interno])
 
     const [error, setError] = useState('')
 
     const onLoginClick = async (data: LoginFormData) => {
-        console.log('Login data:', data)
         setError('')
         try {
-            await login(data.email, data.password)
+            if (!data.email || !data.password) {
+                setError('Email and password are required')
+                return
+            }
+            await login(data.email, data.password, data.interno)
             onLogin()
-            navigate('/')
+            const returnTo = location.state?.returnTo || (data.interno ? '/interno' : '/')
+            const citaSeleccionada = location.state?.citaSeleccionada
+            console.log('Navigating to:', returnTo, 'with state:', { citaSeleccionada })
+            navigate(returnTo, {
+                replace: true,
+                state: citaSeleccionada ? { citaSeleccionada } : undefined,
+            })
         } catch (err: any) {
             // console.error('Login error:', err)
             const error = parseAxiosError(err)
@@ -53,14 +69,10 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
 
     return (
         <>
-            <GenericForm
-                onSubmit={handleSubmit(onLoginClick, onError)}
-                title='Iniciar Sesión'
-                error={error}
-            >
+            <GenericForm title='Iniciar Sesión' error={error}>
                 <GenericTextInput
-                    type='email'
-                    label='Correo Electrónico'
+                    type='text'
+                    label={interno ? 'Usuario' : 'Correo electrónico'}
                     name='email'
                     register={register}
                     errors={errors}
@@ -72,13 +84,19 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                     register={register}
                     errors={errors}
                 />
-                {/* <GenericCheckbox
-                        label='Recordar Contraseña'
-                        name='rememberMe'
-                        register={register}
-                    ></GenericCheckbox> */}
+                <GenericCheckbox
+                    label='Usuario Interno'
+                    name='interno'
+                    register={register}
+                    errors={errors}
+                />
 
-                <GenericButton type='submit' text='Continuar' disabled={isSubmitting} />
+                <GenericButton
+                    type='submit'
+                    text='Continuar'
+                    disabled={isSubmitting}
+                    onClick={handleSubmit(onLoginClick, onError)}
+                />
                 <div className='flex  justify-center '>
                     <GenericLink
                         to='/forgotpassword'

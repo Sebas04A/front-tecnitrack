@@ -278,8 +278,14 @@ export const catchErrorCodes = (options: ApiRequestOptions, result: ApiResult): 
 
     const error = errors[result.status]
     if (error) {
-        if (result.body && Array.isArray(result.body) && result.body.length > 0) {
-            throw new ApiError(options, result, `${result.body[0].message}`)
+        console.log(result.body)
+        if (
+            result.body.errors &&
+            Array.isArray(result.body.errors) &&
+            result.body.errors.length > 0
+        ) {
+            console.error(result.body.errors[0])
+            throw new ApiError(options, result, `${result.body.errors[0]}`)
         }
         throw new ApiError(options, result, error)
     }

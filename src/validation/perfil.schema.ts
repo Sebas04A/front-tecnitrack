@@ -1,81 +1,75 @@
 import * as yup from 'yup'
+const isValidRucEc = (value?: string) => {
+    const ruc = onlyDigits(value)
+    if (!/^\d{13}$/.test(ruc)) return false
 
-// export const perfilSchema = yup.object({
-//     tipoPersona: yup
-//         .string()
-//         .oneOf(['Natural', 'Juridica'], 'Tipo de persona inválido')
-//         .required('El tipo de persona es obligatorio'),
-//     nombre: yup
-//         .string()
-//         .required('El nombre es obligatorio')
-//         .min(2, 'Debe tener al menos 2 caracteres')
-//         .matches(/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/, 'El nombre solo puede contener letras'),
+    const prov = parseInt(ruc.slice(0, 2), 10)
+    if (!inRange(prov, 1, 24)) return false
 
-//     apellido: yup
-//         .string()
-//         .required('El apellido es obligatorio')
-//         .min(2, 'Debe tener al menos 2 caracteres')
-//         // no puede haber numeros
-//         .matches(/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/, 'El apellido solo puede contener letras'),
+    const d3 = parseInt(ruc[2], 10)
+    if (d3 === 7 || d3 === 8) return false // no existen
 
-//     documento: yup
-//         .string()
-//         .oneOf(['Cédula de Ciudadanía', 'Pasaporte', 'RUC'], 'Tipo de documento inválido')
-//         .required('El tipo de documento es obligatorio'),
+    const mod11Check = (digits: number[], coef: number[]) => {
+        const sum = digits.reduce((acc, d, i) => acc + d * coef[i], 0)
+        let check = 11 - (sum % 11)
+        if (check === 11 || check === 10) check = 0
+        return check
+    }
 
-//     numeroDocumento: yup
-//         .string()
-//         .required('El número de documento es obligatorio')
-//         .min(5, 'Debe tener al menos 5 caracteres'),
+    if (d3 <= 5) {
+        // Natural: primeros 10 = cédula válida + establecimiento 001–999
+        if (!isValidCedulaEc(ruc.slice(0, 10))) return false
+        return parseInt(ruc.slice(10, 13), 10) >= 1
+    }
 
-//     pais: yup
-//         .string()
-//         .oneOf(['Ecuador', 'Colombia', 'Perú'], 'País inválido')
-//         .required('El país es obligatorio'),
+    if (d3 === 6) {
+        // Público: verificador en posición 9 (índice 8)
+        const coef = [3, 2, 7, 6, 5, 4, 3, 2]
+        const digits = ruc.slice(0, 8).split('').map(Number)
+        const check = mod11Check(digits, coef)
+        if (check !== parseInt(ruc[8], 10)) return false
+        // establecimiento 0001–9999 (usualmente 0001)
+        return parseInt(ruc.slice(9, 13), 10) >= 1
+    }
 
-//     provincia: yup
-//         .string()
-//         .oneOf(['Pichincha', 'Guayas', 'Azuay'], 'Provincia inválida')
-//         .required('La provincia es obligatoria'),
+    if (d3 === 9) {
+        // Privado: verificador en posición 10 (índice 9)
+        const coef = [4, 3, 2, 7, 6, 5, 4, 3, 2]
+        const digits = ruc.slice(0, 9).split('').map(Number)
+        const check = mod11Check(digits, coef)
+        if (check !== parseInt(ruc[9], 10)) return false
+        // establecimiento 001–999
+        return parseInt(ruc.slice(10, 13), 10) >= 1
+    }
 
-//     ciudad: yup
-//         .string()
-//         .oneOf(['Quito', 'Guayaquil', 'Cuenca'], 'Ciudad inválida')
-//         .required('La ciudad es obligatoria'),
-
-//     direccion: yup
-//         .string()
-//         .required('La dirección es obligatoria')
-//         .min(5, 'La dirección debe tener al menos 5 caracteres'),
-
-//     telefono: yup
-//         .string()
-//         .required('El teléfono es obligatorio')
-//         .matches(/^[0-9+\-() ]{7,20}$/, 'Número de teléfono inválido'),
-
-//     email: yup.string().required('El correo es obligatorio').email('Formato de correo inválido'),
-// })
-
-// export type PerfilData = yup.InferType<typeof perfilSchema>
+    return false
+}
 
 export const personaJuridicaSchema = yup
     .object({
         RUC: yup
             .string()
             .required('El RUC es obligatorio')
-            .matches(/^[0-9]{13}$/, 'El RUC debe tener 13 dígitos'),
+            .matches(/^[0-9]{13}$/, 'El RUC debe tener 13 dígitos')
+            .test('is-valid-ruc', 'El RUC es inválido', value => isValidRucEc(value)),
         razonSocial: yup
             .string()
             .required('La razón social es obligatoria')
             .min(3, 'Debe tener al menos 3 caracteres')
-            .matches(/^[A-Za-z0-9\s]+$/, 'La razón social solo puede contener letras y números')
+            .matches(
+                /^[A-Za-z0-9.\s]+$/,
+                'La razón social solo puede contener letras, números y puntos'
+            )
             .max(80, 'La razón social no puede exceder los 80 caracteres'),
 
         nombreComercial: yup
             .string()
             // .required('El nombre comercial es obligatorio')
             .min(3, 'Debe tener al menos 3 caracteres')
-            .matches(/^[A-Za-z0-9\s]+$/, 'El nombre comercial solo puede contener letras y números')
+            .matches(
+                /^[A-Za-z0-9\s]+$/,
+                'El nombre comercial solo puede contener letras y números '
+            )
             .max(80, 'El nombre comercial no puede exceder los 80 caracteres'),
         telefonoEmpresa: yup
             .string()
@@ -131,6 +125,15 @@ export const personaJuridicaSchema = yup
                     return /^[A-Za-z0-9\s]+$/.test(value) && value.length >= 3
                 }
             ),
+        nombreRepresentanteLegal: yup
+            .string()
+            .required('El nombre del representante legal es obligatorio')
+            .min(3, 'Debe tener al menos 3 caracteres')
+            .max(100, 'No puede exceder los 100 caracteres')
+            .matches(
+                /^[A-Za-z\s]+$/,
+                'El nombre del representante legal solo puede contener letras y espacios'
+            ),
     })
     .test(
         'cross-field-required',
@@ -158,6 +161,53 @@ export const personaJuridicaSchema = yup
 
 // export type PerfilData = yup.InferType<typeof personaJuridicaSchema>
 export type PerfilEmpresaData = yup.InferType<typeof personaJuridicaSchema>
+
+/** Utils **/
+const onlyDigits = (v?: string) => (v ?? '').replace(/\D/g, '')
+
+const inRange = (n: number, min: number, max: number) => n >= min && n <= max
+
+/** Cédula (10 dígitos, coeficientes módulo 10) **/
+const isValidCedulaEc = (value?: string) => {
+    const ced = onlyDigits(value)
+    if (!/^\d{10}$/.test(ced)) return false
+
+    const prov = parseInt(ced.slice(0, 2), 10)
+    if (!inRange(prov, 1, 24)) return false
+
+    const d3 = parseInt(ced[2], 10)
+    if (d3 > 5) return false // 0–5: persona natural
+
+    const coef = [2, 1, 2, 1, 2, 1, 2, 1, 2]
+    const sum = coef.reduce((acc, c, i) => {
+        let prod = c * parseInt(ced[i], 10)
+        if (prod >= 10) prod -= 9
+        return acc + prod
+    }, 0)
+
+    const check = (10 - (sum % 10)) % 10
+    return check === parseInt(ced[9], 10)
+}
+
+/** Helpers ya existentes... (onlyDigits, inRange, isValidCedulaEc, isValidRucEc, PASSPORT_RE) **/
+
+/** Nuevos helpers para fecha **/
+const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/
+const isValidISODateInPast = (s?: string) => {
+    if (!ISO_DATE_RE.test(s ?? '')) return false
+    const [y, m, d] = (s as string).split('-').map(Number)
+    const dt = new Date(Date.UTC(y, m - 1, d))
+    // valida que sea una fecha real
+    if (dt.getUTCFullYear() !== y || dt.getUTCMonth() !== m - 1 || dt.getUTCDate() !== d)
+        return false
+
+    // rango razonable: >= 1900-01-01 y <= hoy
+    const today = new Date()
+    const todayUTC = new Date(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()))
+    const minUTC = new Date(Date.UTC(1900, 0, 1))
+    return dt >= minUTC && dt <= todayUTC
+}
+
 export const personaNaturalSchema = yup.object({
     nombreCompleto: yup
         .string()
@@ -165,53 +215,72 @@ export const personaNaturalSchema = yup.object({
         .min(3, 'Debe tener al menos 3 caracteres')
         .max(50, 'No puede exceder los 50 caracteres')
         .matches(/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/, 'Solo puede contener letras'),
+
     apellidoCompleto: yup
         .string()
         .required('El apellido completo es obligatorio')
         .min(3, 'Debe tener al menos 3 caracteres')
         .max(50, 'No puede exceder los 50 caracteres')
         .matches(/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/, 'Solo puede contener letras'),
+
+    genero: yup
+        .string()
+        // .oneOf([...GENEROS], 'Género inválido')
+        .required('El género es obligatorio'),
+
+    fechaNacimiento: yup
+        .string()
+        .required('La fecha de nacimiento es obligatoria')
+        .test('fecha-formato', 'Use el formato YYYY-MM-DD', v => ISO_DATE_RE.test(v ?? ''))
+        .test('fecha-rango', 'Fecha inválida o en el futuro', v => isValidISODateInPast(v)),
+    // .test('mayor-de-18', 'Debe ser mayor de 18 años', v => getAge(v) >= 18) // ← activa si tu negocio lo requiere
+
     tipoDocumento: yup
         .string()
-        .oneOf(['Cédula', 'Pasaporte'], 'Tipo de documento inválido')
+        // .oneOf(['Cédula de Ciudadanía', 'Pasaporte', 'RUC', ''], 'Tipo de documento inválido')
         .required('El tipo de documento es obligatorio'),
+
     numeroDocumento: yup
         .string()
         .required('El número de documento es obligatorio')
-        .min(5, 'Debe tener al menos 5 caracteres'),
+        .test('documento-ec', 'Documento inválido', function (value) {
+            const tipo = (this.parent?.tipoDocumento ?? '') as string
+            const v = value ?? ''
+
+            if (tipo === 'Cédula de Ciudadanía') {
+                if (!/^\d{10}$/.test(v.replace(/\D/g, ''))) {
+                    return this.createError({ message: 'La cédula debe tener 10 dígitos' })
+                }
+                if (!isValidCedulaEc(v)) {
+                    return this.createError({ message: 'Cédula ecuatoriana inválida' })
+                }
+                return true
+            }
+
+            if (tipo === 'RUC') {
+                if (!/^\d{13}$/.test(v.replace(/\D/g, ''))) {
+                    return this.createError({ message: 'El RUC debe tener 13 dígitos' })
+                }
+                if (!isValidRucEc(v)) {
+                    return this.createError({ message: 'RUC ecuatoriano inválido' })
+                }
+                return true
+            }
+
+            if (tipo === 'Pasaporte') {
+                if (!/^[A-Za-z0-9]{6,20}$/.test(v)) {
+                    return this.createError({ message: 'Pasaporte inválido (6–20 alfanuméricos)' })
+                }
+                return true
+            }
+
+            return this.createError({ message: 'Tipo de documento inválido' })
+        }),
 })
 
-export type PerfilPersonaNaturalData = yup.InferType<typeof personaNaturalSchema>
-
-export const direccionSchema = yup.object({
-    pais: yup
-        .string()
-        .oneOf(['Ecuador', 'Colombia', 'Perú', ''], 'País inválido')
-        .required('El país es obligatorio'),
-    provincia: yup
-        .string()
-        .oneOf(['Pichincha', 'Guayas', 'Azuay', ''], 'Provincia inválida')
-        .required('La provincia es obligatoria'),
-    ciudad: yup
-        .string()
-        .oneOf(['Quito', 'Guayaquil', 'Cuenca', ''], 'Ciudad inválida')
-        .required('La ciudad es obligatoria'),
-    direccion: yup
-        .string()
-        .required('La dirección es obligatoria')
-        .min(5, 'La dirección debe tener al menos 5 caracteres')
-        .max(80, 'No puede exceder los 80 caracteres'),
-})
-export type DireccionData = yup.InferType<typeof direccionSchema>
-
-export const direccionesSchema = yup.object({
-    direcciones: yup
-        .array()
-        .of(direccionSchema)
-        .min(1, 'Debe haber al menos una dirección')
-        .required(),
-})
-export type DireccionesData = yup.InferType<typeof direccionesSchema>
+export type PerfilPersonaNaturalData = yup.InferType<typeof personaNaturalSchema> & {
+    clienteId?: number
+}
 
 // Base schemas for individual contacts (required fields)
 export const contactoPersonaSchema = yup.object({
@@ -297,78 +366,78 @@ const contactoEmpresaFlexibleSchema = contactoPersonaFlexibleSchema.concat(
 )
 
 // Custom validation for contacts array
-const validateFirstRequiredRestOptional = (isEmpresa: boolean) => {
-    return yup
-        .array()
-        .test(
-            'first-required-rest-optional',
-            'El primer contacto debe estar completo',
-            function (contacts) {
-                if (!contacts || contacts.length === 0) {
-                    return this.createError({ message: 'Debe haber al menos un contacto' })
-                }
+// const validateFirstRequiredRestOptional = (isEmpresa: boolean) => {
+//     return yup
+//         .array()
+//         .test(
+//             'first-required-rest-optional',
+//             'El primer contacto debe estar completo',
+//             function (contacts) {
+//                 if (!contacts || contacts.length === 0) {
+//                     return this.createError({ message: 'Debe haber al menos un contacto' })
+//                 }
 
-                // Validate first contact as required
-                try {
-                    const firstContactSchema = isEmpresa
-                        ? contactoEmpresaSchema
-                        : contactoPersonaSchema
-                    firstContactSchema.validateSync(contacts[0])
-                } catch (error: any) {
-                    return this.createError({
-                        message: error.message,
-                        path: `contactos[0].${error.path}`,
-                    })
-                }
+//                 // Validate first contact as required
+//                 try {
+//                     const firstContactSchema = isEmpresa
+//                         ? contactoEmpresaSchema
+//                         : contactoPersonaSchema
+//                     firstContactSchema.validateSync(contacts[0])
+//                 } catch (error: any) {
+//                     return this.createError({
+//                         message: error.message,
+//                         path: `contactos[0].${error.path}`,
+//                     })
+//                 }
 
-                // Validate remaining contacts (optional but format-checked if filled)
-                for (let i = 1; i < contacts.length; i++) {
-                    const contact = contacts[i]
-                    if (!contact) continue
+//                 // Validate remaining contacts (optional but format-checked if filled)
+//                 for (let i = 1; i < contacts.length; i++) {
+//                     const contact = contacts[i]
+//                     if (!contact) continue
 
-                    // Check if contact has any meaningful data
-                    const hasData = Object.values(contact).some(
-                        value =>
-                            value &&
-                            value !== '' &&
-                            typeof value === 'string' &&
-                            value.trim() !== ''
-                    )
+//                     // Check if contact has any meaningful data
+//                     const hasData = Object.values(contact).some(
+//                         value =>
+//                             value &&
+//                             value !== '' &&
+//                             typeof value === 'string' &&
+//                             value.trim() !== ''
+//                     )
 
-                    if (hasData) {
-                        try {
-                            const flexibleSchema = isEmpresa
-                                ? contactoEmpresaFlexibleSchema
-                                : contactoPersonaFlexibleSchema
-                            flexibleSchema.validateSync(contact)
-                        } catch (error: any) {
-                            return this.createError({
-                                message: error.message,
-                                path: `contactos[${i}].${error.path}`,
-                            })
-                        }
-                    }
-                }
+//                     if (hasData) {
+//                         try {
+//                             const flexibleSchema = isEmpresa
+//                                 ? contactoEmpresaFlexibleSchema
+//                                 : contactoPersonaFlexibleSchema
+//                             flexibleSchema.validateSync(contact)
+//                         } catch (error: any) {
+//                             return this.createError({
+//                                 message: error.message,
+//                                 path: `contactos[${i}].${error.path}`,
+//                             })
+//                         }
+//                     }
+//                 }
 
-                return true
-            }
-        )
-}
+//                 return true
+//             }
+//         )
+// }
 
 // Updated main schemas
-export const contactosPersonaSchema = yup.object({
-    contactos: validateFirstRequiredRestOptional(false).required(),
-})
+// export const contactosPersonaSchema = yup.object({
+//     contactos: validateFirstRequiredRestOptional(false).required(),
+// })
 
-export const contactosEmpresaSchema = yup.object({
-    contactos: validateFirstRequiredRestOptional(true).required(),
-})
+// export const contactosEmpresaSchema = yup.object({
+//     contactos: validateFirstRequiredRestOptional(true).required(),
+// })
 
-// Types
-export type ContactoPersonaData = yup.InferType<typeof contactoPersonaSchema>
-export type ContactoEmpresaData = yup.InferType<typeof contactoEmpresaSchema>
+// // Types
+// export type ContactoPersonaData = yup.InferType<typeof contactoPersonaSchema>
+// export type ContactoEmpresaData = yup.InferType<typeof contactoEmpresaSchema>
 
-export type ContactosPersonaData = yup.InferType<typeof contactosPersonaSchema>
-export type ContactosEmpresaData = yup.InferType<typeof contactosEmpresaSchema>
+// export type ContactosPersonaData = yup.InferType<typeof contactosPersonaSchema>
+// export type ContactosEmpresaData = yup.InferType<typeof contactosEmpresaSchema>
 
-export type ContactosData = ContactosPersonaData | ContactosEmpresaData
+// export type ContactosData = ContactosPersonaData | ContactosEmpresaData

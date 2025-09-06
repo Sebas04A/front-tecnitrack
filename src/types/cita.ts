@@ -1,15 +1,21 @@
-export interface Cita {
-    id: number
-    userId: number
-    fechaHoraInicio: string // Formato ISO: "2025-07-22T20:15:00"
-    fechaHoraFin: string
-    tipoMantenimiento: string
-    descripcion: string
-    activo: boolean
-    usuarios: null | any // Ajustar si 'usuarios' tiene una estructura definida
+import { CitaCrudData, CitaData } from '../validation/cita.schema'
+
+export type citaDataCompleta = CitaData & {
+    fechaHoraInicio: string
 }
-export interface CitaFormData {
-    fechaHoraInicio: string // Formato ISO: "2025-07-22T
-    tipoMantenimiento: string
-    descripcion: string
+
+// -------------------------ADMIN
+export type CitaAdminType = CitaCrudData & {
+    id: number
+    usuarioId: number
+    clienteId: number
+    tipoIdentificacion: string
+    numeroIdentificacion: string
+    nombreCompleto: string
+    tipoCliente: string
+    estado: string
+    fechaCreacion: string
+    fechaActualizacion: string
+    hora: string
+    fecha: Date
 }

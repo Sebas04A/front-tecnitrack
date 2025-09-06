@@ -3,8 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 export type CitaRequest = {
-    fechaHoraInicio?: string;
-    tipoMantenimiento?: string | null;
+    fechaHoraInicio: string;
+    tipoMantenimiento: string;
     descripcion?: string | null;
 };
 

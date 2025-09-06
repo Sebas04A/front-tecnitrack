@@ -16,7 +16,6 @@ export const CalendarGrid: React.FC<CalendarGridProps> = ({
     diasCompletos,
     onDateSelect,
 }) => {
-    console.log('selectedDate:', selectedDate)
     const year = currentDate.getFullYear()
     const month = currentDate.getMonth()
 

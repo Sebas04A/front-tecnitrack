@@ -36,7 +36,7 @@ export default function ConfirmEmail() {
         setMessage('Confirmando tu correo electrónico...')
 
         try {
-            const response = await AutenticacionService.getApiAutenticacionConfirmaremail(token)
+            const response = await AutenticacionService.getApiAutenticacionConfirmarEmail({ token })
             console.log('Respuesta de la API al confirmar correo:', response)
             // Si la confirmación es exitosa
             setStatus('success')

@@ -1,0 +1,247 @@
+import React, { ComponentType, useCallback, useEffect, useState } from 'react'
+import CrudToolbar from './CrudToolbar'
+import CrudTable, { ColumnDef } from './CrudTable'
+import CrudPagination from './CrudPagination'
+import useDebouncedCallback from '../../hooks/useDebouncedCallback'
+import { Modal } from '../common/Modal'
+import { useModal } from '../../hooks/useModal'
+import { parseAxiosError } from '../../utils/parseError'
+import { FieldValues, UseFormReturn } from 'react-hook-form'
+import { ObjectApiResponse } from '../../api'
+import GenericForm from '../form/GenericForm'
+import { useModalActions } from '../../hooks/useModalActions'
+import CrudCrudo, { autoLoadOptions } from './CrudCrudo'
+import { data } from 'framer-motion/client'
+import { toFormData } from 'axios'
+
+export interface crudQueries<TData, TForm = any> {
+    fetchData: (params: { page: number; pageSize: number; search: string }) => Promise<{
+        items: TData[]
+        total: number
+    }>
+    createQuery: (data: TForm) => Promise<any>
+    editQuery: (data: TForm) => Promise<any>
+    deleteQuery: (id: TData) => Promise<any>
+}
+
+export interface formModalCrudProps {
+    form: ComponentType<any>
+    props?: Record<string, any>
+}
+
+export interface CrudContainerProps<TData extends Record<string, any>, TForm extends FieldValues> {
+    formModalProp: formModalCrudProps
+    form: UseFormReturn<TForm>
+
+    title?: string
+
+    columns: ColumnDef<TData>[]
+    defaultValues: TForm
+    dataToForm?: (data: TData) => TForm
+
+    crudQueries: crudQueries<TData, TForm>
+
+    autoLoadOptions?: autoLoadOptions
+
+    isModalGrande?: boolean
+    searchPlaceholder?: string
+    pageSize?: number
+}
+
+export function CrudContainer<TData extends Record<string, any>, TForm extends FieldValues>({
+    formModalProp,
+    form,
+    columns,
+    defaultValues,
+    dataToForm = (data: TData) => data as unknown as TForm,
+    crudQueries,
+
+    title,
+    autoLoadOptions = { autoLoad: true, dependencies: [] },
+    isModalGrande = false,
+    searchPlaceholder,
+    pageSize = 10,
+}: CrudContainerProps<TData, TForm>) {
+    const { fetchData, createQuery, editQuery, deleteQuery } = crudQueries
+    const { autoLoad = true, dependencies = [] } = autoLoadOptions
+    const FormComponent = formModalProp.form
+    const { handleSubmit, reset, trigger, register } = form
+
+    const [reloadKey, setReloadKey] = useState(0)
+
+    const modal = useModal()
+    const modalActions = useModalActions()
+    const [idFormModal, setIdFormModal] = useState<string>('')
+
+    const [camposReadOnly, setCamposReadOnly] = useState(false)
+    const [mode, setMode] = useState<'create' | 'edit' | 'view' | null>(null)
+    const [actualRow, setActualRow] = useState<TData | null>(null)
+    const [error, setError] = useState<string>('')
+
+    useEffect(() => {
+        console.log('CAMBIANDO PROPS')
+        // console.log('Nuevos props:', propsModal)
+        console.log('errors', form.formState.errors)
+        console.log(formModalProp.props)
+
+        modal.updateModalProps(idFormModal, {
+            props: { ...formModalProp.props, readOnly: camposReadOnly },
+        })
+    }, [formModalProp.props, camposReadOnly, form.formState.errors])
+
+    useEffect(() => {
+        console.log('Dependencies changed, reloading data', { actualRow, mode })
+        // setViewing(actualRow)
+        if (!mode) return
+        abrirModalDatos(actualRow, mode)
+    }, [actualRow, mode])
+
+    const closeAndReset = () => {
+        console.warn('Closing modal and resetting form')
+        modalActions.closeAllModals()
+        setMode(null)
+        setActualRow(null)
+        setError('')
+        reset(defaultValues)
+    }
+
+    const abrirModalDatos = (
+        actualRow: TData | null = null,
+        mode: 'create' | 'edit' | 'view' | null
+    ) => {
+        console.log('Opening data modal', { actualRow, mode })
+        const title = mode === 'edit' ? 'Editar' : mode === 'view' ? 'Ver ' : 'Crear Nuevo'
+        const submitText = mode === 'edit' ? 'Guardar Cambios' : mode === 'view' ? '' : 'Crear'
+        const cancelText = mode === 'view' ? '' : 'Cancelar'
+
+        const id = modalActions.showForm({
+            title,
+            component: FormComponent,
+            onSubmit: onSubmit,
+            submitText,
+            cancelText,
+            showButtons: mode !== 'view',
+            onCancel: closeAndReset,
+            size: isModalGrande ? 'xl' : 'md',
+            props: { ...formModalProp.props, readOnly: camposReadOnly },
+        })
+
+        console.warn('Modal opened with ID:', id)
+        setIdFormModal(id)
+    }
+
+    const submitingRequest = async <Parametro, Retorno>(
+        row: Parametro,
+        cb: (row: Parametro) => Promise<Retorno>
+    ) => {
+        console.log('Submitting request with data:', row)
+        const id = modalActions.showLoading('Guardando...')
+        setError('')
+        try {
+            const res = await cb(row)
+            console.log('Response from submit:', res)
+
+            modalActions.closeModal(id)
+            closeAndReset()
+            modalActions.showAlert({
+                title: 'Éxito',
+                message: 'Los datos se han guardado correctamente.',
+                type: 'success',
+            })
+            setReloadKey(reloadKey + 1)
+        } catch (error) {
+            console.error('Error submitting form:', error)
+            setError(parseAxiosError(error))
+            modalActions.closeModal(id)
+
+            modalActions.showAlert({
+                title: 'Error',
+                message: parseAxiosError(error),
+                type: 'error',
+            })
+        }
+    }
+    const deleteRequest = async (campo: TData) => {
+        if (!campo.id) throw new Error('No se puede eliminar una dirección sin ID')
+        const res = await deleteQuery(campo)
+        console.log('Eliminado:', res)
+        return res
+    }
+    const submitRequest = async (data: TForm) => {
+        let res
+        if (mode === 'edit') {
+            res = await editQuery(data)
+        } else if (mode === 'create') {
+            res = await createQuery(data)
+        } else {
+            throw new Error(`Modo inválido para enviar el formulario ${mode}`)
+        }
+        console.log('Response from submit:', res)
+        return res
+    }
+
+    const deleteAccion = async (campo: TData) => {
+        return submitingRequest(campo, deleteRequest)
+    }
+
+    const onSubmit = handleSubmit(async (values: TForm) => {
+        console.log('Submitted values:', values)
+        return submitingRequest(values, submitRequest)
+    })
+
+    const onCrudActions = {
+        onCreate: () => {
+            setCamposReadOnly(false)
+            setActualRow(null)
+            console.log('Creating new entry')
+            setMode('create')
+            setError('')
+            reset(defaultValues)
+        },
+        onEdit: (row: TData) => {
+            setCamposReadOnly(false)
+            setActualRow(row)
+            setMode('edit')
+            setError('')
+            reset(dataToForm(row))
+            console.log('Editing row:', row)
+        },
+        onView: (row: TData) => {
+            setCamposReadOnly(true)
+            setActualRow(row)
+            setMode('view')
+            reset(dataToForm(row))
+        },
+        onDelete: (row: TData) => {
+            const rowString = JSON.stringify(row) ?? 'este registro'
+            console.log('Deleting row:', row)
+            modalActions.showConfirm({
+                title: 'Confirmar Eliminación',
+                message: `¿Estás seguro de que quieres eliminar? Esta acción no se puede deshacer.`,
+                confirmText: 'Eliminar',
+                cancelText: 'Cancelar',
+                onConfirm: async () => {
+                    deleteAccion(row)
+                },
+                type: 'warning',
+            })
+            setError('')
+        },
+    }
+
+    return (
+        <>
+            <CrudCrudo<TData>
+                title={title}
+                columns={columns}
+                fetchData={fetchData}
+                pageSize={pageSize}
+                searchPlaceholder={searchPlaceholder}
+                autoLoadOptions={{ autoLoad, dependencies: [...dependencies, reloadKey] }}
+                onCrudActions={onCrudActions}
+            ></CrudCrudo>
+        </>
+    )
+}
+
+export default CrudContainer

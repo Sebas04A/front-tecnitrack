@@ -1,0 +1,128 @@
+import React, { useEffect, useMemo } from 'react'
+import GenericButton from '../../../form/Controls/GenericButton'
+import GenericDate from '../../../form/Controls/GenericDate'
+import GenericSelect from '../../../form/Controls/GenericSelect'
+import { createFilter, Filter } from '../../helper/crud-helpers'
+import { CitaAdminType } from '../../../../types/cita'
+
+export interface CitasFilters {
+    fechaInicio: string
+    fechaFin: string
+    estadoCita: string
+    tipoMantenimiento: string
+}
+
+export function CitasFilters({
+    onChangeFilters,
+}: {
+    onChangeFilters: (filter: Filter<CitaAdminType>[]) => void
+}) {
+    // console.warn('Renderizando CitasFilters')
+
+    const [filtros, setFiltros] = React.useState<CitasFilters>({
+        fechaInicio: '',
+        fechaFin: '',
+        estadoCita: '',
+        tipoMantenimiento: '',
+    })
+
+    const processedFilters: Filter<CitaAdminType>[] = useMemo(
+        () =>
+            createFilter<CitaAdminType>()
+                // Filtro de rango de fechas
+                .whenValue(
+                    filtros.fechaInicio,
+                    (f, fecha) => f.greaterThanOrEqual('fechaHoraInicio', fecha) // ajusta 'fecha' por tu campo real
+                )
+                .whenValue(filtros.fechaFin, (f, fecha) =>
+                    f.lessThanOrEqual('fechaHoraInicio', fecha)
+                )
+
+                // Filtro por estado
+                .whenValue(
+                    filtros.estadoCita,
+                    (f, estado) => f.equals('estado', estado) // ajusta 'estado' por tu campo real
+                )
+
+                // Filtro por tipo de mantenimiento
+                .whenValue(filtros.tipoMantenimiento, (f, tipo) =>
+                    f.equals('tipoMantenimiento', tipo)
+                )
+
+                .build(),
+        [filtros]
+    )
+    const limpiarFiltros = () => {
+        setFiltros({
+            fechaInicio: '',
+            fechaFin: '',
+            estadoCita: '',
+            tipoMantenimiento: '',
+        })
+    }
+
+    useEffect(() => {
+        console.warn('Filtros procesados actualizados:', processedFilters)
+        onChangeFilters(processedFilters)
+    }, [processedFilters])
+
+    return (
+        <div className='p-4 '>
+            <div className='flex justify-between items-center px-4 w-full mb-4 '>
+                <span className='text-2xl  font-semibold text-primary'>Filtros</span>
+                <GenericButton
+                    onClick={limpiarFiltros}
+                    className='bg-background-auto'
+                    type='button'
+                    text='Limpiar'
+                />
+            </div>
+
+            <div className='flex flex-wrap gap-4'>
+                <div className='flex-1 flex  gap-4'>
+                    <GenericDate
+                        label='Fecha y hora inicio'
+                        name='fechaInicio'
+                        inputType='datetime-local'
+                        value={filtros.fechaInicio}
+                        onChange={e => setFiltros({ ...filtros, fechaInicio: e.target.value })}
+                        placeholder='Selecciona fecha y hora'
+                        className='min-w-[21ch] flex-1'
+                    />
+
+                    <GenericDate
+                        label='Fecha y hora fin'
+                        name='fechaFin'
+                        inputType='datetime-local'
+                        value={filtros.fechaFin}
+                        onChange={e => setFiltros({ ...filtros, fechaFin: e.target.value })}
+                        placeholder='Selecciona fecha y hora'
+                        className='min-w-[21ch] flex-1'
+                    />
+                </div>
+
+                <div className='flex-1 flex  gap-4'>
+                    <GenericSelect
+                        label='Estado de la cita'
+                        name='estadoCita'
+                        tipoCatalogo='EstadoCita'
+                        placeholderOptionLabel='Todos'
+                        value={filtros.estadoCita}
+                        onChange={e => setFiltros({ ...filtros, estadoCita: e.target.value })}
+                        className=''
+                    />
+                    <GenericSelect
+                        label='Tipo de Mantenimiento'
+                        name='tipoMantenimiento'
+                        tipoCatalogo='tipoMantenimiento'
+                        placeholderOptionLabel='Todos'
+                        value={filtros.tipoMantenimiento}
+                        onChange={e =>
+                            setFiltros({ ...filtros, tipoMantenimiento: e.target.value })
+                        }
+                    />
+                </div>
+            </div>
+        </div>
+    )
+}

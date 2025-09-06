@@ -2,25 +2,25 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ApiRequestOptions } from './ApiRequestOptions'
+import type { ApiRequestOptions } from './ApiRequestOptions';
 
-type Resolver<T> = (options: ApiRequestOptions) => Promise<T>
-type Headers = Record<string, string>
+type Resolver<T> = (options: ApiRequestOptions) => Promise<T>;
+type Headers = Record<string, string>;
 
 export type OpenAPIConfig = {
-    BASE: string
-    VERSION: string
-    WITH_CREDENTIALS: boolean
-    CREDENTIALS: 'include' | 'omit' | 'same-origin'
-    TOKEN?: string | Resolver<string> | undefined
-    USERNAME?: string | Resolver<string> | undefined
-    PASSWORD?: string | Resolver<string> | undefined
-    HEADERS?: Headers | Resolver<Headers> | undefined
-    ENCODE_PATH?: ((path: string) => string) | undefined
-}
+    BASE: string;
+    VERSION: string;
+    WITH_CREDENTIALS: boolean;
+    CREDENTIALS: 'include' | 'omit' | 'same-origin';
+    TOKEN?: string | Resolver<string> | undefined;
+    USERNAME?: string | Resolver<string> | undefined;
+    PASSWORD?: string | Resolver<string> | undefined;
+    HEADERS?: Headers | Resolver<Headers> | undefined;
+    ENCODE_PATH?: ((path: string) => string) | undefined;
+};
 
 export const OpenAPI: OpenAPIConfig = {
-    BASE: import.meta.env.VITE_API_URL || 'https://backendmantenimiento.runasp.net',
+    BASE: '',
     VERSION: '1',
     WITH_CREDENTIALS: false,
     CREDENTIALS: 'include',
@@ -29,4 +29,4 @@ export const OpenAPI: OpenAPIConfig = {
     PASSWORD: undefined,
     HEADERS: undefined,
     ENCODE_PATH: undefined,
-}
+};

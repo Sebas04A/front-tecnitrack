@@ -1,5 +1,5 @@
 import GenericButton from '../form/Controls/GenericButton'
-import { GenericCheckbox } from '../form/Controls/GenericCheckbox'
+import GenericCheckbox from '../form/Controls/GenericCheckbox'
 import GenericLink from '../form/Controls/GenericLink'
 function CardComponentReutilizable({
     text,

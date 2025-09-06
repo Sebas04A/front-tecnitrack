@@ -1,11 +1,22 @@
+import FormsButtons from './formsButtons'
+
 interface GenericFormProps {
     title?: string
     error?: string
     children?: React.ReactNode
-    onSubmit: (e: React.FormEvent<HTMLFormElement>) => void
+    onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void
+    onCancel?: () => void
+    showButtons?: boolean
 }
 
-const GenericForm: React.FC<GenericFormProps> = ({ title, error, children, onSubmit }) => {
+const GenericForm: React.FC<GenericFormProps> = ({
+    title,
+    error,
+    children,
+    onSubmit,
+    onCancel,
+    showButtons = false,
+}) => {
     return (
         <form onSubmit={onSubmit} className='w-full  p-6  flex flex-col gap-4'>
             {title && (
@@ -13,6 +24,7 @@ const GenericForm: React.FC<GenericFormProps> = ({ title, error, children, onSub
             )}
             {error && <p className={`text-error mb-4 text-center`}>{error}</p>}
             {children}
+            {showButtons && <FormsButtons onCancelar={onCancel} />}
         </form>
     )
 }
