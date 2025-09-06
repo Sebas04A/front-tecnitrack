@@ -7,8 +7,8 @@
         "dev": "vite",
         "build": "tsc -b && vite build",
         "lint": "eslint .",
-        "preview": "vite preview",
-        "gen:api": "npx openapi-typescript-codegen --input https://backendmantenimiento.runasp.net/swagger/v1/swagger.json --output ./src/api --client axios"
+        "gen:api": "node scripts/gen-openapi-client.mjs",
+        "preview": "vite preview"
     },
     "dependencies": {
         "@headlessui/react": "^2.2.6",
