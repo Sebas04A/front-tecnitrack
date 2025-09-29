@@ -9,7 +9,7 @@ import { OpenAPI } from './core/OpenAPI'
 export function setupApi() {
     // 1) Tu propia URL (en dev y prod)
     // OpenAPI.BASE = import.meta.env.VITE_API_URL
-    OpenAPI.BASE = 'http://desarrollotecnitrack.runasp.net'
+    OpenAPI.BASE = 'https://desarrollotecnitrack.runasp.net'
 
     // 2) Token Bearer (puede ser string o función async)
     //    Aquí lo leemos de localStorage, pero usa tu storage preferido.
