@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import TabsNavigation from '../common/TabsNavigation'
 import { TabKeyType } from '../../types/profile.types'
-import { useModal } from '../../hooks/useModal'
+
 import PersonaJuridicaForm from './forms/PersonaJuridicaForm'
 import PersonaNaturalForm from './forms/PersonaNaturalForm'
-import useRequestModal from '../../hooks/useRequestModal'
+
 import { PerfilEmpresaData, PerfilPersonaNaturalData } from '../../validation/perfil.schema'
 import {
     getPerfilJuridico,
@@ -12,7 +12,7 @@ import {
     getPerfilNatural,
     getPerfilNaturalById,
 } from '../../services/perfilApi'
-import UnsavedChangesModal from './UnsavedChangesModal'
+
 import { FaEnvelope, FaMapMarkerAlt, FaUser } from 'react-icons/fa'
 import { useModalActions } from '../../hooks/useModalActions'
 import DireccionesCrud from '../crudGrid/cruds/DireccionesCrud'
@@ -32,18 +32,22 @@ export default function FormsUnidos({
     // dataProp,
     setDatosYaGuardados,
     clienteId,
+    esCrud,
 }: {
     tipoPersona: TIPO_PERSONA_TYPE
     // dataProp?: PerfilEmpresaData | PerfilPersonaNaturalData
     datosYaGuardados: boolean
     setDatosYaGuardados: (valor: boolean) => void
     clienteId?: number
+    esCrud: boolean
 }) {
     const modal = useModalActions()
+    const [idLoading, setIdLoading] = useState('-1')
 
     const [activeTab, setActiveTab] = React.useState<TabKeyType>('personal')
     const [isDirty, setIsDirty] = useState(false)
     const [estaEditando, setEstaEditando] = useState(false)
+
     function openCambiosSinGuardar() {
         modal.showAlert({
             title: 'Cambios sin guardar',
@@ -63,7 +67,6 @@ export default function FormsUnidos({
     // const modalRequest = useRequestModal()
     const [data, setData] = useState<PerfilEmpresaData | PerfilPersonaNaturalData | null>()
     // dataProp ?? null
-    const [loading, setLoading] = useState(false)
     function onDatosGuardados() {
         setDatosYaGuardados(true)
         // setEstaEditando(false)
@@ -80,26 +83,44 @@ export default function FormsUnidos({
         if (!validarPuedeCambiar()) return
         setActiveTab(key)
     }
-    function nextTab() {
-        const currentIndex = tabs.findIndex(tab => tab.key === activeTab)
-        if (currentIndex < tabs.length - 1) {
-            const nextTabKey = tabs[currentIndex + 1].key
-            setActiveTab(nextTabKey)
-            setEstaEditando(false)
-            setIsDirty(false)
-        }
-    }
+    // function nextTab() {
+    //     const currentIndex = tabs.findIndex(tab => tab.key === activeTab)
+    //     if (currentIndex < tabs.length - 1) {
+    //         const nextTabKey = tabs[currentIndex + 1].key
+    //         setActiveTab(nextTabKey)
+    //         setEstaEditando(false)
+    //         setIsDirty(false)
+    //     }
+    // }
     function onSubmitStart() {
-        modal.showLoading('Guardando datos...')
+        const id = modal.showLoading('Guardando datos...')
+        console.log('Guardando datos, loading ID:', id)
+        setIdLoading(id)
     }
-    function onSubmitError(errorMessage: string | undefined) {
-        // modal.closeModal(id)
-        modal.showAlert({
-            title: 'Error al guardar',
-            message: errorMessage ?? 'Error desconocido',
-            type: 'error',
-        })
-    }
+    // function onSubmitError(errorMessage: string | undefined) {
+    //     console.log('Error al guardar datos:', errorMessage)
+    //     console.log('Cerrando loading con ID:', idLoading)
+    //     modal.closeModal(idLoading)
+    //     modal.showAlert({
+    //         title: 'Error al guardar',
+    //         message: errorMessage ?? 'Error desconocido',
+    //         type: 'error',
+    //     })
+    // }
+    const onSubmitError = useCallback(
+        (errorMessage: string | undefined) => {
+            console.log('Error al guardar datos:', errorMessage)
+            console.log('Cerrando loading con ID:', idLoading)
+            modal.closeModal(idLoading)
+            modal.showAlert({
+                title: 'Error al guardar',
+                message: errorMessage ?? 'Error desconocido',
+                type: 'error',
+            })
+        },
+        [idLoading]
+    )
+
     async function obtenerData() {
         const id = modal.showLoading('Cargando datos...')
         let dataLocal: PerfilEmpresaData | PerfilPersonaNaturalData | null
@@ -110,22 +131,46 @@ export default function FormsUnidos({
                 'clienteId:',
                 clienteId,
                 'tipoPersona:',
-                tipoPersona
+                tipoPersona,
+                'esCrud:',
+                esCrud
             )
-            if (clienteId === -1) {
-                console.log('Creando nuevo cliente, no se obtienen datos')
-                dataLocal = null
-            } else if (clienteId) {
-                console.log('Obteniendo datos para cliente existente')
-                dataLocal = await (tipoPersona === TIPO_PERSONA.EMPRESA
-                    ? getPerfilJuridicoById(clienteId)
-                    : getPerfilNaturalById(clienteId))
-                console.log('Datos obtenidos cliente existente:', dataLocal)
+            if (esCrud) {
+                console.log('Viene de CRUD', { clienteId }, clienteId == -1)
+                if (!clienteId) throw new Error('No se proporcionó clienteId en modo CRUD')
+                if (clienteId === -1) {
+                    console.log('Creando nuevo cliente, no se obtienen datos')
+                    setData(null)
+                    modal.closeModal(id)
+                    return
+                } else {
+                    console.log('Obteniendo datos para cliente existente')
+                    dataLocal = await (tipoPersona === TIPO_PERSONA.EMPRESA
+                        ? getPerfilJuridicoById(clienteId)
+                        : getPerfilNaturalById(clienteId))
+                    console.log('Datos obtenidos cliente existente:', dataLocal)
+                }
             } else {
+                console.log('Obteniendo datos para cliente actual')
                 dataLocal = await (tipoPersona === TIPO_PERSONA.EMPRESA
                     ? getPerfilJuridico()
                     : getPerfilNatural())
             }
+
+            // if (clienteId === -1 && esCrud) {
+            //     console.log('Creando nuevo cliente, no se obtienen datos')
+            //     dataLocal = null
+            // } else if (clienteId) {
+            //     console.log('Obteniendo datos para cliente existente')
+            //     dataLocal = await (tipoPersona === TIPO_PERSONA.EMPRESA
+            //         ? getPerfilJuridicoById(clienteId)
+            //         : getPerfilNaturalById(clienteId))
+            //     console.log('Datos obtenidos cliente existente:', dataLocal)
+            // } else {
+            //     dataLocal = await (tipoPersona === TIPO_PERSONA.EMPRESA
+            //         ? getPerfilJuridico()
+            //         : getPerfilNatural())
+            // }
             console.log('Datos obtenidos :', dataLocal)
             setData(dataLocal)
             modal.closeModal(id)
@@ -157,6 +202,14 @@ export default function FormsUnidos({
         console.log('RENDERIZANDO')
     }, [])
 
+    function handleLoadStart() {
+        const id = modal.showLoading('Cargando datos...')
+        setIdLoading(id)
+    }
+    function handleLoadEnd() {
+        modal.closeModal(idLoading)
+    }
+
     const renderContent = () => {
         if (activeTab === 'personal') {
             return (
@@ -165,26 +218,27 @@ export default function FormsUnidos({
                         <PersonaJuridicaForm
                             data={data as PerfilEmpresaData}
                             onDatosGuardados={onDatosGuardados}
-                            estaEditando={estaEditando}
+                            estaEditando={estaEditando || esCrud}
                             changeEstaEditando={setEstaEditando}
                             changeDirty={setIsDirty}
                             onSubmitStart={onSubmitStart}
                             onSubmitError={onSubmitError}
-                            onLoadStart={() => setLoading(true)}
-                            onLoadEnd={() => setLoading(false)}
+                            onLoadStart={handleLoadStart}
+                            onLoadEnd={handleLoadEnd}
                         />
                     ) : tipoPersona === TIPO_PERSONA.NATURAL ? (
                         <PersonaNaturalForm
                             data={data as PerfilPersonaNaturalData}
-                            esNuevo={clienteId === -1}
+                            clienteId={clienteId ?? -1}
+                            // esNuevo={clienteId === -1}
                             onDatosGuardados={onDatosGuardados}
-                            estaEditando={estaEditando}
+                            estaEditando={estaEditando || esCrud}
                             changeEstaEditando={setEstaEditando}
                             changeDirty={setIsDirty}
                             onSubmitStart={onSubmitStart}
                             onSubmitError={onSubmitError}
-                            onLoadStart={() => setLoading(true)}
-                            onLoadEnd={() => setLoading(false)}
+                            onLoadStart={handleLoadStart}
+                            onLoadEnd={handleLoadEnd}
                         />
                     ) : null}
                 </div>
@@ -214,10 +268,14 @@ export default function FormsUnidos({
                     // activeForm.reset() // Resetea el formulario activo al cambiar de pestaña
                 }}
                 estaEditando={estaEditando}
-                onToggleEdit={() => {
-                    if (!validarPuedeCambiar()) return
-                    setEstaEditando(!estaEditando)
-                }}
+                onToggleEdit={
+                    esCrud
+                        ? undefined
+                        : () => {
+                              if (!validarPuedeCambiar()) return
+                              setEstaEditando(!estaEditando)
+                          }
+                }
             />
 
             {/* Contenido de la Pestaña Activa */}

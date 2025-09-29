@@ -5,12 +5,11 @@ import GenericButton from '../components/form/Controls/GenericButton'
 import GenericLink from '../components/form/Controls/GenericLink'
 import { Resolver, SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { AutenticacionService } from '../api'
 import { parseAxiosError } from '../utils/parseError'
 import { ResetPasswordFormData, resetPasswordSchema } from '../validation/recover.schema.ts'
 import { resetPasswordRequest } from '../services/loginApi.ts'
 import { Modal } from '../components/common/Modal.tsx'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export default function RestablecerContra() {
     const [token, setToken] = useState<string | null>(null)

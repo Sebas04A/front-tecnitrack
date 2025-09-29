@@ -8,5 +8,6 @@ export type ClienteNaturalListaResponseIEnumerableApiResponse = {
     data?: Array<ClienteNaturalListaResponse> | null;
     message?: string | null;
     timestamp?: string;
+    errors?: Array<string> | null;
 };
 

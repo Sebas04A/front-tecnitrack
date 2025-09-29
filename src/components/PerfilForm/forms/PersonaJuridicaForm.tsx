@@ -6,25 +6,21 @@ import { PerfilEmpresaData, personaJuridicaSchema } from '../../../validation/pe
 import { yupResolver } from '@hookform/resolvers/yup'
 import { FormProfileProps } from '../../../types/formsProfile'
 import GenericForm from '../../form/GenericForm'
-import GenericButton from '../../form/Controls/GenericButton'
-import { useEffect, useState } from 'react'
-import {
-    crearPerfilJuridico,
-    getPerfilJuridico,
-    updatePerfilJuridico,
-} from '../../../services/perfilApi'
+import { useEffect } from 'react'
+import { crearPerfilJuridico, updatePerfilJuridico } from '../../../services/perfilApi'
 import { useAuth } from '../../../hooks/useAuth'
 import FormsButtons from '../../form/formsButtons'
+import { useModalActions } from '../../../hooks/useModalActions'
 
 export default function PersonaJuridicaForm({
     estaEditando,
     onDatosGuardados,
     changeEstaEditando,
     changeDirty,
-    onSubmitStart,
-    onSubmitError,
-    onLoadStart,
-    onLoadEnd,
+    // onSubmitStart,
+    // onSubmitError,
+    // onLoadStart,
+    // onLoadEnd,
     data,
     esNuevo,
 }: FormProfileProps & { data?: PerfilEmpresaData | null }) {
@@ -63,10 +59,12 @@ export default function PersonaJuridicaForm({
         reset(defaults, { keepDirty: false, keepTouched: false })
     }, [reset, data])
 
+    const modalActions = useModalActions()
+
     const onSubmit = handleSubmit(async data => {
         console.log('Datos enviados:', data)
+        const id = modalActions.showLoading('Enviando datos...')
         try {
-            onSubmitStart && onSubmitStart()
             try {
                 if (esNuevo) {
                     await crearPerfilJuridico(data)
@@ -83,8 +81,13 @@ export default function PersonaJuridicaForm({
             changeDirty(false)
             onDatosGuardados()
         } catch (e) {
+            modalActions.closeModal(id)
             console.error('Error enviando Persona Natural:', e)
-            onSubmitError && onSubmitError()
+            modalActions.showAlert({
+                title: 'Error',
+                message: e instanceof Error ? e.message : 'Error con el servidor al enviar datos',
+                type: 'error',
+            })
         }
     })
     useEffect(() => {

@@ -223,16 +223,25 @@ export const personaNaturalSchema = yup.object({
         .max(50, 'No puede exceder los 50 caracteres')
         .matches(/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/, 'Solo puede contener letras'),
 
-    genero: yup
-        .string()
-        // .oneOf([...GENEROS], 'Género inválido')
-        .required('El género es obligatorio'),
+    genero: yup.string().nullable(),
+    // .oneOf([...GENEROS], 'Género inválido')
+    // .required('El género es obligatorio'),
 
     fechaNacimiento: yup
         .string()
-        .required('La fecha de nacimiento es obligatoria')
-        .test('fecha-formato', 'Use el formato YYYY-MM-DD', v => ISO_DATE_RE.test(v ?? ''))
-        .test('fecha-rango', 'Fecha inválida o en el futuro', v => isValidISODateInPast(v)),
+        .nullable()
+        // 2. Transforma los valores "vacíos" (como '' o espacios en blanco) a 'null'.
+        //    Si el valor no está vacío, lo deja como está.
+        .transform((value, originalValue) => {
+            return originalValue.trim() === '' ? null : value
+        })
+        .test('fecha-formato', 'Use el formato YYYY-MM-DD', v =>
+            ISO_DATE_RE.test(v ?? '2023-01-01')
+        )
+        .test('fecha-rango', 'Fecha inválida o en el futuro', v =>
+            isValidISODateInPast(v || '1990-01-01')
+        ),
+    // .required('La fecha de nacimiento es obligatoria')
     // .test('mayor-de-18', 'Debe ser mayor de 18 años', v => getAge(v) >= 18) // ← activa si tu negocio lo requiere
 
     tipoDocumento: yup
@@ -277,8 +286,18 @@ export const personaNaturalSchema = yup.object({
             return this.createError({ message: 'Tipo de documento inválido' })
         }),
 })
-
+export const personaNaturalCrudSchema = personaNaturalSchema.concat(
+    yup.object({
+        email: yup
+            .string()
+            .email('Formato de correo inválido')
+            .required('El correo es obligatorio'),
+    })
+)
 export type PerfilPersonaNaturalData = yup.InferType<typeof personaNaturalSchema> & {
+    clienteId?: number
+}
+export type PerfilPersonaNaturalCrudData = yup.InferType<typeof personaNaturalCrudSchema> & {
     clienteId?: number
 }
 
@@ -346,24 +365,24 @@ export const contactoEmpresaOptionalSchema = contactoPersonaOptionalSchema.conca
 // )
 
 // Schema for flexible validation (allows empty fields for optional contacts)
-const contactoPersonaFlexibleSchema = yup.object({
-    telefono: yup.string().matches(/^[0-9+\-() ]{7,20}$/, 'Número de teléfono inválido'),
-    email: yup
-        .string()
-        .matches(
-            /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            'El correo debe contener @ y un dominio válido (ej: usuario@ejemplo.com)'
-        ),
-})
+// const contactoPersonaFlexibleSchema = yup.object({
+//     telefono: yup.string().matches(/^[0-9+\-() ]{7,20}$/, 'Número de teléfono inválido'),
+//     email: yup
+//         .string()
+//         .matches(
+//             /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+//             'El correo debe contener @ y un dominio válido (ej: usuario@ejemplo.com)'
+//         ),
+// })
 
-const contactoEmpresaFlexibleSchema = contactoPersonaFlexibleSchema.concat(
-    yup.object({
-        nombre: yup
-            .string()
-            .min(2, 'El nombre del contacto debe tener al menos 2 caracteres')
-            .max(100, 'El nombre del contacto no puede exceder los 100 caracteres'),
-    })
-)
+// const contactoEmpresaFlexibleSchema = contactoPersonaFlexibleSchema.concat(
+//     yup.object({
+//         nombre: yup
+//             .string()
+//             .min(2, 'El nombre del contacto debe tener al menos 2 caracteres')
+//             .max(100, 'El nombre del contacto no puede exceder los 100 caracteres'),
+//     })
+// )
 
 // Custom validation for contacts array
 // const validateFirstRequiredRestOptional = (isEmpresa: boolean) => {

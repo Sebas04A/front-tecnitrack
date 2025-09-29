@@ -1,5 +1,6 @@
 // src/adapters/localidades.ts
-import { CiudadFormData } from '../validation/localidades.schema'
+
+import { CiudadFormData } from "../../validation/localidades.schema"
 
 export interface CiudadData {
     id?: number

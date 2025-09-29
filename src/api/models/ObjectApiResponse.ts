@@ -7,5 +7,6 @@ export type ObjectApiResponse = {
     data?: any;
     message?: string | null;
     timestamp?: string;
+    errors?: Array<string> | null;
 };
 

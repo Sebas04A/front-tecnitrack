@@ -7,7 +7,7 @@ export default function AuthLayout() {
                 <h2 className='text-primary font-bold text-4xl m-2'>Bienvenido a TecniTrack</h2>
                 <p>La mejor solución para la gestión de mantenimientos</p>
             </div>
-            <div className='bg-background-accent-auto p-6 shadow-lg w-full max-w-md rounded-lg'>
+            <div className='bg-background-accent-auto p-6 shadow-lg w-full max-w-xl rounded-lg'>
                 <Outlet />
             </div>
         </div>

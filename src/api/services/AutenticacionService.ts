@@ -9,6 +9,10 @@ import type { AutenticacionLoginResponseApiResponse } from '../models/Autenticac
 import type { AutenticacionRegistroClienteRequest } from '../models/AutenticacionRegistroClienteRequest';
 import type { CambiarPasswordRequest } from '../models/CambiarPasswordRequest';
 import type { ObjectApiResponse } from '../models/ObjectApiResponse';
+import type { RegistroClienteEmpresaRequest } from '../models/RegistroClienteEmpresaRequest';
+import type { RegistroClienteEmpresaResponseApiResponse } from '../models/RegistroClienteEmpresaResponseApiResponse';
+import type { RegistroClienteNaturalRequest } from '../models/RegistroClienteNaturalRequest';
+import type { RegistroClienteNaturalResponseApiResponse } from '../models/RegistroClienteNaturalResponseApiResponse';
 import type { RestablecerPasswordRequest } from '../models/RestablecerPasswordRequest';
 import type { SolicitarRestablecimientoRequest } from '../models/SolicitarRestablecimientoRequest';
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -147,6 +151,44 @@ export class AutenticacionService {
             errors: {
                 400: `Bad Request`,
                 401: `Unauthorized`,
+            },
+        });
+    }
+    /**
+     * @returns RegistroClienteNaturalResponseApiResponse OK
+     * @throws ApiError
+     */
+    public static postApiAutenticacionRegistroClienteNatural({
+        requestBody,
+    }: {
+        requestBody?: RegistroClienteNaturalRequest,
+    }): CancelablePromise<RegistroClienteNaturalResponseApiResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/Autenticacion/registro-cliente-natural',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad Request`,
+            },
+        });
+    }
+    /**
+     * @returns RegistroClienteEmpresaResponseApiResponse OK
+     * @throws ApiError
+     */
+    public static postApiAutenticacionRegistroClienteEmpresa({
+        requestBody,
+    }: {
+        requestBody?: RegistroClienteEmpresaRequest,
+    }): CancelablePromise<RegistroClienteEmpresaResponseApiResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/Autenticacion/registro-cliente-empresa',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad Request`,
             },
         });
     }

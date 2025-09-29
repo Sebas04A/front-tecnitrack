@@ -3,22 +3,11 @@ import { Outlet, useLocation } from 'react-router-dom'
 import Header from '../components/layout/Header'
 import SideBar from '../components/layout/SideBar'
 import Footer from '../components/layout/Footer'
-import {
-    FaBars,
-    FaCogs,
-    FaFileInvoice,
-    FaFileInvoiceDollar,
-    FaTachometerAlt,
-    FaTools,
-    FaTruck,
-    FaUser,
-    FaUserCircle,
-} from 'react-icons/fa'
-import { FaBoxesStacked, FaGear, FaTruckField, FaUserGear } from 'react-icons/fa6'
-import { navItemsType } from '../types/nav'
+import { FaBars } from 'react-icons/fa'
+
 import { useState } from 'react'
 import TituloPagina from '../components/common/TituloPagina'
-import { getNavItem, navItemsInterno, navItemsMain } from '../router/ruta'
+import { getNavItem, navItemsInterno } from '../router/ruta'
 
 export default function InternalLayout() {
     const [mobileOpen, setMobileOpen] = useState<boolean>(false)

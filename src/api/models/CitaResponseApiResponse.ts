@@ -8,5 +8,6 @@ export type CitaResponseApiResponse = {
     data?: CitaResponse;
     message?: string | null;
     timestamp?: string;
+    errors?: Array<string> | null;
 };
 

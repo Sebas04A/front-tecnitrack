@@ -14,6 +14,8 @@ type BaseProps = {
     className?: string
     isReadOnly?: boolean
     required?: boolean
+    endContent?: React.ReactNode
+    mostrarEspacioError?: boolean
     /** Texto para opción vacía al inicio. Pásalo si quieres una opción de placeholder. */
     placeholderOptionLabel?: string
     /** Muestra un texto mientras carga opciones remotas */
@@ -48,7 +50,9 @@ const GenericSelect: React.FC<GenericSelectProps> = ({
     isReadOnly,
     required,
     placeholderOptionLabel,
+
     loadingLabel = 'Cargando…',
+    mostrarEspacioError,
     errorLabel = 'No se pudieron cargar las opciones',
     ...rest
 }) => {
@@ -81,13 +85,13 @@ const GenericSelect: React.FC<GenericSelectProps> = ({
 
     React.useEffect(
         () => {
-            console.warn('SINCRONO', isAsync, tipoCatalogo, getOptions)
+            // console.warn('SINCRONO', isAsync, tipoCatalogo, getOptions)
             if (!isAsync) return
             const controller = new AbortController()
             let mounted = true
 
             const run = async () => {
-                console.warn('Cargando opciones para select…', { tipoCatalogo, getOptions })
+                // console.warn('Cargando opciones para select…', { tipoCatalogo, getOptions })
                 try {
                     setLoading(true)
                     setLoadError(null)
@@ -99,7 +103,7 @@ const GenericSelect: React.FC<GenericSelectProps> = ({
                     } else {
                         return
                     }
-                    console.log('Datos obtenidos para select:', data)
+                    // console.log('Datos obtenidos para select:', data)
                     if (!data) return
                     if (mounted) setRemoteOptions(data)
                 } catch (e) {
@@ -136,7 +140,7 @@ const GenericSelect: React.FC<GenericSelectProps> = ({
 
     // Si quieres deshabilitar el select mientras carga (opcional)
     const disabledWhileLoading = isAsync && loading
-    console.log('HTML PROPS ', htmlSelectProps)
+    // console.log('HTML PROPS ', htmlSelectProps)
     const safeRegister = React.useMemo(
         () => (remoteOptions && register ? register : undefined),
         [remoteOptions, register, name]
@@ -147,7 +151,7 @@ const GenericSelect: React.FC<GenericSelectProps> = ({
                 label={label}
                 type='select'
                 name={name}
-                register={safeRegister}
+                register={register}
                 error={effectiveError}
                 className={className}
                 isReadOnly={isReadOnly || disabledWhileLoading}
@@ -158,7 +162,10 @@ const GenericSelect: React.FC<GenericSelectProps> = ({
                           [{ value: '', label: loadingLabel }]
                         : computedOptions
                 }
-                {...htmlSelectProps}
+                mostrarEspacioError={
+                    mostrarEspacioError ?? (register && !isReadOnly) ? true : false
+                }
+                {...(htmlSelectProps as any)}
             />
         </>
     )

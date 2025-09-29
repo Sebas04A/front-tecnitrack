@@ -6,9 +6,19 @@ import {
     parseAdapterPerfilNatural,
     parseAdapterPersonasNaturalCrud,
 } from '../adapters/perfil'
-import { AdministradorService, ClientesService } from '../api'
+import {
+    ActualizarClienteNaturalDto,
+    AdministradorService,
+    ClientesService,
+    CrearClienteNaturalDto,
+    GestionClientesService,
+} from '../api'
 import { ClienteEmpresaCrud, ClienteNaturalCrud } from '../types/usuario'
-import { PerfilEmpresaData, PerfilPersonaNaturalData } from '../validation/perfil.schema'
+import {
+    PerfilEmpresaData,
+    PerfilPersonaNaturalCrudData,
+    PerfilPersonaNaturalData,
+} from '../validation/perfil.schema'
 
 export async function getPerfilesJuridicos(): Promise<ClienteEmpresaCrud[]> {
     const data = await AdministradorService.getApiAdministradorListaClientesEmpresa()
@@ -115,4 +125,39 @@ export async function updatePerfilNatural(data: PerfilPersonaNaturalData) {
         console.error('Error actualizando perfil natural:', e)
         throw e
     }
+}
+
+export async function crearPerfilNaturaAdmin(data: PerfilPersonaNaturalCrudData) {
+    const requestBody: CrearClienteNaturalDto = {
+        nombre: data.nombreCompleto,
+        apellido: data.apellidoCompleto,
+        tipoIdentificacion: data.tipoDocumento,
+        numeroIdentificacion: data.numeroDocumento,
+        fechaNacimiento: data.fechaNacimiento,
+        genero: data.genero,
+        email: data.email,
+    }
+    const res = await GestionClientesService.postApiGestionClientesCrearClienteNatural({
+        requestBody,
+    })
+    return res
+}
+export async function updatePerfilNaturalAdmin(
+    data: PerfilPersonaNaturalCrudData,
+    clienteId: number
+) {
+    const requestBody: ActualizarClienteNaturalDto = {
+        nombre: data.nombreCompleto,
+        apellido: data.apellidoCompleto,
+        tipoIdentificacion: data.tipoDocumento,
+        numeroIdentificacion: data.numeroDocumento,
+        fechaNacimiento: data.fechaNacimiento,
+        genero: data.genero,
+        email: data.email,
+    }
+    const res = await GestionClientesService.putApiGestionClientesActualizarClienteNatural({
+        clienteId: clienteId,
+        requestBody,
+    })
+    return res
 }

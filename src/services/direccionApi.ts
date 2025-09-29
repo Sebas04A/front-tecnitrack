@@ -1,5 +1,5 @@
 import { adapterDireccion, parseAdapterDirecciones } from '../adapters/direccion'
-import { AdministradorService, DireccionesService } from '../api'
+import { DireccionesService, GestionClientesService } from '../api'
 import { DireccionData } from '../validation/direccion.schema'
 
 export const getDirecciones = async () => {
@@ -16,11 +16,11 @@ export const getDirecciones = async () => {
         throw error
     }
 }
-export const getDireccionById = async (clienteId: number) => {
-    const response = await AdministradorService.getApiAdministradorObtenerDireccionesCliente({
+export const getDireccionByCliente = async (clienteId: number) => {
+    const response = await GestionClientesService.getApiGestionClientesListarDirecciones({
         clienteId,
     })
-    console.log('Datos obtenidos de direcciones por ID:', response)
+    console.log('Datos obtenidos de direcciones por cliente:', response)
     if (!response || !response.data) {
         throw new Error('No se recibieron datos de direcciones')
     }
@@ -34,6 +34,16 @@ export const createDireccion = async (direccion: DireccionData) => {
         requestBody: adaptedDireccion,
     })
     console.log('Dirección creada:', response)
+    return response
+}
+export const createDireccionCliente = async (direccion: DireccionData, clienteId: number) => {
+    const requestBody = adapterDireccion(direccion)
+    console.log('Datos de la dirección a crear para cliente:', requestBody)
+    const response = await GestionClientesService.postApiGestionClientesAgregarDireccion({
+        clienteId,
+        requestBody,
+    })
+    console.log('Dirección creada para cliente:', response)
     return response
 }
 export const updateDireccion = async (direccion: DireccionData) => {
@@ -51,6 +61,16 @@ export const updateDireccion = async (direccion: DireccionData) => {
         throw error
     }
 }
+export const updateDireccionCliente = async (direccion: DireccionData) => {
+    const requestBody = adapterDireccion(direccion)
+    console.log('Datos de la dirección a actualizar para cliente:', requestBody)
+    const response = await GestionClientesService.putApiGestionClientesActualizarDireccion({
+        direccionId: requestBody.id!,
+        requestBody,
+    })
+    console.log('Dirección actualizada para cliente:', response)
+    return response
+}
 export const deleteDireccion = async (id: number) => {
     try {
         const response = await DireccionesService.deleteApiDireccionesEliminarDireccion({
@@ -62,4 +82,11 @@ export const deleteDireccion = async (id: number) => {
         console.error('Error al eliminar dirección:', error)
         throw error
     }
+}
+export const deleteDireccionCliente = async (direccionId: number) => {
+    const response = await GestionClientesService.deleteApiGestionClientesEliminarDireccion({
+        direccionId,
+    })
+    console.log('Dirección eliminada para cliente:', response)
+    return response
 }

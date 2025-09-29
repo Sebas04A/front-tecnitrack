@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
-import { SubmitStatus } from '../components/common/SubmitStatusModal'
+import { useState } from 'react'
+// import { SubmitStatus } from '../components/common/SubmitStatusModal'
 
 export default function useRequestModal() {
-    const [submitStatus, setSubmitStatus] = useState<SubmitStatus | null>(null)
+    const [submitStatus, setSubmitStatus] = useState<any | null>(null)
 
     const [errorMessage, setErrorMessage] = useState('')
 

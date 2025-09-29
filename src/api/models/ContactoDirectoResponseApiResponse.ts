@@ -8,5 +8,6 @@ export type ContactoDirectoResponseApiResponse = {
     data?: ContactoDirectoResponse;
     message?: string | null;
     timestamp?: string;
+    errors?: Array<string> | null;
 };
 

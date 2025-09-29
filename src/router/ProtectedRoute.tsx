@@ -9,7 +9,8 @@ const ProtectedRoute = ({ requiredRol }: { requiredRol: string }) => {
     console.log(requiredRol)
     console.warn(!user || user.rol !== requiredRol)
     if (loading) return <div>Loading...</div>
-    if (!user || user.rol !== requiredRol) return <Navigate to='/login' replace />
+    if (!user) return <Navigate to='/login' replace />
+    if (user.rol !== requiredRol) console.warn('No autorizado'), (<Navigate to='/login' replace />)
     console.log('abriendo')
     return <Outlet />
 }

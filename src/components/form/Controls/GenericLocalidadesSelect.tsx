@@ -1,83 +1,140 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import GenericSelect from './GenericSelect'
 import { Option } from '../../../types/form'
 import {
     obtenerCiudadesPorProvinciaSelect,
     obtenerPaisesSelect,
     obtenerProvinciasPorPaisSelect,
-} from '../../../services/localidadesApi'
+} from '../../../services/Select/localidadesSelectApi'
+import { use } from 'framer-motion/m'
 
-export default function GenericLocalidadesSelect() {
-    const [direccion, setDireccion] = React.useState({
-        pais: -1,
-        provincia: -1,
-        ciudad: -1,
-    })
-    const [paises, setPaises] = React.useState<Option[]>([])
-    const [provincias, setProvincias] = React.useState<Option[]>([])
-    const [ciudades, setCiudades] = React.useState<Option[]>([])
+// Define el tipo para el valor que manejará el componente
+export interface LocalidadesValue {
+    pais: number
+    provincia: number
+    ciudad: number
+}
 
+// Define las props del componente
+interface GenericLocalidadesSelectProps {
+    value: LocalidadesValue
+    onChange: (newValue: LocalidadesValue) => void
+    disabled?: boolean // Prop opcional para deshabilitar los selects
+    register?: any
+    errors?: any
+    // watch?: any
+}
+
+export default function GenericLocalidadesSelect({
+    value,
+    onChange,
+    disabled = false,
+    register,
+    errors,
+}: // watch,
+GenericLocalidadesSelectProps) {
+    // Los estados para las opciones se mantienen internos
+    const [paises, setPaises] = useState<Option[]>([])
+    const [provincias, setProvincias] = useState<Option[]>([])
+    const [ciudades, setCiudades] = useState<Option[]>([])
+
+    // --- LÓGICA DE FETCHING (casi sin cambios) ---
     useEffect(() => {
-        console.log('Obteniendo Direcciones')
-        obtenerPaisesSelect().then(data => {
-            console.log('Paises obtenidos:', data)
-            setPaises(data)
-        })
+        obtenerPaisesSelect().then(setPaises)
     }, [])
+
     useEffect(() => {
-        console.log('Pais cambiado:', direccion.pais)
-        if (direccion.pais == -1) return
-        obtenerProvinciasPorPaisSelect(direccion.pais).then(data => {
-            setProvincias(data)
-        })
-    }, [direccion.pais])
+        if (value.pais === -1) {
+            setProvincias([]) // Limpia las provincias si no hay país seleccionado
+            return
+        }
+        obtenerProvinciasPorPaisSelect(value.pais).then(setProvincias)
+    }, [value.pais])
+
     useEffect(() => {
-        console.log('Provincia cambiado:', direccion.provincia)
-        if (direccion.provincia == -1) return
-        obtenerCiudadesPorProvinciaSelect(direccion.provincia).then(data => {
-            setCiudades(data)
+        if (value.provincia === -1) {
+            setCiudades([]) // Limpia las ciudades si no hay provincia seleccionada
+            return
+        }
+        obtenerCiudadesPorProvinciaSelect(value.provincia).then(setCiudades)
+    }, [value.provincia])
+
+    // --- MANEJADORES DE CAMBIOS ---
+    // Ahora llaman a la prop `onChange` en lugar de `setDireccion`
+    // const pais = watch('pais')
+    // useEffect(() => {
+    //     console.log('GenericLocalidadesSelect - pais cambiado:', pais)
+    //     onChange({
+    //         ...value,
+    //         pais: pais,
+    //         provincia: -1,
+    //         ciudad: -1,
+    //     })
+    // }, [pais])
+
+    const handlePaisChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const paisId = Number(e.target.value)
+        // Al cambiar de país, reseteamos provincia y ciudad
+        onChange({
+            pais: paisId,
+            provincia: -1,
+            ciudad: -1,
         })
-    }, [direccion.provincia])
+    }
+
+    const handleProvinciaChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const provinciaId = Number(e.target.value)
+        // Al cambiar de provincia, reseteamos la ciudad
+        onChange({
+            ...value,
+            provincia: provinciaId,
+            ciudad: -1,
+        })
+    }
+
+    const handleCiudadChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const ciudadId = Number(e.target.value)
+        onChange({
+            ...value,
+            ciudad: ciudadId,
+        })
+    }
+
     return (
-        <div className='flex justify-center items-center w-full h-full p-6'>
-            <div>
-                <GenericSelect
-                    label='Pais'
-                    name='pais'
-                    isReadOnly={false}
-                    options={paises}
-                    value={direccion.pais.toString() ?? 'Cargando..'}
-                    onChange={value => {
-                        console.log(value.currentTarget.value)
-                        const paisId = Number(value.target.value)
-                        setDireccion(prev => ({ pais: paisId, provincia: -1, ciudad: -1 }))
-                    }}
-                />
-                <GenericSelect
-                    label='Provincia'
-                    name='provincia'
-                    isReadOnly={!direccion.pais}
-                    options={provincias}
-                    value={direccion.provincia.toString() ?? 'Cargando...'}
-                    onChange={value => {
-                        console.log(value.currentTarget.value)
-                        const provinciaId = Number(value.target.value)
-                        setDireccion(prev => ({ ...prev, provincia: provinciaId, ciudad: -1 }))
-                    }}
-                />
-                <GenericSelect
-                    label='Ciudad'
-                    name='ciudad'
-                    isReadOnly={false}
-                    options={ciudades}
-                    value={'Cargando...'}
-                    onChange={value => {
-                        console.log(value.currentTarget.value)
-                        const ciudadId = Number(value.target.value)
-                        setDireccion(prev => ({ ...prev, ciudad: ciudadId }))
-                    }}
-                />
-            </div>
+        <div className='flex flex-col md:flex-row md:space-x-4 w-full'>
+            <GenericSelect
+                label='País'
+                name='pais'
+                options={paises}
+                value={value.pais.toString()} // El valor viene de las props
+                onChange={handlePaisChange} // Usa el nuevo manejador
+                isReadOnly={disabled}
+                register={register}
+                errors={errors}
+                mostrarEspacioError={true}
+            />
+            <GenericSelect
+                label='Provincia'
+                name='provincia'
+                options={provincias}
+                value={value.provincia.toString()} // El valor viene de las props
+                onChange={handleProvinciaChange} // Usa el nuevo manejador
+                isReadOnly={disabled || value.pais === -1} // Deshabilitado si no hay país
+                register={register}
+                errors={errors}
+                mostrarEspacioError={true}
+            />
+            <GenericSelect
+                label='Ciudad'
+                name='ciudad'
+                options={ciudades}
+                value={value.ciudad.toString()} // El valor viene de las props
+                onChange={handleCiudadChange} // Usa el nuevo manejador
+                isReadOnly={disabled || value.provincia === -1} // Deshabilitado si no hay provincia
+                register={register}
+                errors={errors}
+                mostrarEspacioError={true}
+            />
         </div>
     )
 }

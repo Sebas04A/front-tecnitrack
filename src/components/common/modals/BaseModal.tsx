@@ -29,6 +29,7 @@ const BaseModal: React.FC<BaseModalProps> = ({
     children,
     size = 'md',
     className = '',
+    noPadding = false,
 }) => {
     const titleId = useId()
     const panelRef = useRef<HTMLDivElement | null>(null)
@@ -109,7 +110,13 @@ const BaseModal: React.FC<BaseModalProps> = ({
                                     </button>
                                 </header>
                             )}
-                            <main className='p-6 overflow-y-auto flex-grow'>{children}</main>
+                            <main
+                                className={` overflow-y-auto flex-grow ${
+                                    noPadding ? 'p-0' : 'p-6'
+                                }`}
+                            >
+                                {children}
+                            </main>
                         </motion.div>
                     </div>
                 </FocusTrap>

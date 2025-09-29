@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Modal } from '../common/Modal'
 import { useForm } from 'react-hook-form'
 import GenericForm from '../form/GenericForm'
@@ -13,6 +13,10 @@ import GenericSection from '../form/GenericSection'
 import BaseModal from '../common/modals/BaseModal'
 import FormModal from '../common/modals/FormModal'
 import { useModalActions } from '../../hooks/useModalActions'
+import { form } from 'framer-motion/client'
+import { CitaResponse } from '../../api'
+import GenericSelect from '../form/Controls/GenericSelect'
+import { getCatalogo } from '../../services/catalogos'
 
 export default function IngresarCitaModal({
     isOpen,
@@ -28,6 +32,7 @@ export default function IngresarCitaModal({
     const {
         handleSubmit,
         register,
+        // watch,
         formState: { errors },
     } = useForm({
         mode: 'onChange',
@@ -45,11 +50,15 @@ export default function IngresarCitaModal({
             console.log('Formulario enviado', values)
             const id = modal.showLoading('Creando cita...')
             try {
-                await crearCita({ ...values, fechaHoraInicio: fecha })
+                const dataCreada: CitaResponse = await crearCita({
+                    ...values,
+                    fechaHoraInicio: fecha,
+                })
                 modal.closeModal(id)
+                console.log('Cita creada:', dataCreada)
                 modal.showAlert({
-                    title: 'Cita creada',
-                    message: 'La cita ha sido creada exitosamente.',
+                    title: 'Cita creada Exitosamente',
+                    message: `Cita creada: ${dataCreada.numeroCita} a las ${dataCreada.fechaHora}`,
                     type: 'success',
                 })
                 onClose()
@@ -63,25 +72,68 @@ export default function IngresarCitaModal({
             }
         })()
     }
+    const [tiposMantenimiento, setTiposMantenimiento] = useState<
+        Array<{ label: string; value: string }>
+    >([])
+    useEffect(() => {
+        const fetchTiposMantenimiento = async () => {
+            const response = await getCatalogo('tipoMantenimiento')
+            response.push({ label: 'Otro', value: 'otro' })
+            setTiposMantenimiento(response)
+        }
+        fetchTiposMantenimiento()
+    }, [])
 
     return (
-        <FormModal
+        <BaseModal
             isOpen={isOpen}
             onClose={onClose}
-            title='Ingresar Cita'
-            onSubmit={onSubmit}
-            onCancel={onClose}
-            submitText='Guardar'
-            isSubmitting={status === 'loading'}
+            title='Ingresar Turno'
+            // onSubmit={onSubmit}
+            // onCancel={onClose}
+            // submitText='Guardar'
+            // isSubmitting={status === 'loading'}
         >
             <GenericForm
                 onSubmit={handleSubmit(values => {
                     console.log('Formulario enviado', values)
-                    // onClose()
+                    onSubmit()
                 })}
-                title='Ingresar Cita'
+                title='Ingresar Turno'
                 error={error}
+                showButtons={true}
+                onCancel={onClose}
+                // onSubmit={onSubmit}
+                // submitText='Guardar'
             >
+                {/* Grupo exclusivo: solo una opción */}
+                {/* <GenericSection title='Tipo de Mantenimiento'> */}
+                {/* <GenericExclusiveCheckboxGroup
+                    name='tipoMantenimiento'
+                    options={tiposMantenimiento}
+                    register={register}
+                    errors={errors}
+                /> */}
+                <GenericSelect
+                    label='Tipo de Mantenimiento'
+                    name='tipoMantenimiento'
+                    register={register}
+                    errors={errors}
+                    tipoCatalogo='tipoMantenimiento'
+                    placeholderOptionLabel='Seleccione el tipo de mantenimiento'
+                    required
+                />
+
+                {/* {watch('tipoMantenimiento') === 'otro' && (
+                    <GenericTextInput
+                        label='Otro'
+                        name='otro'
+                        register={register}
+                        errors={errors}
+                        type='text'
+                    />
+                )} */}
+                {/* </GenericSection> */}
                 <GenericTextInput
                     label='Descripción'
                     name='descripcion'
@@ -90,27 +142,7 @@ export default function IngresarCitaModal({
                     isReadOnly={false}
                     type='text'
                 />
-                {/* Grupo exclusivo: solo una opción */}
-                <GenericSection title='Tipo de Mantenimiento'>
-                    <GenericExclusiveCheckboxGroup
-                        name='tipoMantenimiento'
-                        options={[
-                            { label: 'Preventivo', value: 'preventivo' },
-                            { label: 'Correctivo', value: 'correctivo' },
-                        ]}
-                        register={register}
-                        errors={errors}
-                    />
-                    <GenericTextInput
-                        label='Otro'
-                        name='otro'
-                        register={register}
-                        errors={errors}
-                        isReadOnly={false}
-                        type='text'
-                    />
-                </GenericSection>
             </GenericForm>
-        </FormModal>
+        </BaseModal>
     )
 }

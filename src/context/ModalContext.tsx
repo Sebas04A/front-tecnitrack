@@ -1,4 +1,4 @@
-import React, { createContext, useState, useCallback, ReactNode, useEffect } from 'react'
+import React, { createContext, useState, useCallback, ReactNode, useEffect, useMemo } from 'react'
 import { ModalConfig, ModalContextType } from '../types/modal.types'
 import { ModalRenderer } from '../components/common/modals/logica/ModalRendered'
 
@@ -9,6 +9,7 @@ interface ModalProviderProps {
 }
 
 export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
+    console.warn('ModalProvider render')
     const [modals, setModals] = useState<ModalConfig[]>([])
 
     useEffect(() => {
@@ -50,14 +51,17 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
         )
     }, [])
 
-    const value: ModalContextType = {
-        modals,
-        openModal,
-        closeModal,
-        closeAllModals,
-        updateModal,
-        updateModalProps,
-    }
+    const value = useMemo<ModalContextType>(() => {
+        console.log('ModalContext value changed', { modals })
+        return {
+            modals,
+            openModal,
+            closeModal,
+            closeAllModals,
+            updateModal,
+            updateModalProps,
+        }
+    }, [modals, openModal, closeModal, closeAllModals, updateModal, updateModalProps])
 
     return (
         <ModalContext.Provider value={value}>

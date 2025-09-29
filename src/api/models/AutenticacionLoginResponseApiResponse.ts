@@ -8,5 +8,6 @@ export type AutenticacionLoginResponseApiResponse = {
     data?: AutenticacionLoginResponse;
     message?: string | null;
     timestamp?: string;
+    errors?: Array<string> | null;
 };
 

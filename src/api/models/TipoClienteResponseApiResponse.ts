@@ -8,5 +8,6 @@ export type TipoClienteResponseApiResponse = {
     data?: TipoClienteResponse;
     message?: string | null;
     timestamp?: string;
+    errors?: Array<string> | null;
 };
 

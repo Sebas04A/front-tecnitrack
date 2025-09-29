@@ -8,5 +8,6 @@ export type ClienteSelectorResponseIEnumerableApiResponse = {
     data?: Array<ClienteSelectorResponse> | null;
     message?: string | null;
     timestamp?: string;
+    errors?: Array<string> | null;
 };
 

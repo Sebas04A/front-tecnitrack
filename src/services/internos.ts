@@ -16,6 +16,8 @@ export async function updateInterno(
     id: number,
     data: UsuarioInternoData
 ): Promise<ObjectApiResponse> {
+    console.log(id, data)
+    throw new Error('Función no implementada')
     // const requestBody = adapterUsuarioInterno(data)
     // const res = ClienteInternoService.
     // console.log(`Actualizando interno ${id} con datos:`, data)

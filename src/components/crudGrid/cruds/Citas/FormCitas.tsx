@@ -28,22 +28,6 @@ export default function FormCitas({ form, readOnly }: any) {
                 // value={formatDate(fecha)}
             />
             <div style={{ height: '16px' }}></div>
-            <GenericSelectSearch
-                name='usuario'
-                label='Cliente'
-                register={form.register}
-                error={form.formState.errors.usuario?.message}
-                fetchOptions={async query => {
-                    const response = await buscarUsuario(query)
-                    return response.map(user => ({
-                        value: user.id ?? -1,
-                        label: user.nombreCompleto + ' - ' + user.numeroIdentificacion,
-                    }))
-                }}
-                minSearchLength={2}
-                debounceMs={1000}
-                isReadOnly={readOnly}
-            />
             <GenericSelect
                 label='Tipo de Mantenimiento'
                 name={`tipoMantenimiento`}
@@ -63,7 +47,6 @@ export default function FormCitas({ form, readOnly }: any) {
                     errors={form.formState.errors}
                 />
             )}
-
             <GenericTextInput
                 label='Descripción'
                 name='descripcion'
@@ -72,6 +55,22 @@ export default function FormCitas({ form, readOnly }: any) {
                 register={form.register}
                 errors={form.formState.errors}
             />
+            <GenericSelectSearch
+                label='Cliente'
+                name='usuario'
+                control={form.control}
+                fetchOptions={async query => {
+                    const response = await buscarUsuario(query)
+                    return response.map(user => ({
+                        value: user.id ?? -1,
+                        label: user.nombreCompleto + ' - ' + user.numeroIdentificacion,
+                    }))
+                }}
+                minSearchLength={2}
+                debounceMs={1000}
+                isReadOnly={readOnly}
+            />
+
             {/* </GenericForm> */}
         </>
     )

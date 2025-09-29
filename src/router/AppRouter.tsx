@@ -18,18 +18,16 @@ import RestablecerContra from '../pages/RestablecerContra'
 import CatalogosCrud from '../components/crudGrid/cruds/Catalogos/CatalogosCrud'
 import CrudInternos from '../pages/Internos/CrudInternos'
 import CrudClientes from '../pages/Internos/CrudClientes'
-// import ComponentePadreEx from '../components/ex/ComponentePadreEx'
-import ModalExamples from '../components/ex/ModalEx'
-import ExamplePage from '../components/ex/ModalEx'
-import { UserList, WelcomeScreen } from '../components/ex/UserList'
-import CrudCitas from '../pages/Internos/Citas'
+
 import Citas from '../pages/Internos/Citas'
-import GenericLocalidadesSelect from '../components/form/Controls/GenericLocalidadesSelect'
-import MantenimientoIngreso from '../components/mantenimiento/MantenimientoIngreso'
-import { PaisesCrud } from '../components/crudGrid/cruds/Localidades/Paises/PaisCrud'
+
 import CatalogoLocalidades from '../pages/Internos/CatalogoLocalidades'
+import HomeInternos from '../pages/Internos/HomeInternos'
+import OrdenesAsignadas from '../pages/Internos/OrdenesAsignadas'
+import ProcesarMantenimiento from '../components/tecnico/ProcesarMantenimiento'
 
 const AppRouter: React.FC = () => {
+    console.warn('AppRouter render')
     return (
         <Routes>
             {/* Rutas públicas */}
@@ -42,10 +40,13 @@ const AppRouter: React.FC = () => {
                 <Route path='forgotpassword' element={<RecuperContra />} />
                 <Route path='resetpassword' element={<RestablecerContra />} />
                 {/* <Route path='ex' element={<WelcomeScreen />} /> */}
-                <Route path='ex' element={<PaisesCrud />} />
+                {/* <Route path='ex' element={<MantenimientoIngreso />} /> */}
             </Route>
             <Route element={<ProtectedRoute requiredRol='interno' />}>
+                <Route index element={<Navigate to='home' replace />} />
                 <Route path='/interno' element={<InternalLayout />}>
+                    <Route index element={<Navigate to='home' replace />} />
+                    <Route path='home' element={<HomeInternos />} />
                     <Route path='usuarios' element={<CrudInternos />} />
                     <Route path='clientes' element={<CrudClientes />} />
                     <Route path='configuracion/catalogos/generales' element={<CatalogosCrud />} />
@@ -54,6 +55,9 @@ const AppRouter: React.FC = () => {
                         element={<CatalogoLocalidades />}
                     />
                     <Route path='citas' element={<Citas />} />
+
+                    <Route path='ordenes-asignadas' element={<OrdenesAsignadas />} />
+                    <Route path='procesar' element={<ProcesarMantenimiento />} />
                 </Route>
             </Route>
             {/* Rutas privadas */}

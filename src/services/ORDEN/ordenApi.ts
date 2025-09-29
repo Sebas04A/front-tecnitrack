@@ -1,0 +1,27 @@
+import { parseAdapterOrden } from '../../adapters/IngresoOrden/orden'
+import { AgregarDatosFaltantesOrdenRequest, OrdenesService } from '../../api'
+import { OrderFormData } from '../../validation/IngresoOrden/orden'
+
+export const getInformacionOrden = async (id: number): Promise<OrderFormData> => {
+    // const response = await OrdenesService.getApiOrdenesObtenerInformacionPreviaCita({ citaId })
+    const response = await OrdenesService.getApiOrdenesObtenerOrden({ id })
+    console.log('Respuesta de la API:', response)
+
+    if (!response.data) throw new Error('No se recibió data de la orden')
+    return parseAdapterOrden(response.data)
+}
+export const postOrden = async (data: OrderFormData, N_ORDEN: number) => {
+    const requestBody: AgregarDatosFaltantesOrdenRequest = {
+        fechaIngreso: data.fechaIngreso,
+        registradoPor: data.registradoPor,
+        inspeccionadoPor: data.inspeccionadoPor,
+        tallerBodegaDestino: data.tallerBodegaDestino ?? '',
+        observacionesIngreso: data.observacionesIngreso,
+    }
+    const res = await OrdenesService.putApiOrdenesAgregarDatosOrden({
+        id: N_ORDEN,
+        requestBody,
+    })
+
+    return res.data
+}

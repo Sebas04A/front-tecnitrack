@@ -1,10 +1,16 @@
 // src/components/AuthProvider.tsx
 import { useEffect, useState, ReactNode } from 'react'
 import { getTokenFromResponse } from '../utils/getToken'
-import { loginInternoRequest, loginRequest, singupRequest } from '../services/loginApi'
+import {
+    loginInternoRequest,
+    loginRequest,
+    registrarEmpresa,
+    registrarNatural,
+} from '../services/loginApi'
 import { AuthContext, User } from './auth-context'
 import { setupApi } from '../api/setupApi'
 import { rolType } from '../types/usuario'
+import { RegisterFormData } from '../validation/register.schema'
 
 const storageNames = {
     usuario: 'usuario',
@@ -67,8 +73,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setupApi() // Reset API setup without token
     }
 
-    async function signup(email: string, password: string) {
-        const res = await singupRequest(email, password)
+    async function signup(data: RegisterFormData) {
+        console.log('Registrando usuario:', data)
+        // return
+        if (!data.email || !data.password) throw new Error('Email y password son obligatorios')
+
+        if (data.tipoCliente === 'Empresa') {
+            const res = await registrarEmpresa(data)
+            return res
+        } else if (data.tipoCliente === 'Natural') {
+            const res = await registrarNatural(data)
+            return res
+        } else {
+            throw new Error('Tipo de cliente inválido')
+        }
+
         // Aquí podrías extraer token/datos si tu API lo devuelve:
         // const token = getTokenFromResponse(res)
         // localStorage.setItem('auth_token', token)

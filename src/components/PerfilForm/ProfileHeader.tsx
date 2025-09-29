@@ -37,6 +37,7 @@ export default function ProfileHeader({
                             //     { value: 'Natural', label: 'Persona Natural' },
                             //     { value: 'Juridica', label: 'Persona Jurídica' },
                             // ]}
+                            placeholderOptionLabel={'Seleccione el tipo de persona'}
                             tipoCatalogo={'tipoCliente'}
                         />
                     </div>

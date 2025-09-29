@@ -7,5 +7,6 @@ export type StringIEnumerableApiResponse = {
     data?: Array<string> | null;
     message?: string | null;
     timestamp?: string;
+    errors?: Array<string> | null;
 };
 

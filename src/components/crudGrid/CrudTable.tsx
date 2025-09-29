@@ -2,6 +2,7 @@ import React from 'react'
 import { FaEdit, FaEye, FaSort, FaSortDown, FaSortUp, FaTrash } from 'react-icons/fa'
 import { newActionCrud } from './CrudCrudo'
 import { div } from 'framer-motion/client'
+import { FieldValues } from 'react-hook-form'
 
 const colorsBtnAcciones = {
     view: 'text-info',
@@ -40,15 +41,16 @@ export interface ColumnDef<T> {
     render?: (value: any, row: T) => React.ReactNode
 }
 
-export interface CrudTableProps<T> {
-    data: T[]
-    columns: ColumnDef<T>[]
+export interface CrudTableProps<TData extends Record<string, any>, TForm extends FieldValues> {
+    data: TData[]
+    columns: ColumnDef<TData>[]
+    dataToForm?: (data: TData) => TForm
     loading?: boolean
-    onView?: (row: T) => void
-    onEdit?: (row: T) => void
-    onDelete?: (row: T) => void
-    getRowId: (row: T) => string | number
-    newActionCrud?: newActionCrud
+    onView?: (row: TForm) => void
+    onEdit?: (row: TForm) => void
+    onDelete?: (row: string) => void
+    getRowId: (row: TForm) => string | number
+    newActionsCrud?: newActionCrud[]
 }
 function compareValues(a: Comparable, b: Comparable): number {
     if (a == null && b == null) return 0
@@ -67,7 +69,7 @@ function compareValues(a: Comparable, b: Comparable): number {
     return String(a).localeCompare(String(b), undefined, { numeric: true, sensitivity: 'base' })
 }
 
-export function CrudTable<T extends Record<string, any>>({
+export function CrudTable<TData extends Record<string, any>, TForm extends FieldValues>({
     data,
     columns,
     loading = false,
@@ -75,10 +77,11 @@ export function CrudTable<T extends Record<string, any>>({
     onEdit,
     onDelete,
     getRowId,
-    newActionCrud,
-}: CrudTableProps<T>) {
-    const [sort, setSort] = React.useState<SortState<keyof T>>({ key: null, dir: null })
-    const toggleSort = (key: keyof T) => {
+    newActionsCrud,
+    dataToForm = (data: TData) => data as unknown as TForm,
+}: CrudTableProps<TData, TForm>) {
+    const [sort, setSort] = React.useState<SortState<keyof TData>>({ key: null, dir: null })
+    const toggleSort = (key: keyof TData) => {
         setSort(prev => {
             if (prev.key !== key) return { key, dir: 'asc' }
             if (prev.dir === 'asc') return { key, dir: 'desc' }
@@ -86,14 +89,14 @@ export function CrudTable<T extends Record<string, any>>({
             return { key: null, dir: null }
         })
     }
-    const sortIcon = (key: keyof T) => {
+    const sortIcon = (key: keyof TData) => {
         if (sort.key !== key) return <FaSort className='shrink-0 opacity-60' aria-hidden />
         if (sort.dir === 'asc') return <FaSortUp className='shrink-0' aria-hidden />
         if (sort.dir === 'desc') return <FaSortDown className='shrink-0' aria-hidden />
         return <FaSort className='shrink-0 opacity-60' aria-hidden />
     }
     const colByKey = React.useMemo(() => {
-        const map = new Map<string, ColumnDef<T>>()
+        const map = new Map<string, ColumnDef<TData>>()
         for (const c of columns) map.set(String(c.key), c)
         return map
     }, [columns])
@@ -104,8 +107,8 @@ export function CrudTable<T extends Record<string, any>>({
         const col = colByKey.get(String(sort.key))
         const copy = data.slice()
         copy.sort((ra, rb) => {
-            const aValRaw = ra[sort.key as keyof T]
-            const bValRaw = rb[sort.key as keyof T]
+            const aValRaw = ra[sort.key as keyof TData]
+            const bValRaw = rb[sort.key as keyof TData]
             const aVal = col?.getSortValue ? col.getSortValue(aValRaw, ra) : (aValRaw as Comparable)
             const bVal = col?.getSortValue ? col.getSortValue(bValRaw, rb) : (bValRaw as Comparable)
             const cmp = compareValues(aVal, bVal)
@@ -137,7 +140,7 @@ export function CrudTable<T extends Record<string, any>>({
                                 )}
                             </th>
                         ))}
-                        {(onView || onEdit || onDelete || newActionCrud) && (
+                        {(onView || onEdit || onDelete || newActionsCrud) && (
                             <th className='p-3 font-semibold text-sm'>Acciones</th>
                         )}
                     </tr>
@@ -158,48 +161,74 @@ export function CrudTable<T extends Record<string, any>>({
                         </tr>
                     )}
                     {!loading &&
-                        sortedData.map(row => (
-                            <tr
-                                key={getRowId(row)}
-                                className='border-b hover:bg-background-auto transition-colors duration-200 cursor-pointer'
-                            >
-                                {columns.map(col => (
-                                    <td
-                                        key={String(col.key)}
-                                        className='p-3 text-sm'
-                                        onClick={onView ? () => onView(row) : undefined}
-                                    >
-                                        {col.render
-                                            ? col.render(row[col.key], row)
-                                            : String(row[col.key] ?? '')}
-                                    </td>
-                                ))}
-                                {(onView || onEdit || onDelete || newActionCrud) && (
-                                    <td className='p-3 flex gap-2'>
-                                        {newActionCrud && (
-                                            <div onClick={() => newActionCrud.onAction(row)}>
-                                                {newActionCrud.component}
+                        sortedData
+                            .map(data => {
+                                return {
+                                    data: data,
+                                    form: dataToForm(data),
+                                }
+                            })
+                            .map(row => (
+                                <tr
+                                    key={getRowId(row.form)}
+                                    className=' border-b hover:bg-background-auto transition-colors duration-200 cursor-pointer'
+                                >
+                                    {columns.map(col => (
+                                        <td
+                                            key={String(col.key)}
+                                            className='p-3 text-sm'
+                                            onClick={onView ? () => onView(row.form) : undefined}
+                                        >
+                                            {col.render
+                                                ? col.render(row.data[col.key], row.data)
+                                                : String(row.data[col.key] ?? '')}
+                                        </td>
+                                    ))}
+                                    {(onView || onEdit || onDelete || newActionsCrud) && (
+                                        <td className='p-3'>
+                                            <div className='flex  justify-center items-center gap-2'>
+                                                {newActionsCrud &&
+                                                    newActionsCrud.map((action, index) => (
+                                                        <div
+                                                            key={index}
+                                                            onClick={() =>
+                                                                action.onAction(row.data)
+                                                            }
+                                                        >
+                                                            {action.component}
+                                                        </div>
+                                                    ))}
+                                                {onView && (
+                                                    <BtnAccion
+                                                        onClick={() => onView(row.form)}
+                                                        tipo='view'
+                                                    >
+                                                        <FaEye className='inline' />
+                                                    </BtnAccion>
+                                                )}
+                                                {onEdit && (
+                                                    <BtnAccion
+                                                        onClick={() => onEdit(row.form)}
+                                                        tipo='edit'
+                                                    >
+                                                        <FaEdit className='inline' />
+                                                    </BtnAccion>
+                                                )}
+                                                {onDelete && (
+                                                    <BtnAccion
+                                                        onClick={() =>
+                                                            onDelete(row.form.id as string)
+                                                        }
+                                                        tipo='delete'
+                                                    >
+                                                        <FaTrash className='inline' />
+                                                    </BtnAccion>
+                                                )}
                                             </div>
-                                        )}
-                                        {onView && (
-                                            <BtnAccion onClick={() => onView(row)} tipo='view'>
-                                                <FaEye className='inline' />
-                                            </BtnAccion>
-                                        )}
-                                        {onEdit && (
-                                            <BtnAccion onClick={() => onEdit(row)} tipo='edit'>
-                                                <FaEdit className='inline' />
-                                            </BtnAccion>
-                                        )}
-                                        {onDelete && (
-                                            <BtnAccion onClick={() => onDelete(row)} tipo='delete'>
-                                                <FaTrash className='inline' />
-                                            </BtnAccion>
-                                        )}
-                                    </td>
-                                )}
-                            </tr>
-                        ))}
+                                        </td>
+                                    )}
+                                </tr>
+                            ))}
                 </tbody>
             </table>
         </div>

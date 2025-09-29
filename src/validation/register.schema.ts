@@ -1,6 +1,10 @@
 import * as yup from 'yup'
 export const registerSchema = yup
     .object({
+        tipoCliente: yup.string().required('El tipo de cliente es obligatorio'),
+        tipoIdentificacion: yup.string().required('El tipo de identificación es obligatorio'),
+        numeroIdentificacion: yup.string().required('La identificación es obligatoria'),
+
         email: yup.string().required('El email es obligatorio').email('Formato de email inválido'),
         password: yup
             .string()

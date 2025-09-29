@@ -37,9 +37,10 @@ const FormModal: React.FC<FormModalProps> = ({
     isSubmitting = false,
     disableSubmit = false,
     component,
-    props,
     size,
+    props,
 }) => {
+    console.warn('Renderizando FormModal:')
     const handleSubmit = () => {
         console.log('Submitting form...')
         // Aquí podrías agregar lógica adicional antes de llamar a onSubmit
@@ -80,22 +81,22 @@ const FormModal: React.FC<FormModalProps> = ({
         return null
     }
     return (
-        <BaseModal isOpen={isOpen} onClose={handleCancel} title={title} size={size}>
-            <div className='flex flex-col gap-6'>
+        <BaseModal isOpen={isOpen} onClose={handleCancel} title={title} size={size} noPadding>
+            <div className='flex flex-col gap-6 p-4'>
                 {/* <CatalogoForm /> */}
                 {/* El contenido del formulario (pasado como children) se renderiza aquí */}
                 {/* <div>{children}</div> */}
-                <GenericForm error={props.error}>
+                <GenericForm error={props?.error}>
                     {ChildComponent && <ChildComponent {...props} />}
                 </GenericForm>
 
                 {/* Footer con acciones */}
-                {(onSubmit || onCancel) && showButtons && (
-                    <footer className='flex items-center justify-end gap-3 pt-4 border-t border-slate-200 dark:border-slate-700'>
-                        <FormsButtons onCancelar={handleCancel} onGuardar={handleSubmit} />
-                    </footer>
-                )}
             </div>
+            {(onSubmit || onCancel) && showButtons && (
+                <footer className='flex items-center justify-end gap-3 pt-2 border-t border-slate-200 dark:border-slate-700'>
+                    <FormsButtons onCancelar={handleCancel} onGuardar={handleSubmit} />
+                </footer>
+            )}
         </BaseModal>
     )
 }

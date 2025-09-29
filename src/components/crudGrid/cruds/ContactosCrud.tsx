@@ -9,16 +9,19 @@ import {
 } from '../../../validation/contacto.schema'
 import GenericTextInput from '../../form/Controls/GenericTextInput'
 import GenericRowForm from '../../form/GenericRowForm'
-import CrudContainer from '../CrudContainer'
+import CrudContainer, { crudQueries } from '../CrudContainer'
 import { ColumnDef } from '../CrudTable'
 import {
     crearContactoCliente,
+    crearContactoClienteById,
     crearContactoEmpresa,
+    crearContactoEmpresaById,
     deleteContactoCliente,
     deleteContactoEmpresa,
     getContactosCliente,
-    getContactosClienteById,
     getContactosEmpresa,
+    getContactosEmpresaById,
+    getContactosNaturalById,
     updateContactoCliente,
     updateContactoEmpresa,
 } from '../../../services/contactosApi'
@@ -55,7 +58,7 @@ const ContactosCrud: React.FC<ContactosCrudProps> = ({
     titulo = 'Contactos',
     clienteId,
 }) => {
-    clienteId === -1 && (clienteId = undefined)
+    const esCrud = Boolean(clienteId)
     console.warn('tipoPersona en ContactosCrud:', tipoPersona, ' clienteId:', clienteId)
 
     // Resolver dependiente directamente de tipoPersona (evita error de tipos con 'schema')
@@ -110,11 +113,11 @@ const ContactosCrud: React.FC<ContactosCrudProps> = ({
             makeLocalCrudFetcher<Contacto>({
                 getAll:
                     tipoPersona === 'Juridica'
-                        ? clienteId
-                            ? () => getContactosClienteById(clienteId)
+                        ? esCrud
+                            ? () => getContactosEmpresaById(clienteId!)
                             : getContactosEmpresa
-                        : clienteId
-                        ? () => getContactosClienteById(clienteId)
+                        : esCrud
+                        ? () => getContactosNaturalById(clienteId!)
                         : getContactosCliente,
                 searchKeys: ['telefono', 'email'],
             }),
@@ -123,11 +126,18 @@ const ContactosCrud: React.FC<ContactosCrudProps> = ({
 
     async function createQuery(values: Contacto) {
         console.log('Creating contacto:', values)
+        let response
         if (tipoPersona === 'Juridica') {
-            return await crearContactoEmpresa(values as ContactoEmpresaData)
-        } else {
-            return await crearContactoCliente(values as ContactoClienteData)
+            if (esCrud)
+                response = crearContactoEmpresaById(clienteId!, values as ContactoEmpresaData)
+            else response = crearContactoEmpresa(values as ContactoEmpresaData)
+        } else if (tipoPersona === 'Natural') {
+            if (esCrud)
+                response = crearContactoClienteById(clienteId!, values as ContactoClienteData)
+            else response = crearContactoCliente(values as ContactoClienteData)
         }
+        console.log('Contacto creado:', response)
+        return response
     }
     async function editQuery(values: Contacto) {
         console.log('Editing contacto:', values)
@@ -137,22 +147,23 @@ const ContactosCrud: React.FC<ContactosCrudProps> = ({
             return await updateContactoCliente(values as ContactoClienteData)
         }
     }
-    async function deleteQuery(row: Contacto) {
-        console.log('Deleting contacto:', row)
+    async function deleteQuery(idString: string) {
+        const id = Number(idString)
+        console.log('Deleting contacto:', id)
         if (tipoPersona === 'Juridica') {
-            return await deleteContactoEmpresa(row.id)
+            return await deleteContactoEmpresa(id)
         } else {
-            return await deleteContactoCliente(row.id)
+            return await deleteContactoCliente(id)
         }
     }
-    const crudQueries = {
+    const crudQueries: crudQueries<Contacto> = {
         fetchData: fetchData,
         createQuery: createQuery,
         editQuery: editQuery,
         deleteQuery: deleteQuery,
     }
     return (
-        <CrudContainer<Contacto>
+        <CrudContainer<Contacto, Contacto>
             formModalProp={{
                 form: ContactosForm,
                 props: { tipoPersona, register: form.register, errors: form.formState.errors },

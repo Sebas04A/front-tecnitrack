@@ -8,5 +8,6 @@ export type ContactoEmpresaClienteDetalleResponseListApiResponse = {
     data?: Array<ContactoEmpresaClienteDetalleResponse> | null;
     message?: string | null;
     timestamp?: string;
+    errors?: Array<string> | null;
 };
 

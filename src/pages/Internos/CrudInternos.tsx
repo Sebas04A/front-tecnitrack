@@ -1,19 +1,16 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 import { ColumnDef, CrudContainer } from '../../components/crudGrid'
 import { UsuarioInternoData, usuarioInternoSchema } from '../../validation/usuarioInterno'
 import { makeLocalCrudFetcher } from '../../components/crudGrid/helper/crud-helpers'
 import { Resolver, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { getIn } from 'yup'
+
 import { createInterno, deleteInterno, getInternos, updateInterno } from '../../services/internos'
-import GenericRowForm from '../../components/form/GenericRowForm'
-import GenericTextInput from '../../components/form/Controls/GenericTextInput'
-import GenericSelect from '../../components/form/Controls/GenericSelect'
-import TituloPagina from '../../components/common/TituloPagina'
-import GenericDate from '../../components/form/Controls/GenericDate'
+
 import InternosForm from '../../components/crudGrid/cruds/Internos/InternosForm'
 
 export default function CrudInternos() {
+    console.warn('CrudInternos render')
     const defaultValues: UsuarioInternoData = {
         id: -1,
         nombreCompleto: '',
@@ -59,8 +56,8 @@ export default function CrudInternos() {
         const res = await updateInterno(data.id, data)
         return res
     }
-    async function deleteQuery(data: UsuarioInternoData) {
-        const res = await deleteInterno(data.id)
+    async function deleteQuery(id: number | string) {
+        const res = await deleteInterno(id as number)
         return res
     }
     const crudQueries = {
@@ -75,7 +72,7 @@ export default function CrudInternos() {
 
     return (
         <div>
-            <CrudContainer<UsuarioInternoData>
+            <CrudContainer<UsuarioInternoData, UsuarioInternoData>
                 formModalProp={{
                     form: InternosForm,
                     props: { register: form.register, errors: form.formState.errors },

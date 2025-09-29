@@ -8,5 +8,6 @@ export type ClientesNaturalResponseApiResponse = {
     data?: ClientesNaturalResponse;
     message?: string | null;
     timestamp?: string;
+    errors?: Array<string> | null;
 };
 

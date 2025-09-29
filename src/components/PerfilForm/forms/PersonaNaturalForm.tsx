@@ -2,41 +2,49 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import GenericSelect from '../../form/Controls/GenericSelect'
 import GenericTextInput from '../../form/Controls/GenericTextInput'
 import GenericRowForm from '../../form/GenericRowForm'
-import { PerfilPersonaNaturalData, personaNaturalSchema } from '../../../validation/perfil.schema'
+import {
+    PerfilPersonaNaturalCrudData,
+    PerfilPersonaNaturalData,
+    personaNaturalCrudSchema,
+    personaNaturalSchema,
+} from '../../../validation/perfil.schema'
 import { useForm } from 'react-hook-form'
 import { FormProfileProps } from '../../../types/formsProfile'
 import GenericForm from '../../form/GenericForm'
 import FormsButtons from '../../form/formsButtons'
 import { useEffect, useState } from 'react'
 import GenericInput from '../../form/Controls/GenericInput'
-import { ClientesService } from '../../../api'
 import { parseAxiosError } from '../../../utils/parseError'
 import {
-    createPerfilNatural,
-    getPerfilNatural,
+    crearPerfilNaturaAdmin,
     updatePerfilNatural,
+    updatePerfilNaturalAdmin,
 } from '../../../services/perfilApi'
+import { useModalActions } from '../../../hooks/useModalActions'
 
 export default function PersonaNaturalForm({
     data,
-    esNuevo,
+    clienteId,
+    // esCrud,
     estaEditando,
     changeEstaEditando,
     changeDirty,
     onDatosGuardados,
-    onSubmitStart,
-    onSubmitError,
-    onLoadStart,
-    onLoadEnd,
-}: FormProfileProps & { data?: PerfilPersonaNaturalData | null; esNuevo: boolean }) {
+}: FormProfileProps & { data?: PerfilPersonaNaturalData | null }) {
+    const esCrud = clienteId !== undefined
+    const resolver = esCrud
+        ? (yupResolver(personaNaturalSchema) as any)
+        : (yupResolver(personaNaturalCrudSchema) as any)
+    type Persona = PerfilPersonaNaturalData | PerfilPersonaNaturalCrudData
+    const [isLoading, setIsLoading] = useState(false)
     const {
         register,
         formState: { errors, isDirty, dirtyFields },
         handleSubmit,
         reset,
-    } = useForm<PerfilPersonaNaturalData>({
+    } = useForm<Persona>({
         mode: 'onChange',
-        resolver: yupResolver(personaNaturalSchema),
+        resolver: resolver,
         defaultValues: {
             nombreCompleto: '',
             apellidoCompleto: '',
@@ -44,6 +52,7 @@ export default function PersonaNaturalForm({
             numeroDocumento: '',
             fechaNacimiento: '',
             genero: '',
+            email: '',
         },
     })
 
@@ -51,6 +60,7 @@ export default function PersonaNaturalForm({
         console.log('Datos obtenidos desde padre:', data)
 
         data = {
+            // email:data?,email || '',
             nombreCompleto: data?.nombreCompleto || '',
             apellidoCompleto: data?.apellidoCompleto || '',
             tipoDocumento: data?.tipoDocumento || '',
@@ -62,23 +72,37 @@ export default function PersonaNaturalForm({
         reset(data, { keepDirty: false, keepTouched: false })
     }, [reset, data])
 
+    const modalActions = useModalActions()
     const onSubmit = handleSubmit(async data => {
+        const id = modalActions.showLoading('Enviando datos...')
         try {
-            onSubmitStart && onSubmitStart()
             // Simular envío (reemplazar por llamada real a API)
             console.log('Datos enviados:', data)
-            if (esNuevo) {
-                await createPerfilNatural(data)
+            if (esCrud) {
+                if (!clienteId) throw new Error('No se proporcionó clienteId en modo CRUD')
+                if (clienteId === -1) {
+                    console.log('Creando nuevo cliente, no se obtienen datos')
+                    await crearPerfilNaturaAdmin(data as PerfilPersonaNaturalCrudData)
+                } else {
+                    console.log('Actualizando cliente existente, ID:', clienteId)
+                    await updatePerfilNaturalAdmin(data as PerfilPersonaNaturalCrudData, clienteId)
+                }
             } else {
-                await updatePerfilNatural(data)
+                await updatePerfilNatural(data as PerfilPersonaNaturalData)
             }
-
+            modalActions.closeModal(id)
             changeDirty(false)
             onDatosGuardados()
         } catch (e) {
+            modalActions.closeModal(id)
+
             console.error('Error enviando Persona Natural:', e)
             const errorMessage = parseAxiosError(e)
-            onSubmitError && onSubmitError(errorMessage)
+            modalActions.showAlert({
+                title: 'Error',
+                message: errorMessage,
+                type: 'error',
+            })
         }
     })
 
@@ -91,6 +115,18 @@ export default function PersonaNaturalForm({
     return (
         <>
             <GenericForm onSubmit={onSubmit} title='Información Personal'>
+                {esCrud && (
+                    <GenericTextInput
+                        label='Email'
+                        name='email'
+                        type='email'
+                        register={register}
+                        errors={errors}
+                        // isReadOnly={true}
+                        required
+                        isReadOnly={!estaEditando}
+                    />
+                )}
                 <GenericRowForm>
                     <GenericTextInput
                         label='Nombre Completo'
@@ -140,7 +176,7 @@ export default function PersonaNaturalForm({
                         register={register}
                         error={errors.fechaNacimiento?.message}
                         isReadOnly={!estaEditando}
-                        required
+                        // required
                     />
                     <GenericInput
                         label='Género'
@@ -155,7 +191,7 @@ export default function PersonaNaturalForm({
                         ]}
                         error={errors.genero?.message}
                         isReadOnly={!estaEditando}
-                        required
+                        // required
                     />
                 </GenericRowForm>
                 {estaEditando && (

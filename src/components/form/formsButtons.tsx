@@ -9,7 +9,7 @@ export default function FormsButtons({
     onGuardar?: () => void
 }) {
     return (
-        <div className='flex justify-end gap-2 mt-4'>
+        <div className='flex justify-end gap-2 '>
             {onCancelar && (
                 <GenericButton
                     type='button'

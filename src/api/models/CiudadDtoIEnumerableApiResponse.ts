@@ -8,5 +8,6 @@ export type CiudadDtoIEnumerableApiResponse = {
     data?: Array<CiudadDto> | null;
     message?: string | null;
     timestamp?: string;
+    errors?: Array<string> | null;
 };
 

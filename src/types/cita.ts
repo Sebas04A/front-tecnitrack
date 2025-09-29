@@ -1,11 +1,11 @@
-import { CitaCrudData, CitaData } from '../validation/cita.schema'
+import { CitaDataForm, CitaData } from '../validation/cita.schema'
 
 export type citaDataCompleta = CitaData & {
     fechaHoraInicio: string
 }
 
 // -------------------------ADMIN
-export type CitaAdminType = CitaCrudData & {
+export type CitaDataCrud = CitaDataForm & {
     id: number
     usuarioId: number
     clienteId: number

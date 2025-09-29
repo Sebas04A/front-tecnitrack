@@ -3,6 +3,7 @@ import {
     ClienteNaturalListaResponse,
     ClientesEmpresaRequest,
     ClientesEmpresaResponse,
+    ClientesNaturalRequest,
     ClientesNaturalResponse,
 } from '../api'
 import { ClienteEmpresaCrud, ClienteNaturalCrud } from '../types/usuario'
@@ -27,14 +28,16 @@ const adaptFecha = (fecha: string): string => {
     return fecha + 'T00:00:00'
 }
 
-export const createAddapterPerfilNatural = (perfil: PerfilPersonaNaturalData) => {
+export const createAddapterPerfilNatural = (
+    perfil: PerfilPersonaNaturalData
+): ClientesNaturalRequest => {
     return {
         nombres: perfil.nombreCompleto,
         apellidos: perfil.apellidoCompleto,
         tipoDocumento: perfil.tipoDocumento,
         numeroIdentificacion: perfil.numeroDocumento,
-        fechaNacimiento: adaptFecha(perfil.fechaNacimiento),
-        genero: perfil.genero,
+        fechaNacimiento: adaptFecha(perfil.fechaNacimiento || ''),
+        genero: perfil.genero || '',
     }
 }
 const parseAdapterPersonaNaturalCrud = (

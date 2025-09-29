@@ -1,15 +1,15 @@
 // src/layouts/MainLayout.tsx
 import { Outlet, useLocation } from 'react-router-dom'
-import Header from '../components/layout/Header'
+
 import SideBar from '../components/layout/SideBar'
 import Footer from '../components/layout/Footer'
-import { FaBars, FaTachometerAlt, FaTools, FaUserCircle } from 'react-icons/fa'
-import { navItemsType } from '../types/nav'
+import { FaBars } from 'react-icons/fa'
+
 import { useState } from 'react'
 import { getNavItem, navItemsMain } from '../router/ruta'
 import TituloPagina from '../components/common/TituloPagina'
 
-const anchoSidebar = '15rem'
+// const anchoSidebar = '15rem'
 
 export default function MainLayout() {
     const [mobileOpen, setMobileOpen] = useState<boolean>(false)

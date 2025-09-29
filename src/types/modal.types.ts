@@ -7,6 +7,7 @@ export interface BaseModalProps {
     children?: ReactNode
     size?: ModalSize
     className?: string
+    noPadding?: boolean
 }
 
 export type ModalSize = 'sm' | 'md' | 'lg' | 'xl' | 'full'

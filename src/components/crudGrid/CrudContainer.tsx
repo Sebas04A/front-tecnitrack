@@ -1,4 +1,4 @@
-import React, { ComponentType, useCallback, useEffect, useState } from 'react'
+import React, { ComponentType, useCallback, useEffect, useMemo, useState } from 'react'
 import CrudToolbar from './CrudToolbar'
 import CrudTable, { ColumnDef } from './CrudTable'
 import CrudPagination from './CrudPagination'
@@ -10,8 +10,8 @@ import { FieldValues, UseFormReturn } from 'react-hook-form'
 import { ObjectApiResponse } from '../../api'
 import GenericForm from '../form/GenericForm'
 import { useModalActions } from '../../hooks/useModalActions'
-import CrudCrudo, { autoLoadOptions } from './CrudCrudo'
-import { data } from 'framer-motion/client'
+import CrudCrudo, { autoLoadOptions, onCrudActionsProps } from './CrudCrudo'
+import { data, use } from 'framer-motion/client'
 import { toFormData } from 'axios'
 
 export interface crudQueries<TData, TForm = any> {
@@ -21,12 +21,13 @@ export interface crudQueries<TData, TForm = any> {
     }>
     createQuery: (data: TForm) => Promise<any>
     editQuery: (data: TForm) => Promise<any>
-    deleteQuery: (id: TData) => Promise<any>
+    deleteQuery: (id: string) => Promise<any>
 }
 
 export interface formModalCrudProps {
     form: ComponentType<any>
     props?: Record<string, any>
+    propsNoCambiantes?: Record<string, any>
 }
 
 export interface CrudContainerProps<TData extends Record<string, any>, TForm extends FieldValues> {
@@ -62,6 +63,7 @@ export function CrudContainer<TData extends Record<string, any>, TForm extends F
     searchPlaceholder,
     pageSize = 10,
 }: CrudContainerProps<TData, TForm>) {
+    console.warn('Renderizando CrudContainer')
     const { fetchData, createQuery, editQuery, deleteQuery } = crudQueries
     const { autoLoad = true, dependencies = [] } = autoLoadOptions
     const FormComponent = formModalProp.form
@@ -75,45 +77,98 @@ export function CrudContainer<TData extends Record<string, any>, TForm extends F
 
     const [camposReadOnly, setCamposReadOnly] = useState(false)
     const [mode, setMode] = useState<'create' | 'edit' | 'view' | null>(null)
-    const [actualRow, setActualRow] = useState<TData | null>(null)
+    const [actualRow, setActualRow] = useState<TForm | null>(null)
     const [error, setError] = useState<string>('')
-
-    useEffect(() => {
-        console.log('CAMBIANDO PROPS')
-        // console.log('Nuevos props:', propsModal)
-        console.log('errors', form.formState.errors)
-        console.log(formModalProp.props)
-
-        modal.updateModalProps(idFormModal, {
-            props: { ...formModalProp.props, readOnly: camposReadOnly },
-        })
-    }, [formModalProp.props, camposReadOnly, form.formState.errors])
-
     useEffect(() => {
         console.log('Dependencies changed, reloading data', { actualRow, mode })
         // setViewing(actualRow)
         if (!mode) return
-        abrirModalDatos(actualRow, mode)
+        abrirModalDatos(mode)
     }, [actualRow, mode])
+    useEffect(() => {
+        console.warn('CONTROL')
+    }, [])
+
+    const formSinErrors = useMemo(() => {
+        const { errors, ...rest } = formModalProp.props || {}
+        return rest
+    }, [formModalProp.props])
+    const propsString = useMemo(() => JSON.stringify(formSinErrors), [formSinErrors])
+    const errorsString = useMemo(() => {
+        console.log('Calculando errorsString para dependencia')
+        // 2. Extraemos los errores de las props de forma segura con optional chaining (?.)
+        const errors = formModalProp.props?.errors
+
+        // 3. Si no hay errores o no es un objeto, devolvemos un string vacío
+        //    para tener una dependencia consistente.
+        if (!errors || typeof errors !== 'object') {
+            return '{}'
+        }
+
+        // 4. Transformamos el objeto complejo de errores en uno simple con solo los mensajes.
+        const simplifiedMessages: { [key: string]: any } = {}
+        for (const key in errors) {
+            if (errors[key]?.message) {
+                simplifiedMessages[key] = errors[key].message
+            }
+        }
+
+        // 5. Devolvemos el string de los mensajes simplificados.
+        //    Ej: '{"nombre":"El nombre es obligatorio","email":"Email inválido"}'
+        console.log('Errores simplificados para dependencia:', simplifiedMessages)
+        return JSON.stringify(simplifiedMessages)
+    }, [formModalProp.props]) // La dependencia es el objeto de errores original
+    console.log('propsString', propsString)
+    console.log('errorsString', errorsString)
+    useEffect(() => {
+        console.warn('CAMBIANDO PROPS O ERRORES', { propsString, errorsString })
+    }, [propsString, errorsString])
+    useEffect(() => {
+        console.warn('CAMBIANDO PROPS')
+        // console.log('Nuevos props:', propsModal)
+        // console.log('errors', form.formState.errors)
+
+        const props = {
+            ...formModalProp.props,
+            ...formModalProp.propsNoCambiantes,
+            readOnly: camposReadOnly,
+        }
+        console.log('props', props)
+
+        modal.updateModalProps(idFormModal, {
+            props,
+        })
+    }, [propsString, camposReadOnly, errorsString])
+    useEffect(() => {
+        console.warn('CAMBIANDO FORMMODALPROP', formModalProp.props)
+    }, [formModalProp.props])
+    useEffect(() => {
+        console.warn('CAMBIANDO CAMPOS READONLY', camposReadOnly)
+    }, [camposReadOnly])
+    useEffect(() => {
+        console.warn('CAMBIANDO ERRORES', form.formState.errors)
+    }, [form.formState.errors])
 
     const closeAndReset = () => {
         console.warn('Closing modal and resetting form')
-        modalActions.closeAllModals()
+        // modalActions.closeAllModals()
+        modalActions.closeModal(idFormModal)
         setMode(null)
         setActualRow(null)
         setError('')
         reset(defaultValues)
     }
 
-    const abrirModalDatos = (
-        actualRow: TData | null = null,
-        mode: 'create' | 'edit' | 'view' | null
-    ) => {
-        console.log('Opening data modal', { actualRow, mode })
+    const abrirModalDatos = (mode: 'create' | 'edit' | 'view' | null) => {
         const title = mode === 'edit' ? 'Editar' : mode === 'view' ? 'Ver ' : 'Crear Nuevo'
         const submitText = mode === 'edit' ? 'Guardar Cambios' : mode === 'view' ? '' : 'Crear'
         const cancelText = mode === 'view' ? '' : 'Cancelar'
-
+        const props = {
+            ...formModalProp.props,
+            ...formModalProp.propsNoCambiantes,
+            readOnly: camposReadOnly,
+        }
+        console.log('Opening modal con', { props })
         const id = modalActions.showForm({
             title,
             component: FormComponent,
@@ -123,7 +178,7 @@ export function CrudContainer<TData extends Record<string, any>, TForm extends F
             showButtons: mode !== 'view',
             onCancel: closeAndReset,
             size: isModalGrande ? 'xl' : 'md',
-            props: { ...formModalProp.props, readOnly: camposReadOnly },
+            props,
         })
 
         console.warn('Modal opened with ID:', id)
@@ -161,9 +216,12 @@ export function CrudContainer<TData extends Record<string, any>, TForm extends F
             })
         }
     }
-    const deleteRequest = async (campo: TData) => {
-        if (!campo.id) throw new Error('No se puede eliminar una dirección sin ID')
-        const res = await deleteQuery(campo)
+    const deleteRequest = async (id: string) => {
+        console.log('Iniciando eliminación de:', id)
+        if (!id) {
+            throw new Error('No se puede eliminar un registro sin ID')
+        }
+        const res = await deleteQuery(id)
         console.log('Eliminado:', res)
         return res
     }
@@ -180,8 +238,9 @@ export function CrudContainer<TData extends Record<string, any>, TForm extends F
         return res
     }
 
-    const deleteAccion = async (campo: TData) => {
-        return submitingRequest(campo, deleteRequest)
+    const deleteAccion = async (id: string) => {
+        console.log('Iniciando eliminación de:', id)
+        return submitingRequest(id, deleteRequest)
     }
 
     const onSubmit = handleSubmit(async (values: TForm) => {
@@ -189,7 +248,7 @@ export function CrudContainer<TData extends Record<string, any>, TForm extends F
         return submitingRequest(values, submitRequest)
     })
 
-    const onCrudActions = {
+    const onCrudActions: onCrudActionsProps<TData, TForm> = {
         onCreate: () => {
             setCamposReadOnly(false)
             setActualRow(null)
@@ -198,30 +257,29 @@ export function CrudContainer<TData extends Record<string, any>, TForm extends F
             setError('')
             reset(defaultValues)
         },
-        onEdit: (row: TData) => {
+        onEdit: (row: TForm) => {
             setCamposReadOnly(false)
             setActualRow(row)
             setMode('edit')
             setError('')
-            reset(dataToForm(row))
+            reset(row)
             console.log('Editing row:', row)
         },
-        onView: (row: TData) => {
+        onView: (row: TForm) => {
             setCamposReadOnly(true)
             setActualRow(row)
             setMode('view')
-            reset(dataToForm(row))
+            reset(row)
         },
-        onDelete: (row: TData) => {
-            const rowString = JSON.stringify(row) ?? 'este registro'
-            console.log('Deleting row:', row)
+        onDelete: (id: string) => {
+            console.log('Deleting row:', id)
             modalActions.showConfirm({
                 title: 'Confirmar Eliminación',
                 message: `¿Estás seguro de que quieres eliminar? Esta acción no se puede deshacer.`,
                 confirmText: 'Eliminar',
                 cancelText: 'Cancelar',
                 onConfirm: async () => {
-                    deleteAccion(row)
+                    deleteAccion(id)
                 },
                 type: 'warning',
             })
@@ -231,7 +289,7 @@ export function CrudContainer<TData extends Record<string, any>, TForm extends F
 
     return (
         <>
-            <CrudCrudo<TData>
+            <CrudCrudo<TData, TForm>
                 title={title}
                 columns={columns}
                 fetchData={fetchData}
@@ -239,6 +297,7 @@ export function CrudContainer<TData extends Record<string, any>, TForm extends F
                 searchPlaceholder={searchPlaceholder}
                 autoLoadOptions={{ autoLoad, dependencies: [...dependencies, reloadKey] }}
                 onCrudActions={onCrudActions}
+                dataToForm={(data: TData) => dataToForm(data)}
             ></CrudCrudo>
         </>
     )

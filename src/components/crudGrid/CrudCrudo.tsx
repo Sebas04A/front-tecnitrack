@@ -12,11 +12,11 @@ import { useModalActions } from '../../hooks/useModalActions'
 import { Filter } from './helper/crud-helpers'
 import { div } from 'framer-motion/client'
 
-export interface onCrudActionsProps<T> {
+export interface onCrudActionsProps<TData, TForm> {
     onCreate?: () => void
-    onView?: (row: T) => void
-    onEdit?: (row: T) => void
-    onDelete?: (row: T) => void
+    onView?: (row: TForm) => void
+    onEdit?: (row: TForm) => void
+    onDelete?: (id: string) => void
 }
 export interface autoLoadOptions {
     autoLoad?: boolean
@@ -26,18 +26,21 @@ export interface newActionCrud {
     component: React.ReactNode
     onAction: (row: any) => void
 }
-export interface CrudContainerRawProps<T extends FieldValues> {
-    onCrudActions?: onCrudActionsProps<T>
-    newActionCrud?: newActionCrud
+export interface CrudContainerRawProps<
+    TData extends Record<string, any>,
+    TForm extends FieldValues
+> {
+    onCrudActions?: onCrudActionsProps<TData, TForm>
+    newActionsCrud?: newActionCrud[]
     title?: string
-    columns: ColumnDef<T>[]
+    columns: ColumnDef<TData>[]
     fetchData: (params: {
         page: number
         pageSize: number
         search: string
         filters: Filter<any>[]
     }) => Promise<{
-        items: T[]
+        items: TData[]
         total: number
     }>
 
@@ -49,10 +52,12 @@ export interface CrudContainerRawProps<T extends FieldValues> {
     autoLoadOptions?: autoLoadOptions
     dependencies?: React.DependencyList
     formModal?: React.ReactNode
+
+    dataToForm?: (data: TData) => TForm
 }
-export default function CrudCrudo<T extends Record<string, any>>({
+export default function CrudCrudo<TData extends Record<string, any>, TForm extends FieldValues>({
     onCrudActions,
-    newActionCrud,
+    newActionsCrud,
     title,
     columns,
     fetchData,
@@ -60,13 +65,14 @@ export default function CrudCrudo<T extends Record<string, any>>({
     pageSize = 10,
     searchPlaceholder,
     autoLoadOptions = { autoLoad: true, dependencies: [] },
-}: CrudContainerRawProps<T>) {
+    dataToForm,
+}: CrudContainerRawProps<TData, TForm>) {
     // console.warn('Renderizando CrudCrudo')
     const { autoLoad: autoLoad = true, dependencies = [] } = autoLoadOptions
     const { onCreate, onEdit, onView, onDelete } = onCrudActions || {}
     const [page, setPage] = useState(1)
 
-    const [data, setData] = useState<T[]>([])
+    const [data, setData] = useState<TData[]>([])
     const [loading, setLoading] = useState(false)
     const [total, setTotal] = useState(0)
 
@@ -144,9 +150,12 @@ export default function CrudCrudo<T extends Record<string, any>>({
             {title && <h2 className='text-xl font-bold text-primary mb-4'>{title}</h2>}
             <div className='rounded-lg shadow-lg bg-background-accent-auto w-full  px-4 my-4'>
                 {FiltersComponent && (
-                    <div>{<FiltersComponent onChangeFilters={handleOnChangeFilters} />}</div>
+                    <>
+                        <div>{<FiltersComponent onChangeFilters={handleOnChangeFilters} />}</div>
+                        <div className='border-b border-gray-300 my-2'></div>
+                    </>
                 )}
-                <div className='border-b border-gray-300 my-2'></div>
+
                 <CrudToolbar
                     onCreate={onCreate}
                     onSearch={handleSearch}
@@ -154,7 +163,7 @@ export default function CrudCrudo<T extends Record<string, any>>({
                 />
             </div>
 
-            <CrudTable
+            <CrudTable<TData, TForm>
                 data={data}
                 columns={columns}
                 loading={loading}
@@ -162,7 +171,8 @@ export default function CrudCrudo<T extends Record<string, any>>({
                 onEdit={onEdit}
                 onDelete={onDelete}
                 getRowId={(r: any) => r.id ?? JSON.stringify(r)}
-                newActionCrud={newActionCrud}
+                newActionsCrud={newActionsCrud}
+                dataToForm={dataToForm}
             />
             <CrudPagination page={page} pageSize={pageSize} total={total} onChange={p => load(p)} />
         </div>

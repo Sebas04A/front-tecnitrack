@@ -38,9 +38,9 @@ export default function InternosForm({
                     //     { value: 'Inactivo', label: 'Inactivo' },
                     // ]}
                     tipoCatalogo={'estadoGeneral'}
+                    mostrarEspacioError={true}
                 />
             </GenericRowForm>
-
             {/* ---- Primera fila ---- */}
             <div className='flex gap-2 flex-wrap'>
                 <div className='flex gap-2 flex-1 '>
@@ -112,12 +112,7 @@ export default function InternosForm({
                     isReadOnly={!!viewing}
                     register={register}
                     errors={errors}
-                    options={[
-                        { value: '', label: '-- Seleccione --' },
-                        { value: 'Femenino', label: 'Femenino' },
-                        { value: 'Masculino', label: 'Masculino' },
-                        { value: 'Otro', label: 'Otro' },
-                    ]}
+                    tipoCatalogo='genero'
                 />
             </GenericRowForm>
 

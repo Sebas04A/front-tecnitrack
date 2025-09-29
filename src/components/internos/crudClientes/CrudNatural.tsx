@@ -75,11 +75,13 @@ export default function CrudNatural() {
         []
     )
     function mostrarModal(row: ClienteNaturalCrud) {
+        console.warn('Mostrando modal para:', row)
         modalAction.showEmptyModal({
             title: 'Ver Cliente Natural',
             children: (
                 <FormsUnidos
                     tipoPersona={TIPO_PERSONA.NATURAL}
+                    esCrud={true}
                     clienteId={row.clienteId || -1}
                     datosYaGuardados={!isDirty}
                     setDatosYaGuardados={() => {}}
@@ -91,6 +93,7 @@ export default function CrudNatural() {
     }
 
     function onView(row: ClienteNaturalCrud) {
+        console.warn('Viend ocliente natural:', row)
         // modal.openModal({
         //     component: ComponentePrueba,
         //     props: {},
@@ -106,13 +109,13 @@ export default function CrudNatural() {
         //     },
         // })
     }
-    function onDelete(row: ClienteNaturalCrud) {
+    function onDelete(id: string) {
         modalAction.showConfirm({
             title: 'Confirmar eliminación',
-            message: `¿Estás seguro de que deseas eliminar al cliente ${row.nombreCompleto}? `,
+            message: `¿Estás seguro de que deseas eliminar al cliente ${id}? `,
             onConfirm: () => {
-                console.log('Eliminando cliente:', row)
-                deleteQuery(row)
+                console.log('Eliminando cliente:', id)
+                deleteQuery(id)
             },
             type: 'warning',
         })
@@ -124,14 +127,14 @@ export default function CrudNatural() {
         console.warn('Editando cliente natural:', row)
         mostrarModal(row)
     }
-    const onCrudActions: onCrudActionsProps<ClienteNaturalCrud> = {
+    const onCrudActions: onCrudActionsProps<ClienteNaturalCrud, ClienteNaturalCrud> = {
         onCreate,
         onView,
         onEdit,
         onDelete,
     }
     return (
-        <CrudCrudo<ClienteNaturalCrud>
+        <CrudCrudo<ClienteNaturalCrud, ClienteNaturalCrud>
             onCrudActions={onCrudActions}
             columns={columnsNatural}
             fetchData={fetchData}

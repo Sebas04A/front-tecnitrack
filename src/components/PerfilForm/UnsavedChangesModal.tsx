@@ -9,7 +9,7 @@ interface UnsavedChangesModalProps {
 
 const UnsavedChangesModal: React.FC<UnsavedChangesModalProps> = ({
     isOpen,
-    onCancel,
+    // onCancel,
     onAccept,
 }) => {
     return (

@@ -3,7 +3,7 @@ import GenericButton from '../../../form/Controls/GenericButton'
 import GenericDate from '../../../form/Controls/GenericDate'
 import GenericSelect from '../../../form/Controls/GenericSelect'
 import { createFilter, Filter } from '../../helper/crud-helpers'
-import { CitaAdminType } from '../../../../types/cita'
+import { CitaDataCrud } from '../../../../types/cita'
 
 export interface CitasFilters {
     fechaInicio: string
@@ -15,7 +15,7 @@ export interface CitasFilters {
 export function CitasFilters({
     onChangeFilters,
 }: {
-    onChangeFilters: (filter: Filter<CitaAdminType>[]) => void
+    onChangeFilters: (filter: Filter<CitaDataCrud>[]) => void
 }) {
     // console.warn('Renderizando CitasFilters')
 
@@ -26,9 +26,9 @@ export function CitasFilters({
         tipoMantenimiento: '',
     })
 
-    const processedFilters: Filter<CitaAdminType>[] = useMemo(
+    const processedFilters: Filter<CitaDataCrud>[] = useMemo(
         () =>
-            createFilter<CitaAdminType>()
+            createFilter<CitaDataCrud>()
                 // Filtro de rango de fechas
                 .whenValue(
                     filtros.fechaInicio,

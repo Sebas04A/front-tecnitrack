@@ -88,14 +88,17 @@ export default function CrudEmpresa() {
         []
     )
     function openModal(row: ClienteEmpresaCrud) {
-        modal.openModal({
-            component: FormsUnidos,
-            props: {
-                tipoPersona: TIPO_PERSONA.EMPRESA,
-                clienteId: row.clienteId,
-                datosYaGuardados: !isDirty,
-                setDatosYaGuardados: () => {},
-            },
+        modalActions.showEmptyModal({
+            title: 'Ver Cliente Empresa',
+            children: (
+                <FormsUnidos
+                    tipoPersona={TIPO_PERSONA.EMPRESA}
+                    clienteId={row.clienteId || -1}
+                    datosYaGuardados={!isDirty}
+                    setDatosYaGuardados={() => {}}
+                />
+            ),
+            size: 'full',
         })
     }
     function onView(row: ClienteEmpresaCrud) {

@@ -50,4 +50,4 @@ export const CitaCrudSchema = citaSchema.shape({
         }),
 })
 
-export type CitaCrudData = yup.InferType<typeof CitaCrudSchema>
+export type CitaDataForm = yup.InferType<typeof CitaCrudSchema>

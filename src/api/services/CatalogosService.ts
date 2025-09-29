@@ -274,4 +274,17 @@ export class CatalogosService {
             },
         });
     }
+    /**
+     * @returns CatalogoDtoIEnumerableApiResponse OK
+     * @throws ApiError
+     */
+    public static getApiCatalogosObtenerEstadosComponente(): CancelablePromise<CatalogoDtoIEnumerableApiResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/Catalogos/obtener-estados-componente',
+            errors: {
+                400: `Bad Request`,
+            },
+        });
+    }
 }

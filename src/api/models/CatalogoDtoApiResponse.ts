@@ -8,5 +8,6 @@ export type CatalogoDtoApiResponse = {
     data?: CatalogoDto;
     message?: string | null;
     timestamp?: string;
+    errors?: Array<string> | null;
 };
 

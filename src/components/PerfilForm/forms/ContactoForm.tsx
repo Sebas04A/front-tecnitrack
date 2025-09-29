@@ -3,21 +3,23 @@ import GenericSection from '../../form/GenericSection'
 import GenericRowForm from '../../form/GenericRowForm'
 import GenericTextInput from '../../form/Controls/GenericTextInput'
 import { useForm, useFormContext } from 'react-hook-form'
-import {
-    ContactosData,
-    contactosEmpresaSchema,
-    contactosPersonaSchema,
-} from '../../../validation/perfil.schema'
+// import {
+//     ContactosData,
+//     contactosEmpresaSchema,
+//     contactosPersonaSchema,
+// } from '../../../validation/perfil.schema'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { FormProfileProps } from '../../../types/formsProfile'
 import { TIPO_PERSONA } from '../../../constants/perfil'
+import { contactoEmpresaSchema, contactoPersonaSchema } from '../../../validation/perfil.schema'
+import { ContactoData } from '../../../validation/contacto.schema'
 
 function ContactoUnico({
     form,
     tipoPersona,
     estaEditando,
     index,
-}: FormProfileProps<ContactosData> & { index: number }) {
+}: FormProfileProps & { index: number }) {
     const {
         register,
         formState: { errors },
@@ -62,14 +64,14 @@ export default function ContactoForm({
     form,
     tipoPersona,
     estaEditando,
-}: FormProfileProps<ContactosData>) {
+}: FormProfileProps<ContactoData>) {
     const {
         register,
         formState: { errors },
     } = useForm({
         mode: 'onChange',
         resolver: yupResolver(
-            tipoPersona === 'Juridica' ? contactosEmpresaSchema : contactosPersonaSchema
+            tipoPersona === 'Juridica' ? contactoEmpresaSchema : contactoPersonaSchema
         ),
     })
 

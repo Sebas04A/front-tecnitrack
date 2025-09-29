@@ -8,5 +8,6 @@ export type DireccionClienteDetalleResponseListApiResponse = {
     data?: Array<DireccionClienteDetalleResponse> | null;
     message?: string | null;
     timestamp?: string;
+    errors?: Array<string> | null;
 };
 

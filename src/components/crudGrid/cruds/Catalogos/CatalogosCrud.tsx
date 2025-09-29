@@ -33,6 +33,7 @@ const columns: ColumnDef<CatalogoDto>[] = [
 ]
 
 export default function CatalogosCrud() {
+    console.warn('RENDERIZANDO CATALOGOS CRUD')
     const [tipoCatalogo, setTipoCatalogo] = React.useState<string>('RolUsuario')
     const defaultValues: CatalogoFormData = {
         tipo: tipoCatalogo,
@@ -64,8 +65,8 @@ export default function CatalogosCrud() {
     async function deleteQuery(data: CatalogoFormData) {
         // console.log(data)
         // if (!data.id) throw new Error('ID es requerido para eliminar')
-        if (typeof data !== 'number') throw new Error('ID es requerido para eliminar')
-        const res = await deleteCatalogo(data)
+        if (typeof data.id !== 'number') throw new Error('ID es requerido para eliminar')
+        const res = await deleteCatalogo(data.id)
         return res
     }
     const crudQueries: crudQueries<CatalogoFormData> = {
@@ -91,17 +92,17 @@ export default function CatalogosCrud() {
     }, [errors])
 
     // Registrar el campo 'tipo' y mantenerlo sincronizado con tipoCatalogo sin mostrar el select en el formulario
-    React.useEffect(() => {
-        register('tipo')
-    }, [register])
+    // React.useEffect(() => {
+    //     register('tipo')
+    // }, [register])
 
-    React.useEffect(() => {
-        setValue('tipo', tipoCatalogo, {
-            shouldDirty: true,
-            shouldTouch: true,
-            shouldValidate: true,
-        })
-    }, [tipoCatalogo, setValue])
+    // React.useEffect(() => {
+    //     setValue('tipo', tipoCatalogo, {
+    //         shouldDirty: true,
+    //         shouldTouch: true,
+    //         shouldValidate: true,
+    //     })
+    // }, [tipoCatalogo, setValue])
 
     return (
         <div>
@@ -132,7 +133,7 @@ export default function CatalogosCrud() {
                 />
             </div>
 
-            <CrudContainer<CatalogoFormData>
+            <CrudContainer<CatalogoFormData, CatalogoFormData>
                 formModalProp={{
                     form: CatalogoForm,
                     props: { register, errors },

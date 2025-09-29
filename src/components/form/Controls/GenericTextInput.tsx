@@ -12,6 +12,8 @@ type GenericTextInputProps = {
     isReadOnly?: boolean
     placeholder?: string
     required?: boolean
+    endContent?: React.ReactNode
+    mostrarEspacioError?: boolean
 } & Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'name' | 'className' | 'required'>
 
 const GenericTextInput: React.FC<GenericTextInputProps> = ({

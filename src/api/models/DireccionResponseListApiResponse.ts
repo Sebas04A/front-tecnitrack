@@ -8,5 +8,6 @@ export type DireccionResponseListApiResponse = {
     data?: Array<DireccionResponse> | null;
     message?: string | null;
     timestamp?: string;
+    errors?: Array<string> | null;
 };
 

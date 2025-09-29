@@ -39,7 +39,10 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
     // ... resto de props
 }) => {
     const handleCancel = () => onClose()
-    const handleConfirm = () => onConfirm()
+    const handleConfirm = () => {
+        onConfirm()
+        onClose()
+    }
 
     const config = variantConfig[type]
     return (

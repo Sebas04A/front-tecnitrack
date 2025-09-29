@@ -1,11 +1,5 @@
-import React, { useMemo, useState } from 'react'
-import TituloPagina from '../../components/common/TituloPagina'
-import { ColumnDef, CrudContainer } from '../../components/crudGrid'
-import ProfileHeader from '../../components/PerfilForm/ProfileHeader'
-import { PerfilEmpresaData, PerfilPersonaNaturalData } from '../../validation/perfil.schema'
-import { makeLocalCrudFetcher } from '../../components/crudGrid/helper/crud-helpers'
-import { useForm } from 'react-hook-form'
-import ContainerForm from '../../components/PerfilForm/containerForm'
+import { useState } from 'react'
+
 import { TIPO_PERSONA, TIPO_PERSONA_TYPE } from '../../constants/perfil'
 import GenericSelect from '../../components/form/Controls/GenericSelect'
 import CrudEmpresa from '../../components/internos/crudClientes/CrudEmpresa'

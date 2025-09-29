@@ -20,11 +20,12 @@ export class CitasService {
             url: '/api/Citas/obtener-citas',
             errors: {
                 400: `Bad Request`,
+                500: `Internal Server Error`,
             },
         });
     }
     /**
-     * @returns CitaResponseApiResponse OK
+     * @returns CitaResponseApiResponse Created
      * @throws ApiError
      */
     public static postApiCitasCrearCita({
@@ -40,6 +41,7 @@ export class CitasService {
             errors: {
                 400: `Bad Request`,
                 401: `Unauthorized`,
+                500: `Internal Server Error`,
             },
         });
     }
@@ -61,6 +63,7 @@ export class CitasService {
             errors: {
                 400: `Bad Request`,
                 401: `Unauthorized`,
+                500: `Internal Server Error`,
             },
         });
     }
@@ -75,6 +78,7 @@ export class CitasService {
             errors: {
                 400: `Bad Request`,
                 401: `Unauthorized`,
+                500: `Internal Server Error`,
             },
         });
     }

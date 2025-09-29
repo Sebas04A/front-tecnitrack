@@ -8,5 +8,6 @@ export type ProvinciaDtoIEnumerableApiResponse = {
     data?: Array<ProvinciaDto> | null;
     message?: string | null;
     timestamp?: string;
+    errors?: Array<string> | null;
 };
 

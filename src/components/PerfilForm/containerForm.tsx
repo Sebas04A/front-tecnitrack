@@ -41,6 +41,7 @@ export default function ContainerForm({
                 tipoPersona={tipoPersona}
                 datosYaGuardados={datosYaGuardados}
                 setDatosYaGuardados={setDatosYaGuardados}
+                esCrud={false}
             />
         </div>
     )

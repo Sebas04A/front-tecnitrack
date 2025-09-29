@@ -1,5 +1,4 @@
 import React from 'react'
-import GenericSelect from '../../components/form/Controls/GenericSelect'
 import { PaisesCrud } from '../../components/crudGrid/cruds/Localidades/Paises/PaisCrud'
 import ProvinciasCrud from '../../components/crudGrid/cruds/Localidades/Provincias/ProvinicasCrud'
 import CiudadCrud from '../../components/crudGrid/cruds/Localidades/Ciudades/CiudadCrud'

@@ -1,15 +1,14 @@
-import { FaBoxesStacked, FaGear, FaTruckField, FaUserGear } from 'react-icons/fa6'
+import { FaBoxesStacked, FaGear, FaLocationDot, FaTruckField, FaUserGear } from 'react-icons/fa6'
 import { NavItem, navItemsType } from '../types/nav'
 import {
-    FaBars,
-    FaCogs,
+    FaAddressCard,
     FaFileInvoice,
     FaFileInvoiceDollar,
+    FaRegCalendarAlt,
     FaTachometerAlt,
     FaTools,
-    FaTruck,
-    FaUser,
     FaUserCircle,
+    FaUserTie,
 } from 'react-icons/fa'
 export const navItemsMain: navItemsType = [
     {
@@ -36,13 +35,13 @@ export const navItemsInterno: navItemsType = [
         type: 'link',
         name: 'Clientes',
         href: '/interno/clientes',
-        icon: <FaUser className='inline' />,
+        icon: <FaUserTie className='inline' />,
     },
     {
         type: 'link',
         name: 'Citas',
         href: '/interno/citas',
-        icon: <FaTools className='inline' />,
+        icon: <FaRegCalendarAlt className='inline' />,
     },
     {
         type: 'link',
@@ -95,7 +94,7 @@ export const navItemsInterno: navItemsType = [
                         type: 'link',
                         name: 'Localidades',
                         href: '/interno/configuracion/catalogos/localidades',
-                        icon: <FaFileInvoice />,
+                        icon: <FaLocationDot />,
                     },
                 ],
             },
@@ -103,7 +102,7 @@ export const navItemsInterno: navItemsType = [
                 type: 'link',
                 name: 'Usuarios',
                 href: '/interno/usuarios',
-                icon: <FaFileInvoice />,
+                icon: <FaAddressCard />,
             },
         ],
     },

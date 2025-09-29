@@ -2,11 +2,9 @@
 import { useEffect, useState } from 'react'
 
 import { useAuth } from '../hooks/useAuth'
-import { FaUser, FaMapMarkerAlt, FaEnvelope } from 'react-icons/fa'
 import ProfileHeader from '../components/PerfilForm/ProfileHeader'
 import ContainerForm from '../components/PerfilForm/containerForm'
 import { getTipoPerfil } from '../services/perfilApi'
-import TituloPagina from '../components/common/TituloPagina'
 import { TIPO_PERSONA, TIPO_PERSONA_TYPE } from '../constants/perfil'
 
 // Definimos los tipos para las claves de las pestañas para mayor seguridad

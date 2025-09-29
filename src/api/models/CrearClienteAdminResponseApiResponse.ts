@@ -8,5 +8,6 @@ export type CrearClienteAdminResponseApiResponse = {
     data?: CrearClienteAdminResponse;
     message?: string | null;
     timestamp?: string;
+    errors?: Array<string> | null;
 };
 

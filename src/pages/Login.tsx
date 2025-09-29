@@ -68,7 +68,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
     }
 
     return (
-        <>
+        <div className='max-w-md mx-auto'>
             <GenericForm title='Iniciar Sesión' error={error}>
                 <GenericTextInput
                     type='text'
@@ -110,7 +110,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                     ¿No tienes una cuenta? <GenericLink to='/register' text='Regístrate aquí' />
                 </p>
             </div>
-        </>
+        </div>
     )
 }
 

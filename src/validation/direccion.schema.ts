@@ -1,15 +1,15 @@
 import * as yup from 'yup'
 export const direccionSchema = yup.object({
     pais: yup
-        .string()
+        .number()
         // .oneOf(['Ecuador', 'Colombia', 'Perú', ''], 'País inválido')
         .required('El país es obligatorio'),
     provincia: yup
-        .string()
+        .number()
         // .oneOf(['Pichincha', 'Guayas', 'Azuay', ''], 'Provincia inválida')
         .required('La provincia es obligatoria'),
     ciudad: yup
-        .string()
+        .number()
         // .oneOf(['Quito', 'Guayaquil', 'Cuenca', ''], 'Ciudad inválida')
         .required('La ciudad es obligatoria'),
     codigoPostal: yup
@@ -29,4 +29,7 @@ export const direccionSchema = yup.object({
 })
 export type DireccionData = yup.InferType<typeof direccionSchema> & {
     id?: number
+    ciudadNombre?: string
+    provinciaNombre?: string
+    paisNombre?: string
 }

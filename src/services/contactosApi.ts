@@ -1,11 +1,15 @@
 import {
     adapterContactoCliente,
     adapterContactoEmpresa,
-    parseAdapterContactoCliente,
     parseAdapterContactosCliente,
     parseAdapterContactosEmpresa,
 } from '../adapters/contactos'
-import { AdministradorService, ContactosDirectosService, ContactosEmpresaService } from '../api'
+import {
+    AdministradorService,
+    ContactosDirectosService,
+    ContactosEmpresaService,
+    GestionClientesService,
+} from '../api'
 import { ContactoEmpresaData, ContactoClienteData } from '../validation/contacto.schema'
 
 export const getContactosEmpresaById = async (
@@ -14,6 +18,9 @@ export const getContactosEmpresaById = async (
     const res = await AdministradorService.getApiAdministradorObtenerContactosEmpresaCliente({
         clienteId,
     })
+    // const res = await GestionClientesService.getApiGestionClientesListarContactosEmpresa({
+    //     clienteId,
+    // })
     console.log('Datos obtenidos de contacto empresa por ID:', res)
     if (!res || !res.data || res.data.length === 0) {
         throw new Error('No se pudo obtener el contacto de la empresa')
@@ -39,6 +46,15 @@ export async function crearContactoEmpresa(contacto: ContactoEmpresaData) {
     console.log('Respuesta al crear contacto empresa:', response)
     return response
 }
+export async function crearContactoEmpresaById(clienteId: number, contacto: ContactoEmpresaData) {
+    const res = await GestionClientesService.postApiGestionClientesAgregarContactoEmpresa({
+        clienteId,
+        requestBody: adapterContactoEmpresa(contacto),
+    })
+    console.log('Respuesta al crear contacto empresa por ID:', res)
+    return res
+}
+
 export async function updateContactoEmpresa(contacto: ContactoEmpresaData) {
     const requestBody = adapterContactoEmpresa(contacto)
     const response = await ContactosEmpresaService.putApiContactosEmpresaActualizarContactoEmpresa({
@@ -47,14 +63,27 @@ export async function updateContactoEmpresa(contacto: ContactoEmpresaData) {
     })
     return response
 }
+export async function updateContactoEmpresaByCliente(contacto: ContactoEmpresaData) {
+    const requestBody = adapterContactoEmpresa(contacto)
+    const response = await GestionClientesService.putApiGestionClientesActualizarContactoEmpresa({
+        contactoId: contacto.id!,
+        requestBody,
+    })
+    return response
+}
+
 export async function deleteContactoEmpresa(contactoId: number) {
     return ContactosEmpresaService.deleteApiContactosEmpresaEliminarContactoEmpresa({
         contactoId,
     })
 }
-export const getContactosClienteById = async (
+export const getContactosNaturalById = async (
     clienteId: number
 ): Promise<ContactoClienteData[]> => {
+    // const res = await GestionClientesService.getApiGestionClientesListarContactosDirectos({
+    //     clienteId,
+    // })
+    //
     const res = await AdministradorService.getApiAdministradorObtenerContactosDirectosCliente({
         clienteId,
     })
@@ -80,6 +109,14 @@ export async function crearContactoCliente(contacto: ContactoClienteData) {
         requestBody,
     })
     return response
+}
+export function crearContactoClienteById(clienteId: number, contacto: ContactoClienteData) {
+    const res = GestionClientesService.postApiGestionClientesAgregarContactoDirecto({
+        clienteId,
+        requestBody: adapterContactoCliente(contacto),
+    })
+    console.log('Respuesta al crear contacto cliente por ID:', res)
+    return res
 }
 export async function updateContactoCliente(contacto: ContactoClienteData) {
     const requestBody = adapterContactoCliente(contacto)

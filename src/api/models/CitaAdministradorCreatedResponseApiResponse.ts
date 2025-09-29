@@ -8,5 +8,6 @@ export type CitaAdministradorCreatedResponseApiResponse = {
     data?: CitaAdministradorCreatedResponse;
     message?: string | null;
     timestamp?: string;
+    errors?: Array<string> | null;
 };
 

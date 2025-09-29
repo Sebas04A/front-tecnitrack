@@ -3,10 +3,13 @@ import {
     AutenticacionLoginRequest,
     AutenticacionLoginResponse,
     AutenticacionService,
+    RegistroClienteEmpresaRequest,
+    RegistroClienteNaturalRequest,
     RestablecerPasswordRequest,
 } from '../api'
 // import http from '../api/http'
 import { getDataApiResponse } from '../utils/getDataApiResponse'
+import { RegisterFormData } from '../validation/register.schema'
 
 export const forgotPasswordRequest = async (email: string) => {
     const requestBody = { email }
@@ -88,4 +91,41 @@ export const singupRequest = async (email: string, password: string) => {
     //     // console.error('Error en el registro:', error)
     //     throw error
     // }
+}
+
+export const registrarNatural = async (data: RegisterFormData) => {
+    const requestBody: RegistroClienteNaturalRequest = {
+        email: data.email,
+        password: data.password,
+        tipoDocumento: data.tipoIdentificacion!,
+        numeroIdentificacion: data.numeroIdentificacion!,
+
+        nombres: 'Null',
+        apellidos: 'Null',
+        
+        fechaNacimiento: '2004-10-10',
+        genero: 'Masculino',
+    }
+    const res = await AutenticacionService.postApiAutenticacionRegistroClienteNatural({
+        requestBody,
+    })
+    console.log('Respuesta de la API al registrar cliente natural:', res)
+    return res
+}
+export const registrarEmpresa = async (data: RegisterFormData) => {
+    const requestBody: RegistroClienteEmpresaRequest = {
+        email: data.email,
+        password: data.password,
+        numeroIdentificacion: data.numeroIdentificacion!,
+
+        razonSocial: 'Null',
+        nombreComercial: 'Null',
+        nombreRepresentanteLegal: 'Null',
+        telefonoEmpresa: 'Null',
+    }
+    const res = await AutenticacionService.postApiAutenticacionRegistroClienteEmpresa({
+        requestBody,
+    })
+    console.log('Respuesta de la API al registrar cliente empresa:', res)
+    return res
 }

@@ -14,5 +14,6 @@ export interface FormProfileProps {
     onLoadStart?: () => void
     onLoadEnd?: () => void
     data?: PerfilEmpresaData | PerfilPersonaNaturalData | null
+    clienteId?: number
     esNuevo?: boolean
 }

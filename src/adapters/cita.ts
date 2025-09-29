@@ -4,8 +4,8 @@ import {
     CitaResponse,
     CrearCitaAdministradorRequest,
 } from '../api'
-import { CitaAdminType, citaDataCompleta } from '../types/cita'
-import { CitaCrudData, CitaData } from '../validation/cita.schema'
+import { CitaDataCrud, citaDataCompleta } from '../types/cita'
+import { CitaDataForm, CitaData } from '../validation/cita.schema'
 
 export function parseCita(cita: CitaResponse): citaDataCompleta {
     // const tipoMantenimiento = cita.tipoMantenimiento || cita.otro
@@ -28,7 +28,7 @@ export function adapterCita(cita: citaDataCompleta): CitaRequest {
     }
 }
 
-export function adapterCitaAdmin(cita: CitaCrudData): CrearCitaAdministradorRequest {
+export function adapterCitaAdmin(cita: CitaDataForm): CrearCitaAdministradorRequest {
     const tipoMantenimiento = cita.tipoMantenimiento || cita.otro || 'Otro'
     return {
         clienteId: cita.usuario,
@@ -37,7 +37,7 @@ export function adapterCitaAdmin(cita: CitaCrudData): CrearCitaAdministradorRequ
         observaciones: cita.descripcion,
     }
 }
-function parseCitaAdmin(cita: CitaAdministradorResponse): CitaAdminType {
+function parseCitaAdmin(cita: CitaAdministradorResponse): CitaDataCrud {
     const hora = cita.hora ?? '00:00'
     const [hour, minute] = hora.split(':').map(Number)
     const dt = new Date(cita.fecha ?? -1)
@@ -64,6 +64,6 @@ function parseCitaAdmin(cita: CitaAdministradorResponse): CitaAdminType {
         fechaActualizacion: cita.fechaActualizacion ?? new Date(-1).toISOString(),
     }
 }
-export function parseCitasAdmin(citas: CitaAdministradorResponse[]): CitaAdminType[] {
+export function parseCitasAdmin(citas: CitaAdministradorResponse[]): CitaDataCrud[] {
     return citas.map(cita => parseCitaAdmin(cita))
 }

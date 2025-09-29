@@ -30,7 +30,7 @@ export const CitasCalendar: React.FC = () => {
         () => (citaSel?.dateISO ? new Date(citaSel.dateISO) : null),
         [citaSel]
     )
-    const defaultSelectedSlot = citaSel?.slot ?? null
+    // const defaultSelectedSlot = citaSel?.slot ?? null
 
     // Limpiar state de navegación al montar
     React.useEffect(() => {

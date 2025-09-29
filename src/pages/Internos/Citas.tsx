@@ -1,9 +1,4 @@
-import React from 'react'
-import GenericDate from '../../components/form/Controls/GenericDate'
-import GenericSelect from '../../components/form/Controls/GenericSelect'
-import { CrudContainer } from '../../components/crudGrid'
 import CrudCitas from '../../components/crudGrid/cruds/Citas/CrudCitas'
-import GenericButton from '../../components/form/Controls/GenericButton'
 
 export default function Citas() {
     console.warn('Renderizando')

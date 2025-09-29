@@ -8,5 +8,6 @@ export type CrearEmpleadoResponseApiResponse = {
     data?: CrearEmpleadoResponse;
     message?: string | null;
     timestamp?: string;
+    errors?: Array<string> | null;
 };
 

@@ -31,3 +31,4 @@ export async function updatePais(id: number, values: PaisFormData): Promise<Pais
 export async function deletePais(id: number): Promise<ObjectApiResponse> {
     return await LocalidadesService.deleteApiLocalidadesEliminarPais({ id })
 }
+

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { AutenticacionService } from '../api'
-import { FaCheck, FaExclamation, FaMailBulk, FaMailchimp } from 'react-icons/fa'
+import { FaCheck, FaExclamation, FaMailBulk } from 'react-icons/fa'
 
 // --- Componente Principal de la Página ---
 export default function ConfirmEmail() {

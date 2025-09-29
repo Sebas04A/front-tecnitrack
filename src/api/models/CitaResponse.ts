@@ -4,6 +4,7 @@
 /* eslint-disable */
 export type CitaResponse = {
     id?: number;
+    numeroCita?: string | null;
     usuarioId?: number;
     nombreUsuario?: string | null;
     fechaHora?: string;

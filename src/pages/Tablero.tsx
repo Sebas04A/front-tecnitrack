@@ -1,7 +1,6 @@
 import CardTablero from '../components/dashboard/CardTablero'
 import StatCard from '../components/dashboard/StatCard'
 import { FaTools, FaMoneyBillWave, FaCalendarAlt, FaInfoCircle } from 'react-icons/fa'
-import { useModalActions } from '../hooks/useModalActions'
 
 // --- Datos de ejemplo (puedes reemplazarlos con datos de tu API) ---
 const stats = {
@@ -29,7 +28,6 @@ const actividadReciente = [
 // --- Fin de los datos de ejemplo ---
 
 export default function TableroPage() {
-    const modal = useModalActions()
     return (
         <div className='flex flex-col gap-8'>
             {/* SECCIÓN DE CABECERA */}

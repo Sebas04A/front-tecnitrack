@@ -4,6 +4,7 @@
 /* eslint-disable */
 export type CitaAdministradorResponse = {
     id?: number;
+    numeroCita?: string | null;
     usuarioId?: number;
     clienteId?: number;
     tipoIdentificacion?: string | null;
