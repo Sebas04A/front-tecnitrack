@@ -2,16 +2,17 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type ClientesEmpresaRequest = {
+export type CrearClienteEmpresaDto = {
     razonSocial: string;
     numeroIdentificacion: string;
     nombreComercial?: string | null;
+    representanteLegal?: string | null;
     nombreSucursal?: string | null;
     numeroSucursal?: string | null;
-    nombreRepresentanteLegal?: string | null;
     telefonoEmpresa?: string | null;
     correoEmpresa: string;
     telefonoEmpresaSecundario?: string | null;
     correoEmpresaSecundario?: string | null;
+    readonly esValido?: boolean;
 };
 

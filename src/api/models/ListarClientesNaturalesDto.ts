@@ -6,7 +6,7 @@ export type ListarClientesNaturalesDto = {
     id?: number;
     nombreCompleto?: string | null;
     tipoDocumento?: string | null;
-    cedula?: string | null;
+    numeroIdentificacion?: string | null;
     email?: string | null;
     edad?: number;
     genero?: string | null;

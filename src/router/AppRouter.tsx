@@ -8,7 +8,7 @@ import NotFoundPage from '../pages/NofoundPage'
 import ColorPalette from '../components/ex/ColorPallete'
 import DashboardPage from '../pages/Dashboard'
 import TableroPage from '../pages/Tablero'
-import Register from '../pages/Register'
+
 import { CitasCalendar } from '../pages/CitasCalendar'
 import ConfirmEmail from '../pages/ConfirmarEmail'
 import UserProfileTabs from '../pages/Perfil'
@@ -25,6 +25,7 @@ import CatalogoLocalidades from '../pages/Internos/CatalogoLocalidades'
 import HomeInternos from '../pages/Internos/HomeInternos'
 import OrdenesAsignadas from '../pages/Internos/OrdenesAsignadas'
 import ProcesarMantenimiento from '../components/tecnico/ProcesarMantenimiento'
+import RegisterNuevo from '../pages/RegisterNuevo'
 
 const AppRouter: React.FC = () => {
     console.warn('AppRouter render')
@@ -33,7 +34,8 @@ const AppRouter: React.FC = () => {
             {/* Rutas públicas */}
             <Route path='/' element={<AuthLayout />}>
                 <Route path='login' element={<Login onLogin={() => {}} />} />
-                <Route path='register' element={<Register />} />
+                <Route path='register' element={<RegisterNuevo />} />
+                {/* <Route path='register-nuevo' element={<RegisterNuevo />} /> */}
                 <Route path='colors' element={<ColorPalette />} />
                 <Route path='calendario' element={<CitasCalendar />} />
                 <Route path='confirmar-email' element={<ConfirmEmail />} />

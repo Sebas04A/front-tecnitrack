@@ -2,19 +2,26 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { ActualizarClienteEmpresaDto } from '../models/ActualizarClienteEmpresaDto';
 import type { ActualizarClienteNaturalDto } from '../models/ActualizarClienteNaturalDto';
 import type { ActualizarContactoDirectoDto } from '../models/ActualizarContactoDirectoDto';
 import type { ActualizarContactoEmpresaDto } from '../models/ActualizarContactoEmpresaDto';
 import type { ActualizarDireccionDto } from '../models/ActualizarDireccionDto';
+import type { BusquedaClientesEmpresaResponseDtoApiResponse } from '../models/BusquedaClientesEmpresaResponseDtoApiResponse';
+import type { BusquedaClientesNaturalesResponseDtoApiResponse } from '../models/BusquedaClientesNaturalesResponseDtoApiResponse';
+import type { ClienteEmpresaDtoApiResponse } from '../models/ClienteEmpresaDtoApiResponse';
 import type { ClienteNaturalDtoApiResponse } from '../models/ClienteNaturalDtoApiResponse';
 import type { ContactoDirectoDtoApiResponse } from '../models/ContactoDirectoDtoApiResponse';
 import type { ContactoEmpresaDtoApiResponse } from '../models/ContactoEmpresaDtoApiResponse';
+import type { CrearClienteEmpresaDto } from '../models/CrearClienteEmpresaDto';
+import type { CrearClienteEmpresaResponseDtoApiResponse } from '../models/CrearClienteEmpresaResponseDtoApiResponse';
 import type { CrearClienteNaturalDto } from '../models/CrearClienteNaturalDto';
 import type { CrearClienteNaturalResponseDtoApiResponse } from '../models/CrearClienteNaturalResponseDtoApiResponse';
 import type { CrearContactoDirectoDto } from '../models/CrearContactoDirectoDto';
 import type { CrearContactoEmpresaDto } from '../models/CrearContactoEmpresaDto';
 import type { CrearDireccionDto } from '../models/CrearDireccionDto';
 import type { DireccionDtoApiResponse } from '../models/DireccionDtoApiResponse';
+import type { ListarClientesEmpresaDtoListApiResponse } from '../models/ListarClientesEmpresaDtoListApiResponse';
 import type { ListarClientesNaturalesDtoListApiResponse } from '../models/ListarClientesNaturalesDtoListApiResponse';
 import type { ListarContactosDirectosDtoApiResponse } from '../models/ListarContactosDirectosDtoApiResponse';
 import type { ListarContactosEmpresaDtoApiResponse } from '../models/ListarContactosEmpresaDtoApiResponse';
@@ -385,6 +392,43 @@ export class GestionClientesService {
         });
     }
     /**
+     * @returns BusquedaClientesNaturalesResponseDtoApiResponse OK
+     * @throws ApiError
+     */
+    public static getApiGestionClientesBuscarClientesNaturales({
+        termino,
+        pagina = 1,
+        tamanoPagina = 10,
+        ordenarPor = 'fechaCreacion',
+        direccion = 'desc',
+        soloActivos = true,
+    }: {
+        termino?: string,
+        pagina?: number,
+        tamanoPagina?: number,
+        ordenarPor?: string,
+        direccion?: string,
+        soloActivos?: boolean,
+    }): CancelablePromise<BusquedaClientesNaturalesResponseDtoApiResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/gestion-clientes/buscar-clientes-naturales',
+            query: {
+                'termino': termino,
+                'pagina': pagina,
+                'tamanoPagina': tamanoPagina,
+                'ordenarPor': ordenarPor,
+                'direccion': direccion,
+                'soloActivos': soloActivos,
+            },
+            errors: {
+                400: `Bad Request`,
+                401: `Unauthorized`,
+                403: `Forbidden`,
+            },
+        });
+    }
+    /**
      * @returns CrearClienteNaturalResponseDtoApiResponse Created
      * @throws ApiError
      */
@@ -481,6 +525,150 @@ export class GestionClientesService {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/gestion-clientes/cliente-natural/{clienteId}',
+            path: {
+                'clienteId': clienteId,
+            },
+            errors: {
+                401: `Unauthorized`,
+                403: `Forbidden`,
+                404: `Not Found`,
+            },
+        });
+    }
+    /**
+     * @returns BusquedaClientesEmpresaResponseDtoApiResponse OK
+     * @throws ApiError
+     */
+    public static getApiGestionClientesBuscarClientesEmpresa({
+        termino,
+        pagina = 1,
+        tamanoPagina = 10,
+        ordenarPor = 'fechaCreacion',
+        direccion = 'desc',
+        soloActivos = true,
+    }: {
+        termino?: string,
+        pagina?: number,
+        tamanoPagina?: number,
+        ordenarPor?: string,
+        direccion?: string,
+        soloActivos?: boolean,
+    }): CancelablePromise<BusquedaClientesEmpresaResponseDtoApiResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/gestion-clientes/buscar-clientes-empresa',
+            query: {
+                'termino': termino,
+                'pagina': pagina,
+                'tamanoPagina': tamanoPagina,
+                'ordenarPor': ordenarPor,
+                'direccion': direccion,
+                'soloActivos': soloActivos,
+            },
+            errors: {
+                400: `Bad Request`,
+                401: `Unauthorized`,
+                403: `Forbidden`,
+            },
+        });
+    }
+    /**
+     * @returns CrearClienteEmpresaResponseDtoApiResponse Created
+     * @throws ApiError
+     */
+    public static postApiGestionClientesCrearClienteEmpresa({
+        requestBody,
+    }: {
+        requestBody?: CrearClienteEmpresaDto,
+    }): CancelablePromise<CrearClienteEmpresaResponseDtoApiResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/gestion-clientes/crear-cliente-empresa',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad Request`,
+                401: `Unauthorized`,
+                403: `Forbidden`,
+            },
+        });
+    }
+    /**
+     * @returns ListarClientesEmpresaDtoListApiResponse OK
+     * @throws ApiError
+     */
+    public static getApiGestionClientesListarClientesEmpresa(): CancelablePromise<ListarClientesEmpresaDtoListApiResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/gestion-clientes/listar-clientes-empresa',
+            errors: {
+                401: `Unauthorized`,
+                403: `Forbidden`,
+            },
+        });
+    }
+    /**
+     * @returns ClienteEmpresaDtoApiResponse OK
+     * @throws ApiError
+     */
+    public static putApiGestionClientesActualizarClienteEmpresa({
+        clienteId,
+        requestBody,
+    }: {
+        clienteId: number,
+        requestBody?: ActualizarClienteEmpresaDto,
+    }): CancelablePromise<ClienteEmpresaDtoApiResponse> {
+        return __request(OpenAPI, {
+            method: 'PUT',
+            url: '/api/gestion-clientes/actualizar-cliente-empresa/{clienteId}',
+            path: {
+                'clienteId': clienteId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad Request`,
+                401: `Unauthorized`,
+                403: `Forbidden`,
+                404: `Not Found`,
+            },
+        });
+    }
+    /**
+     * @returns ObjectApiResponse OK
+     * @throws ApiError
+     */
+    public static deleteApiGestionClientesEliminarClienteEmpresa({
+        clienteId,
+    }: {
+        clienteId: number,
+    }): CancelablePromise<ObjectApiResponse> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/api/gestion-clientes/eliminar-cliente-empresa/{clienteId}',
+            path: {
+                'clienteId': clienteId,
+            },
+            errors: {
+                400: `Bad Request`,
+                401: `Unauthorized`,
+                403: `Forbidden`,
+                404: `Not Found`,
+            },
+        });
+    }
+    /**
+     * @returns ClienteEmpresaDtoApiResponse OK
+     * @throws ApiError
+     */
+    public static getApiGestionClientesClienteEmpresa({
+        clienteId,
+    }: {
+        clienteId: number,
+    }): CancelablePromise<ClienteEmpresaDtoApiResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/gestion-clientes/cliente-empresa/{clienteId}',
             path: {
                 'clienteId': clienteId,
             },

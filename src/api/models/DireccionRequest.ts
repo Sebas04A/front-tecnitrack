@@ -8,7 +8,7 @@ export type DireccionRequest = {
     provinciaId: number;
     ciudadId: number;
     codigoPostal?: string | null;
-    tipo: string;
+    tipoDireccion: string;
     principal?: boolean;
 };
 

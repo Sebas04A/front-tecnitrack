@@ -8,7 +8,7 @@ export type RegistroClienteEmpresaRequest = {
     razonSocial: string;
     numeroIdentificacion: string;
     nombreComercial?: string | null;
-    nombreRepresentanteLegal: string;
-    telefonoEmpresa: string;
+    nombreRepresentanteLegal?: string | null;
+    telefonoEmpresa?: string | null;
 };
 

@@ -65,9 +65,9 @@ export const PaisesCrud: React.FC<PaisesCrudProps> = ({ titulo, paisId }) => {
         return apiToData(updated)
     }
 
-    async function onDelete(row: PaisData) {
-        if (!row.id) throw new Error('ID de país no definido')
-        await deletePais(row.id)
+    async function onDelete(id: string) {
+        if (!id) throw new Error('ID de país no definido')
+        await deletePais(Number(id))
         return true
     }
 

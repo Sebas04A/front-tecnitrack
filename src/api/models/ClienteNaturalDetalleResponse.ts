@@ -9,7 +9,7 @@ export type ClienteNaturalDetalleResponse = {
     numeroIdentificacion?: string | null;
     nombres?: string | null;
     apellidos?: string | null;
-    fechaNacimiento?: string;
+    fechaNacimiento?: string | null;
     genero?: string | null;
     readonly nombreCompleto?: string | null;
     fechaCreacion?: string;

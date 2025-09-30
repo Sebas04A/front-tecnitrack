@@ -7,7 +7,7 @@ export type ClientesNaturalRequest = {
     numeroIdentificacion: string;
     nombres: string;
     apellidos: string;
-    fechaNacimiento: string;
-    genero: string;
+    fechaNacimiento?: string | null;
+    genero?: string | null;
 };
 

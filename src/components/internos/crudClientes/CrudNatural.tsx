@@ -77,7 +77,7 @@ export default function CrudNatural() {
     function mostrarModal(row: ClienteNaturalCrud) {
         console.warn('Mostrando modal para:', row)
         modalAction.showEmptyModal({
-            title: 'Ver Cliente Natural',
+            title: 'Cliente Natural',
             children: (
                 <FormsUnidos
                     tipoPersona={TIPO_PERSONA.NATURAL}

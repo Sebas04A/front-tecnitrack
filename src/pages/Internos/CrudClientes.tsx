@@ -15,8 +15,8 @@ export default function CrudClientes() {
                     <GenericSelect
                         name='tipoPersona'
                         options={[
-                            { label: 'Cliente Natural', value: TIPO_PERSONA.NATURAL },
-                            { label: 'Cliente Empresa', value: TIPO_PERSONA.EMPRESA },
+                            { label: 'Persona Natural', value: TIPO_PERSONA.NATURAL },
+                            { label: 'Persona Jurídica', value: TIPO_PERSONA.EMPRESA },
                         ]}
                         value={tipoPersona}
                         onChange={e => setTipoPersona(e.target.value as TIPO_PERSONA_TYPE)}

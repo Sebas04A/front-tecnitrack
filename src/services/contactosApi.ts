@@ -77,6 +77,12 @@ export async function deleteContactoEmpresa(contactoId: number) {
         contactoId,
     })
 }
+export async function deleteContactoEmpresaAdmin(contactoId: number) {
+    return GestionClientesService.deleteApiGestionClientesEliminarContactoEmpresa({
+        contactoId,
+    })
+}
+
 export const getContactosNaturalById = async (
     clienteId: number
 ): Promise<ContactoClienteData[]> => {
@@ -127,8 +133,21 @@ export async function updateContactoCliente(contacto: ContactoClienteData) {
     })
     return response
 }
+export async function updateContactoClienteByCliente(contacto: ContactoClienteData) {
+    const requestBody = adapterContactoCliente(contacto)
+    const response = GestionClientesService.putApiGestionClientesActualizarContactoDirecto({
+        contactoId: contacto.id!,
+        requestBody,
+    })
+    return response
+}
 export async function deleteContactoCliente(contactoId: number) {
     return ContactosDirectosService.deleteApiContactosDirectosEliminarContacto({
+        contactoId,
+    })
+}
+export async function deleteContactoClienteAdmin(contactoId: number) {
+    return GestionClientesService.deleteApiGestionClientesEliminarContactoDirecto({
         contactoId,
     })
 }

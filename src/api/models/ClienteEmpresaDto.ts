@@ -2,16 +2,22 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type ClientesEmpresaRequest = {
-    razonSocial: string;
-    numeroIdentificacion: string;
+export type ClienteEmpresaDto = {
+    id?: number;
+    usuarioId?: number;
+    numeroIdentificacion?: string | null;
+    activo?: boolean;
+    razonSocial?: string | null;
     nombreComercial?: string | null;
     nombreSucursal?: string | null;
     numeroSucursal?: string | null;
     nombreRepresentanteLegal?: string | null;
     telefonoEmpresa?: string | null;
-    correoEmpresa: string;
+    correoEmpresa?: string | null;
     telefonoEmpresaSecundario?: string | null;
     correoEmpresaSecundario?: string | null;
+    usuarioActivo?: boolean;
+    fechaCreacion?: string;
+    fechaActualizacion?: string | null;
 };
 

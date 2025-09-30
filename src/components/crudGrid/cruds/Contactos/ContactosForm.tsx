@@ -36,7 +36,7 @@ export default function ContactosForm({ tipoPersona, register, errors, readOnly 
                     />
                 </GenericRowForm>
             )}
-            {tipoPersona === 'Juridica' && (
+            {tipoPersona === 'Empresa' && (
                 <>
                     <GenericTextInput
                         label='Nombre'

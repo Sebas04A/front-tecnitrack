@@ -68,7 +68,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
     }
 
     return (
-        <div className='max-w-md mx-auto'>
+        <div className='max-w-sm mx-auto'>
             <GenericForm title='Iniciar Sesión' error={error}>
                 <GenericTextInput
                     type='text'

@@ -1,5 +1,6 @@
 import {
     ClienteEmpresaListaResponse,
+    ClienteNaturalDto,
     ClienteNaturalListaResponse,
     ClientesEmpresaRequest,
     ClientesEmpresaResponse,
@@ -7,7 +8,11 @@ import {
     ClientesNaturalResponse,
 } from '../api'
 import { ClienteEmpresaCrud, ClienteNaturalCrud } from '../types/usuario'
-import { PerfilEmpresaData, PerfilPersonaNaturalData } from '../validation/perfil.schema'
+import {
+    PerfilEmpresaData,
+    PerfilPersonaNaturalCrudData,
+    PerfilPersonaNaturalData,
+} from '../validation/perfil.schema'
 // const tipoDocumentoMap: Record<string, any> = {
 //     Cédula: 'Cedula',
 //     Pasaporte: 'Pasaporte',
@@ -81,10 +86,25 @@ export const parseAdapterPerfilNatural = (
         apellidoCompleto: api.apellidos ?? '',
         tipoDocumento: api.tipoDocumento ?? '',
         numeroDocumento: api.numeroIdentificacion ?? '',
-        fechaNacimiento: parseFecha(api.fechaNacimiento),
+        fechaNacimiento: parseFecha(api.fechaNacimiento || ''),
         genero: genero,
     }
 }
+export const parseAdapterPerfilNaturalCrud = (
+    api: ClienteNaturalDto
+): PerfilPersonaNaturalCrudData => {
+    return {
+        clienteId: api.id || -1,
+        nombreCompleto: api.nombre ?? '',
+        apellidoCompleto: api.apellido ?? '',
+        tipoDocumento: api.tipoDocumento ?? '',
+        numeroDocumento: api.numeroIdentificacion ?? '',
+        fechaNacimiento: parseFecha(api.fechaNacimiento || ''),
+        genero: api.genero ?? '',
+        email: api.email ?? '',
+    }
+}
+
 export const adapterPerfilJuridico = (data: PerfilEmpresaData) => {
     const requestBody: ClientesEmpresaRequest = {
         razonSocial: data.razonSocial,
@@ -130,8 +150,8 @@ export const parseAdapterPerfilJuridico = (api: ClientesEmpresaResponse): Perfil
         nombreSucursal: api.nombreSucursal ?? '',
         telefonoEmpresa: api.telefonoEmpresa ?? '',
         emailEmpresa: api.correoEmpresa ?? '',
-        // telefonoSecundario: api.telefonoSecundario,
-        // emailSecundario: api.emailSecundario,
+        telefonoSecundario: api.telefonoEmpresaSecundario,
+        emailSecundario: api.correoEmpresaSecundario,
         nombreRepresentanteLegal: api.nombreRepresentanteLegal ?? '',
     }
 }

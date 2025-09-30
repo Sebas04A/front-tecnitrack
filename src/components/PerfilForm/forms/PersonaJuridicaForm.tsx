@@ -2,12 +2,22 @@ import GenericSection from '../../form/GenericSection'
 import GenericRowForm from '../../form/GenericRowForm'
 import GenericTextInput from '../../form/Controls/GenericTextInput'
 import { Resolver, useForm, useWatch } from 'react-hook-form'
-import { PerfilEmpresaData, personaJuridicaSchema } from '../../../validation/perfil.schema'
+import {
+    PerfilEmpresaCrudData,
+    PerfilEmpresaData,
+    personaJuridicaCrudSchema,
+    personaJuridicaSchema,
+} from '../../../validation/perfil.schema'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { FormProfileProps } from '../../../types/formsProfile'
 import GenericForm from '../../form/GenericForm'
 import { useEffect } from 'react'
-import { crearPerfilJuridico, updatePerfilJuridico } from '../../../services/perfilApi'
+import {
+    crearPerfilJuridico,
+    crearPerfilJuridicoAdmin,
+    updatePerfilJuridico,
+    updatePerfilJuridicoAdmin,
+} from '../../../services/perfilApi'
 import { useAuth } from '../../../hooks/useAuth'
 import FormsButtons from '../../form/formsButtons'
 import { useModalActions } from '../../../hooks/useModalActions'
@@ -22,22 +32,28 @@ export default function PersonaJuridicaForm({
     // onLoadStart,
     // onLoadEnd,
     data,
-    esNuevo,
+    clienteId,
 }: FormProfileProps & { data?: PerfilEmpresaData | null }) {
+    const esCrud = clienteId !== undefined
     const { user } = useAuth()
     console.log('Usuario en PersonaJuridicaForm:', user)
     console.log(user?.usuario)
+
+    type Persona = PerfilEmpresaData | PerfilEmpresaCrudData
+    const resolver = esCrud
+        ? (yupResolver(personaJuridicaCrudSchema) as any)
+        : (yupResolver(personaJuridicaSchema) as any)
     const {
         register,
         formState: { errors, isDirty, dirtyFields },
         handleSubmit,
         reset,
         control,
-    } = useForm<PerfilEmpresaData>({
+    } = useForm<Persona>({
         mode: 'onChange',
-        resolver: yupResolver(personaJuridicaSchema) as Resolver<PerfilEmpresaData>,
+        resolver: yupResolver(personaJuridicaSchema) as Resolver<Persona>,
         defaultValues: {
-            emailEmpresa: user?.usuario,
+            emailEmpresa: esCrud ? '' : user?.usuario,
         },
     })
     const values = useWatch({ control })
@@ -64,19 +80,30 @@ export default function PersonaJuridicaForm({
     const onSubmit = handleSubmit(async data => {
         console.log('Datos enviados:', data)
         const id = modalActions.showLoading('Enviando datos...')
+        let res
         try {
             try {
-                if (esNuevo) {
-                    await crearPerfilJuridico(data)
+                if (clienteId === undefined || clienteId === -1) {
+                    if (esCrud) res = await crearPerfilJuridicoAdmin(data)
+                    else res = await crearPerfilJuridico(data)
                 } else {
-                    await updatePerfilJuridico(data)
+                    if (esCrud) res = await updatePerfilJuridicoAdmin(data, clienteId)
+                    else res = await updatePerfilJuridico(data)
                 }
             } catch (e) {
                 const errorMessage =
                     e instanceof Error ? e.message : 'Error con el servidor al enviar datos'
                 console.error('Error enviando Persona Juridica:', errorMessage)
+                modalActions.closeModal(id)
+                modalActions.showAlert({
+                    title: 'Error',
+                    message: errorMessage,
+                    type: 'error',
+                })
+                return
             }
             console.log('Datos enviados:', data)
+            modalActions.closeModal(id)
             // Si todo ok
             changeDirty(false)
             onDatosGuardados()
@@ -178,7 +205,9 @@ export default function PersonaJuridicaForm({
                         type='email'
                         register={register}
                         errors={errors}
-                        isReadOnly={true}
+                        isReadOnly={!esCrud}
+                        mostrarEspacioError={true}
+                        required
                     />
                 </GenericRowForm>
                 <GenericRowForm>

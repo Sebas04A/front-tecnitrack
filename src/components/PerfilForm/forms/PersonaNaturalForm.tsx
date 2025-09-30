@@ -21,6 +21,7 @@ import {
     updatePerfilNaturalAdmin,
 } from '../../../services/perfilApi'
 import { useModalActions } from '../../../hooks/useModalActions'
+import { h3 } from 'framer-motion/client'
 
 export default function PersonaNaturalForm({
     data,
@@ -30,11 +31,15 @@ export default function PersonaNaturalForm({
     changeEstaEditando,
     changeDirty,
     onDatosGuardados,
-}: FormProfileProps & { data?: PerfilPersonaNaturalData | null }) {
+}: FormProfileProps & { data?: PerfilPersonaNaturalData | PerfilPersonaNaturalCrudData | null }) {
     const esCrud = clienteId !== undefined
     const resolver = esCrud
         ? (yupResolver(personaNaturalSchema) as any)
         : (yupResolver(personaNaturalCrudSchema) as any)
+
+    if (esCrud) data = data as PerfilPersonaNaturalCrudData
+    else data = data as PerfilPersonaNaturalData
+
     type Persona = PerfilPersonaNaturalData | PerfilPersonaNaturalCrudData
     const [isLoading, setIsLoading] = useState(false)
     const {
@@ -58,16 +63,17 @@ export default function PersonaNaturalForm({
 
     useEffect(() => {
         console.log('Datos obtenidos desde padre:', data)
-
+        let newData = data as Persona & { email?: string }
         data = {
-            // email:data?,email || '',
-            nombreCompleto: data?.nombreCompleto || '',
-            apellidoCompleto: data?.apellidoCompleto || '',
-            tipoDocumento: data?.tipoDocumento || '',
+            email: newData?.email || '',
+            nombreCompleto: newData?.nombreCompleto || '',
+            apellidoCompleto: newData?.apellidoCompleto || '',
+            tipoDocumento: newData?.tipoDocumento || '',
             numeroDocumento: data?.numeroDocumento || '',
             fechaNacimiento: data?.fechaNacimiento || '',
             genero: data?.genero || '',
         }
+
         console.log('Reseteando formulario con datos:', data)
         reset(data, { keepDirty: false, keepTouched: false })
     }, [reset, data])
@@ -115,18 +121,7 @@ export default function PersonaNaturalForm({
     return (
         <>
             <GenericForm onSubmit={onSubmit} title='Información Personal'>
-                {esCrud && (
-                    <GenericTextInput
-                        label='Email'
-                        name='email'
-                        type='email'
-                        register={register}
-                        errors={errors}
-                        // isReadOnly={true}
-                        required
-                        isReadOnly={!estaEditando}
-                    />
-                )}
+                {esCrud && <h3 className='text-primary text-xl'>Persona Natural</h3>}
                 <GenericRowForm>
                     <GenericTextInput
                         label='Nombre Completo'
@@ -168,7 +163,20 @@ export default function PersonaNaturalForm({
                         required
                     />
                 </GenericRowForm>
+
                 <GenericRowForm>
+                    {esCrud && (
+                        <GenericTextInput
+                            label='Email'
+                            name='email'
+                            type='email'
+                            register={register}
+                            errors={errors}
+                            isReadOnly={!estaEditando || clienteId !== -1}
+                            mostrarEspacioError={true}
+                            required
+                        />
+                    )}
                     <GenericInput
                         label='Fecha de Nacimiento'
                         name='fechaNacimiento'
@@ -178,22 +186,22 @@ export default function PersonaNaturalForm({
                         isReadOnly={!estaEditando}
                         // required
                     />
-                    <GenericInput
-                        label='Género'
-                        name='genero'
-                        type='select'
-                        register={register}
-                        options={[
-                            { value: '', label: 'Seleccione un género' },
-                            { value: 'Masculino', label: 'Masculino' },
-                            { value: 'Femenino', label: 'Femenino' },
-                            { value: 'Otro', label: 'Otro' },
-                        ]}
-                        error={errors.genero?.message}
-                        isReadOnly={!estaEditando}
-                        // required
-                    />
                 </GenericRowForm>
+                <GenericInput
+                    label='Género'
+                    name='genero'
+                    type='select'
+                    register={register}
+                    options={[
+                        { value: '', label: 'Seleccione un género' },
+                        { value: 'Masculino', label: 'Masculino' },
+                        { value: 'Femenino', label: 'Femenino' },
+                        { value: 'Otro', label: 'Otro' },
+                    ]}
+                    error={errors.genero?.message}
+                    isReadOnly={!estaEditando}
+                    // required
+                />
                 {estaEditando && (
                     <FormsButtons
                         onCancelar={() => {

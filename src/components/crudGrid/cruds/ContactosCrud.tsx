@@ -17,13 +17,17 @@ import {
     crearContactoEmpresa,
     crearContactoEmpresaById,
     deleteContactoCliente,
+    deleteContactoClienteAdmin,
     deleteContactoEmpresa,
+    deleteContactoEmpresaAdmin,
     getContactosCliente,
     getContactosEmpresa,
     getContactosEmpresaById,
     getContactosNaturalById,
     updateContactoCliente,
+    updateContactoClienteByCliente,
     updateContactoEmpresa,
+    updateContactoEmpresaByCliente,
 } from '../../../services/contactosApi'
 import { makeLocalCrudFetcher } from '../helper/crud-helpers'
 import ContactosForm from './Contactos/ContactosForm'
@@ -65,7 +69,7 @@ const ContactosCrud: React.FC<ContactosCrudProps> = ({
     const resolver = useMemo(
         () =>
             yupResolver(
-                (tipoPersona === 'Juridica'
+                (tipoPersona === 'Empresa'
                     ? contactoEmpresaSchema
                     : contactoPersonaSchema) as unknown as any
             ) as any,
@@ -74,7 +78,7 @@ const ContactosCrud: React.FC<ContactosCrudProps> = ({
 
     const defaultValues = useMemo(
         () =>
-            (tipoPersona === 'Juridica'
+            (tipoPersona === 'Empresa'
                 ? {
                       nombre: '',
                       telefono: '',
@@ -99,7 +103,7 @@ const ContactosCrud: React.FC<ContactosCrudProps> = ({
 
     const columns: ColumnDef<Contacto>[] = useMemo(
         () => [
-            ...(tipoPersona === 'Juridica'
+            ...(tipoPersona === 'Empresa'
                 ? ([{ key: 'nombre' as keyof Contacto, header: 'Nombre' }] as ColumnDef<Contacto>[])
                 : []),
             { key: 'telefono', header: 'Teléfono' },
@@ -112,7 +116,7 @@ const ContactosCrud: React.FC<ContactosCrudProps> = ({
         () =>
             makeLocalCrudFetcher<Contacto>({
                 getAll:
-                    tipoPersona === 'Juridica'
+                    tipoPersona === 'Empresa'
                         ? esCrud
                             ? () => getContactosEmpresaById(clienteId!)
                             : getContactosEmpresa
@@ -127,7 +131,7 @@ const ContactosCrud: React.FC<ContactosCrudProps> = ({
     async function createQuery(values: Contacto) {
         console.log('Creating contacto:', values)
         let response
-        if (tipoPersona === 'Juridica') {
+        if (tipoPersona === 'Empresa') {
             if (esCrud)
                 response = crearContactoEmpresaById(clienteId!, values as ContactoEmpresaData)
             else response = crearContactoEmpresa(values as ContactoEmpresaData)
@@ -141,18 +145,26 @@ const ContactosCrud: React.FC<ContactosCrudProps> = ({
     }
     async function editQuery(values: Contacto) {
         console.log('Editing contacto:', values)
-        if (tipoPersona === 'Juridica') {
-            return await updateContactoEmpresa(values as ContactoEmpresaData)
+        let response
+        if (tipoPersona === 'Empresa') {
+            if (esCrud)
+                response = await updateContactoEmpresaByCliente(values as ContactoEmpresaData)
+            else response = await updateContactoEmpresa(values as ContactoEmpresaData)
         } else {
-            return await updateContactoCliente(values as ContactoClienteData)
+            if (esCrud)
+                response = await updateContactoClienteByCliente(values as ContactoClienteData)
+            else response = await updateContactoCliente(values as ContactoClienteData)
         }
     }
     async function deleteQuery(idString: string) {
         const id = Number(idString)
         console.log('Deleting contacto:', id)
-        if (tipoPersona === 'Juridica') {
-            return await deleteContactoEmpresa(id)
+        // let response
+        if (tipoPersona === 'Empresa') {
+            if (esCrud) return await deleteContactoEmpresaAdmin(id)
+            else return await deleteContactoEmpresa(id)
         } else {
+            if (esCrud) return await deleteContactoClienteAdmin(id)
             return await deleteContactoCliente(id)
         }
     }

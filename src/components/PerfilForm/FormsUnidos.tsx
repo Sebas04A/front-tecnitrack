@@ -18,6 +18,7 @@ import { useModalActions } from '../../hooks/useModalActions'
 import DireccionesCrud from '../crudGrid/cruds/DireccionesCrud'
 import ContactosCrud from '../crudGrid/cruds/ContactosCrud'
 import { TIPO_PERSONA, TIPO_PERSONA_TYPE } from '../../constants/perfil'
+import { yupResolver } from '@hookform/resolvers/yup'
 const tabs: Array<{ key: TabKeyType; label: string; icon: JSX.Element }> = [
     {
         key: 'personal',
@@ -217,6 +218,7 @@ export default function FormsUnidos({
                     {tipoPersona === TIPO_PERSONA.EMPRESA ? (
                         <PersonaJuridicaForm
                             data={data as PerfilEmpresaData}
+                            clienteId={clienteId ?? -1}
                             onDatosGuardados={onDatosGuardados}
                             estaEditando={estaEditando || esCrud}
                             changeEstaEditando={setEstaEditando}
@@ -228,7 +230,7 @@ export default function FormsUnidos({
                         />
                     ) : tipoPersona === TIPO_PERSONA.NATURAL ? (
                         <PersonaNaturalForm
-                            data={data as PerfilPersonaNaturalData}
+                            data={data as any}
                             clienteId={clienteId ?? -1}
                             // esNuevo={clienteId === -1}
                             onDatosGuardados={onDatosGuardados}

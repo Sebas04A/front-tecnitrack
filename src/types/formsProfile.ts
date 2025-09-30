@@ -13,7 +13,7 @@ export interface FormProfileProps {
     // Callbacks para controlar el loading inicial de datos desde el contenedor
     onLoadStart?: () => void
     onLoadEnd?: () => void
-    data?: PerfilEmpresaData | PerfilPersonaNaturalData | null
+    // data?: PerfilEmpresaData | PerfilPersonaNaturalData | null
     clienteId?: number
     esNuevo?: boolean
 }

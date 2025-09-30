@@ -159,9 +159,18 @@ export const personaJuridicaSchema = yup
         }
     )
 
+export const personaJuridicaCrudSchema = personaJuridicaSchema.concat(
+    yup.object({
+        emailEmpresa: yup
+            .string()
+            .email('Formato de correo inválido')
+            .required('El correo electrónico es obligatorio'),
+    })
+)
+
 // export type PerfilData = yup.InferType<typeof personaJuridicaSchema>
 export type PerfilEmpresaData = yup.InferType<typeof personaJuridicaSchema>
-
+export type PerfilEmpresaCrudData = yup.InferType<typeof personaJuridicaCrudSchema>
 /** Utils **/
 const onlyDigits = (v?: string) => (v ?? '').replace(/\D/g, '')
 

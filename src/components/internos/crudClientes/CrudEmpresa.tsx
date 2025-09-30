@@ -89,9 +89,10 @@ export default function CrudEmpresa() {
     )
     function openModal(row: ClienteEmpresaCrud) {
         modalActions.showEmptyModal({
-            title: 'Ver Cliente Empresa',
+            title: 'Persona Jurídica',
             children: (
                 <FormsUnidos
+                    esCrud={true}
                     tipoPersona={TIPO_PERSONA.EMPRESA}
                     clienteId={row.clienteId || -1}
                     datosYaGuardados={!isDirty}
@@ -104,14 +105,14 @@ export default function CrudEmpresa() {
     function onView(row: ClienteEmpresaCrud) {
         openModal(row)
     }
-    function onDelete(row: ClienteEmpresaCrud) {
+    function onDelete(id: string) {
         modalActions.showConfirm({
             title: 'Confirmar eliminación',
-            message: `¿Estás seguro de que deseas eliminar al cliente ${row.razonSocial}? `,
+            message: `¿Estás seguro de que deseas eliminar al cliente ${id}? `,
             type: 'warning',
             onConfirm: () => {
-                console.log('Eliminando cliente:', row)
-                deleteQuery(row)
+                console.log('Eliminando cliente:', id)
+                deleteQuery(id)
             },
         })
     }
@@ -128,7 +129,7 @@ export default function CrudEmpresa() {
         onDelete,
     }
     return (
-        <CrudCrudo<ClienteEmpresaCrud>
+        <CrudCrudo<ClienteEmpresaCrud, ClienteEmpresaCrud>
             onCrudActions={onCrudActions}
             columns={columnsNatural}
             fetchData={fetchData}

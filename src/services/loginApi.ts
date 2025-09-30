@@ -9,7 +9,11 @@ import {
 } from '../api'
 // import http from '../api/http'
 import { getDataApiResponse } from '../utils/getDataApiResponse'
-import { RegisterFormData } from '../validation/register.schema'
+import {
+    RegisterEmpresaFormData,
+    RegisterFormData,
+    RegisterNaturalFormData,
+} from '../validation/register.schema'
 
 export const forgotPasswordRequest = async (email: string) => {
     const requestBody = { email }
@@ -93,18 +97,15 @@ export const singupRequest = async (email: string, password: string) => {
     // }
 }
 
-export const registrarNatural = async (data: RegisterFormData) => {
+export const registrarNatural = async (data: RegisterNaturalFormData) => {
     const requestBody: RegistroClienteNaturalRequest = {
         email: data.email,
         password: data.password,
         tipoDocumento: data.tipoIdentificacion!,
         numeroIdentificacion: data.numeroIdentificacion!,
 
-        nombres: 'Null',
-        apellidos: 'Null',
-        
-        fechaNacimiento: '2004-10-10',
-        genero: 'Masculino',
+        nombres: data.nombres,
+        apellidos: data.apellidos,
     }
     const res = await AutenticacionService.postApiAutenticacionRegistroClienteNatural({
         requestBody,
@@ -112,16 +113,16 @@ export const registrarNatural = async (data: RegisterFormData) => {
     console.log('Respuesta de la API al registrar cliente natural:', res)
     return res
 }
-export const registrarEmpresa = async (data: RegisterFormData) => {
+export const registrarEmpresa = async (data: RegisterEmpresaFormData) => {
     const requestBody: RegistroClienteEmpresaRequest = {
         email: data.email,
         password: data.password,
         numeroIdentificacion: data.numeroIdentificacion!,
 
-        razonSocial: 'Null',
-        nombreComercial: 'Null',
-        nombreRepresentanteLegal: 'Null',
-        telefonoEmpresa: 'Null',
+        razonSocial: data.razonSocial,
+        // nombreComercial: data.nombreComercial!,
+        // nombreRepresentanteLegal: data.nombreRepresentanteLegal!,
+        // telefonoEmpresa: data.telefonoEmpresa!,
     }
     const res = await AutenticacionService.postApiAutenticacionRegistroClienteEmpresa({
         requestBody,

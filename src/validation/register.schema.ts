@@ -1,7 +1,7 @@
 import * as yup from 'yup'
 export const registerSchema = yup
     .object({
-        tipoCliente: yup.string().required('El tipo de cliente es obligatorio'),
+        // tipoCliente: yup.string().required('El tipo de cliente es obligatorio'),
         tipoIdentificacion: yup.string().required('El tipo de identificación es obligatorio'),
         numeroIdentificacion: yup.string().required('La identificación es obligatoria'),
 
@@ -22,3 +22,17 @@ export const registerSchema = yup
     })
     .required()
 export type RegisterFormData = yup.InferType<typeof registerSchema>
+
+export const registerNaturalSchema = registerSchema.concat(
+    yup.object({
+        nombres: yup.string().required('El nombre es obligatorio'),
+        apellidos: yup.string().required('El apellido es obligatorio'),
+    })
+)
+export type RegisterNaturalFormData = yup.InferType<typeof registerNaturalSchema>
+export const registerEmpresaSchema = registerSchema.concat(
+    yup.object({
+        razonSocial: yup.string().required('La razón social es obligatoria'),
+    })
+)
+export type RegisterEmpresaFormData = yup.InferType<typeof registerEmpresaSchema>

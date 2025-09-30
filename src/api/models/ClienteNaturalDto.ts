@@ -8,7 +8,7 @@ export type ClienteNaturalDto = {
     apellido?: string | null;
     readonly nombreCompleto?: string | null;
     tipoDocumento?: string | null;
-    cedula?: string | null;
+    numeroIdentificacion?: string | null;
     email?: string | null;
     fechaNacimiento?: string | null;
     readonly edad?: number | null;

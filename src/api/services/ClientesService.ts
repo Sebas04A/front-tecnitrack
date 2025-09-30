@@ -2,15 +2,15 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ClientesEmpresaRequest } from '../models/ClientesEmpresaRequest'
-import type { ClientesEmpresaResponseApiResponse } from '../models/ClientesEmpresaResponseApiResponse'
-import type { ClientesNaturalRequest } from '../models/ClientesNaturalRequest'
-import type { ClientesNaturalResponseApiResponse } from '../models/ClientesNaturalResponseApiResponse'
-import type { ObjectApiResponse } from '../models/ObjectApiResponse'
-import type { TipoClienteResponseApiResponse } from '../models/TipoClienteResponseApiResponse'
-import type { CancelablePromise } from '../core/CancelablePromise'
-import { OpenAPI } from '../core/OpenAPI'
-import { request as __request } from '../core/request'
+import type { ClientesEmpresaRequest } from '../models/ClientesEmpresaRequest';
+import type { ClientesEmpresaResponseApiResponse } from '../models/ClientesEmpresaResponseApiResponse';
+import type { ClientesNaturalRequest } from '../models/ClientesNaturalRequest';
+import type { ClientesNaturalResponseApiResponse } from '../models/ClientesNaturalResponseApiResponse';
+import type { ObjectApiResponse } from '../models/ObjectApiResponse';
+import type { TipoClienteResponseApiResponse } from '../models/TipoClienteResponseApiResponse';
+import type { CancelablePromise } from '../core/CancelablePromise';
+import { OpenAPI } from '../core/OpenAPI';
+import { request as __request } from '../core/request';
 export class ClientesService {
     /**
      * @returns ObjectApiResponse OK
@@ -19,7 +19,7 @@ export class ClientesService {
     public static postApiClientesCrearCliente({
         requestBody,
     }: {
-        requestBody?: ClientesNaturalRequest
+        requestBody?: ClientesNaturalRequest,
     }): CancelablePromise<ObjectApiResponse> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -30,7 +30,7 @@ export class ClientesService {
                 400: `Bad Request`,
                 401: `Unauthorized`,
             },
-        })
+        });
     }
     /**
      * @returns ObjectApiResponse OK
@@ -39,7 +39,7 @@ export class ClientesService {
     public static putApiClientesActualizarMisDatos({
         requestBody,
     }: {
-        requestBody?: ClientesNaturalRequest
+        requestBody?: ClientesNaturalRequest,
     }): CancelablePromise<ObjectApiResponse> {
         return __request(OpenAPI, {
             method: 'PUT',
@@ -50,7 +50,7 @@ export class ClientesService {
                 400: `Bad Request`,
                 401: `Unauthorized`,
             },
-        })
+        });
     }
     /**
      * @returns ObjectApiResponse OK
@@ -59,7 +59,7 @@ export class ClientesService {
     public static postApiClientesCrearEmpresa({
         requestBody,
     }: {
-        requestBody?: ClientesEmpresaRequest
+        requestBody?: ClientesEmpresaRequest,
     }): CancelablePromise<ObjectApiResponse> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -70,7 +70,7 @@ export class ClientesService {
                 400: `Bad Request`,
                 401: `Unauthorized`,
             },
-        })
+        });
     }
     /**
      * @returns ObjectApiResponse OK
@@ -79,7 +79,7 @@ export class ClientesService {
     public static putApiClientesActualizarMiEmpresa({
         requestBody,
     }: {
-        requestBody?: ClientesEmpresaRequest
+        requestBody?: ClientesEmpresaRequest,
     }): CancelablePromise<ObjectApiResponse> {
         return __request(OpenAPI, {
             method: 'PUT',
@@ -90,7 +90,7 @@ export class ClientesService {
                 400: `Bad Request`,
                 401: `Unauthorized`,
             },
-        })
+        });
     }
     /**
      * @returns ClientesNaturalResponseApiResponse OK
@@ -105,7 +105,7 @@ export class ClientesService {
                 401: `Unauthorized`,
                 404: `Not Found`,
             },
-        })
+        });
     }
     /**
      * @returns ClientesEmpresaResponseApiResponse OK
@@ -120,7 +120,7 @@ export class ClientesService {
                 401: `Unauthorized`,
                 404: `Not Found`,
             },
-        })
+        });
     }
     /**
      * @returns TipoClienteResponseApiResponse OK
@@ -134,6 +134,6 @@ export class ClientesService {
                 400: `Bad Request`,
                 401: `Unauthorized`,
             },
-        })
+        });
     }
 }

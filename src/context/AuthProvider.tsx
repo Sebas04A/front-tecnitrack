@@ -10,7 +10,11 @@ import {
 import { AuthContext, User } from './auth-context'
 import { setupApi } from '../api/setupApi'
 import { rolType } from '../types/usuario'
-import { RegisterFormData } from '../validation/register.schema'
+import {
+    RegisterEmpresaFormData,
+    RegisterFormData,
+    RegisterNaturalFormData,
+} from '../validation/register.schema'
 
 const storageNames = {
     usuario: 'usuario',
@@ -73,16 +77,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setupApi() // Reset API setup without token
     }
 
-    async function signup(data: RegisterFormData) {
+    async function signupEmpresa(data: RegisterEmpresaFormData) {
+        return signup(data, 'Empresa')
+    }
+
+    async function signupNatural(data: RegisterNaturalFormData) {
+        return signup(data, 'Natural')
+    }
+
+    async function signup(
+        data: RegisterEmpresaFormData | RegisterNaturalFormData,
+        tipoCliente: 'Natural' | 'Empresa'
+    ) {
         console.log('Registrando usuario:', data)
         // return
         if (!data.email || !data.password) throw new Error('Email y password son obligatorios')
 
-        if (data.tipoCliente === 'Empresa') {
-            const res = await registrarEmpresa(data)
+        if (tipoCliente === 'Empresa') {
+            const res = await registrarEmpresa(data as RegisterEmpresaFormData)
             return res
-        } else if (data.tipoCliente === 'Natural') {
-            const res = await registrarNatural(data)
+        } else if (tipoCliente === 'Natural') {
+            const res = await registrarNatural(data as RegisterNaturalFormData)
             return res
         } else {
             throw new Error('Tipo de cliente inválido')
@@ -95,7 +110,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     return (
-        <AuthContext.Provider value={{ user, loading, login, logout, signup }}>
+        <AuthContext.Provider
+            value={{ user, loading, login, logout, signupEmpresa, signupNatural }}
+        >
             {children}
         </AuthContext.Provider>
     )
