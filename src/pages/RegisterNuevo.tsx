@@ -11,7 +11,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import { useAuth } from '../hooks/useAuth'
 import GenericForm from '../components/form/GenericForm'
-import RegisterComun from '../components/register/registerComun'
+import RegisterComun from '../components/register/RegisterComun'
 
 export default function RegisterNuevo() {
     const [tipoPersona, setTipoPersona] = React.useState('Natural')

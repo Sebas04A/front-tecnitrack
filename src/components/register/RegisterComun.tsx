@@ -19,6 +19,7 @@ export default function RegisterComun<T>({
     form: any
     signup: (data: T) => Promise<any>
 }) {
+    console.log('Render RegisterComun')
     const [error, setError] = useState('')
     const {
         register,
