@@ -21,6 +21,28 @@ export default {
     content: ['./index.html', './src/**/*.{ts,tsx,js,jsx}'],
     theme: {
         extend: {
+            fontSize: {
+                xs: '0.7rem', // El default es 0.75rem
+                sm: '0.8rem', // El default es 0.875rem
+                base: '0.9rem', // El default es 1rem (16px) -> ¡Este cambio afecta a mucho!
+                lg: '1rem', // El default es 1.125rem
+                xl: '1.125rem', // El default es 1.25rem
+                '2xl': '1.35rem', // El default es 1.5rem
+                // ...y así sucesivamente puedes ajustar los que uses.
+                // No tienes que definirlos todos, solo los que quieres cambiar.
+            },
+
+            // --- MODIFICANDO EL ESPACIADO ---
+            // Esta es la más potente. Hacemos que la escala de espaciado sea más fina.
+            spacing: {
+                4: '0.8rem', // Default: 1rem (16px). Ahora p-4, m-4, w-4 serán más pequeños.
+                8: '1.6rem', // Default: 2rem (32px).
+                12: '2.4rem', // Default: 3rem (48px).
+                16: '3.2rem', // Default: 4rem (64px).
+                // Puedes ajustar todos los valores que necesites.
+                // Por ejemplo, si usas mucho p-6 (1.5rem), puedes reducirlo:
+                6: '1.2rem',
+            },
             fontFamily: {
                 sans: ['Inter', 'sans-serif'],
                 mono: ['Fira Code', 'monospace'],
