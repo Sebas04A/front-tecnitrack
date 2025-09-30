@@ -10,9 +10,8 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import { useAuth } from '../hooks/useAuth'
-import RegisterComun from '../components/register/registerComun'
 import GenericForm from '../components/form/GenericForm'
-import { use } from 'framer-motion/client'
+import RegisterComun from '../components/register/registerComun'
 
 export default function RegisterNuevo() {
     const [tipoPersona, setTipoPersona] = React.useState('Natural')
