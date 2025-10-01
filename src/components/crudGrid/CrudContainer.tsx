@@ -246,6 +246,7 @@ export function CrudContainer<TData extends Record<string, any>, TForm extends F
 
     const onSubmit = handleSubmit(async (values: TForm) => {
         console.log('Submitted values:', values)
+        modal.closeModal(idFormModal)
         return submitingRequest(values, submitRequest)
     })
 
@@ -272,15 +273,15 @@ export function CrudContainer<TData extends Record<string, any>, TForm extends F
             setMode('view')
             reset(row)
         },
-        onDelete: (id: string) => {
-            console.log('Deleting row:', id)
+        onDelete: (row: TData) => {
+            console.log('Deleting row:', row.id)
             modalActions.showConfirm({
                 title: 'Confirmar Eliminación',
                 message: `¿Estás seguro de que quieres eliminar? Esta acción no se puede deshacer.`,
                 confirmText: 'Eliminar',
                 cancelText: 'Cancelar',
                 onConfirm: async () => {
-                    deleteAccion(id)
+                    deleteAccion(row.id)
                 },
                 type: 'warning',
             })

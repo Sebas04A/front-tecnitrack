@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { BooleanApiResponse } from '../models/BooleanApiResponse';
+import type { DireccionDetalleResponseApiResponse } from '../models/DireccionDetalleResponseApiResponse';
 import type { DireccionRequest } from '../models/DireccionRequest';
 import type { DireccionResponseListApiResponse } from '../models/DireccionResponseListApiResponse';
 import type { ObjectApiResponse } from '../models/ObjectApiResponse';
@@ -90,6 +91,28 @@ export class DireccionesService {
             errors: {
                 400: `Bad Request`,
                 401: `Unauthorized`,
+            },
+        });
+    }
+    /**
+     * @returns DireccionDetalleResponseApiResponse OK
+     * @throws ApiError
+     */
+    public static getApiDireccionesObtenerDireccion({
+        id,
+    }: {
+        id: number,
+    }): CancelablePromise<DireccionDetalleResponseApiResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/Direcciones/obtener-direccion/{id}',
+            path: {
+                'id': id,
+            },
+            errors: {
+                400: `Bad Request`,
+                401: `Unauthorized`,
+                404: `Not Found`,
             },
         });
     }

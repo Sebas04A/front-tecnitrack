@@ -8,9 +8,7 @@ import { buscarUsuario } from '../../../../services/SelectSearch'
 import GenericForm from '../../../form/GenericForm'
 
 export default function FormCitas({ form, readOnly }: any) {
-    console.log('Fecha en FormCitas:', form.getValues('fechaHoraInicio'))
-    console.log('Tipo Mantenimiento:', form.getValues('tipoMantenimiento'))
-    console.log('Usuario:', form.getValues('usuario'))
+    console.log('Valores del formulario en FormCitas:', form.getValues())
 
     const tipoMantenimiento = form.watch('tipoMantenimiento')
     console.log('Tipo Mantenimiento observado:', tipoMantenimiento)
@@ -36,6 +34,7 @@ export default function FormCitas({ form, readOnly }: any) {
                 errors={form.formState.errors}
                 tipoCatalogo='tipoMantenimiento'
                 loadingLabel='Cargando...'
+                watch={form.watch}
             />
             {tipoMantenimiento === 'Otro' && (
                 <GenericTextInput

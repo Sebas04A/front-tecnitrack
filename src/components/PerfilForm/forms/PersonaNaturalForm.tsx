@@ -133,22 +133,17 @@ export default function PersonaNaturalForm({
                         mostrarEspacioError={true}
                         // className='max-w-xs'
                     />
-                    <GenericInput
+                    <GenericSelect
                         label='Género'
                         name='genero'
-                        type='select'
                         register={register}
-                        options={[
-                            { value: '', label: 'Seleccione un género' },
-                            { value: 'Masculino', label: 'Masculino' },
-                            { value: 'Femenino', label: 'Femenino' },
-                            { value: 'Otro', label: 'Otro' },
-                        ]}
-                        error={errors.genero?.message}
+                        errors={errors}
+                        placeholderOptionLabel='Seleccione un género'
                         isReadOnly={!estaEditando}
                         mostrarEspacioError={true}
-                        // required
+                        tipoCatalogo='genero'
                     />
+
                     <div className='flex-1'></div>
                 </GenericRowForm>
                 {/* {esCrud && <h3 className='text-primary text-xl'>Persona Natural</h3>} */}

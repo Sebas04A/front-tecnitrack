@@ -1,6 +1,7 @@
 import { p } from 'framer-motion/client'
 import { createElement } from 'react'
 import { UseFormRegister } from 'react-hook-form'
+import { Option } from '../../../types/form'
 type PropsBase = {
     label?: string
     placeholder?: string
@@ -8,7 +9,7 @@ type PropsBase = {
     name: string
     register?: UseFormRegister<any>
     error?: string
-    options?: { value: string; label: string }[]
+    options?: Option[]
     className?: string
     isReadOnly?: boolean
     required?: boolean
@@ -87,7 +88,11 @@ export default function GenericInput({
                     type === 'select'
                         ? // Options should be passed as children or through props
                           options?.map(option => (
-                              <option key={option.value} value={option.value}>
+                              <option
+                                  key={option.value}
+                                  value={option.value}
+                                  hidden={option.hidden ?? false}
+                              >
                                   {option.label}
                               </option>
                           ))

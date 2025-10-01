@@ -232,7 +232,7 @@ export default function FormsUnidos({
                     ) : tipoPersona === TIPO_PERSONA.NATURAL ? (
                         <PersonaNaturalForm
                             data={data as any}
-                            clienteId={clienteId ?? -1}
+                            clienteId={clienteId}
                             // esNuevo={clienteId === -1}
                             onDatosGuardados={onDatosGuardados}
                             estaEditando={estaEditando || esCrud}

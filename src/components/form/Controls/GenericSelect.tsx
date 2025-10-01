@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import GenericInput from './GenericInput'
-import { FieldErrors, get, UseFormRegister } from 'react-hook-form'
+import { FieldErrors, get, UseFormRegister, UseFormWatch } from 'react-hook-form'
 import { getNestedError } from '../../../utils/formError'
 import { getCatalogo } from '../../../services/catalogos'
 import { Option } from '../../../types/form'
@@ -10,6 +10,7 @@ type BaseProps = {
     label?: string
     name: string
     register?: UseFormRegister<any>
+    watch?: UseFormWatch<any>
     errors?: FieldErrors
     className?: string
     isReadOnly?: boolean
@@ -46,6 +47,7 @@ const GenericSelect: React.FC<GenericSelectProps> = ({
     name,
     register,
     errors,
+    watch,
     className,
     isReadOnly,
     required,
@@ -79,6 +81,9 @@ const GenericSelect: React.FC<GenericSelectProps> = ({
         getOptions?: () => Promise<Option[]>
         refreshKey?: React.DependencyList
     } & React.SelectHTMLAttributes<HTMLSelectElement>
+
+    const currentValue = watch && watch(name)
+    console.log('GenericSelect - currentValue:', currentValue)
 
     // Si nos pasaron tipoCatalogo, traemos datos
     const isAsync = typeof tipoCatalogo === 'string' || (getOptions && !!getOptions)
@@ -130,10 +135,37 @@ const GenericSelect: React.FC<GenericSelectProps> = ({
     // Determinar el origen de opciones
     const baseOptions: Option[] = isAsync ? remoteOptions ?? [] : (staticOptions as Option[])
     // Placeholder opcional al inicio
-    const computedOptions: Option[] = [
-        { value: '', label: placeholderOptionLabel ?? 'Escoger ' + label, disabled: true },
-        ...baseOptions,
-    ]
+    const computedOptions = useMemo(() => {
+        const baseOptions: Option[] = isAsync ? remoteOptions ?? [] : (staticOptions as Option[])
+        let finalOptions = [...baseOptions]
+        console.log('Base options for select:', baseOptions, 'currentValue:', currentValue)
+
+        const valueExistsInOptions = baseOptions.some(
+            opt => String(opt.value) === String(currentValue)
+        )
+
+        if (isAsync && currentValue && !valueExistsInOptions) {
+            console.log(
+                'El valor actual no está en las opciones, agregando:',
+                currentValue,
+                'a las opciones',
+                baseOptions
+            )
+            // Agregar el valor actual al inicio si no está en las opciones
+            finalOptions.unshift({ value: currentValue, label: String(currentValue) })
+        }
+        console.log('Final options for select:', finalOptions)
+
+        // El placeholder ahora tiene 'hidden: true'
+        return [
+            {
+                value: '',
+                label: placeholderOptionLabel ?? 'Escoger ' + label,
+                hidden: true, // <-- ¡AQUÍ ESTÁ EL CAMBIO!
+            },
+            ...finalOptions,
+        ]
+    }, [isAsync, remoteOptions, staticOptions, currentValue, placeholderOptionLabel, label])
 
     // Estados especiales para async
     const effectiveError = errorMessage ?? loadError ?? undefined
@@ -166,6 +198,7 @@ const GenericSelect: React.FC<GenericSelectProps> = ({
                     mostrarEspacioError ?? (register && !isReadOnly) ? true : false
                 }
                 {...(htmlSelectProps as any)}
+                value={currentValue ?? ''}
             />
         </>
     )

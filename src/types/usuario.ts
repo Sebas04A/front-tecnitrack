@@ -1,7 +1,7 @@
 export type rolType = 'interno' | 'usuario'
 
 export interface ClienteNaturalCrud {
-    clienteId: number
+    id: number
     tipoIdentificacion: string
     numeroIdentificacion: string
     nombreCompleto: string
@@ -13,7 +13,7 @@ export interface ClienteNaturalCrud {
     [key: string]: unknown
 }
 export interface ClienteEmpresaCrud {
-    clienteId: number
+    id: number
     numeroIdentificacion: string
     nombreComercial: string
     razonSocial: string

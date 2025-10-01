@@ -10,6 +10,7 @@ import {
 import {
     ActualizarClienteEmpresaDto,
     ActualizarClienteNaturalDto,
+    ActualizarMisDatosRequest,
     AdministradorService,
     ClientesService,
     CrearClienteEmpresaAdminRequest,
@@ -166,7 +167,14 @@ export async function createPerfilNatural(data: PerfilPersonaNaturalData) {
 }
 
 export async function updatePerfilNatural(data: PerfilPersonaNaturalData) {
-    const requestBody = createAddapterPerfilNatural(data)
+    const requestBody: ActualizarMisDatosRequest = {
+        nombre: data.nombreCompleto,
+        apellido: data.apellidoCompleto,
+        tipoIdentificacion: data.tipoIdentificacion,
+        numeroIdentificacion: data.numeroIdentificacion,
+        fechaNacimiento: data.fechaNacimiento,
+        genero: data.genero,
+    }
     console.log('Datos del perfil natural a actualizar:', requestBody)
     try {
         const response = await ClientesService.putApiClientesActualizarMisDatos({ requestBody })
@@ -199,8 +207,8 @@ export async function updatePerfilNaturalAdmin(
     const requestBody: ActualizarClienteNaturalDto = {
         nombre: data.nombreCompleto,
         apellido: data.apellidoCompleto,
-        tipoIdentificacion: data.tipoDocumento,
-        numeroIdentificacion: data.numeroDocumento,
+        tipoIdentificacion: data.tipoIdentificacion,
+        numeroIdentificacion: data.numeroIdentificacion,
         fechaNacimiento: data.fechaNacimiento,
         genero: data.genero,
         email: data.email,
@@ -208,6 +216,12 @@ export async function updatePerfilNaturalAdmin(
     const res = await GestionClientesService.putApiGestionClientesActualizarClienteNatural({
         clienteId: clienteId,
         requestBody,
+    })
+    return res
+}
+export async function deletePerfilNaturalAdmin(clienteId: number) {
+    const res = await GestionClientesService.deleteApiGestionClientesEliminarClienteNatural({
+        clienteId: clienteId,
     })
     return res
 }

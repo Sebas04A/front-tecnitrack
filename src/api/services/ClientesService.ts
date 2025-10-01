@@ -2,6 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { ActualizarMisDatosRequest } from '../models/ActualizarMisDatosRequest';
+import type { ActualizarMisDatosResponseApiResponse } from '../models/ActualizarMisDatosResponseApiResponse';
 import type { ClientesEmpresaRequest } from '../models/ClientesEmpresaRequest';
 import type { ClientesEmpresaResponseApiResponse } from '../models/ClientesEmpresaResponseApiResponse';
 import type { ClientesNaturalRequest } from '../models/ClientesNaturalRequest';
@@ -33,14 +35,14 @@ export class ClientesService {
         });
     }
     /**
-     * @returns ObjectApiResponse OK
+     * @returns ActualizarMisDatosResponseApiResponse OK
      * @throws ApiError
      */
     public static putApiClientesActualizarMisDatos({
         requestBody,
     }: {
-        requestBody?: ClientesNaturalRequest,
-    }): CancelablePromise<ObjectApiResponse> {
+        requestBody?: ActualizarMisDatosRequest,
+    }): CancelablePromise<ActualizarMisDatosResponseApiResponse> {
         return __request(OpenAPI, {
             method: 'PUT',
             url: '/api/Clientes/actualizar-mis-datos',

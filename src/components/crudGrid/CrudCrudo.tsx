@@ -16,7 +16,7 @@ export interface onCrudActionsProps<TData, TForm> {
     onCreate?: () => void
     onView?: (row: TForm) => void
     onEdit?: (row: TForm) => void
-    onDelete?: (id: string) => void
+    onDelete?: (id: TData) => void
 }
 export interface autoLoadOptions {
     autoLoad?: boolean

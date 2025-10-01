@@ -2,12 +2,13 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type ClientesNaturalRequest = {
+export type ActualizarMisDatosRequest = {
+    nombre: string;
+    apellido: string;
     tipoIdentificacion: string;
     numeroIdentificacion: string;
-    nombres: string;
-    apellidos: string;
     fechaNacimiento?: string | null;
     genero?: string | null;
+    activo?: boolean;
 };
 

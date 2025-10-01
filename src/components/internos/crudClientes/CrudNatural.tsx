@@ -7,7 +7,11 @@ import { makeLocalCrudFetcher } from '../../crudGrid/helper/crud-helpers'
 import CrudCrudo, { onCrudActionsProps } from '../../crudGrid/CrudCrudo'
 import { useModal } from '../../../hooks/useModal'
 import { Modal } from '../../common/Modal'
-import { getPerfilesNaturales, getPerfilNatural } from '../../../services/perfilApi'
+import {
+    deletePerfilNaturalAdmin,
+    getPerfilesNaturales,
+    getPerfilNatural,
+} from '../../../services/perfilApi'
 import { ClienteNaturalListaResponse } from '../../../api'
 import { ClienteNaturalCrud } from '../../../types/usuario'
 import { useModalActions } from '../../../hooks/useModalActions'
@@ -44,8 +48,8 @@ const columnsNatural: ColumnDef<ClienteNaturalCrud>[] = [
 const defaultValues: PerfilPersonaNaturalData = {
     nombreCompleto: '',
     apellidoCompleto: '',
-    tipoDocumento: '',
-    numeroDocumento: '',
+    tipoIdentificacion: '',
+    numeroIdentificacion: '',
     fechaNacimiento: '',
     genero: '',
 }
@@ -82,7 +86,7 @@ export default function CrudNatural() {
                 <FormsUnidos
                     tipoPersona={TIPO_PERSONA.NATURAL}
                     esCrud={true}
-                    clienteId={row.clienteId || -1}
+                    clienteId={row.id || -1}
                     datosYaGuardados={!isDirty}
                     setDatosYaGuardados={() => {}}
                 />
@@ -109,13 +113,28 @@ export default function CrudNatural() {
         //     },
         // })
     }
-    function onDelete(id: string) {
+    function onDelete(row: ClienteNaturalCrud) {
+        console.log('Eliminando cliente natural con id:', row.id)
         modalAction.showConfirm({
             title: 'Confirmar eliminación',
-            message: `¿Estás seguro de que deseas eliminar al cliente ${id}? `,
+            message: `¿Estás seguro de que deseas eliminar al cliente ${row.nombreCompleto}? `,
             onConfirm: () => {
-                console.log('Eliminando cliente:', id)
-                deleteQuery(id)
+                console.log('Eliminando cliente:', row.id)
+                deletePerfilNaturalAdmin(row.id)
+                    .then(() => {
+                        modalAction.showAlert({
+                            title: 'Éxito',
+                            message: `Cliente ${row.id} eliminado correctamente.`,
+                            type: 'success',
+                        })
+                    })
+                    .catch((error: any) => {
+                        modalAction.showAlert({
+                            title: 'Error al eliminar',
+                            message: error instanceof Error ? error.message : 'Error desconocido',
+                            type: 'error',
+                        })
+                    })
             },
             type: 'warning',
         })

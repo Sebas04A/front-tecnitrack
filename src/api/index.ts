@@ -18,6 +18,9 @@ export type { ActualizarContactoDirectoDto } from './models/ActualizarContactoDi
 export type { ActualizarContactoEmpresaDto } from './models/ActualizarContactoEmpresaDto';
 export type { ActualizarDireccionDto } from './models/ActualizarDireccionDto';
 export type { ActualizarEstadoComponenteRequest } from './models/ActualizarEstadoComponenteRequest';
+export type { ActualizarMisDatosRequest } from './models/ActualizarMisDatosRequest';
+export type { ActualizarMisDatosResponse } from './models/ActualizarMisDatosResponse';
+export type { ActualizarMisDatosResponseApiResponse } from './models/ActualizarMisDatosResponseApiResponse';
 export type { ActualizarPaisDto } from './models/ActualizarPaisDto';
 export type { ActualizarParteRequest } from './models/ActualizarParteRequest';
 export type { ActualizarProvinciaDto } from './models/ActualizarProvinciaDto';
@@ -135,6 +138,8 @@ export type { CrearParteRequest } from './models/CrearParteRequest';
 export type { CrearProvinciaDto } from './models/CrearProvinciaDto';
 export type { DireccionClienteDetalleResponse } from './models/DireccionClienteDetalleResponse';
 export type { DireccionClienteDetalleResponseListApiResponse } from './models/DireccionClienteDetalleResponseListApiResponse';
+export type { DireccionDetalleResponse } from './models/DireccionDetalleResponse';
+export type { DireccionDetalleResponseApiResponse } from './models/DireccionDetalleResponseApiResponse';
 export type { DireccionDto } from './models/DireccionDto';
 export type { DireccionDtoApiResponse } from './models/DireccionDtoApiResponse';
 export type { DireccionRequest } from './models/DireccionRequest';

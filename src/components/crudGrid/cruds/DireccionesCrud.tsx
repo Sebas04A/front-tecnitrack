@@ -91,7 +91,7 @@ const DireccionesCrud: React.FC<DireccionesCrudProps> = ({ titulo = 'Direcciones
 
     async function edit(values: DireccionData) {
         let response
-        if (esCrud) response = await updateDireccionCliente(values, clienteId!)
+        if (esCrud) response = await updateDireccionCliente(values)
         else response = await updateDireccion(values)
         console.log('Dirección actualizada:', response)
         return response
@@ -110,7 +110,7 @@ const DireccionesCrud: React.FC<DireccionesCrudProps> = ({ titulo = 'Direcciones
         const id = Number(idString)
         if (!id) throw new Error('ID de dirección no definido')
         let response
-        if (esCrud) response = await deleteDireccionCliente(id, clienteId!)
+        if (esCrud) response = await deleteDireccionCliente(id)
         else response = await deleteDireccion(id)
         console.log('Dirección eliminada:', response)
         return response

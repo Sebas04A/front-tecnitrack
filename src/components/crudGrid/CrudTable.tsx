@@ -48,7 +48,7 @@ export interface CrudTableProps<TData extends Record<string, any>, TForm extends
     loading?: boolean
     onView?: (row: TForm) => void
     onEdit?: (row: TForm) => void
-    onDelete?: (row: string) => void
+    onDelete?: (row: TData) => void
     getRowId: (row: TForm) => string | number
     newActionsCrud?: newActionCrud[]
 }
@@ -216,9 +216,7 @@ export function CrudTable<TData extends Record<string, any>, TForm extends Field
                                                 )}
                                                 {onDelete && (
                                                     <BtnAccion
-                                                        onClick={() =>
-                                                            onDelete(row.form.id as string)
-                                                        }
+                                                        onClick={() => onDelete(row.data)}
                                                         tipo='delete'
                                                     >
                                                         <FaTrash className='inline' />
