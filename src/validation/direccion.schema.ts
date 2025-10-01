@@ -14,7 +14,7 @@ export const direccionSchema = yup.object({
         .required('La ciudad es obligatoria'),
     codigoPostal: yup
         .string()
-        .matches(/^\d{5}$/, 'El código postal debe tener 5 dígitos')
+        .matches(/^\d{6}$/, 'El código postal debe tener 6 dígitos')
         .required('El código postal es obligatorio'),
     tipo: yup
         .string()

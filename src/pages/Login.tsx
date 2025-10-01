@@ -31,9 +31,15 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
     })
 
     const interno = watch('interno', false)
+    const [recienAbierto, setRecienAbierto] = useState(false)
+
     useEffect(() => {
-        handleSubmit(() => {})(/* no-op */)
-    }, [interno])
+        if (!recienAbierto) {
+            setRecienAbierto(true)
+        } else {
+            handleSubmit(() => {})(/* no-op */)
+        }
+    }, [interno, handleSubmit])
 
     const [error, setError] = useState('')
 

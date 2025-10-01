@@ -22,26 +22,26 @@ export default {
     theme: {
         extend: {
             fontSize: {
-                xs: '0.7rem', // El default es 0.75rem
-                sm: '0.8rem', // El default es 0.875rem
-                base: '0.9rem', // El default es 1rem (16px) -> ¡Este cambio afecta a mucho!
-                lg: '1rem', // El default es 1.125rem
-                xl: '1.125rem', // El default es 1.25rem
-                '2xl': '1.35rem', // El default es 1.5rem
-                // ...y así sucesivamente puedes ajustar los que uses.
-                // No tienes que definirlos todos, solo los que quieres cambiar.
+                xs: '0.75rem', // 12px
+                sm: '0.813rem', // 13px
+                base: '0.875rem', // 14px (Este es el cambio más importante)
+                lg: '1rem', // 16px
+                xl: '1.125rem', // 18px
+                '2xl': '1.25rem', // 20px
+                '3xl': '1.5rem', // 24px
+                '4xl': '1.875rem', // 30px
             },
-
-            // --- MODIFICANDO EL ESPACIADO ---
-            // Esta es la más potente. Hacemos que la escala de espaciado sea más fina.
+            // --- ESPACIADO MÁS COMPACTO ---
             spacing: {
-                4: '0.8rem', // Default: 1rem (16px). Ahora p-4, m-4, w-4 serán más pequeños.
-                8: '1.6rem', // Default: 2rem (32px).
-                12: '2.4rem', // Default: 3rem (48px).
-                16: '3.2rem', // Default: 4rem (64px).
-                // Puedes ajustar todos los valores que necesites.
-                // Por ejemplo, si usas mucho p-6 (1.5rem), puedes reducirlo:
-                6: '1.2rem',
+                1: '0.25rem', // 4px
+                2: '0.5rem', // 8px
+                3: '0.75rem', // 12px
+                4: '1rem', // 16px (Clases como p-4, m-4, gap-4 serán más pequeñas)
+                5: '1.25rem', // 20px
+                6: '1.5rem', // 24px
+                8: '1.75rem', // 28px (antes era 2rem/32px)
+                10: '2.25rem', // 36px (antes era 2.5rem/40px)
+                12: '2.75rem', // 44px (antes era 3rem/48px)
             },
             fontFamily: {
                 sans: ['Inter', 'sans-serif'],

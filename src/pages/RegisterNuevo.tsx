@@ -12,6 +12,7 @@ import { useForm } from 'react-hook-form'
 import { useAuth } from '../hooks/useAuth'
 import GenericForm from '../components/form/GenericForm'
 import RegisterComun from '../components/register/RegisterComun'
+import GenericRowForm from '../components/form/GenericRowForm'
 
 export default function RegisterNuevo() {
     const [tipoPersona, setTipoPersona] = React.useState('Natural')
@@ -45,15 +46,20 @@ export default function RegisterNuevo() {
                 // error={error}
                 title='Regístrate para continuar'
             >
-                <GenericSelect
-                    label='Tipo de Persona'
-                    name='tipoCliente'
-                    onChange={e => setTipoPersona(e.target.value)}
-                    value={tipoPersona}
-                    tipoCatalogo='tipoCliente'
-                    loadingLabel='Cargando...'
-                    required
-                />
+                <GenericRowForm>
+                    <div className='flex-1'>
+                        <GenericSelect
+                            label='Tipo de Persona'
+                            name='tipoCliente'
+                            onChange={e => setTipoPersona(e.target.value)}
+                            value={tipoPersona}
+                            tipoCatalogo='tipoCliente'
+                            loadingLabel='Cargando...'
+                            required
+                        />
+                    </div>
+                    <div className='flex-1'></div>
+                </GenericRowForm>
 
                 {tipoPersona === 'Natural' && (
                     <RegisterComun
