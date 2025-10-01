@@ -187,7 +187,8 @@ export function CrudContainer<TData extends Record<string, any>, TForm extends F
 
     const submitingRequest = async <Parametro, Retorno>(
         row: Parametro,
-        cb: (row: Parametro) => Promise<Retorno>
+        cb: (row: Parametro) => Promise<Retorno>,
+        messageConfirm: string = 'Los datos se han guardado correctamente.'
     ) => {
         console.log('Submitting request with data:', row)
         const id = modalActions.showLoading('Guardando...')
@@ -200,7 +201,7 @@ export function CrudContainer<TData extends Record<string, any>, TForm extends F
             closeAndReset()
             modalActions.showAlert({
                 title: 'Éxito',
-                message: 'Los datos se han guardado correctamente.',
+                message: messageConfirm,
                 type: 'success',
             })
             setReloadKey(reloadKey + 1)
@@ -240,7 +241,7 @@ export function CrudContainer<TData extends Record<string, any>, TForm extends F
 
     const deleteAccion = async (id: string) => {
         console.log('Iniciando eliminación de:', id)
-        return submitingRequest(id, deleteRequest)
+        return submitingRequest(id, deleteRequest, 'El registro se ha eliminado correctamente.')
     }
 
     const onSubmit = handleSubmit(async (values: TForm) => {

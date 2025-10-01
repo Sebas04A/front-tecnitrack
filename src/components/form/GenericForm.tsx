@@ -18,7 +18,7 @@ const GenericForm: React.FC<GenericFormProps> = ({
     showButtons = false,
 }) => {
     return (
-        <form onSubmit={onSubmit} className='w-full  p-6  flex flex-col gap-4'>
+        <form onSubmit={onSubmit} className='w-full  p-6  flex flex-col gap-2'>
             {title && (
                 <h2 className={`font-bold  text-2xl  mb-4 text-center text-primary`}>{title}</h2>
             )}

@@ -161,10 +161,6 @@ export default function RegisterComun<T>({
                     handleSubmit(onSubmit)()
                     console.log('Form submitted')
                     console.log(form.formState.errors)
-                    signup(getValues()).catch(err => {
-                        console.error('Signup error:', err)
-                        setError(parseAxiosError(err))
-                    })
                 }}
             />
             <div className=' text-center'>

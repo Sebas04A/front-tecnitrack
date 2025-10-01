@@ -22,6 +22,8 @@ import {
 } from '../../../services/perfilApi'
 import { useModalActions } from '../../../hooks/useModalActions'
 import { h3 } from 'framer-motion/client'
+import { AiOutlineEdit, AiOutlineEye } from 'react-icons/ai'
+import GenericButton from '../../form/Controls/GenericButton'
 
 export default function PersonaNaturalForm({
     data,
@@ -53,8 +55,8 @@ export default function PersonaNaturalForm({
         defaultValues: {
             nombreCompleto: '',
             apellidoCompleto: '',
-            tipoDocumento: '',
-            numeroDocumento: '',
+            tipoIdentificacion: '',
+            numeroIdentificacion: '',
             fechaNacimiento: '',
             genero: '',
             email: '',
@@ -68,10 +70,10 @@ export default function PersonaNaturalForm({
             email: newData?.email || '',
             nombreCompleto: newData?.nombreCompleto || '',
             apellidoCompleto: newData?.apellidoCompleto || '',
-            tipoDocumento: newData?.tipoDocumento || '',
-            numeroDocumento: data?.numeroDocumento || '',
-            fechaNacimiento: data?.fechaNacimiento || '',
-            genero: data?.genero || '',
+            tipoIdentificacion: newData?.tipoIdentificacion || '',
+            numeroIdentificacion: newData?.numeroIdentificacion || '',
+            fechaNacimiento: newData?.fechaNacimiento || '',
+            genero: newData?.genero || '',
         }
 
         console.log('Reseteando formulario con datos:', data)
@@ -121,7 +123,35 @@ export default function PersonaNaturalForm({
     return (
         <>
             <GenericForm onSubmit={onSubmit} title='Información Personal'>
-                {esCrud && <h3 className='text-primary text-xl'>Persona Natural</h3>}
+                <GenericRowForm>
+                    <GenericTextInput
+                        label='Tipo de Persona'
+                        name='tipoPersona'
+                        value={'Persona Natural'}
+                        type='text'
+                        isReadOnly={true}
+                        mostrarEspacioError={true}
+                        // className='max-w-xs'
+                    />
+                    <GenericInput
+                        label='Género'
+                        name='genero'
+                        type='select'
+                        register={register}
+                        options={[
+                            { value: '', label: 'Seleccione un género' },
+                            { value: 'Masculino', label: 'Masculino' },
+                            { value: 'Femenino', label: 'Femenino' },
+                            { value: 'Otro', label: 'Otro' },
+                        ]}
+                        error={errors.genero?.message}
+                        isReadOnly={!estaEditando}
+                        mostrarEspacioError={true}
+                        // required
+                    />
+                    <div className='flex-1'></div>
+                </GenericRowForm>
+                {/* {esCrud && <h3 className='text-primary text-xl'>Persona Natural</h3>} */}
                 <GenericRowForm>
                     <GenericTextInput
                         label='Nombre Completo'
@@ -131,6 +161,7 @@ export default function PersonaNaturalForm({
                         errors={errors}
                         isReadOnly={!estaEditando}
                         required
+                        mostrarEspacioError={true}
                     />
                     <GenericTextInput
                         label='Apellido Completo'
@@ -140,43 +171,42 @@ export default function PersonaNaturalForm({
                         errors={errors}
                         isReadOnly={!estaEditando}
                         required
+                        mostrarEspacioError={true}
+                    />
+                    <GenericTextInput
+                        label='Email'
+                        name='email'
+                        type='email'
+                        register={register}
+                        errors={errors}
+                        isReadOnly={!estaEditando || clienteId !== -1}
+                        mostrarEspacioError={true}
+                        required
                     />
                 </GenericRowForm>
                 <GenericRowForm>
                     <GenericSelect
                         label='Tipo de Documento'
-                        name='tipoDocumento'
+                        name='tipoIdentificacion'
                         register={register}
                         errors={errors}
                         placeholderOptionLabel='Seleccione un tipo de documento'
                         tipoCatalogo='tipoDocumento'
                         isReadOnly={!estaEditando}
                         required
+                        mostrarEspacioError={true}
                     />
                     <GenericTextInput
                         label='Número de Documento'
-                        name='numeroDocumento'
+                        name='numeroIdentificacion'
                         type='text'
                         register={register}
                         errors={errors}
                         isReadOnly={!estaEditando}
                         required
+                        mostrarEspacioError={true}
                     />
-                </GenericRowForm>
 
-                <GenericRowForm>
-                    {esCrud && (
-                        <GenericTextInput
-                            label='Email'
-                            name='email'
-                            type='email'
-                            register={register}
-                            errors={errors}
-                            isReadOnly={!estaEditando || clienteId !== -1}
-                            mostrarEspacioError={true}
-                            required
-                        />
-                    )}
                     <GenericInput
                         label='Fecha de Nacimiento'
                         name='fechaNacimiento'
@@ -184,25 +214,12 @@ export default function PersonaNaturalForm({
                         register={register}
                         error={errors.fechaNacimiento?.message}
                         isReadOnly={!estaEditando}
+                        mostrarEspacioError={true}
                         // required
                     />
                 </GenericRowForm>
-                <GenericInput
-                    label='Género'
-                    name='genero'
-                    type='select'
-                    register={register}
-                    options={[
-                        { value: '', label: 'Seleccione un género' },
-                        { value: 'Masculino', label: 'Masculino' },
-                        { value: 'Femenino', label: 'Femenino' },
-                        { value: 'Otro', label: 'Otro' },
-                    ]}
-                    error={errors.genero?.message}
-                    isReadOnly={!estaEditando}
-                    // required
-                />
-                {estaEditando && (
+
+                {estaEditando ? (
                     <FormsButtons
                         onCancelar={() => {
                             console.log('Cancel clicked')
@@ -211,6 +228,19 @@ export default function PersonaNaturalForm({
                         }}
                         onGuardar={onSubmit}
                     />
+                ) : (
+                    <GenericButton
+                        // <button
+                        text='Editar'
+                        icon={<AiOutlineEdit className='size-5' />}
+                        type='button'
+                        onClick={() => changeEstaEditando(true)}
+                        className='max-w-xs self-end mt-4'
+                        // className='flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm text-white bg-primary-auto hover:bg-secondary-light transition-all duration-300 shadow-md hover:shadow-lg'
+                    />
+
+                    // </GenericButton>
+                    // </button>
                 )}
             </GenericForm>
 

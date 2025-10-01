@@ -305,6 +305,7 @@ export const personaNaturalCrudSchema = personaNaturalSchema.concat(
 )
 export type PerfilPersonaNaturalData = yup.InferType<typeof personaNaturalSchema> & {
     clienteId?: number
+    email?: string
 }
 export type PerfilPersonaNaturalCrudData = yup.InferType<typeof personaNaturalCrudSchema> & {
     clienteId?: number

@@ -131,7 +131,7 @@ const GenericSelect: React.FC<GenericSelectProps> = ({
     const baseOptions: Option[] = isAsync ? remoteOptions ?? [] : (staticOptions as Option[])
     // Placeholder opcional al inicio
     const computedOptions: Option[] = [
-        { value: '', label: placeholderOptionLabel ?? 'Escoger ' + label },
+        { value: '', label: placeholderOptionLabel ?? 'Escoger ' + label, disabled: true },
         ...baseOptions,
     ]
 

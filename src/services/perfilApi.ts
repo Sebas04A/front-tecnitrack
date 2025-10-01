@@ -181,8 +181,8 @@ export async function crearPerfilNaturaAdmin(data: PerfilPersonaNaturalCrudData)
     const requestBody: CrearClienteNaturalDto = {
         nombre: data.nombreCompleto,
         apellido: data.apellidoCompleto,
-        tipoIdentificacion: data.tipoDocumento,
-        numeroIdentificacion: data.numeroDocumento,
+        tipoIdentificacion: data.tipoIdentificacion,
+        numeroIdentificacion: data.numeroIdentificacion,
         fechaNacimiento: data.fechaNacimiento,
         genero: data.genero,
         email: data.email,

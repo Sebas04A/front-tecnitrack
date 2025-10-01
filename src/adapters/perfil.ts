@@ -39,8 +39,8 @@ export const createAddapterPerfilNatural = (
     return {
         nombres: perfil.nombreCompleto,
         apellidos: perfil.apellidoCompleto,
-        tipoDocumento: perfil.tipoDocumento,
-        numeroIdentificacion: perfil.numeroDocumento,
+        tipoDocumento: perfil.tipoIdentificacion,
+        numeroIdentificacion: perfil.numeroIdentificacion,
         fechaNacimiento: adaptFecha(perfil.fechaNacimiento || ''),
         genero: perfil.genero || '',
     }
@@ -84,10 +84,11 @@ export const parseAdapterPerfilNatural = (
     return {
         nombreCompleto: api.nombres ?? '',
         apellidoCompleto: api.apellidos ?? '',
-        tipoDocumento: api.tipoDocumento ?? '',
-        numeroDocumento: api.numeroIdentificacion ?? '',
+        tipoIdentificacion: api.tipoDocumento ?? '',
+        numeroIdentificacion: api.numeroIdentificacion ?? '',
         fechaNacimiento: parseFecha(api.fechaNacimiento || ''),
         genero: genero,
+        email: api.emailRegistrado ?? '',
     }
 }
 export const parseAdapterPerfilNaturalCrud = (
@@ -97,8 +98,8 @@ export const parseAdapterPerfilNaturalCrud = (
         clienteId: api.id || -1,
         nombreCompleto: api.nombre ?? '',
         apellidoCompleto: api.apellido ?? '',
-        tipoDocumento: api.tipoDocumento ?? '',
-        numeroDocumento: api.numeroIdentificacion ?? '',
+        tipoIdentificacion: api.tipoDocumento ?? '',
+        numeroIdentificacion: api.numeroIdentificacion ?? '',
         fechaNacimiento: parseFecha(api.fechaNacimiento || ''),
         genero: api.genero ?? '',
         email: api.email ?? '',

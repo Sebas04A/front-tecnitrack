@@ -156,6 +156,7 @@ export default function FormsUnidos({
                 dataLocal = await (tipoPersona === TIPO_PERSONA.EMPRESA
                     ? getPerfilJuridico()
                     : getPerfilNatural())
+                console.log('Datos obtenidos cliente actual:', dataLocal)
             }
 
             // if (clienteId === -1 && esCrud) {
@@ -270,14 +271,14 @@ export default function FormsUnidos({
                     // activeForm.reset() // Resetea el formulario activo al cambiar de pestaña
                 }}
                 estaEditando={estaEditando}
-                onToggleEdit={
-                    esCrud
-                        ? undefined
-                        : () => {
-                              if (!validarPuedeCambiar()) return
-                              setEstaEditando(!estaEditando)
-                          }
-                }
+                // onToggleEdit={
+                //     esCrud
+                //         ? undefined
+                //         : () => {
+                //               if (!validarPuedeCambiar()) return
+                //               setEstaEditando(!estaEditando)
+                //           }
+                // }
             />
 
             {/* Contenido de la Pestaña Activa */}
