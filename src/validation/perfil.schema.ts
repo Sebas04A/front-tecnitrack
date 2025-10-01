@@ -253,16 +253,16 @@ export const personaNaturalSchema = yup.object({
     // .required('La fecha de nacimiento es obligatoria')
     // .test('mayor-de-18', 'Debe ser mayor de 18 años', v => getAge(v) >= 18) // ← activa si tu negocio lo requiere
 
-    tipoDocumento: yup
+    tipoIdentificacion: yup
         .string()
         // .oneOf(['Cédula de Ciudadanía', 'Pasaporte', 'RUC', ''], 'Tipo de documento inválido')
         .required('El tipo de documento es obligatorio'),
 
-    numeroDocumento: yup
+    numeroIdentificacion: yup
         .string()
         .required('El número de documento es obligatorio')
         .test('documento-ec', 'Documento inválido', function (value) {
-            const tipo = (this.parent?.tipoDocumento ?? '') as string
+            const tipo = (this.parent?.tipoIdentificacion ?? '') as string
             const v = value ?? ''
 
             if (tipo === 'Cédula de Ciudadanía') {

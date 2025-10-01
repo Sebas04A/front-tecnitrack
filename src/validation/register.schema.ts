@@ -71,16 +71,16 @@ const isValidCedulaEc = (value?: string) => {
 export const registerSchema = yup
     .object({
         // tipoCliente: yup.string().required('El tipo de cliente es obligatorio'),
-        tipoDocumento: yup
+        tipoIdentificacion: yup
             .string()
             // .oneOf(['Cédula de Ciudadanía', 'Pasaporte', 'RUC', ''], 'Tipo de documento inválido')
             .required('El tipo de documento es obligatorio'),
 
-        numeroDocumento: yup
+        numeroIdentificacion: yup
             .string()
             .required('El número de documento es obligatorio')
             .test('documento-ec', 'Documento inválido', function (value) {
-                const tipo = (this.parent?.tipoDocumento ?? '') as string
+                const tipo = (this.parent?.tipoIdentificacion ?? '') as string
                 const v = value ?? ''
 
                 if (tipo === 'Cédula de Ciudadanía') {
