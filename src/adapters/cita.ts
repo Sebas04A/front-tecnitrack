@@ -43,12 +43,13 @@ function parseCitaAdmin(cita: CitaAdministradorResponse): CitaDataCrud {
     const dt = new Date(cita.fecha ?? -1)
     dt.setHours(hour, minute, 0, 0)
     const fecha = dt
+    console.log('Fecha parseada:', fecha, 'from cita.fecha:', cita.fecha, 'and hora:', hora)
 
     return {
         tipoMantenimiento: cita.tipoMantenimiento ?? '',
         descripcion: cita.observaciones ?? '',
         usuario: cita.usuarioId ?? -1,
-        fechaHoraInicio: cita.fecha ?? '-1',
+        fechaHoraInicio: fecha.toISOString().slice(0, 10) ?? '-1',
         hora: cita.hora ?? '',
         fecha,
 

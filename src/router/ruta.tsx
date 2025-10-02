@@ -19,9 +19,21 @@ export const navItemsMain: navItemsType = [
     },
     {
         type: 'link',
-        name: 'Perfil de usuario',
+        name: 'Perfil',
         href: '/usuario',
         icon: <FaUserCircle className='inline' />,
+    },
+    {
+        type: 'link',
+        name: 'Citas',
+        href: '/citas',
+        icon: <FaRegCalendarAlt className='inline' />,
+    },
+    {
+        type: 'link',
+        name: 'Ordenes',
+        href: '/ordenes',
+        icon: <FaFileInvoice className='inline' />,
     },
     {
         type: 'link',

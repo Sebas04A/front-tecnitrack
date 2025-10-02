@@ -198,7 +198,6 @@ const GenericSelect: React.FC<GenericSelectProps> = ({
                     mostrarEspacioError ?? (register && !isReadOnly) ? true : false
                 }
                 {...(htmlSelectProps as any)}
-                value={currentValue ?? ''}
             />
         </>
     )

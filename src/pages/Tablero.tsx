@@ -31,7 +31,7 @@ export default function TableroPage() {
     return (
         <div className='flex flex-col gap-8'>
             {/* SECCIÓN DE CABECERA */}
-            <header className='flex flex-col md:flex-row justify-between items-start md:items-center gap-4'>
+            {/* <header className='flex flex-col md:flex-row justify-between items-start md:items-center gap-4'>
                 <div>
                     <h1 className='text-4xl font-bold '>Tablero</h1>
                     <p className='text-text mt-1'>
@@ -48,7 +48,7 @@ export default function TableroPage() {
                         className='w-12 h-12 rounded-full border-2 border-secondary'
                     />
                 </div>
-            </header>
+            </header> */}
 
             {/* SECCIÓN DE WIDGETS PRINCIPALES */}
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>

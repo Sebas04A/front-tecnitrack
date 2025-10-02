@@ -222,15 +222,15 @@ export const personaNaturalSchema = yup.object({
         .string()
         .required('El nombre completo es obligatorio')
         .min(3, 'Debe tener al menos 3 caracteres')
-        .max(50, 'No puede exceder los 50 caracteres')
-        .matches(/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/, 'Solo puede contener letras'),
+        .max(50, 'No puede exceder los 50 caracteres'),
+    // .matches(/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/, 'Solo puede contener letras'),
 
     apellidoCompleto: yup
         .string()
         .required('El apellido completo es obligatorio')
         .min(3, 'Debe tener al menos 3 caracteres')
-        .max(50, 'No puede exceder los 50 caracteres')
-        .matches(/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/, 'Solo puede contener letras'),
+        .max(50, 'No puede exceder los 50 caracteres'),
+    // .matches(/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/, 'Solo puede contener letras'),
 
     genero: yup.string().nullable(),
     // .oneOf([...GENEROS], 'Género inválido')
