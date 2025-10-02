@@ -45,7 +45,7 @@ const AppRouter: React.FC = () => {
                 {/* <Route path='ex' element={<MantenimientoIngreso />} /> */}
             </Route>
             <Route element={<ProtectedRoute requiredRol='interno' />}>
-                <Route index element={<Navigate to='home' replace />} />
+                <Route index element={<Navigate to='/interno/home' replace />} />
                 <Route path='/interno' element={<InternalLayout />}>
                     <Route index element={<Navigate to='home' replace />} />
                     <Route path='home' element={<HomeInternos />} />
