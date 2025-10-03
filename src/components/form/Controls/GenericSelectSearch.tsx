@@ -26,6 +26,7 @@ type Props<T extends FieldValues> = {
     required?: boolean
     mostrarEspacioError?: boolean
     fetchOptions?: FetchFunction
+    selectedLabel?: string
     staticOptions?: Option[]
     minSearchLength?: number
     debounceMs?: number
@@ -58,6 +59,7 @@ export default function GenericSelectSearch<T extends FieldValues>({
     isReadOnly = false,
     mostrarEspacioError = true,
     fetchOptions,
+    selectedLabel,
     staticOptions = [],
     minSearchLength = 0,
     debounceMs = 300,
@@ -79,7 +81,7 @@ export default function GenericSelectSearch<T extends FieldValues>({
     const [loading, setLoading] = useState(false)
     const [highlightedIndex, setHighlightedIndex] = useState(-1)
     const dropdownRef = useRef<HTMLDivElement>(null)
-    const debounceRef = useRef<NodeJS.Timeout>()
+    const debounceRef = useRef<any>()
     const abortControllerRef = useRef<AbortController>()
 
     // --- Lógica del Componente ---
@@ -149,11 +151,27 @@ export default function GenericSelectSearch<T extends FieldValues>({
             rules={{ required: required ? 'Este campo es requerido' : false }}
             render={({ field, fieldState }) => {
                 const selectedOption = options.find(opt => opt.value === field.value)
-
-                // Sincroniza el texto del input con el valor del formulario
                 useEffect(() => {
-                    setSearchQuery(selectedOption ? selectedOption.label : '')
-                }, [selectedOption])
+                    // PRIORIDAD 1: Si el usuario selecciona una opción de la lista,
+                    // mostramos el label de esa opción.
+                    if (selectedOption) {
+                        setSearchQuery(selectedOption.label)
+                    }
+                    // PRIORIDAD 2: Si no hay opción seleccionada, pero el campo tiene un valor
+                    // (cargado inicialmente) y nos pasaron un `initialLabel`, lo mostramos.
+                    else if (field.value && selectedLabel) {
+                        setSearchQuery(selectedLabel)
+                    }
+                    // PRIORIDAD 3: Si el campo se vacía, limpiamos el texto del input.
+                    else if (!field.value) {
+                        setSearchQuery('')
+                    }
+                }, [field.value, selectedOption, selectedLabel]) // Se ejecuta cuando estos valores cambian
+
+                // // Sincroniza el texto del input con el valor del formulario
+                // useEffect(() => {
+                //     setSearchQuery(selectedOption ? selectedOption.label : '')
+                // }, [selectedOption])
 
                 // --- Manejadores de Eventos ---
                 const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {

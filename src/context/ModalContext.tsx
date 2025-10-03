@@ -9,7 +9,6 @@ interface ModalProviderProps {
 }
 
 export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
-    console.warn('ModalProvider render')
     const [modals, setModals] = useState<ModalConfig[]>([])
 
     useEffect(() => {

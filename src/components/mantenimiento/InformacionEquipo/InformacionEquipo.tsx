@@ -17,11 +17,13 @@ import { form, sub } from 'framer-motion/client'
 function SoloEquipoForm({
     ordenId,
     register,
+    control,
     blockForm,
     watch,
 }: {
     ordenId: number
     register: ReturnType<typeof useForm>['register']
+    control?: any
     blockForm: boolean
     watch: ReturnType<typeof useForm>['watch']
 }) {
@@ -42,7 +44,7 @@ function SoloEquipoForm({
             <GenericRowForm>
                 <GenericSelect
                     label='Tipo Equipo'
-                    register={register}
+                    control={control}
                     name='tipoEquipo'
                     isReadOnly={blockForm}
                     getOptions={obtenerTiposActivosSelect}
@@ -51,7 +53,7 @@ function SoloEquipoForm({
                 />
                 <GenericSelect
                     label='Subtipo'
-                    register={register}
+                    control={control}
                     name='subtipo'
                     getOptions={() => obtenerSubtipoOptions()}
                     // options={[
@@ -81,7 +83,7 @@ function SoloEquipoForm({
             <GenericRowForm>
                 <GenericSelect
                     label='Marca'
-                    register={register}
+                    control={control}
                     name='marca'
                     tipoCatalogo='marcaEquipo'
                     isReadOnly={blockForm || !subtipo}

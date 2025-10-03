@@ -93,7 +93,7 @@ export default function CrudCrudo<TData extends Record<string, any>, TForm exten
         setFilters(filters)
     }
     const load = async (p = page, s = search) => {
-        console.warn(
+        console.log(
             'Loading data for page:',
             p,
             'search:',

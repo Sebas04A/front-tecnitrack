@@ -11,8 +11,10 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import { useAuth } from '../hooks/useAuth'
 import GenericForm from '../components/form/GenericForm'
-import RegisterComun from '../components/register/RegisterComun'
+
 import GenericRowForm from '../components/form/GenericRowForm'
+import { RegisterComun } from '../components/register/RegisterComun'
+import GenericSelectState from '../components/form/Controls/GenericSelectState'
 
 export default function RegisterNuevo() {
     const [tipoPersona, setTipoPersona] = React.useState('Natural')
@@ -48,7 +50,7 @@ export default function RegisterNuevo() {
             >
                 <GenericRowForm>
                     <div className='flex-1'>
-                        <GenericSelect
+                        <GenericSelectState
                             label='Tipo de Persona'
                             name='tipoCliente'
                             onChange={e => setTipoPersona(e.target.value)}

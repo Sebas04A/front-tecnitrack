@@ -4,6 +4,7 @@ import GenericDate from '../../../form/Controls/GenericDate'
 import GenericSelect from '../../../form/Controls/GenericSelect'
 import { createFilter, Filter } from '../../helper/crud-helpers'
 import { CitaDataCrud } from '../../../../types/cita'
+import GenericSelectState from '../../../form/Controls/GenericSelectState'
 
 export interface CitasFilters {
     fechaInicio: string
@@ -102,7 +103,7 @@ export function CitasFilters({
                 </div>
 
                 <div className='flex-1 flex  gap-4'>
-                    <GenericSelect
+                    <GenericSelectState
                         label='Estado de la cita'
                         name='estadoCita'
                         tipoCatalogo='EstadoCita'
@@ -110,8 +111,9 @@ export function CitasFilters({
                         value={filtros.estadoCita}
                         onChange={e => setFiltros({ ...filtros, estadoCita: e.target.value })}
                         className=''
+                        mostrarEspacioError={false}
                     />
-                    <GenericSelect
+                    <GenericSelectState
                         label='Tipo de Mantenimiento'
                         name='tipoMantenimiento'
                         tipoCatalogo='tipoMantenimiento'
@@ -120,6 +122,7 @@ export function CitasFilters({
                         onChange={e =>
                             setFiltros({ ...filtros, tipoMantenimiento: e.target.value })
                         }
+                        mostrarEspacioError={false}
                     />
                 </div>
             </div>

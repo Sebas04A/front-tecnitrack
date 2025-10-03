@@ -6,6 +6,7 @@ import {
 } from '../api'
 import { CitaDataCrud, citaDataCompleta } from '../types/cita'
 import { CitaDataForm, CitaData } from '../validation/cita.schema'
+import { convertirDateParaInput } from './fecha'
 
 export function parseCita(cita: CitaResponse): citaDataCompleta {
     // const tipoMantenimiento = cita.tipoMantenimiento || cita.otro
@@ -32,7 +33,7 @@ export function adapterCitaAdmin(cita: CitaDataForm): CrearCitaAdministradorRequ
     const tipoMantenimiento = cita.tipoMantenimiento || cita.otro || 'Otro'
     return {
         clienteId: cita.usuario,
-        fechaHoraInicio: new Date(cita.fechaHoraInicio).toISOString(),
+        fechaHoraInicio: cita.fechaHoraInicio,
         tipoMantenimiento: tipoMantenimiento,
         observaciones: cita.descripcion,
     }
@@ -43,13 +44,22 @@ function parseCitaAdmin(cita: CitaAdministradorResponse): CitaDataCrud {
     const dt = new Date(cita.fecha ?? -1)
     dt.setHours(hour, minute, 0, 0)
     const fecha = dt
-    console.log('Fecha parseada:', fecha, 'from cita.fecha:', cita.fecha, 'and hora:', hora)
+    console.log(
+        'Fecha parseada:',
+        fecha,
+        'from cita.fecha:',
+        cita.fecha,
+        'and hora:',
+        hora,
+        'string:',
+        convertirDateParaInput(fecha)
+    )
 
     return {
         tipoMantenimiento: cita.tipoMantenimiento ?? '',
         descripcion: cita.observaciones ?? '',
         usuario: cita.usuarioId ?? -1,
-        fechaHoraInicio: fecha.toISOString().slice(0, 10) ?? '-1',
+        fechaHoraInicio: convertirDateParaInput(fecha) ?? '-1',
         hora: cita.hora ?? '',
         fecha,
 

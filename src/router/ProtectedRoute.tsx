@@ -5,13 +5,13 @@ import { useAuth } from '../hooks/useAuth'
 const ProtectedRoute = ({ requiredRol }: { requiredRol: string }) => {
     const { user, loading } = useAuth()
     if (loading) return <div>Loading...</div>
-    console.log('ProtectedRoute user:', user)
-    console.log(requiredRol)
-    console.warn(!user || user.rol !== requiredRol)
+    // console.log('ProtectedRoute user:', user)
+    // console.log(requiredRol)
+    // console.warn(!user || user.rol !== requiredRol)
     if (loading) return <div>Loading...</div>
     if (!user) return <Navigate to='/login' replace />
     if (user.rol !== requiredRol) console.warn('No autorizado'), (<Navigate to='/login' replace />)
-    console.log('abriendo')
+    // console.log('abriendo')
     return <Outlet />
 }
 

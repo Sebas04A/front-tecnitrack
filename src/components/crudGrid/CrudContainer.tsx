@@ -21,7 +21,7 @@ export interface crudQueries<TData, TForm = any> {
     }>
     createQuery: (data: TForm) => Promise<any>
     editQuery: (data: TForm) => Promise<any>
-    deleteQuery: (id: string) => Promise<any>
+    deleteQuery: (data: TData) => Promise<any>
 }
 
 export interface formModalCrudProps {
@@ -131,6 +131,9 @@ export function CrudContainer<TData extends Record<string, any>, TForm extends F
         const props = {
             ...formModalProp.props,
             ...formModalProp.propsNoCambiantes,
+            control: form.control,
+            register: form.register,
+            errors: form.formState.errors,
             readOnly: camposReadOnly,
         }
         console.log('props', props)
@@ -217,12 +220,12 @@ export function CrudContainer<TData extends Record<string, any>, TForm extends F
             })
         }
     }
-    const deleteRequest = async (id: string) => {
-        console.log('Iniciando eliminación de:', id)
-        if (!id) {
+    const deleteRequest = async (data: TData) => {
+        console.log('Iniciando eliminación de:', data)
+        if (!data) {
             throw new Error('No se puede eliminar un registro sin ID')
         }
-        const res = await deleteQuery(id)
+        const res = await deleteQuery(data)
         console.log('Eliminado:', res)
         return res
     }
@@ -239,13 +242,14 @@ export function CrudContainer<TData extends Record<string, any>, TForm extends F
         return res
     }
 
-    const deleteAccion = async (id: string) => {
-        console.log('Iniciando eliminación de:', id)
-        return submitingRequest(id, deleteRequest, 'El registro se ha eliminado correctamente.')
+    const deleteAccion = async (data: TData) => {
+        console.log('Iniciando eliminación de:', data)
+        return submitingRequest(data, deleteRequest, 'El registro se ha eliminado correctamente.')
     }
 
     const onSubmit = handleSubmit(async (values: TForm) => {
         console.log('Submitted values:', values)
+        console.log('Cerrando modal con ID:', idFormModal)
         modal.closeModal(idFormModal)
         return submitingRequest(values, submitRequest)
     })
@@ -281,7 +285,7 @@ export function CrudContainer<TData extends Record<string, any>, TForm extends F
                 confirmText: 'Eliminar',
                 cancelText: 'Cancelar',
                 onConfirm: async () => {
-                    deleteAccion(row.id)
+                    deleteAccion(row)
                 },
                 type: 'warning',
             })

@@ -156,8 +156,8 @@ const ContactosCrud: React.FC<ContactosCrudProps> = ({
             else response = await updateContactoCliente(values as ContactoClienteData)
         }
     }
-    async function deleteQuery(idString: string) {
-        const id = Number(idString)
+    async function deleteQuery(data: Contacto) {
+        const id = Number(data.id)
         console.log('Deleting contacto:', id)
         // let response
         if (tipoPersona === 'Empresa') {

@@ -5,7 +5,7 @@ import GenericSelect from '../../../form/Controls/GenericSelect'
 import GenericCheckbox from '../../../form/Controls/GenericCheckbox'
 import GenericTextInput from '../../../form/Controls/GenericTextInput'
 
-export default function ContactosForm({ tipoPersona, register, errors, readOnly }: any) {
+export default function ContactosForm({ tipoPersona, register, errors, control, readOnly }: any) {
     return (
         <>
             {/* Modal Crear / Editar */}
@@ -14,8 +14,7 @@ export default function ContactosForm({ tipoPersona, register, errors, readOnly 
                     <GenericSelect
                         label='Tipo de Contacto'
                         name='tipoContacto'
-                        register={register}
-                        errors={errors}
+                        control={control}
                         // options={[
                         //     { value: '', label: 'Elegir tipo de contacto' },
                         //     { value: 'casa', label: 'Casa' },
@@ -50,8 +49,7 @@ export default function ContactosForm({ tipoPersona, register, errors, readOnly 
                     <GenericSelect
                         label='Cargo'
                         name='cargo'
-                        register={register}
-                        errors={errors}
+                        control={control}
                         options={[
                             { value: 'gerente', label: 'Gerente' },
                             { value: 'supervisor', label: 'Supervisor' },

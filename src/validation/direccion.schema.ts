@@ -3,14 +3,17 @@ export const direccionSchema = yup.object({
     pais: yup
         .number()
         // .oneOf(['Ecuador', 'Colombia', 'Perú', ''], 'País inválido')
+        .nullable()
         .required('El país es obligatorio'),
     provincia: yup
         .number()
         // .oneOf(['Pichincha', 'Guayas', 'Azuay', ''], 'Provincia inválida')
+        .nullable()
         .required('La provincia es obligatoria'),
     ciudad: yup
         .number()
         // .oneOf(['Quito', 'Guayaquil', 'Cuenca', ''], 'Ciudad inválida')
+        .nullable()
         .required('La ciudad es obligatoria'),
     codigoPostal: yup
         .string()

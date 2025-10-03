@@ -30,8 +30,7 @@ export default function ProfileHeader({
                         <GenericSelect
                             // label='Tipo de Persona'
                             name='tipoPersona'
-                            register={profileForm.register}
-                            errors={profileForm.formState.errors}
+                            control={profileForm.control}
                             // options={[
                             //     { value: '', label: 'Tipo de Persona' },
                             //     { value: 'Natural', label: 'Persona Natural' },

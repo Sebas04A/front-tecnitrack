@@ -1,9 +1,9 @@
 import { useState } from 'react'
 
 import { TIPO_PERSONA, TIPO_PERSONA_TYPE } from '../../constants/perfil'
-import GenericSelect from '../../components/form/Controls/GenericSelect'
 import CrudEmpresa from '../../components/internos/crudClientes/CrudEmpresa'
 import CrudNatural from '../../components/internos/crudClientes/CrudNatural'
+import GenericSelectState from '../../components/form/Controls/GenericSelectState'
 
 export default function CrudClientes() {
     const [tipoPersona, setTipoPersona] = useState<TIPO_PERSONA_TYPE>(TIPO_PERSONA.NATURAL)
@@ -12,7 +12,7 @@ export default function CrudClientes() {
         <div>
             <div className='flex flex-col p-4 rounded-lg shadow-lg bg-background-accent-auto'>
                 <div className='p-2'>
-                    <GenericSelect
+                    <GenericSelectState
                         name='tipoPersona'
                         options={[
                             { label: 'Persona Natural', value: TIPO_PERSONA.NATURAL },

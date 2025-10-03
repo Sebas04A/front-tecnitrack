@@ -33,6 +33,7 @@ export default function IngresarCitaModal({
         handleSubmit,
         register,
         // watch,
+        control,
         formState: { errors },
     } = useForm({
         mode: 'onChange',
@@ -117,8 +118,7 @@ export default function IngresarCitaModal({
                 <GenericSelect
                     label='Tipo de Mantenimiento'
                     name='tipoMantenimiento'
-                    register={register}
-                    errors={errors}
+                    control={control}
                     tipoCatalogo='tipoMantenimiento'
                     placeholderOptionLabel='Seleccione el tipo de mantenimiento'
                     required

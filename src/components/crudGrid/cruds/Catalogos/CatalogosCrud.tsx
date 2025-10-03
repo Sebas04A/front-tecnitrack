@@ -8,6 +8,7 @@ import {
     getCatalogo,
     getCatalogoLimpio,
     getCatalogos,
+    getTiposCatalogos,
     updateCatalogo,
 } from '../../../../services/catalogos'
 import { makeLocalCrudFetcher } from '../../helper/crud-helpers'
@@ -18,6 +19,7 @@ import { CatalogoFormData, catalogoSchema } from '../../../../validation/catalog
 import { yupResolver } from '@hookform/resolvers/yup'
 import TituloPagina from '../../../common/TituloPagina'
 import CatalogoForm from './CatalogoForm'
+import GenericSelectState from '../../../form/Controls/GenericSelectState'
 
 const columns: ColumnDef<CatalogoDto>[] = [
     // { header: 'ID', key: 'id' },
@@ -64,7 +66,7 @@ export default function CatalogosCrud() {
     }
     async function deleteQuery(data: CatalogoFormData) {
         // console.log(data)
-        // if (!data.id) throw new Error('ID es requerido para eliminar')
+        if (!data.id) throw new Error('ID es requerido para eliminar')
         if (typeof data.id !== 'number') throw new Error('ID es requerido para eliminar')
         const res = await deleteCatalogo(data.id)
         return res
@@ -103,33 +105,44 @@ export default function CatalogosCrud() {
     //         shouldValidate: true,
     //     })
     // }, [tipoCatalogo, setValue])
+    function fetchTiposCatalogos() {
+        getTiposCatalogos()
+            .then(tipos => {
+                console.log('Tipos de catálogos disponibles:', tipos)
+            })
+            .catch(err => {
+                console.error('Error obteniendo tipos de catálogos:', err)
+            })
+    }
+    const [opcionesTiposCatalogo, setOpcionesTiposCatalogo] = React.useState<
+        { value: string; label: string }[]
+    >([])
+    const cargarTiposCatalogo = useCallback(async () => {
+        try {
+            const tipos = await getTiposCatalogos()
+            const opciones = tipos.map(tipo => ({ value: tipo, label: tipo }))
+            setOpcionesTiposCatalogo(opciones)
+            console.log('Tipos de catálogos cargados:', opciones)
+        } catch (error) {
+            console.error('Error cargando tipos de catálogos:', error)
+        }
+    }, [])
+    useEffect(() => {
+        cargarTiposCatalogo()
+    }, [cargarTiposCatalogo])
 
     return (
         <div>
             <div className='p-6 bg-background-accent-auto rounded-lg  shadow-lg'>
                 <p className='text-primary font-semibold text-lg mb-4'>Tipo de Catálogo</p>
-                <GenericSelect
+                <GenericSelectState
                     name='tipoCatalogo'
                     value={tipoCatalogo}
                     onChange={e => {
                         setTipoCatalogo(e.target.value)
                     }}
                     placeholderOptionLabel='Seleccione un tipo'
-                    options={[
-                        { value: 'CargoEmpresa', label: 'Cargo Empresa' },
-                        { value: 'Ciudad', label: 'Ciudad' },
-                        { value: 'EstadoCita', label: 'Estado Cita' },
-                        { value: 'EstadoGeneral', label: 'Estado General' },
-                        { value: 'Genero', label: 'Género' },
-                        { value: 'Pais', label: 'País' },
-                        { value: 'Provincia', label: 'Provincia' },
-                        { value: 'RolUsuario', label: 'Rol Usuario' },
-                        { value: 'TipoCliente', label: 'Tipo Cliente' },
-                        { value: 'TipoContactoInterno', label: 'Tipo Contacto Interno' },
-                        { value: 'TipoDireccion', label: 'Tipo Dirección' },
-                        { value: 'TipoDocumento', label: 'Tipo Documento' },
-                        { value: 'TipoMantenimiento', label: 'Tipo Mantenimiento' },
-                    ]}
+                    options={opcionesTiposCatalogo}
                 />
             </div>
 

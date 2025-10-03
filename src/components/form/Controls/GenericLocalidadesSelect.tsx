@@ -13,6 +13,9 @@ export interface LocalidadesValue {
     pais: number
     provincia: number
     ciudad: number
+    paisNombre?: string
+    provinciaNombre?: string
+    ciudadNombre?: string
 }
 
 // Define las props del componente
@@ -20,8 +23,7 @@ interface GenericLocalidadesSelectProps {
     value: LocalidadesValue
     onChange: (newValue: LocalidadesValue) => void
     disabled?: boolean // Prop opcional para deshabilitar los selects
-    register?: any
-    errors?: any
+    control?: any
     // watch?: any
 }
 
@@ -29,10 +31,8 @@ export default function GenericLocalidadesSelect({
     value,
     onChange,
     disabled = false,
-    register,
-    errors,
-}: // watch,
-GenericLocalidadesSelectProps) {
+    control,
+}: GenericLocalidadesSelectProps) {
     // Los estados para las opciones se mantienen internos
     const [paises, setPaises] = useState<Option[]>([])
     const [provincias, setProvincias] = useState<Option[]>([])
@@ -106,11 +106,10 @@ GenericLocalidadesSelectProps) {
                 label='País'
                 name='pais'
                 options={paises}
-                value={value.pais.toString()} // El valor viene de las props
+                value={value.pais} // El valor viene de las props
                 onChange={handlePaisChange} // Usa el nuevo manejador
                 isReadOnly={disabled}
-                register={register}
-                errors={errors}
+                control={control}
                 mostrarEspacioError={true}
             />
             <GenericSelect
@@ -120,8 +119,7 @@ GenericLocalidadesSelectProps) {
                 value={value.provincia.toString()} // El valor viene de las props
                 onChange={handleProvinciaChange} // Usa el nuevo manejador
                 isReadOnly={disabled || value.pais === -1} // Deshabilitado si no hay país
-                register={register}
-                errors={errors}
+                control={control}
                 mostrarEspacioError={true}
             />
             <GenericSelect
@@ -131,8 +129,7 @@ GenericLocalidadesSelectProps) {
                 value={value.ciudad.toString()} // El valor viene de las props
                 onChange={handleCiudadChange} // Usa el nuevo manejador
                 isReadOnly={disabled || value.provincia === -1} // Deshabilitado si no hay provincia
-                register={register}
-                errors={errors}
+                control={control}
                 mostrarEspacioError={true}
             />
         </div>

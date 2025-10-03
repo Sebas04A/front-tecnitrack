@@ -11,6 +11,7 @@ import GenericSelect from '../../components/form/Controls/GenericSelect'
 import { BsPlayFill } from 'react-icons/bs'
 import { BiCheck } from 'react-icons/bi'
 import { PiUserSquareFill } from 'react-icons/pi'
+import GenericSelectState from '../../components/form/Controls/GenericSelectState'
 
 function InfoCards() {
     return (
@@ -60,7 +61,7 @@ function Filters({ onChangeFilters }: { onChangeFilters: (filters: Filter<any>[]
                 />
             </div>
             <div className='flex flex-wrap gap-4'>
-                <GenericSelect
+                <GenericSelectState
                     name={'Estado'}
                     label='Estado'
                     value={filters.estado}
@@ -68,7 +69,7 @@ function Filters({ onChangeFilters }: { onChangeFilters: (filters: Filter<any>[]
                     className='min-w-[21ch] flex-1'
                     tipoCatalogo='ESTADO_ORDEN'
                 />
-                <GenericSelect
+                <GenericSelectState
                     name={'TipoMantenimiento'}
                     label='Tipo de Mantenimiento'
                     value={filters.tipoMantenimiento}
@@ -76,7 +77,7 @@ function Filters({ onChangeFilters }: { onChangeFilters: (filters: Filter<any>[]
                     className='min-w-[21ch] flex-1'
                     tipoCatalogo='tipoMantenimiento'
                 />
-                <GenericSelect
+                <GenericSelectState
                     name={'TipoEquipo'}
                     label='Tipo de Equipo'
                     value={filters.tipoEquipo}

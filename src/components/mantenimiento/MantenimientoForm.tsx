@@ -84,8 +84,7 @@ export default function MantenimientoForm({
                 <GenericRowForm>
                     <GenericSelect
                         label='Tipo Mantenimiento'
-                        register={register}
-                        errors={form.formState.errors}
+                        control={form.control}
                         name='tipoMantenimiento'
                         tipoCatalogo='tipoMantenimiento'
                         placeholderOptionLabel='Seleccione un tipo de mantenimiento'
@@ -94,8 +93,7 @@ export default function MantenimientoForm({
                     />
                     <GenericSelect
                         label='Prioridad'
-                        register={register}
-                        errors={form.formState.errors}
+                        control={form.control}
                         name='prioridad'
                         tipoCatalogo='prioridad'
                         placeholderOptionLabel='Seleccione una prioridad'
@@ -117,8 +115,7 @@ export default function MantenimientoForm({
                     />
                     <GenericSelect
                         label='Condición General'
-                        register={register}
-                        errors={form.formState.errors}
+                        control={form.control}
                         name='estado'
                         tipoCatalogo='CondicionGeneral'
                         placeholderOptionLabel='Seleccione un estado'

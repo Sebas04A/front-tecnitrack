@@ -7,9 +7,10 @@ interface PaisesFormProps {
     register: UseFormRegister<PaisFormData>
     errors: FieldErrors<PaisFormData>
     readOnly?: boolean
+    control?: any
 }
 
-const PaisesForm: React.FC<PaisesFormProps> = ({ register, errors, readOnly }) => {
+const PaisesForm: React.FC<PaisesFormProps> = ({ register, errors, control, readOnly }) => {
     console.log('Errores en el formulario de Países:', errors)
     console.log('Campos del formulario de Países:', register)
     console.log('Campos ReadOnly:', readOnly)
@@ -46,8 +47,7 @@ const PaisesForm: React.FC<PaisesFormProps> = ({ register, errors, readOnly }) =
                     { label: 'Sí', value: 'true' },
                     { label: 'No', value: 'false' },
                 ]}
-                register={register}
-                errors={errors}
+                control={control}
                 isReadOnly={readOnly}
             />
         </div>

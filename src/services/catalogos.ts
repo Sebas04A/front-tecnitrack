@@ -2,6 +2,11 @@ import { adapterCatalogo, obtenerCatalogos, parseAdapterCatalogo } from '../adap
 import { CatalogoDto, CatalogosService, CrearCatalogoDto } from '../api'
 import { CatalogoFormData } from '../validation/catalogo.schema'
 
+export async function getTiposCatalogos(): Promise<string[]> {
+    const res = await CatalogosService.getApiCatalogosObtenerTiposCatalogo()
+    return res.data ?? []
+}
+
 export async function getCatalogo(tipo: string) {
     const response = await CatalogosService.getApiCatalogosObtenerCatalogosPorTipo({ tipo })
     return obtenerCatalogos(response.data ?? [])

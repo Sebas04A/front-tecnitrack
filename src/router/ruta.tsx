@@ -57,6 +57,12 @@ export const navItemsInterno: navItemsType = [
     },
     {
         type: 'link',
+        name: 'Ordenes',
+        href: '/interno/ordenes',
+        icon: <FaFileInvoice className='inline' />,
+    },
+    {
+        type: 'link',
         name: 'Mantenimientos',
         href: 'mantenimientos',
         icon: <FaTools className='inline' />,
@@ -126,15 +132,15 @@ function getChildrenPaths(item: NavItem): NavItem[] {
 }
 
 export function getNavItem(path: string) {
-    console.log('Buscando nav item para path:', path)
+    // console.log('Buscando nav item para path:', path)
     // path = path.startsWith('/') ? path.slice(1) : path // Remover '/' inicial si existe
     const navItems = [...navItemsMain, ...navItemsInterno]
     const flat = navItems.flatMap(getChildrenPaths)
-    console.log('Nav items originales:', navItems)
-    console.log('Nav items planos:', flat)
+    // console.log('Nav items originales:', navItems)
+    // console.log('Nav items planos:', flat)
     return flat.find(item => {
         if (item.type === 'link') {
-            console.log(`Comparando ${item.href} con ${path}`)
+            // console.log(`Comparando ${item.href} con ${path}`)
             return item.href === path
         }
     })

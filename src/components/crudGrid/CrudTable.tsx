@@ -101,8 +101,8 @@ export function CrudTable<TData extends Record<string, any>, TForm extends Field
         return map
     }, [columns])
     const sortedData = React.useMemo(() => {
-        console.log('Sorting data', { sort })
-        console.log(data)
+        // console.log('Sorting data', { sort })
+        // console.log(data)
         if (!sort.key || !sort.dir) return data
         const col = colByKey.get(String(sort.key))
         const copy = data.slice()

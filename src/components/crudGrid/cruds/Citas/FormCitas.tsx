@@ -1,11 +1,12 @@
 import React from 'react'
 import DateTimeSelector from '../../../citas/DateTimeSelector'
-import GenericSelect from '../../../form/Controls/GenericSelect'
+// import GenericSelect from '../../../form/Controls/GenericSelect'
 import GenericTextInput from '../../../form/Controls/GenericTextInput'
 import GenericDate from '../../../form/Controls/GenericDate'
 import GenericSelectSearch from '../../../form/Controls/GenericSelectSearch'
 import { buscarUsuario } from '../../../../services/SelectSearch'
 import GenericForm from '../../../form/GenericForm'
+import GenericSelect from '../../../form/Controls/GenericSelect'
 
 export default function FormCitas({ form, readOnly }: any) {
     console.log('Valores del formulario en FormCitas:', form.getValues())
@@ -30,11 +31,10 @@ export default function FormCitas({ form, readOnly }: any) {
                 label='Tipo de Mantenimiento'
                 name={`tipoMantenimiento`}
                 isReadOnly={readOnly}
-                register={form.register}
-                errors={form.formState.errors}
+                control={form.control}
                 tipoCatalogo='tipoMantenimiento'
                 loadingLabel='Cargando...'
-                watch={form.watch}
+                // watch={form.watch}
             />
             {tipoMantenimiento === 'Otro' && (
                 <GenericTextInput
@@ -68,6 +68,8 @@ export default function FormCitas({ form, readOnly }: any) {
                 minSearchLength={2}
                 debounceMs={1000}
                 isReadOnly={readOnly}
+                selectedLabel={form.getValues('nombreCompleto')}
+                mostrarEspacioError={true}
             />
 
             {/* </GenericForm> */}

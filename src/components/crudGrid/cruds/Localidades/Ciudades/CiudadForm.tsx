@@ -9,14 +9,16 @@ import {
     obtenerPaisesSelect,
     obtenerProvinciasPorPaisSelect,
 } from '../../../../../services/Select/localidadesSelectApi'
+import GenericSelectState from '../../../../form/Controls/GenericSelectState'
 
 interface CiudadesFormProps {
     register: UseFormRegister<CiudadFormData>
     errors: FieldErrors<CiudadFormData>
+    control?: any
     readOnly?: boolean
 }
 
-const CiudadesForm: React.FC<CiudadesFormProps> = ({ register, errors, readOnly }) => {
+const CiudadesForm: React.FC<CiudadesFormProps> = ({ register, errors, control, readOnly }) => {
     const [provinciaId, setProvinciaId] = React.useState<number | null>(null)
     return (
         <div className='grid gap-3'>
@@ -27,7 +29,7 @@ const CiudadesForm: React.FC<CiudadesFormProps> = ({ register, errors, readOnly 
                 errors={errors}
                 isReadOnly={readOnly}
             />
-            <GenericSelect
+            <GenericSelectState
                 name='paisId'
                 value={provinciaId ?? undefined}
                 label='País'
@@ -42,8 +44,7 @@ const CiudadesForm: React.FC<CiudadesFormProps> = ({ register, errors, readOnly 
                 <GenericSelect
                     name='provinciaId'
                     label='Provincia'
-                    register={register}
-                    errors={errors}
+                    control={control}
                     isReadOnly={readOnly}
                     getOptions={() => obtenerProvinciasPorPaisSelect(provinciaId || 0)}
                     refreshKey={[provinciaId]}

@@ -7,9 +7,11 @@ export default function CatalogoForm({
     register,
     errors,
     readOnly,
+    control,
 }: {
     register: UseFormRegister<CatalogoFormData>
     errors: any
+    control: any
     readOnly?: boolean
 }) {
     return (
@@ -35,8 +37,7 @@ export default function CatalogoForm({
             <GenericSelect
                 label='Estado'
                 name='activo'
-                register={register}
-                errors={errors}
+                control={control}
                 options={[
                     { value: 'true', label: 'Activo' },
                     { value: 'false', label: 'Inactivo' },

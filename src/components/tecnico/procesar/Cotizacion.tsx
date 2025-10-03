@@ -61,7 +61,7 @@ export default function Cotizacion() {
                         <GenericRowForm key={item.id}>
                             <GenericSelect
                                 name={`repuestos.${index}.id`}
-                                register={register}
+                                control={control}
                                 options={repuestosOptions}
                                 // No se usa label aquí para un look más compacto en la fila
                             />
@@ -95,7 +95,7 @@ export default function Cotizacion() {
                     <GenericSelect
                         label='Tipo de Trabajo'
                         name='mano_de_obra_tipo'
-                        register={register}
+                        control={control}
                         options={manoDeObraOptions}
                     />
 

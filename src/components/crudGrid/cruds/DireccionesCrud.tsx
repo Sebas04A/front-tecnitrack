@@ -54,7 +54,7 @@ const schema = direccionSchema
 const resolver = yupResolver(schema)
 
 const DireccionesCrud: React.FC<DireccionesCrudProps> = ({ titulo = 'Direcciones', clienteId }) => {
-    console.warn('DireccionesCrud render clienteId:', clienteId)
+    // console.warn('DireccionesCrud render clienteId:', clienteId)
     // clienteId === -1 && (clienteId = undefined)
     const esCrud = !!clienteId
     const form = useForm<DireccionData>({
@@ -106,8 +106,8 @@ const DireccionesCrud: React.FC<DireccionesCrudProps> = ({ titulo = 'Direcciones
         console.log('Dirección creada:', response)
         return response
     }
-    async function deleteAccion(idString: string) {
-        const id = Number(idString)
+    async function deleteAccion(data: DireccionData) {
+        const id = Number(data.id)
         if (!id) throw new Error('ID de dirección no definido')
         let response
         if (esCrud) response = await deleteDireccionCliente(id)
@@ -136,6 +136,7 @@ const DireccionesCrud: React.FC<DireccionesCrudProps> = ({ titulo = 'Direcciones
                         values: form.watch(),
                     },
                     propsNoCambiantes: {
+                        control: form.control,
                         register: form.register,
                         errors: form.formState.errors,
                         setValue: form.setValue,

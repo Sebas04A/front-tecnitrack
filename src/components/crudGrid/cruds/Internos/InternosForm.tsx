@@ -7,10 +7,12 @@ import GenericDate from '../../../form/Controls/GenericDate'
 export default function InternosForm({
     register,
     errors,
+    control,
     viewing,
 }: {
     register: any
     errors: any
+    control: any
     viewing: any
 }) {
     return (
@@ -19,8 +21,7 @@ export default function InternosForm({
                 <GenericSelect
                     label='Rol'
                     name='rol'
-                    register={register}
-                    errors={errors}
+                    control={control}
                     // options={[
                     //     { value: 'Empleado', label: 'Empleado' },
                     //     { value: 'Cliente', label: 'Cliente' },
@@ -31,8 +32,7 @@ export default function InternosForm({
                     label='Estado'
                     name='estado'
                     isReadOnly // creado como Inactivo, bloqueado en alta
-                    register={register}
-                    errors={errors}
+                    control={control}
                     // options={[
                     //     { value: 'Activo', label: 'Activo' },
                     //     { value: 'Inactivo', label: 'Inactivo' },
@@ -47,8 +47,7 @@ export default function InternosForm({
                     <GenericSelect
                         label='Tipo de Documento'
                         name='tipoDocumento'
-                        register={register}
-                        errors={errors}
+                        control={control}
                         tipoCatalogo='tipoDocumento'
                         isReadOnly={!!viewing}
                         className='min-w-[20ch]'
@@ -110,8 +109,7 @@ export default function InternosForm({
                     label='Género'
                     name='genero'
                     isReadOnly={!!viewing}
-                    register={register}
-                    errors={errors}
+                    control={control}
                     tipoCatalogo='genero'
                 />
             </GenericRowForm>

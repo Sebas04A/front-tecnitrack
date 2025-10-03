@@ -195,8 +195,7 @@ export default function Orden({ handleClose, handleSave, N_ORDEN, orden }: Windo
                 />
                 <GenericSelect
                     label='Taller/Bodega'
-                    register={register}
-                    errors={form.formState.errors}
+                    control={form.control}
                     name='tallerBodegaDestino'
                     tipoCatalogo='tallerBodega'
                 />

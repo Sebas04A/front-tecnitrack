@@ -4,7 +4,7 @@ import GenericSelect from '../../../form/Controls/GenericSelect'
 import GenericTextInput from '../../../form/Controls/GenericTextInput'
 import GenericCheckbox from '../../../form/Controls/GenericCheckbox'
 import GenericButton from '../../../form/Controls/GenericButton'
-import GenericLocalidadesSelect from '../../../form/Controls/GenericLocalidadesSelect'
+// import GenericLocalidadesSelect from '../../../form/Controls/GenericLocalidadesSelect'
 import { Controller } from 'react-hook-form'
 import { useLocalidades } from '../../../../hooks/useLocalidades'
 import {
@@ -13,10 +13,12 @@ import {
     obtenerProvinciasPorPaisSelect,
 } from '../../../../services/Select/localidadesSelectApi'
 import { Option } from '../../../../types/form'
+import GenericLocalidadesSelect from '../../../form/Controls/GenericLocalidadesSelect'
 
 export default function DireccionesForm({
     register,
     errors,
+    control,
     readOnly,
     setValue,
     watch,
@@ -87,8 +89,7 @@ export default function DireccionesForm({
                     label='Tipo de Dirección'
                     name={`tipo`}
                     isReadOnly={readOnly}
-                    register={register}
-                    errors={errors}
+                    control={control}
                     // options={[
                     //     { value: '', label: 'Tipo' },
                     //     { value: 'Casa', label: 'Casa' },
@@ -151,8 +152,8 @@ export default function DireccionesForm({
             /> */}
 
             <GenericLocalidadesSelect
-                register={register}
                 value={direccion} // Pasamos el objeto observado
+                control={control}
                 onChange={handleLocalidadesChange} // Usamos nuestro adaptador
             />
             {/* <GenericRowForm>

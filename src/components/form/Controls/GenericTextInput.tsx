@@ -14,7 +14,7 @@ type GenericTextInputProps = {
     required?: boolean
     endContent?: React.ReactNode
     mostrarEspacioError?: boolean
-} & Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'name' | 'className' | 'required'>
+} & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'name' | 'className' | 'required'>
 
 const GenericTextInput: React.FC<GenericTextInputProps> = ({
     label,

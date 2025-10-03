@@ -28,7 +28,6 @@ import ProcesarMantenimiento from '../components/tecnico/ProcesarMantenimiento'
 import RegisterNuevo from '../pages/RegisterNuevo'
 
 const AppRouter: React.FC = () => {
-    console.warn('AppRouter render')
     return (
         <Routes>
             {/* Rutas públicas */}

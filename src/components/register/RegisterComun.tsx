@@ -10,7 +10,7 @@ import GenericTextInput from '../form/Controls/GenericTextInput'
 import GenericButton from '../form/Controls/GenericButton'
 import GenericLink from '../form/Controls/GenericLink'
 
-export default function RegisterComun<T>({
+export function RegisterComun<T>({
     tipoPersonaProp,
     form,
     signup,
@@ -77,9 +77,8 @@ export default function RegisterComun<T>({
             <GenericRowForm>
                 <GenericSelect
                     label='Tipo de Identificación'
-                    register={register}
                     name='tipoIdentificacion'
-                    errors={errors}
+                    control={form.control}
                     tipoCatalogo='tipoDocumento'
                     loadingLabel='Cargando...'
                     isReadOnly={tipoPersonaProp === 'Empresa'}

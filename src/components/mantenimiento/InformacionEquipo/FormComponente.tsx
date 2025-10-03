@@ -40,7 +40,7 @@ export function ComponentForm({
                 />
                 <GenericSelect
                     label='Estado'
-                    register={register}
+                    control={control}
                     name='condicion'
                     tipoCatalogo='CondicionGeneral'
                     placeholderOptionLabel='Seleccione un estado'
@@ -50,7 +50,7 @@ export function ComponentForm({
             <GenericRowForm>
                 <GenericSelect
                     label='Severidad'
-                    register={register}
+                    control={control}
                     name='severidad'
                     tipoCatalogo='SeveridadDanio'
                 />

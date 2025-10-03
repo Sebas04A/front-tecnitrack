@@ -96,7 +96,7 @@ export default function Finalizacion() {
                 <GenericSelect
                     label='Garantía Ofrecida'
                     name='finalizacion_garantia'
-                    register={register}
+                    control={form.control}
                     options={garantiaOptions}
                 />
             </GenericSection>

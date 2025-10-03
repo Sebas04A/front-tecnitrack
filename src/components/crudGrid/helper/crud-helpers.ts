@@ -52,20 +52,20 @@ export class FilterBuilder<T> {
 
     // Métodos de igualdad
     equals(key: keyof T, value: FilterValue): FilterBuilder<T> {
-        console.log('🔧 FilterBuilder.equals:', { key: String(key), value })
+        // console.log('🔧 FilterBuilder.equals:', { key: String(key), value })
         this.filters.push({ key, operator: 'equals', value })
         return this
     }
 
     // Métodos de comparación numérica/fechas
     greaterThanOrEqual(key: keyof T, value: number | Date | string): FilterBuilder<T> {
-        console.log('🔧 FilterBuilder.greaterThanOrEqual:', { key: String(key), value })
+        // console.log('🔧 FilterBuilder.greaterThanOrEqual:', { key: String(key), value })
         this.filters.push({ key, operator: 'gte', value })
         return this
     }
 
     lessThanOrEqual(key: keyof T, value: number | Date | string): FilterBuilder<T> {
-        console.log('🔧 FilterBuilder.lessThanOrEqual:', { key: String(key), value })
+        // console.log('🔧 FilterBuilder.lessThanOrEqual:', { key: String(key), value })
         this.filters.push({ key, operator: 'lte', value })
         return this
     }
@@ -75,7 +75,7 @@ export class FilterBuilder<T> {
         condition: boolean,
         callback: (builder: FilterBuilder<T>) => FilterBuilder<T>
     ): FilterBuilder<T> {
-        console.log('🔧 FilterBuilder.when:', { condition })
+        // console.log('🔧 FilterBuilder.when:', { condition })
         return condition ? callback(this) : this
     }
 
@@ -84,16 +84,16 @@ export class FilterBuilder<T> {
         callback: (builder: FilterBuilder<T>, value: NonNullable<V>) => FilterBuilder<T>
     ): FilterBuilder<T> {
         const hasValue = value !== null && value !== undefined && value !== ''
-        console.log('🔧 FilterBuilder.whenValue:', { value, hasValue })
+        // console.log('🔧 FilterBuilder.whenValue:', { value, hasValue })
         return hasValue ? callback(this, value as NonNullable<V>) : this
     }
 
     // Método para obtener los filtros
     build(): Filter<T>[] {
-        console.log(
-            '🔧 FilterBuilder.build() - Final filters:',
-            JSON.stringify(this.filters, null, 2)
-        )
+        // console.log(
+        //     '🔧 FilterBuilder.build() - Final filters:',
+        //     JSON.stringify(this.filters, null, 2)
+        // )
         return [...this.filters]
     }
 }
@@ -238,14 +238,14 @@ export function makeLocalCrudFetcher<T>({
     }: FetchParams<T>): Promise<CrudPage<T>> => {
         try {
             const data = await getAll()
-            console.warn('Datos obtenidos:', data)
+            // console.warn('Datos obtenidos:', data)
 
             // Aplicar búsqueda de texto
             const q = normalize(search)
             let filtered = q
                 ? data.filter(row => searchKeys.some(k => normalize(row[k]).includes(q)))
                 : data
-            console.warn('Datos después de búsqueda:', filtered)
+            // console.warn('Datos después de búsqueda:', filtered)
 
             // Aplicar filtros
             if (filters.length > 0) {
@@ -253,13 +253,13 @@ export function makeLocalCrudFetcher<T>({
                     filters.every(filter => applyFilter(item, filter))
                 )
             }
-            console.warn('Datos después de filtros:', filtered)
+            // console.warn('Datos después de filtros:', filtered)
 
             // Paginación
             const size = Math.max(1, pageSize | 0)
             const currentPage = Math.max(1, page | 0)
             const start = (currentPage - 1) * size
-            console.warn('Paginación:', { size, currentPage, start })
+            // console.warn('Paginación:', { size, currentPage, start })
 
             return {
                 items: filtered.slice(start, start + size),

@@ -10,7 +10,7 @@ export const ModalRenderer: React.FC = () => {
         <>
             {modals.map((modal, index) => {
                 const Component = modal.component || BaseModal
-                console.warn('Rendering modal:', modal.id, modal)
+                // console.warn('Rendering modal:', modal.id, modal)
                 return (
                     <div key={modal.id} style={{ zIndex: Z_INDEX_BASE + index }}>
                         <Component

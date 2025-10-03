@@ -8,7 +8,11 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { createFilter, makeLocalCrudFetcher } from '../../helper/crud-helpers'
 import { ColumnDef } from '../../CrudTable'
 import CrudCitasContainer from './CrudCitasContainer'
-import { createCitaAdmin, obtenerCitasAdmin } from '../../../../services/citasApi'
+import {
+    createCitaAdmin,
+    eliminarCitaAdmin,
+    obtenerCitasAdmin,
+} from '../../../../services/citasApi'
 import { CitaAdministradorResponse } from '../../../../api'
 import { CitaDataCrud } from '../../../../types/cita'
 import { div, use } from 'framer-motion/client'
@@ -81,9 +85,10 @@ export default function CrudCitas() {
         const res = await createCitaAdmin(data)
         return res
     }
-    async function deleteAccion(id: string) {
-        console.log('Eliminando cita', id)
-        return id
+    async function deleteAccion(data: CitaDataCrud) {
+        console.log('Eliminando cita', data)
+        const res = await eliminarCitaAdmin(data.id)
+        return data
     }
     const crudQueries: crudQueries<CitaDataCrud> = {
         fetchData: fetchData,

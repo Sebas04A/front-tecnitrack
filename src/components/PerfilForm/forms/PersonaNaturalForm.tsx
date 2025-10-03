@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import GenericSelect from '../../form/Controls/GenericSelect'
+// import GenericSelect from '../../form/Controls/GenericSelect'
 import GenericTextInput from '../../form/Controls/GenericTextInput'
 import GenericRowForm from '../../form/GenericRowForm'
 import {
@@ -24,6 +24,7 @@ import { useModalActions } from '../../../hooks/useModalActions'
 import { h3 } from 'framer-motion/client'
 import { AiOutlineEdit, AiOutlineEye } from 'react-icons/ai'
 import GenericButton from '../../form/Controls/GenericButton'
+import GenericSelect from '../../form/Controls/GenericSelect'
 
 export default function PersonaNaturalForm({
     data,
@@ -48,6 +49,7 @@ export default function PersonaNaturalForm({
         register,
         formState: { errors, isDirty, dirtyFields },
         handleSubmit,
+        control,
         reset,
     } = useForm<Persona>({
         mode: 'onChange',
@@ -136,8 +138,7 @@ export default function PersonaNaturalForm({
                     <GenericSelect
                         label='Género'
                         name='genero'
-                        register={register}
-                        errors={errors}
+                        control={control}
                         placeholderOptionLabel='Seleccione un género'
                         isReadOnly={!estaEditando}
                         mostrarEspacioError={true}
@@ -183,8 +184,7 @@ export default function PersonaNaturalForm({
                     <GenericSelect
                         label='Tipo de Documento'
                         name='tipoIdentificacion'
-                        register={register}
-                        errors={errors}
+                        control={control}
                         placeholderOptionLabel='Seleccione un tipo de documento'
                         tipoCatalogo='tipoDocumento'
                         isReadOnly={!estaEditando}

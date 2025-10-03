@@ -27,14 +27,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        console.warn('Abriendo provider')
         const token = localStorage.getItem(storageNames.token)
         const usuario = localStorage.getItem(storageNames.usuario)
         const rol: rolType = localStorage.getItem(storageNames.rol) as rolType
 
-        console.log('Token from localStorage:', token)
-        console.log('Usuario from localStorage:', usuario)
-        console.log(localStorage.getItem(storageNames.rol))
+        console.log('Token from localStorage:', token, usuario, rol)
 
         if (token && usuario && rol) {
             setUser({ usuario, rol })
