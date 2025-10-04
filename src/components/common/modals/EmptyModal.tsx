@@ -9,6 +9,7 @@ export default function EmptyModal({
     size,
     className,
     children,
+    noPadding,
 }: BaseModalProps) {
     return (
         <BaseModal
@@ -17,6 +18,7 @@ export default function EmptyModal({
             title={title}
             size={size}
             className={className}
+            noPadding={noPadding}
         >
             {children}
         </BaseModal>

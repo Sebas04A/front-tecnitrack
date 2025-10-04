@@ -89,7 +89,7 @@ export default function CrudEmpresa() {
     )
     function openModal(row: ClienteEmpresaCrud) {
         modalActions.showEmptyModal({
-            title: 'Persona Jurídica',
+            title: 'Información de la empresa',
             children: (
                 <FormsUnidos
                     esCrud={true}
@@ -100,6 +100,7 @@ export default function CrudEmpresa() {
                 />
             ),
             size: 'xl',
+            noPadding: true,
         })
     }
     function onView(row: ClienteEmpresaCrud) {

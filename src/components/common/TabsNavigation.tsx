@@ -23,7 +23,7 @@ export default function TabsNavigation<T extends string>({
                     <button
                         key={tab.key}
                         onClick={() => setActiveTab(tab.key)}
-                        className={`flex items-center justify-center gap-2 w-1/3 py-4 px-1 text-center border-b-2 font-medium text-sm transition-all duration-300 ease-in-out ${
+                        className={`flex items-center justify-center gap-2 w-1/3 py-4 px-1 text-center border-b-2 font-medium text-md transition-all duration-300 ease-in-out ${
                             activeTab === tab.key
                                 ? 'border-primary text-primary hover:text-primary-dark'
                                 : 'border-transparent text-muted hover:text-primary-light  '

@@ -62,6 +62,7 @@ export const useModalActions = () => {
 
     const showEmptyModal = useCallback(
         (options: Omit<BaseModalProps, 'isOpen' | 'onClose'>): string => {
+            console.warn('Abriendo modal con opciones:', options)
             return openModal({
                 component: EmptyModal,
                 props: options,

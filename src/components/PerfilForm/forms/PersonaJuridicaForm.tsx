@@ -128,7 +128,7 @@ export default function PersonaJuridicaForm({
     }, [isDirty, dirtyFields, values])
 
     return (
-        <GenericForm onSubmit={onSubmit} title='Información de la Empresa'>
+        <GenericForm onSubmit={onSubmit}>
             <GenericRowForm>
                 <GenericTextInput
                     label='Tipo de Persona'
@@ -157,7 +157,19 @@ export default function PersonaJuridicaForm({
                     type='text'
                     register={register}
                     errors={errors}
-                    className='min-w-[40ch] '
+                    className='min-w-[30ch]  '
+                    isReadOnly={!estaEditando}
+                    required
+                />
+            </GenericRowForm>
+            <GenericRowForm>
+                <GenericTextInput
+                    label='Nombre del Representante Legal'
+                    name='nombreRepresentanteLegal'
+                    type='text'
+                    register={register}
+                    errors={errors}
+                    className='min-w-[40ch] max-w-[42ch]'
                     isReadOnly={!estaEditando}
                     required
                 />
@@ -167,17 +179,7 @@ export default function PersonaJuridicaForm({
                     type='text'
                     register={register}
                     errors={errors}
-                    className='min-w-[30ch]'
-                    isReadOnly={!estaEditando}
-                    required
-                />
-                <GenericTextInput
-                    label='Nombre del Representante Legal'
-                    name='nombreRepresentanteLegal'
-                    type='text'
-                    register={register}
-                    errors={errors}
-                    className='min-w-[30ch]'
+                    className='min-w-[30ch] '
                     isReadOnly={!estaEditando}
                     required
                 />
@@ -199,7 +201,7 @@ export default function PersonaJuridicaForm({
                     type='text'
                     register={register}
                     errors={errors}
-                    className='min-w-[20ch] flex-[3_1_auto]'
+                    className='min-w-[20ch] '
                     isReadOnly={!estaEditando}
                 />
             </GenericRowForm>
