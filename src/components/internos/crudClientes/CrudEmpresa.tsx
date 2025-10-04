@@ -99,7 +99,7 @@ export default function CrudEmpresa() {
                     setDatosYaGuardados={() => {}}
                 />
             ),
-            size: 'full',
+            size: 'xl',
         })
     }
     function onView(row: ClienteEmpresaCrud) {

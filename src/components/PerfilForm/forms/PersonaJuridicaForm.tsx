@@ -67,7 +67,7 @@ export default function PersonaJuridicaForm({
             numeroSucursal: data?.numeroSucursal ?? '',
             nombreSucursal: data?.nombreSucursal ?? '',
             telefonoEmpresa: data?.telefonoEmpresa ?? '',
-            emailEmpresa: data?.emailEmpresa ?? user?.usuario ?? '',
+            emailEmpresa: data?.emailEmpresa ?? esCrud ? '' : user?.usuario ?? '',
             emailSecundario: data?.emailSecundario ?? '',
             telefonoSecundario: data?.telefonoSecundario ?? '',
             nombreRepresentanteLegal: data?.nombreRepresentanteLegal ?? '',
@@ -131,12 +131,23 @@ export default function PersonaJuridicaForm({
         <GenericForm onSubmit={onSubmit} title='Información de la Empresa'>
             <GenericRowForm>
                 <GenericTextInput
+                    label='Tipo de Persona'
+                    name='tipoPersona'
+                    value={'Persona Jurídica'}
+                    type='text'
+                    isReadOnly={true}
+                    mostrarEspacioError={true}
+                    className='min-w-[20ch] max-w-[20ch]'
+                    // className='max-w-xs'
+                />
+                <GenericTextInput
                     label='RUC'
                     name='RUC'
                     type='text'
                     register={register}
                     errors={errors}
-                    className='min-w-[14ch]'
+                    placeholder='Ingresa tu RUC'
+                    className='min-w-[20ch] max-w-[20ch]'
                     isReadOnly={!estaEditando}
                     required
                 />
@@ -146,7 +157,7 @@ export default function PersonaJuridicaForm({
                     type='text'
                     register={register}
                     errors={errors}
-                    className='min-w-[40ch]'
+                    className='min-w-[40ch] '
                     isReadOnly={!estaEditando}
                     required
                 />
@@ -179,7 +190,7 @@ export default function PersonaJuridicaForm({
                     type='text'
                     register={register}
                     errors={errors}
-                    className=' min-w-[10ch] flex-1'
+                    className='min-w-[20ch] max-w-[20ch] flex-1'
                     isReadOnly={!estaEditando}
                 />
                 <GenericTextInput
