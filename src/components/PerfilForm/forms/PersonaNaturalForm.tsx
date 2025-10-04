@@ -102,7 +102,8 @@ export default function PersonaNaturalForm({
             }
             modalActions.closeModal(id)
             changeDirty(false)
-            onDatosGuardados()
+
+            onDatosGuardados(clienteId ?? -1)
         } catch (e) {
             modalActions.closeModal(id)
 

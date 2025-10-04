@@ -43,6 +43,7 @@ export default function PersonaJuridicaForm({
     const resolver = esCrud
         ? (yupResolver(personaJuridicaCrudSchema) as any)
         : (yupResolver(personaJuridicaSchema) as any)
+
     const {
         register,
         formState: { errors, isDirty, dirtyFields },
@@ -56,6 +57,7 @@ export default function PersonaJuridicaForm({
             emailEmpresa: esCrud ? '' : user?.usuario,
         },
     })
+
     const values = useWatch({ control })
     useEffect(() => {
         const defaults: PerfilEmpresaData = {
@@ -80,7 +82,7 @@ export default function PersonaJuridicaForm({
     const onSubmit = handleSubmit(async data => {
         console.log('Datos enviados:', data)
         const id = modalActions.showLoading('Enviando datos...')
-        let res
+        let res: number
         try {
             try {
                 if (clienteId === undefined || clienteId === -1) {
@@ -106,7 +108,7 @@ export default function PersonaJuridicaForm({
             modalActions.closeModal(id)
             // Si todo ok
             changeDirty(false)
-            onDatosGuardados()
+            onDatosGuardados(res)
         } catch (e) {
             modalActions.closeModal(id)
             console.error('Error enviando Persona Natural:', e)
@@ -117,12 +119,14 @@ export default function PersonaJuridicaForm({
             })
         }
     })
+
     useEffect(() => {
         console.log('isDirty:', isDirty)
         console.log('dirtyFields:', dirtyFields)
         console.log('current values:', values)
         console.log('defaultValues:')
     }, [isDirty, dirtyFields, values])
+
     return (
         <GenericForm onSubmit={onSubmit} title='Información de la Empresa'>
             <GenericRowForm>
@@ -205,7 +209,7 @@ export default function PersonaJuridicaForm({
                         type='email'
                         register={register}
                         errors={errors}
-                        isReadOnly={!esCrud}
+                        isReadOnly={!estaEditando || !esCrud}
                         mostrarEspacioError={true}
                         required
                     />
@@ -239,7 +243,7 @@ export default function PersonaJuridicaForm({
                     onGuardar={() => {
                         console.log('Guardar clicked')
                         console.log(errors)
-                        onSubmit()
+                        // onSubmit()
                     }}
                 />
             )}

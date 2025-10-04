@@ -162,20 +162,34 @@ export function CrudContainer<TData extends Record<string, any>, TForm extends F
         reset(defaultValues)
     }
 
-    const abrirModalDatos = (mode: 'create' | 'edit' | 'view' | null) => {
+    useEffect(() => {
+        console.log('id form cambiando:', idFormModal)
+    }, [idFormModal])
+    const abrirModalDatos = async (mode: 'create' | 'edit' | 'view' | null) => {
         const title = mode === 'edit' ? 'Editar' : mode === 'view' ? 'Ver ' : 'Crear Nuevo'
         const submitText = mode === 'edit' ? 'Guardar Cambios' : mode === 'view' ? '' : 'Crear'
         const cancelText = mode === 'view' ? '' : 'Cancelar'
         const props = {
             ...formModalProp.props,
             ...formModalProp.propsNoCambiantes,
+            control: form.control,
             readOnly: camposReadOnly,
         }
         console.log('Opening modal con', { props })
+        let idDelModal
+
+        let resolverPromesaDeEnvio: (valores: TForm) => void
+        const promesaDeEnvio = new Promise<TForm>(resolve => {
+            resolverPromesaDeEnvio = resolve
+        })
+        const cuandoElFormularioSeEnvie = (valores: TForm): void => {
+            //  El formulario se envió. Abriendo la barrera de la promesa..
+            resolverPromesaDeEnvio(valores)
+        }
         const id = modalActions.showForm({
             title,
             component: FormComponent,
-            onSubmit: onSubmit,
+            onSubmit: handleSubmit(cuandoElFormularioSeEnvie),
             submitText,
             cancelText,
             showButtons: mode !== 'view',
@@ -184,8 +198,9 @@ export function CrudContainer<TData extends Record<string, any>, TForm extends F
             props,
         })
 
-        console.warn('Modal opened with ID:', id)
-        setIdFormModal(id)
+        const valoresRecibidos = await promesaDeEnvio
+        await onSubmit(valoresRecibidos)
+        modalActions.closeModal(id)
     }
 
     const submitingRequest = async <Parametro, Retorno>(
@@ -247,12 +262,12 @@ export function CrudContainer<TData extends Record<string, any>, TForm extends F
         return submitingRequest(data, deleteRequest, 'El registro se ha eliminado correctamente.')
     }
 
-    const onSubmit = handleSubmit(async (values: TForm) => {
+    const onSubmit = async (values: TForm) => {
         console.log('Submitted values:', values)
-        console.log('Cerrando modal con ID:', idFormModal)
+        console.log('Cerrando modal en CRUD con ID:', idFormModal)
         modal.closeModal(idFormModal)
         return submitingRequest(values, submitRequest)
-    })
+    }
 
     const onCrudActions: onCrudActionsProps<TData, TForm> = {
         onCreate: () => {

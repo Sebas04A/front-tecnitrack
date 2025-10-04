@@ -42,6 +42,8 @@ export default function FormsUnidos({
     clienteId?: number
     esCrud: boolean
 }) {
+    const [_clienteId, setClienteId] = useState<number | undefined>(clienteId)
+
     const modal = useModalActions()
     const [idLoading, setIdLoading] = useState('-1')
 
@@ -68,10 +70,12 @@ export default function FormsUnidos({
     // const modalRequest = useRequestModal()
     const [data, setData] = useState<PerfilEmpresaData | PerfilPersonaNaturalData | null>()
     // dataProp ?? null
-    function onDatosGuardados() {
+    function onDatosGuardados(id: number) {
+        console.log('ID guardado', id)
         setDatosYaGuardados(true)
         // setEstaEditando(false)
-        // nextTab()
+        nextTab()
+        setClienteId(id)
         console.log('Datos guardados')
         modal.showAlert({
             title: 'Datos guardados',
@@ -84,15 +88,15 @@ export default function FormsUnidos({
         if (!validarPuedeCambiar()) return
         setActiveTab(key)
     }
-    // function nextTab() {
-    //     const currentIndex = tabs.findIndex(tab => tab.key === activeTab)
-    //     if (currentIndex < tabs.length - 1) {
-    //         const nextTabKey = tabs[currentIndex + 1].key
-    //         setActiveTab(nextTabKey)
-    //         setEstaEditando(false)
-    //         setIsDirty(false)
-    //     }
-    // }
+    function nextTab() {
+        const currentIndex = tabs.findIndex(tab => tab.key === activeTab)
+        if (currentIndex < tabs.length - 1) {
+            const nextTabKey = tabs[currentIndex + 1].key
+            setActiveTab(nextTabKey)
+            setEstaEditando(false)
+            setIsDirty(false)
+        }
+    }
     function onSubmitStart() {
         const id = modal.showLoading('Guardando datos...')
         console.log('Guardando datos, loading ID:', id)
@@ -137,9 +141,9 @@ export default function FormsUnidos({
                 esCrud
             )
             if (esCrud) {
-                console.log('Viene de CRUD', { clienteId }, clienteId == -1)
-                if (!clienteId) throw new Error('No se proporcionó clienteId en modo CRUD')
-                if (clienteId === -1) {
+                console.log('Viene de CRUD', { _clienteId }, _clienteId == -1)
+                if (!_clienteId) throw new Error('No se proporcionó clienteId en modo CRUD')
+                if (_clienteId === -1) {
                     console.log('Creando nuevo cliente, no se obtienen datos')
                     setData(null)
                     modal.closeModal(id)
@@ -147,8 +151,8 @@ export default function FormsUnidos({
                 } else {
                     console.log('Obteniendo datos para cliente existente')
                     dataLocal = await (tipoPersona === TIPO_PERSONA.EMPRESA
-                        ? getPerfilJuridicoById(clienteId)
-                        : getPerfilNaturalById(clienteId))
+                        ? getPerfilJuridicoById(_clienteId)
+                        : getPerfilNaturalById(_clienteId))
                     console.log('Datos obtenidos cliente existente:', dataLocal)
                 }
             } else {
@@ -219,7 +223,7 @@ export default function FormsUnidos({
                     {tipoPersona === TIPO_PERSONA.EMPRESA ? (
                         <PersonaJuridicaForm
                             data={data as PerfilEmpresaData}
-                            clienteId={clienteId ?? -1}
+                            clienteId={_clienteId ?? -1}
                             onDatosGuardados={onDatosGuardados}
                             estaEditando={estaEditando || esCrud}
                             changeEstaEditando={setEstaEditando}
@@ -232,7 +236,7 @@ export default function FormsUnidos({
                     ) : tipoPersona === TIPO_PERSONA.NATURAL ? (
                         <PersonaNaturalForm
                             data={data as any}
-                            clienteId={clienteId}
+                            clienteId={_clienteId}
                             // esNuevo={clienteId === -1}
                             onDatosGuardados={onDatosGuardados}
                             estaEditando={estaEditando || esCrud}
@@ -249,13 +253,13 @@ export default function FormsUnidos({
         } else if (activeTab === 'direccion') {
             return (
                 <div className='animate-fade-in'>
-                    <DireccionesCrud clienteId={clienteId} />
+                    <DireccionesCrud clienteId={_clienteId} />
                 </div>
             )
         } else if (activeTab === 'contacto') {
             return (
                 <div className='animate-fade-in'>
-                    <ContactosCrud tipoPersona={tipoPersona} clienteId={clienteId} />
+                    <ContactosCrud tipoPersona={tipoPersona} clienteId={_clienteId} />
                 </div>
             )
         }

@@ -10,8 +10,8 @@ export default function CrudClientes() {
 
     return (
         <div>
-            <div className='flex flex-col p-4 rounded-lg shadow-lg bg-background-accent-auto'>
-                <div className='p-2'>
+            <div className='flex flex-col  rounded-lg shadow-lg bg-background-accent-auto'>
+                <div className='p-4 m-2'>
                     <GenericSelectState
                         name='tipoPersona'
                         options={[
@@ -21,6 +21,8 @@ export default function CrudClientes() {
                         value={tipoPersona}
                         onChange={e => setTipoPersona(e.target.value as TIPO_PERSONA_TYPE)}
                         label='Tipo de Cliente'
+                        className='max-w-xs'
+                        mostrarEspacioError={false}
                     />
                 </div>
             </div>

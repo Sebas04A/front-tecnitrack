@@ -5,7 +5,7 @@ import { PerfilEmpresaData, PerfilPersonaNaturalData } from '../validation/perfi
 export interface FormProfileProps {
     estaEditando: boolean
     changeEstaEditando: (estaEditando: boolean) => void
-    onDatosGuardados: () => void
+    onDatosGuardados: (clienteId: number) => void
     changeDirty: (isDirty: boolean) => void
     // Callbacks opcionales para controlar el estado de envío desde el contenedor
     onSubmitStart?: () => void

@@ -32,7 +32,7 @@ export default function MainLayout() {
                 </div>
             </header>
 
-            <div className='flex min-h-screen'>
+            <div className='flex min-h-screen '>
                 {/* <Header /> */}
                 <SideBar
                     navItems={navItemsMain}

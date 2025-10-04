@@ -88,6 +88,7 @@ export default function CatalogosCrud() {
         reset,
         setValue,
         formState: { errors },
+        control,
     } = form
     useEffect(() => {
         console.log('ERRORS EN CATALOGOS CRUD', errors)
@@ -150,6 +151,7 @@ export default function CatalogosCrud() {
                 formModalProp={{
                     form: CatalogoForm,
                     props: { register, errors },
+                    // propsNoCambiantes: { control },
                 }}
                 form={form}
                 crudQueries={crudQueries}

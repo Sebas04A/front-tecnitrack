@@ -16,10 +16,10 @@ export default function InternalLayout() {
     const currentNavItem = getNavItem(location.pathname)
     return (
         <>
-            <header className='md:hidden sticky top-0 z-30 w-full h-16 bg-primary-auto backdrop-blur border-b border-border'>
+            <header className='sm:hidden sticky top-0 z-30 w-full h-16 bg-primary-auto backdrop-blur border-b border-border'>
                 <div className=' px-4 flex items-center justify-content gap-3 h-full'>
                     <button
-                        className='md:hidden inline h-4 p-2 rounded hover:bg-secondary-light h-full'
+                        className='sm:hidden inline h-4 p-2 rounded hover:bg-secondary-light h-full'
                         onClick={() => setMobileOpen(true)}
                         aria-label='Abrir menú'
                     >

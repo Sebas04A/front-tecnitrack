@@ -53,18 +53,18 @@ export async function getPerfilJuridico(): Promise<PerfilEmpresaData> {
         throw e
     }
 }
-export async function crearPerfilJuridico(data: PerfilEmpresaData) {
+export async function crearPerfilJuridico(data: PerfilEmpresaData): Promise<number> {
     const requestBody = adapterPerfilJuridico(data)
     console.log('Datos del perfil jurídico a crear:', requestBody)
     try {
         const response = await ClientesService.postApiClientesCrearEmpresa({ requestBody })
-        return response
+        return response.data.id
     } catch (e) {
         console.error('Error creando perfil jurídico:', e)
         throw e
     }
 }
-export async function crearPerfilJuridicoAdmin(data: PerfilEmpresaData) {
+export async function crearPerfilJuridicoAdmin(data: PerfilEmpresaData): Promise<number> {
     // const requestBody = adapterPerfilJuridico(data)
     // const requestBodyAdmin:CrearClienteEmpresaAdminRequest = {
     //     email: data.emailEmpresa,
@@ -87,21 +87,30 @@ export async function crearPerfilJuridicoAdmin(data: PerfilEmpresaData) {
     const response = await GestionClientesService.postApiGestionClientesCrearClienteEmpresa({
         requestBody,
     })
-    return response
+    if (!response || !response.data || !response.data.id) {
+        throw new Error('No se encontro el id del perfil jurídico')
+    }
+    return response.data?.id
 }
 
-export async function updatePerfilJuridico(data: PerfilEmpresaData) {
+export async function updatePerfilJuridico(data: PerfilEmpresaData): Promise<number> {
     const requestBody = adapterPerfilJuridico(data)
     console.log('Datos del perfil jurídico a actualizar:', requestBody)
     try {
         const response = await ClientesService.putApiClientesActualizarMiEmpresa({ requestBody })
-        return response
+        if (!response || !response.data || !response.data.id) {
+            throw new Error('No se encontro el id del perfil jurídico')
+        }
+        return response.data.id
     } catch (e) {
         console.error('Error actualizando perfil jurídico:', e)
         throw e
     }
 }
-export async function updatePerfilJuridicoAdmin(data: PerfilEmpresaData, clienteId: number) {
+export async function updatePerfilJuridicoAdmin(
+    data: PerfilEmpresaData,
+    clienteId: number
+): Promise<number> {
     const requestBody: ActualizarClienteEmpresaDto = {
         numeroIdentificacion: data.RUC,
         // activo: data.activo,
@@ -119,7 +128,9 @@ export async function updatePerfilJuridicoAdmin(data: PerfilEmpresaData, cliente
         clienteId,
         requestBody,
     })
-    return res.data
+    if (!res || !res.data || !res.data.id)
+        throw new Error('No se encontro el id del perfil jurídico')
+    return res.data?.id
 }
 export async function getTipoPerfil() {
     const response = await ClientesService.getApiClientesTipoCliente()

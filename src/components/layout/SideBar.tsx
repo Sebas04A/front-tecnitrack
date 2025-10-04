@@ -54,6 +54,7 @@ export default function Sidebar({ navItems, mobileOpen, onClose, pathname }: Sid
 
     // Bloquear scroll del body al abrir el drawer móvil
     useEffect(() => {
+        console.log('mobileOpen:', mobileOpen)
         if (mobileOpen) {
             const prev = document.body.style.overflow
             document.body.style.overflow = 'hidden'
@@ -68,8 +69,10 @@ export default function Sidebar({ navItems, mobileOpen, onClose, pathname }: Sid
             {/* Overlay para móviles */}
             <div
                 className={clsx(
-                    'fixed inset-0 bg-black/40 z-40 md:hidden transition-opacity',
-                    mobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+                    'fixed inset-0 bg-black/60 z-40 sm:hidden transition-opacity',
+                    mobileOpen
+                        ? 'opacity-100 pointer-events-auto'
+                        : 'opacity-0 hidden pointer-events-none'
                 )}
                 onClick={onClose}
                 aria-hidden={!mobileOpen}
@@ -79,7 +82,7 @@ export default function Sidebar({ navItems, mobileOpen, onClose, pathname }: Sid
             <aside
                 className={clsx(
                     // posición fija y ancho
-                    'sticky inset-y-0 left-0 w-[15rem] z-20',
+                    'absolute sm:sticky inset-y-0 left-0 w-[15rem] z-50',
                     // alto seguro móvil (evita “se sale” por las barras del navegador)
                     'h-[100dvh] md:h-screen',
                     // evita desbordes laterales
@@ -88,8 +91,9 @@ export default function Sidebar({ navItems, mobileOpen, onClose, pathname }: Sid
                     'bg-primary-auto',
                     // transiciones para drawer móvil
                     'transform transition-transform duration-200',
-                    mobileOpen ? 'translate-x-0' : '-translate-x-full',
-                    'md:translate-x-0'
+                    mobileOpen ? 'translate-x-0' : '-translate-x-full ',
+                    // mobileOpen ? 'translate-x-0 hidden' : '-translate-x-full',
+                    'sm:translate-x-0'
                 )}
                 role='navigation'
                 aria-label='Sidebar'
@@ -110,7 +114,7 @@ export default function Sidebar({ navItems, mobileOpen, onClose, pathname }: Sid
                         </div>
                         {/* Cerrar en móvil */}
                         <button
-                            className='md:hidden p-2 rounded hover:bg-secondary-light'
+                            className='sm:hidden p-2 rounded hover:bg-secondary-light'
                             onClick={onClose}
                             aria-label='Cerrar menú'
                         >

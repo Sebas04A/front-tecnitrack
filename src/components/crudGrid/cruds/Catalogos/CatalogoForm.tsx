@@ -14,6 +14,7 @@ export default function CatalogoForm({
     control: any
     readOnly?: boolean
 }) {
+    console
     return (
         <>
             <GenericTextInput

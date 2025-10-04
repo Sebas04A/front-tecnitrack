@@ -57,7 +57,7 @@ const AppRouter: React.FC = () => {
                     />
                     <Route path='citas' element={<Citas />} />
 
-                    <Route path='ordenes-asignadas' element={<OrdenesAsignadas />} />
+                    <Route path='ordenes' element={<OrdenesAsignadas />} />
                     <Route path='procesar' element={<ProcesarMantenimiento />} />
                 </Route>
             </Route>
