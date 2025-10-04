@@ -47,11 +47,16 @@ const GenericCheckbox: React.FC<GenericCheckboxProps> = ({
 
     return (
         <div
-            className={`flex-1 min-w-[100px] flex h-full w-full items-center justify-center ${
+            className={`flex-1 min-w-[100px] flex  h-[3rem] w-full items-center justify-center ${
                 className ?? ''
             }`}
         >
-            <div className='flex items-center gap-4'>
+            <div className='flex items-center gap-4 w-full h-full'>
+                {label && (
+                    <label htmlFor={name} className='text-sm md:text-base select-none'>
+                        {label} {required && <span className='text-red-500'>*</span>}
+                    </label>
+                )}
                 <input
                     id={name}
                     name={name} // útil cuando NO usamos RHF
@@ -74,12 +79,6 @@ const GenericCheckbox: React.FC<GenericCheckboxProps> = ({
                     // Resto de props del input
                     {...rest}
                 />
-
-                {label && (
-                    <label htmlFor={name} className='text-sm md:text-base select-none'>
-                        {label} {required && <span className='text-red-500'>*</span>}
-                    </label>
-                )}
             </div>
 
             <div className='h-[1.25rem]'>

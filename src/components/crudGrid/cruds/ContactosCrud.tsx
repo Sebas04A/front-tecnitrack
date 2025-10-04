@@ -180,6 +180,8 @@ const ContactosCrud: React.FC<ContactosCrudProps> = ({
                 form: ContactosForm,
                 props: { tipoPersona, register: form.register, errors: form.formState.errors },
             }}
+            title='Contacto'
+            mostrar_titulo={false}
             form={form}
             crudQueries={crudQueries}
             columns={columns}

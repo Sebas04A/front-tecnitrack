@@ -97,6 +97,7 @@ export default function DireccionesForm({
                     //     { value: 'Otro', label: 'Otro' },
                     // ]}
                     tipoCatalogo='tipoDireccion'
+                    className='min-w-[20ch] max-w-[20ch]'
                 />
                 <GenericTextInput
                     label='Código Postal'

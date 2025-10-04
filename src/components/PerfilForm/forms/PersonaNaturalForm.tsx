@@ -125,7 +125,7 @@ export default function PersonaNaturalForm({
 
     return (
         <>
-            <GenericForm onSubmit={onSubmit} title='Información Personal'>
+            <GenericForm onSubmit={onSubmit}>
                 <GenericRowForm>
                     <GenericTextInput
                         label='Tipo de Persona'
@@ -134,22 +134,8 @@ export default function PersonaNaturalForm({
                         type='text'
                         isReadOnly={true}
                         mostrarEspacioError={true}
-                        // className='max-w-xs'
+                        className='min-w-[20ch] max-w-[20ch]'
                     />
-                    <GenericSelect
-                        label='Género'
-                        name='genero'
-                        control={control}
-                        placeholderOptionLabel='Seleccione un género'
-                        isReadOnly={!estaEditando}
-                        mostrarEspacioError={true}
-                        tipoCatalogo='genero'
-                    />
-
-                    <div className='flex-1'></div>
-                </GenericRowForm>
-                {/* {esCrud && <h3 className='text-primary text-xl'>Persona Natural</h3>} */}
-                <GenericRowForm>
                     <GenericTextInput
                         label='Nombre Completo'
                         name='nombreCompleto'
@@ -159,6 +145,7 @@ export default function PersonaNaturalForm({
                         isReadOnly={!estaEditando}
                         required
                         mostrarEspacioError={true}
+                        className='min-w-[30ch] max-w-[30ch]'
                     />
                     <GenericTextInput
                         label='Apellido Completo'
@@ -169,6 +156,34 @@ export default function PersonaNaturalForm({
                         isReadOnly={!estaEditando}
                         required
                         mostrarEspacioError={true}
+                    />
+
+                    {/* <div className='flex-1'></div> */}
+                </GenericRowForm>
+                {/* {esCrud && <h3 className='text-primary text-xl'>Persona Natural</h3>} */}
+
+                <GenericRowForm>
+                    <GenericSelect
+                        label='Tipo de Documento'
+                        name='tipoIdentificacion'
+                        control={control}
+                        placeholderOptionLabel='Seleccione un tipo de documento'
+                        tipoCatalogo='tipoDocumento'
+                        isReadOnly={!estaEditando}
+                        required
+                        mostrarEspacioError={true}
+                        className='min-w-[20ch] max-w-[20ch]'
+                    />
+                    <GenericTextInput
+                        label='Número de Documento'
+                        name='numeroIdentificacion'
+                        type='text'
+                        register={register}
+                        errors={errors}
+                        isReadOnly={!estaEditando}
+                        required
+                        mostrarEspacioError={true}
+                        className='min-w-[30ch] max-w-[30ch]'
                     />
                     <GenericTextInput
                         label='Email'
@@ -183,26 +198,15 @@ export default function PersonaNaturalForm({
                 </GenericRowForm>
                 <GenericRowForm>
                     <GenericSelect
-                        label='Tipo de Documento'
-                        name='tipoIdentificacion'
+                        label='Género'
+                        name='genero'
                         control={control}
-                        placeholderOptionLabel='Seleccione un tipo de documento'
-                        tipoCatalogo='tipoDocumento'
+                        placeholderOptionLabel='Seleccione un género'
                         isReadOnly={!estaEditando}
-                        required
                         mostrarEspacioError={true}
+                        tipoCatalogo='genero'
+                        className='min-w-[20ch] max-w-[20ch]'
                     />
-                    <GenericTextInput
-                        label='Número de Documento'
-                        name='numeroIdentificacion'
-                        type='text'
-                        register={register}
-                        errors={errors}
-                        isReadOnly={!estaEditando}
-                        required
-                        mostrarEspacioError={true}
-                    />
-
                     <GenericInput
                         label='Fecha de Nacimiento'
                         name='fechaNacimiento'
@@ -212,6 +216,7 @@ export default function PersonaNaturalForm({
                         isReadOnly={!estaEditando}
                         mostrarEspacioError={true}
                         // required
+                        className='min-w-[20ch] max-w-[20ch]'
                     />
                 </GenericRowForm>
 

@@ -33,6 +33,7 @@ export interface CrudContainerRawProps<
     onCrudActions?: onCrudActionsProps<TData, TForm>
     newActionsCrud?: newActionCrud[]
     title?: string
+    mostrar_titulo?: boolean
     columns: ColumnDef<TData>[]
     fetchData: (params: {
         page: number
@@ -59,6 +60,7 @@ export default function CrudCrudo<TData extends Record<string, any>, TForm exten
     onCrudActions,
     newActionsCrud,
     title,
+    mostrar_titulo,
     columns,
     fetchData,
     FiltersComponent,
@@ -147,7 +149,9 @@ export default function CrudCrudo<TData extends Record<string, any>, TForm exten
 
     return (
         <div className='w-full'>
-            {title && <h2 className='text-xl font-bold text-primary mb-4'>{title}</h2>}
+            {title && mostrar_titulo && (
+                <h2 className='text-xl font-bold text-primary mb-4'>{title}</h2>
+            )}
             <div className='rounded-lg shadow-lg bg-background-accent-auto w-full  px-4 my-4'>
                 {FiltersComponent && (
                     <>

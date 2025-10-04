@@ -22,7 +22,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 const tabs: Array<{ key: TabKeyType; label: string; icon: JSX.Element }> = [
     {
         key: 'personal',
-        label: 'Información Personal',
+        label: 'Información General',
         icon: <FaUser />,
     },
     { key: 'direccion', label: 'Dirección', icon: <FaMapMarkerAlt /> },
@@ -286,7 +286,7 @@ export default function FormsUnidos({
             />
 
             {/* Contenido de la Pestaña Activa */}
-            <div className='p-6 md:p-8'>{renderContent()}</div>
+            <div className='p-6 md:p-6'>{renderContent()}</div>
         </>
     )
 }

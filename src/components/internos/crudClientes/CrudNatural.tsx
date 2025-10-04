@@ -81,7 +81,7 @@ export default function CrudNatural() {
     function mostrarModal(row: ClienteNaturalCrud) {
         console.warn('Mostrando modal para:', row)
         modalAction.showEmptyModal({
-            title: 'Cliente Natural',
+            title: 'Información del cliente',
             children: (
                 <FormsUnidos
                     tipoPersona={TIPO_PERSONA.NATURAL}
@@ -92,7 +92,8 @@ export default function CrudNatural() {
                 />
             ),
 
-            size: 'full',
+            size: 'xl',
+            noPadding: true,
         })
     }
 

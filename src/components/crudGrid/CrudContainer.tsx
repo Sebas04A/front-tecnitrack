@@ -35,6 +35,7 @@ export interface CrudContainerProps<TData extends Record<string, any>, TForm ext
     form: UseFormReturn<TForm>
 
     title?: string
+    mostrar_titulo?: boolean
 
     columns: ColumnDef<TData>[]
     defaultValues: TForm
@@ -58,6 +59,7 @@ export function CrudContainer<TData extends Record<string, any>, TForm extends F
     crudQueries,
 
     title,
+    mostrar_titulo = true,
     autoLoadOptions = { autoLoad: true, dependencies: [] },
     isModalGrande = false,
     searchPlaceholder,
@@ -166,7 +168,8 @@ export function CrudContainer<TData extends Record<string, any>, TForm extends F
         console.log('id form cambiando:', idFormModal)
     }, [idFormModal])
     const abrirModalDatos = async (mode: 'create' | 'edit' | 'view' | null) => {
-        const title = mode === 'edit' ? 'Editar' : mode === 'view' ? 'Ver ' : 'Crear Nuevo'
+        const title_modal =
+            mode === 'edit' ? 'Editar' : mode === 'view' ? 'Ver ' : 'Crear ' + (title ?? 'Nuevo')
         const submitText = mode === 'edit' ? 'Guardar Cambios' : mode === 'view' ? '' : 'Crear'
         const cancelText = mode === 'view' ? '' : 'Cancelar'
         const props = {
@@ -187,7 +190,7 @@ export function CrudContainer<TData extends Record<string, any>, TForm extends F
             resolverPromesaDeEnvio(valores)
         }
         const id = modalActions.showForm({
-            title,
+            title: title_modal,
             component: FormComponent,
             onSubmit: handleSubmit(cuandoElFormularioSeEnvie),
             submitText,
@@ -312,6 +315,7 @@ export function CrudContainer<TData extends Record<string, any>, TForm extends F
         <>
             <CrudCrudo<TData, TForm>
                 title={title}
+                mostrar_titulo={mostrar_titulo}
                 columns={columns}
                 fetchData={fetchData}
                 pageSize={pageSize}

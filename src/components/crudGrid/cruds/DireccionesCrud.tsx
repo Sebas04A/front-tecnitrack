@@ -143,6 +143,8 @@ const DireccionesCrud: React.FC<DireccionesCrudProps> = ({ titulo = 'Direcciones
                         // control: form.control,
                     },
                 }}
+                title={'Direccion'}
+                mostrar_titulo={false}
                 form={form}
                 crudQueries={crudQueries}
                 columns={columns}

@@ -24,21 +24,14 @@ export default function ContactosForm({ tipoPersona, register, errors, control, 
                         tipoCatalogo='tipoContactoInterno'
                         // className='flex-[1_1_150px]'
                         isReadOnly={readOnly}
-                    />
-                    <GenericCheckbox
-                        label='Principal'
-                        name='principal'
-                        register={register}
-                        errors={errors}
-                        // className='flex-[1_1_150px]'
-                        isReadOnly={readOnly}
+                        className='min-w-[20ch] max-w-[20ch]'
                     />
                 </GenericRowForm>
             )}
             {tipoPersona === 'Empresa' && (
                 <>
                     <GenericTextInput
-                        label='Nombre'
+                        label='Nombre Completo'
                         type='text'
                         name='nombre'
                         register={register}
@@ -69,6 +62,7 @@ export default function ContactosForm({ tipoPersona, register, errors, control, 
                     errors={errors}
                     // className='flex-[1_1_150px]'
                     isReadOnly={readOnly}
+                    className='min-w-[20ch] max-w-[20ch]'
                 />
                 <GenericTextInput
                     label='Email'
@@ -80,6 +74,16 @@ export default function ContactosForm({ tipoPersona, register, errors, control, 
                     isReadOnly={readOnly}
                 />
             </GenericRowForm>
+            <div className='flex-start justify-start flex w-min'>
+                <GenericCheckbox
+                    label='Principal'
+                    name='principal'
+                    register={register}
+                    errors={errors}
+                    // className='flex-[1_1_150px]'
+                    isReadOnly={readOnly}
+                />
+            </div>
         </>
     )
 }

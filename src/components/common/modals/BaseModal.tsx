@@ -51,10 +51,10 @@ const BaseModal: React.FC<BaseModalProps> = ({
     }, [isOpen, onClose])
 
     const sizeClasses: Record<typeof size, string> = {
-        sm: 'max-w-md',
-        md: 'max-w-lg',
-        lg: 'max-w-2xl',
-        xl: 'max-w-4xl',
+        sm: 'max-w-md h-md',
+        md: 'max-w-lg h-full',
+        lg: 'max-w-2xl h-full',
+        xl: 'max-w-4xl h-2xl',
         full: 'w-full h-full',
     }
 
@@ -86,8 +86,8 @@ const BaseModal: React.FC<BaseModalProps> = ({
                         <motion.div
                             ref={panelRef}
                             tabIndex={-1}
-                            className={`relative bg-white dark:bg-slate-800 rounded-xl shadow-2xl w-full ${sizeClasses[size]}
-                max-h-[90vh] flex flex-col border border-slate-200/50 dark:border-slate-700/50 ${className}`}
+                            className={`relative bg-white dark:bg-slate-800 rounded-xl shadow-2xl w-full ${sizeClasses[size]} h-[70vh]
+                 flex flex-col border border-slate-200/50 dark:border-slate-700/50 ${className}`}
                             variants={modalVariants}
                             initial='hidden'
                             animate='visible'
