@@ -88,14 +88,20 @@ export default function PersonaNaturalForm({
         try {
             // Simular envío (reemplazar por llamada real a API)
             console.log('Datos enviados:', data)
+            let clienteIdNuevo = clienteId ?? -1
             if (esCrud) {
                 if (!clienteId) throw new Error('No se proporcionó clienteId en modo CRUD')
                 if (clienteId === -1) {
                     console.log('Creando nuevo cliente, no se obtienen datos')
-                    await crearPerfilNaturaAdmin(data as PerfilPersonaNaturalCrudData)
+                    clienteIdNuevo = await crearPerfilNaturaAdmin(
+                        data as PerfilPersonaNaturalCrudData
+                    )
                 } else {
                     console.log('Actualizando cliente existente, ID:', clienteId)
-                    await updatePerfilNaturalAdmin(data as PerfilPersonaNaturalCrudData, clienteId)
+                    clienteIdNuevo = await updatePerfilNaturalAdmin(
+                        data as PerfilPersonaNaturalCrudData,
+                        clienteId
+                    )
                 }
             } else {
                 await updatePerfilNatural(data as PerfilPersonaNaturalData)
@@ -103,7 +109,7 @@ export default function PersonaNaturalForm({
             modalActions.closeModal(id)
             changeDirty(false)
 
-            onDatosGuardados(clienteId ?? -1)
+            onDatosGuardados(clienteIdNuevo)
         } catch (e) {
             modalActions.closeModal(id)
 

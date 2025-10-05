@@ -238,10 +238,12 @@ export function makeLocalCrudFetcher<T>({
     }: FetchParams<T>): Promise<CrudPage<T>> => {
         try {
             const data = await getAll()
+            console.log('Datos obtenidos:', data)
             // console.warn('Datos obtenidos:', data)
 
             // Aplicar búsqueda de texto
             const q = normalize(search)
+            console.log('Texto de búsqueda:', q, 'en ', searchKeys)
             let filtered = q
                 ? data.filter(row => searchKeys.some(k => normalize(row[k]).includes(q)))
                 : data

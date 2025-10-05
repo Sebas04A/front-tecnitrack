@@ -82,7 +82,7 @@ export default function CrudEmpresa() {
     const fetchData = useMemo(
         () =>
             makeLocalCrudFetcher<ClienteEmpresaCrud>({
-                searchKeys: ['nombreCompleto', 'apellidoCompleto', 'numeroDocumento'],
+                searchKeys: ['nombreCompleto', 'apellidoCompleto', 'numeroIdentificacion'],
                 getAll: getPerfilesJuridicos,
             }),
         []

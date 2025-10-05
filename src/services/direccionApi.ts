@@ -24,7 +24,10 @@ export const getDireccionByCliente = async (clienteId: number) => {
     if (!response || !response.data) {
         throw new Error('No se recibieron datos de direcciones')
     }
-    return parseAdapterDirecciones(response.data)
+
+    const parsedDirecciones = parseAdapterDirecciones(response.data)
+    console.log('Direcciones obtenidas parseadas:', parsedDirecciones)
+    return parsedDirecciones
 }
 export const createDireccion = async (direccion: DireccionData) => {
     const adaptedDireccion = adapterDireccion(direccion)

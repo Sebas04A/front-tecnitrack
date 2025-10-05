@@ -82,15 +82,15 @@ export default function PersonaJuridicaForm({
     const onSubmit = handleSubmit(async data => {
         console.log('Datos enviados:', data)
         const id = modalActions.showLoading('Enviando datos...')
-        let res: number
+        let clienteIdNuevo: number = clienteId ?? -1
         try {
             try {
                 if (clienteId === undefined || clienteId === -1) {
-                    if (esCrud) res = await crearPerfilJuridicoAdmin(data)
-                    else res = await crearPerfilJuridico(data)
+                    if (esCrud) clienteIdNuevo = await crearPerfilJuridicoAdmin(data)
+                    else clienteIdNuevo = await crearPerfilJuridico(data)
                 } else {
-                    if (esCrud) res = await updatePerfilJuridicoAdmin(data, clienteId)
-                    else res = await updatePerfilJuridico(data)
+                    if (esCrud) clienteIdNuevo = await updatePerfilJuridicoAdmin(data, clienteId)
+                    else clienteIdNuevo = await updatePerfilJuridico(data)
                 }
             } catch (e) {
                 const errorMessage =
@@ -108,7 +108,7 @@ export default function PersonaJuridicaForm({
             modalActions.closeModal(id)
             // Si todo ok
             changeDirty(false)
-            onDatosGuardados(res)
+            onDatosGuardados(clienteIdNuevo)
         } catch (e) {
             modalActions.closeModal(id)
             console.error('Error enviando Persona Natural:', e)

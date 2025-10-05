@@ -20,19 +20,24 @@ export interface LocalidadesValue {
 
 // Define las props del componente
 interface GenericLocalidadesSelectProps {
-    value: LocalidadesValue
+    // value: LocalidadesValue
+    watch: any
     onChange: (newValue: LocalidadesValue) => void
-    disabled?: boolean // Prop opcional para deshabilitar los selects
+    // disabled?: boolean // Prop opcional para deshabilitar los selects
+    isReadOnly?: boolean
     control?: any
     // watch?: any
 }
 
 export default function GenericLocalidadesSelect({
-    value,
+    watch,
     onChange,
-    disabled = false,
+    // disabled = false,
+    isReadOnly,
     control,
 }: GenericLocalidadesSelectProps) {
+    const value = watch()
+    console.log('VALUES', value)
     // Los estados para las opciones se mantienen internos
     const [paises, setPaises] = useState<Option[]>([])
     const [provincias, setProvincias] = useState<Option[]>([])
@@ -44,7 +49,7 @@ export default function GenericLocalidadesSelect({
     }, [])
 
     useEffect(() => {
-        if (value.pais === -1) {
+        if (value.pais === -1 && value.provincia === -1) {
             setProvincias([]) // Limpia las provincias si no hay país seleccionado
             return
         }
@@ -52,7 +57,7 @@ export default function GenericLocalidadesSelect({
     }, [value.pais])
 
     useEffect(() => {
-        if (value.provincia === -1) {
+        if (value.provincia === -1 && value.ciudad === -1) {
             setCiudades([]) // Limpia las ciudades si no hay provincia seleccionada
             return
         }
@@ -73,6 +78,7 @@ export default function GenericLocalidadesSelect({
     // }, [pais])
 
     const handlePaisChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        console.log('GenericLocalidadesSelect - handlePaisChange:', e.target.value)
         const paisId = Number(e.target.value)
         // Al cambiar de país, reseteamos provincia y ciudad
         onChange({
@@ -108,7 +114,7 @@ export default function GenericLocalidadesSelect({
                 options={paises}
                 value={value.pais} // El valor viene de las props
                 onChange={handlePaisChange} // Usa el nuevo manejador
-                isReadOnly={disabled}
+                isReadOnly={isReadOnly}
                 control={control}
                 mostrarEspacioError={true}
             />
@@ -118,7 +124,7 @@ export default function GenericLocalidadesSelect({
                 options={provincias}
                 value={value.provincia.toString()} // El valor viene de las props
                 onChange={handleProvinciaChange} // Usa el nuevo manejador
-                isReadOnly={disabled || value.pais === -1} // Deshabilitado si no hay país
+                isReadOnly={isReadOnly || value.pais === -1} // Deshabilitado si no hay país
                 control={control}
                 mostrarEspacioError={true}
             />
@@ -128,7 +134,7 @@ export default function GenericLocalidadesSelect({
                 options={ciudades}
                 value={value.ciudad.toString()} // El valor viene de las props
                 onChange={handleCiudadChange} // Usa el nuevo manejador
-                isReadOnly={disabled || value.provincia === -1} // Deshabilitado si no hay provincia
+                isReadOnly={isReadOnly || value.provincia === -1} // Deshabilitado si no hay provincia
                 control={control}
                 mostrarEspacioError={true}
             />

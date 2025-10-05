@@ -31,29 +31,29 @@ export default function DireccionesForm({
     const [provincias, setProvincias] = useState<Option[]>([])
     const [ciudades, setCiudades] = useState<Option[]>([])
 
-    useEffect(() => {
-        obtenerPaisesSelect().then(setPaises)
-    }, [])
+    // useEffect(() => {
+    //     obtenerPaisesSelect().then(setPaises)
+    // }, [])
 
-    useEffect(() => {
-        console.log('paisSeleccionado changed:', paisSeleccionado)
-        setValue('provincia', -1)
-        setValue('ciudad', -1)
+    // useEffect(() => {
+    //     console.log('paisSeleccionado changed:', paisSeleccionado)
+    //     setValue('provincia', -1)
+    //     setValue('ciudad', -1)
 
-        if (paisSeleccionado === -1) {
-            setProvincias([]) // Limpia las provincias si no hay país seleccionado
-            return
-        }
-        obtenerProvinciasPorPaisSelect(paisSeleccionado).then(setProvincias)
-    }, [paisSeleccionado])
+    //     if (paisSeleccionado === -1) {
+    //         setProvincias([]) // Limpia las provincias si no hay país seleccionado
+    //         return
+    //     }
+    //     obtenerProvinciasPorPaisSelect(paisSeleccionado).then(setProvincias)
+    // }, [paisSeleccionado])
 
-    useEffect(() => {
-        if (provinciaSeleccionada === -1) {
-            setCiudades([]) // Limpia las ciudades si no hay provincia seleccionada
-            return
-        }
-        obtenerCiudadesPorProvinciaSelect(provinciaSeleccionada).then(setCiudades)
-    }, [provinciaSeleccionada])
+    // useEffect(() => {
+    //     if (provinciaSeleccionada === -1) {
+    //         setCiudades([]) // Limpia las ciudades si no hay provincia seleccionada
+    //         return
+    //     }
+    //     obtenerCiudadesPorProvinciaSelect(provinciaSeleccionada).then(setCiudades)
+    // }, [provinciaSeleccionada])
 
     // 2. Usamos el hook para obtener las listas de opciones
     // const { paises, provincias, ciudades } = useLocalidades(paisSeleccionado, provinciaSeleccionada)
@@ -71,15 +71,16 @@ export default function DireccionesForm({
     // }, [provinciaSeleccionada, setValue])
 
     const direccion = watch() // Observa todo el formulario para cambios
+    console.log(direccion)
     function handleLocalidadesChange(newValue: {
         pais: number
         provincia: number
         ciudad: number
     }) {
         console.log('DireccionesForm - handleLocalidadesChange:', newValue)
-        setValue('pais', newValue.pais)
-        setValue('provincia', newValue.provincia)
-        setValue('ciudad', newValue.ciudad)
+        // setValue('pais', newValue.pais)
+        // setValue('provincia', newValue.provincia)
+        // setValue('ciudad', newValue.ciudad)
     }
 
     return (
@@ -108,52 +109,10 @@ export default function DireccionesForm({
                     errors={errors}
                 />
             </GenericRowForm>
-            {/* <GenericSelect
-                label='País'
-                name='pais'
-                register={register}
-                errors={errors}
-                options={paises}
-            />
-            <GenericSelect
-                label='Provincia'
-                name='provincia'
-                register={register}
-                errors={errors}
-                options={provincias}
-                isReadOnly={paisSeleccionado === -1}
-            />
-            <GenericSelect
-                label='Ciudad'
-                name='ciudad'
-                register={register}
-                errors={errors}
-                options={ciudades}
-                isReadOnly={provinciaSeleccionada === -1}
-            /> */}
-
-            {/* <Controller
-                name='localidades' // Nombre del campo en los datos del formulario
-                control={control}
-                rules={{
-                    validate: {
-                        paisRequerido: value => value.pais !== -1 || 'El país es requerido',
-                        provinciaRequerida: value =>
-                            value.provincia !== -1 || 'La provincia es requerida',
-                        ciudadRequerida: value => value.ciudad !== -1 || 'La ciudad es requerida',
-                    },
-                }} // Reglas de validación
-                render={({ field }) => (
-                    // `field` contiene `value`, `onChange`, `onBlur`, `name`, `ref`
-                    <GenericLocalidadesSelect
-                        value={field.value} // Pasa el valor desde RHF
-                        onChange={field.onChange} // Pasa la función de cambio desde RHF
-                    />
-                )}
-            /> */}
 
             <GenericLocalidadesSelect
-                value={direccion} // Pasamos el objeto observado
+                isReadOnly={readOnly}
+                watch={watch} // Pasamos el objeto observado
                 control={control}
                 onChange={handleLocalidadesChange} // Usamos nuestro adaptador
             />

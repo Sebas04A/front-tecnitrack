@@ -287,6 +287,7 @@ export function CrudContainer<TData extends Record<string, any>, TForm extends F
             setMode('edit')
             setError('')
             reset(row)
+
             console.log('Editing row:', row)
         },
         onView: (row: TForm) => {

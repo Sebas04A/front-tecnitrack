@@ -196,7 +196,7 @@ export async function updatePerfilNatural(data: PerfilPersonaNaturalData) {
     }
 }
 
-export async function crearPerfilNaturaAdmin(data: PerfilPersonaNaturalCrudData) {
+export async function crearPerfilNaturaAdmin(data: PerfilPersonaNaturalCrudData): Promise<number> {
     const requestBody: CrearClienteNaturalDto = {
         nombre: data.nombreCompleto,
         apellido: data.apellidoCompleto,
@@ -209,12 +209,13 @@ export async function crearPerfilNaturaAdmin(data: PerfilPersonaNaturalCrudData)
     const res = await GestionClientesService.postApiGestionClientesCrearClienteNatural({
         requestBody,
     })
-    return res
+    if (!res.data || !res.data.id) throw new Error('No se encontro el id del perfil natural')
+    return res.data.id
 }
 export async function updatePerfilNaturalAdmin(
     data: PerfilPersonaNaturalCrudData,
     clienteId: number
-) {
+): Promise<number> {
     const requestBody: ActualizarClienteNaturalDto = {
         nombre: data.nombreCompleto,
         apellido: data.apellidoCompleto,
@@ -228,7 +229,8 @@ export async function updatePerfilNaturalAdmin(
         clienteId: clienteId,
         requestBody,
     })
-    return res
+    if (!res.data || !res.data.id) throw new Error('No se encontro el id del perfil natural')
+    return res.data.id
 }
 export async function deletePerfilNaturalAdmin(clienteId: number) {
     const res = await GestionClientesService.deleteApiGestionClientesEliminarClienteNatural({

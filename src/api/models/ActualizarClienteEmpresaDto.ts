@@ -4,7 +4,7 @@
 /* eslint-disable */
 export type ActualizarClienteEmpresaDto = {
     numeroIdentificacion: string;
-    activo?: boolean;
+    activo?: boolean | null;
     razonSocial: string;
     nombreComercial?: string | null;
     nombreSucursal?: string | null;

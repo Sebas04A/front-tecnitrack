@@ -231,9 +231,9 @@ export default function CrudCitasContainer<
             })
         }
     }
-    const deleteRequest = async (id: string) => {
-        if (!id) throw new Error('No se puede eliminar una dirección sin ID')
-        const res = await deleteQuery(id)
+    const deleteRequest = async (row: TData) => {
+        if (!row.id) throw new Error('No se puede eliminar una dirección sin ID')
+        const res = await deleteQuery(row.id)
         console.log('Eliminado:', res)
         return res
     }
@@ -250,8 +250,8 @@ export default function CrudCitasContainer<
         return res
     }
 
-    const deleteAccion = async (id: string) => {
-        return submitingRequest(id, deleteRequest)
+    const deleteAccion = async (row: TData) => {
+        return submitingRequest(row, deleteRequest)
     }
     const onSubmit = handleSubmit(async (values: TForm) => {
         console.log('Submitted values:', values)
@@ -299,14 +299,14 @@ export default function CrudCitasContainer<
             setMode('view')
             reset(row)
         },
-        onDelete: (id: string) => {
+        onDelete: (row: TData) => {
             modalActions.showConfirm({
                 title: 'Confirmar Eliminación',
                 message: `¿Estás seguro de que quieres eliminar? Esta acción no se puede deshacer.`,
                 confirmText: 'Eliminar',
                 cancelText: 'Cancelar',
                 onConfirm: async () => {
-                    deleteAccion(id)
+                    deleteAccion(row.id)
                 },
                 type: 'warning',
             })
@@ -373,7 +373,6 @@ export default function CrudCitasContainer<
         },
     }
 
-    
     return (
         <>
             <CrudCrudo<TData, TForm>

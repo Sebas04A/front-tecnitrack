@@ -54,7 +54,6 @@ export default function Sidebar({ navItems, mobileOpen, onClose, pathname }: Sid
 
     // Bloquear scroll del body al abrir el drawer móvil
     useEffect(() => {
-        console.log('mobileOpen:', mobileOpen)
         if (mobileOpen) {
             const prev = document.body.style.overflow
             document.body.style.overflow = 'hidden'

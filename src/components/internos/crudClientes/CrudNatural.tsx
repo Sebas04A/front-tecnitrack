@@ -73,7 +73,7 @@ export default function CrudNatural() {
     const fetchData = useMemo(
         () =>
             makeLocalCrudFetcher<ClienteNaturalCrud>({
-                searchKeys: ['nombreCompleto', 'apellidoCompleto', 'numeroDocumento'],
+                searchKeys: ['nombreCompleto', 'apellidoCompleto', 'numeroIdentificacion'],
                 getAll: getPerfilesNaturales,
             }),
         []
