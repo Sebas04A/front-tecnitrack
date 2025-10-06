@@ -23,7 +23,7 @@ function SoloEquipoForm({
 }: {
     ordenId: number
     register: ReturnType<typeof useForm>['register']
-    control?: any
+    control: any
     blockForm: boolean
     watch: ReturnType<typeof useForm>['watch']
 }) {
@@ -136,6 +136,7 @@ export function EquipoSection({
             />
             <div className='px-6 mt-2'>
                 <SoloEquipoForm
+                    control={form.control}
                     ordenId={ordenId}
                     blockForm={blockForm}
                     register={form.register}

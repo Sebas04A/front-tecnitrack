@@ -29,7 +29,7 @@ export const parseAdapterDireccion = (api: DireccionResponse): DireccionData => 
         ciudad: api.ciudadId ?? -1,
         tipo: api.tipoDireccion ?? 'No Definido',
         // principal: api.principal,
-        direccion: api.direccionCompleta ?? 'No Definido',
+        direccion: api.direccionExacta ?? 'No Definido',
         id: api.id,
         principal: api.principal ?? false,
         ciudadNombre: api.ciudadNombre ?? '',
