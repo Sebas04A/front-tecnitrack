@@ -11,11 +11,7 @@ import { Resolver, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import GenericCheckbox from '../components/form/Controls/GenericCheckbox'
 
-interface LoginProps {
-    onLogin: () => void
-}
-
-const Login: React.FC<LoginProps> = ({ onLogin }) => {
+const Login: React.FC = () => {
     const { login } = useAuth()
     const navigate = useNavigate()
     const location = useLocation() as { state?: any }
@@ -51,7 +47,10 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                 return
             }
             await login(data.email, data.password, data.interno)
-            onLogin()
+
+            console.log('Login successful')
+            console.log(data)
+            console.log(data.interno)
             const returnTo = location.state?.returnTo || (data.interno ? '/interno' : '/')
             const citaSeleccionada = location.state?.citaSeleccionada
             console.log('Navigating to:', returnTo, 'with state:', { citaSeleccionada })

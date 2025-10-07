@@ -238,3 +238,17 @@ export async function deletePerfilNaturalAdmin(clienteId: number) {
     })
     return res
 }
+
+export async function activarUsuario(clienteId: number) {
+    const res = GestionClientesService.patchApiGestionClientesActivarCliente({
+        clienteId: clienteId,
+    })
+    return res
+}
+
+export async function desactivarUsuario(clienteId: number) {
+    const res = GestionClientesService.patchApiGestionClientesDesactivarCliente({
+        clienteId: clienteId,
+    })
+    return res
+}

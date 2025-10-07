@@ -4,11 +4,13 @@ import { PerfilPersonaNaturalData } from '../../../validation/perfil.schema'
 import { useForm } from 'react-hook-form'
 import ContainerForm from '../../PerfilForm/containerForm'
 import { makeLocalCrudFetcher } from '../../crudGrid/helper/crud-helpers'
-import CrudCrudo, { onCrudActionsProps } from '../../crudGrid/CrudCrudo'
+import CrudCrudo, { newActionCrud, onCrudActionsProps } from '../../crudGrid/CrudCrudo'
 import { useModal } from '../../../hooks/useModal'
 import { Modal } from '../../common/Modal'
 import {
+    activarUsuario,
     deletePerfilNaturalAdmin,
+    desactivarUsuario,
     getPerfilesNaturales,
     getPerfilNatural,
 } from '../../../services/perfilApi'
@@ -21,12 +23,13 @@ import BaseModal from '../../common/modals/BaseModal'
 
 const columnsNatural: ColumnDef<ClienteNaturalCrud>[] = [
     {
-        header: 'Documento',
+        header: 'Documeno',
         key: 'numeroIdentificacion',
     },
     {
         header: 'Nombre',
         key: 'nombreCompleto',
+        sortable: true,
     },
     {
         header: 'Teléfono',
@@ -43,6 +46,17 @@ const columnsNatural: ColumnDef<ClienteNaturalCrud>[] = [
     {
         header: 'Estado',
         key: 'estado',
+        render: value =>
+            value ? (
+                <div className='rounded p-1 text-xs flex text-center w-full justify-center bg-success-auto'>
+                    Activo
+                </div>
+            ) : (
+                <div className='rounded p-1 text-xs flex text-center w-full justify-center bg-error-auto'>
+                    Inactivo
+                </div>
+            ),
+        sortable: true,
     },
 ]
 const defaultValues: PerfilPersonaNaturalData = {
@@ -56,6 +70,11 @@ const defaultValues: PerfilPersonaNaturalData = {
 export default function CrudNatural() {
     const modal = useModal()
     const modalAction = useModalActions()
+
+    const [refresh, setNewRefresh] = useState(0)
+    function refreshTable() {
+        setNewRefresh(prev => prev + 1)
+    }
 
     function createQuery(data: any) {}
     function updateQuery(data: any) {}
@@ -73,7 +92,12 @@ export default function CrudNatural() {
     const fetchData = useMemo(
         () =>
             makeLocalCrudFetcher<ClienteNaturalCrud>({
-                searchKeys: ['nombreCompleto', 'apellidoCompleto', 'numeroIdentificacion'],
+                searchKeys: [
+                    'nombreCompleto',
+                    'apellidoCompleto',
+                    'numeroIdentificacion',
+                    'correo',
+                ],
                 getAll: getPerfilesNaturales,
             }),
         []
@@ -128,6 +152,7 @@ export default function CrudNatural() {
                             message: `Cliente ${row.id} eliminado correctamente.`,
                             type: 'success',
                         })
+                        refreshTable()
                     })
                     .catch((error: any) => {
                         modalAction.showAlert({
@@ -147,6 +172,71 @@ export default function CrudNatural() {
         console.warn('Editando cliente natural:', row)
         mostrarModal(row)
     }
+    const actionsCrud: newActionCrud[] = [
+        {
+            component: <div>Activar</div>,
+            onAction: (row: ClienteNaturalCrud) => {
+                modalAction.showConfirm({
+                    title: 'Confirmar activación',
+                    message: `¿Estás seguro de que deseas activar al cliente ${row.nombreCompleto}? `,
+                    onConfirm: () => {
+                        console.log('Activando cliente:', row.id)
+                        const id = modalAction.showLoading('Activando...')
+                        activarUsuario(row.id).then(
+                            () => {
+                                modalAction.closeModal(id)
+                                modalAction.showAlert({
+                                    title: 'Éxito',
+                                    message: `Cliente ${row.nombreCompleto} activado correctamente.`,
+                                    type: 'success',
+                                })
+                                refreshTable()
+                            },
+                            (error: any) => {
+                                modalAction.closeModal(id)
+                                modalAction.showAlert({
+                                    title: 'Error al activar',
+                                    message: error.message,
+                                })
+                            }
+                        )
+                    },
+                })
+            },
+        },
+        {
+            component: <div>Desactivar</div>,
+            onAction: (row: ClienteNaturalCrud) => {
+                modalAction.showConfirm({
+                    title: 'Confirmar activación',
+                    message: `¿Estás seguro de que deseas desactivar al cliente ${row.nombreCompleto}? `,
+                    onConfirm: () => {
+                        console.log('Desactivando cliente:', row.id)
+                        const id = modalAction.showLoading('desactivando...')
+                        desactivarUsuario(row.id).then(
+                            () => {
+                                modalAction.closeModal(id)
+                                modalAction.showAlert({
+                                    title: 'Éxito',
+                                    message: `Cliente ${row.nombreCompleto} desactivado correctamente.`,
+                                    type: 'success',
+                                })
+                                refreshTable()
+                            },
+                            (error: any) => {
+                                modalAction.closeModal(id)
+                                modalAction.showAlert({
+                                    title: 'Error al desactivar',
+                                    message: error.message,
+                                })
+                            }
+                        )
+                    },
+                })
+            },
+        },
+    ]
+
     const onCrudActions: onCrudActionsProps<ClienteNaturalCrud, ClienteNaturalCrud> = {
         onCreate,
         onView,
@@ -156,8 +246,13 @@ export default function CrudNatural() {
     return (
         <CrudCrudo<ClienteNaturalCrud, ClienteNaturalCrud>
             onCrudActions={onCrudActions}
+            newActionsCrud={actionsCrud}
             columns={columnsNatural}
             fetchData={fetchData}
+            autoLoadOptions={{
+                autoLoad: true,
+                dependencies: [refresh],
+            }}
         ></CrudCrudo>
     )
 }

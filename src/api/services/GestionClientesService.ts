@@ -21,6 +21,7 @@ import type { CrearContactoDirectoDto } from '../models/CrearContactoDirectoDto'
 import type { CrearContactoEmpresaDto } from '../models/CrearContactoEmpresaDto';
 import type { CrearDireccionDto } from '../models/CrearDireccionDto';
 import type { DireccionDtoApiResponse } from '../models/DireccionDtoApiResponse';
+import type { EstadoClienteResponseDtoApiResponse } from '../models/EstadoClienteResponseDtoApiResponse';
 import type { ListarClientesEmpresaDtoListApiResponse } from '../models/ListarClientesEmpresaDtoListApiResponse';
 import type { ListarClientesNaturalesDtoListApiResponse } from '../models/ListarClientesNaturalesDtoListApiResponse';
 import type { ListarContactosDirectosDtoApiResponse } from '../models/ListarContactosDirectosDtoApiResponse';
@@ -673,6 +674,53 @@ export class GestionClientesService {
                 'clienteId': clienteId,
             },
             errors: {
+                401: `Unauthorized`,
+                403: `Forbidden`,
+                404: `Not Found`,
+            },
+        });
+    }
+    /**
+     * @returns EstadoClienteResponseDtoApiResponse OK
+     * @throws ApiError
+     */
+    public static patchApiGestionClientesDesactivarCliente({
+        clienteId,
+    }: {
+        clienteId: number,
+    }): CancelablePromise<EstadoClienteResponseDtoApiResponse> {
+        return __request(OpenAPI, {
+            method: 'PATCH',
+            url: '/api/gestion-clientes/desactivar-cliente/{clienteId}',
+            path: {
+                'clienteId': clienteId,
+            },
+            errors: {
+                400: `Bad Request`,
+                401: `Unauthorized`,
+                403: `Forbidden`,
+                404: `Not Found`,
+                409: `Conflict`,
+            },
+        });
+    }
+    /**
+     * @returns EstadoClienteResponseDtoApiResponse OK
+     * @throws ApiError
+     */
+    public static patchApiGestionClientesActivarCliente({
+        clienteId,
+    }: {
+        clienteId: number,
+    }): CancelablePromise<EstadoClienteResponseDtoApiResponse> {
+        return __request(OpenAPI, {
+            method: 'PATCH',
+            url: '/api/gestion-clientes/activar-cliente/{clienteId}',
+            path: {
+                'clienteId': clienteId,
+            },
+            errors: {
+                400: `Bad Request`,
                 401: `Unauthorized`,
                 403: `Forbidden`,
                 404: `Not Found`,

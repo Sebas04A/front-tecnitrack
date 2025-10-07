@@ -26,26 +26,49 @@ import HomeInternos from '../pages/Internos/HomeInternos'
 import OrdenesAsignadas from '../pages/Internos/OrdenesAsignadas'
 import ProcesarMantenimiento from '../components/tecnico/ProcesarMantenimiento'
 import RegisterNuevo from '../pages/RegisterNuevo'
+import RootRedirect from './RootRedirect'
+import DireccionesCrud from '../components/crudGrid/cruds/DireccionesCrud'
 
 const AppRouter: React.FC = () => {
     return (
         <Routes>
             {/* Rutas públicas */}
+            {/* <Route path='/' element={<AuthLayout />}>
+                <Route index element={<RootRedirect />} />
+                <Route path='login' element={<Login />} />
+                
+            </Route> */}
             <Route path='/' element={<AuthLayout />}>
-                <Route path='login' element={<Login onLogin={() => {}} />} />
+                <Route index element={<RootRedirect />} />
+
+                <Route path='login' element={<Login />} />
                 <Route path='register' element={<RegisterNuevo />} />
-                {/* <Route path='register-nuevo' element={<RegisterNuevo />} /> */}
                 <Route path='colors' element={<ColorPalette />} />
                 <Route path='calendario' element={<CitasCalendar />} />
                 <Route path='confirmar-email' element={<ConfirmEmail />} />
                 <Route path='forgotpassword' element={<RecuperContra />} />
                 <Route path='resetpassword' element={<RestablecerContra />} />
+                {/* <Route path='register-nuevo' element={<RegisterNuevo />} /> */}
                 {/* <Route path='ex' element={<WelcomeScreen />} /> */}
                 {/* <Route path='ex' element={<MantenimientoIngreso />} /> */}
             </Route>
+            <Route element={<ProtectedRoute requiredRol='usuario' />}>
+                <Route path='/app/*' element={<MainLayout />}>
+                    <Route index element={<Navigate to='home' replace />} />
+                    <Route path='home' element={<TableroPage />} />
+                    <Route path='home' element={<TableroPage />} />
+                    <Route path='tablero' element={<TableroPage />} />
+                    <Route path='mantenimientos' element={<DashboardPage />} />
+
+                    <Route path='usuario' element={<UserProfileTabs />} />
+
+                    {/* <Route path='ejCrud' element={<DireccionesCrud />} /> */}
+                    {/* ... todas las demás rutas para el rol 'usuario' van aquí ... */}
+                    {/* Ejemplo: <Route path="mantenimientos" element={<DashboardPage />} /> */}
+                </Route>
+            </Route>
             <Route element={<ProtectedRoute requiredRol='interno' />}>
-                <Route index element={<Navigate to='/interno/home' replace />} />
-                <Route path='/interno' element={<InternalLayout />}>
+                <Route path='/interno/*' element={<InternalLayout />}>
                     <Route index element={<Navigate to='home' replace />} />
                     <Route path='home' element={<HomeInternos />} />
                     <Route path='usuarios' element={<CrudInternos />} />
@@ -59,19 +82,9 @@ const AppRouter: React.FC = () => {
 
                     <Route path='ordenes' element={<OrdenesAsignadas />} />
                     <Route path='procesar' element={<ProcesarMantenimiento />} />
-                </Route>
-            </Route>
-            {/* Rutas privadas */}
-            <Route element={<ProtectedRoute requiredRol='usuario' />}>
-                <Route path='/' element={<MainLayout />}>
-                    <Route index element={<Navigate to='home' replace />} />
-                    <Route path='home' element={<TableroPage />} />
-                    <Route path='tablero' element={<TableroPage />} />
-                    <Route path='mantenimientos' element={<DashboardPage />} />
 
-                    <Route path='usuario' element={<UserProfileTabs />} />
-
-                    {/* <Route path='ejCrud' element={<DireccionesCrud />} /> */}
+                    {/* ... todas las demás rutas para el rol 'interno' van aquí ... */}
+                    {/* Ejemplo: <Route path="clientes" element={<CrudClientes />} /> */}
                 </Route>
             </Route>
 
