@@ -211,32 +211,12 @@ const GenericSelect: React.FC<GenericSelectProps> = ({
                 name={name}
                 control={control}
                 render={({ field, fieldState }) => {
-                    // 'field' contiene: { value, onChange, onBlur, ref }
-                    // 'fieldState' contiene: { error }
-
-                    // La lógica para construir las opciones ahora vive dentro del render de Controller,
-                    // porque necesita el 'field.value' para funcionar.
                     const computedOptions = useMemo(() => {
                         const baseOptions: Option[] = rest.options ?? remoteOptions ?? []
-                        let finalOptions = [...baseOptions]
-                        const valueExists = baseOptions.some(
-                            opt => String(opt.value) === String(field.value)
-                        )
-
-                        if (
-                            field.value &&
-                            !valueExists &&
-                            field.value !== '' &&
-                            field.value !== null &&
-                            field.value !== undefined &&
-                            field.value !== -1
-                        ) {
-                            finalOptions.unshift({ value: field.value, label: String(field.value) })
-                        }
 
                         return [
                             { value: '', label: `Escoger ${label}`, disabled: true, hidden: true },
-                            ...finalOptions,
+                            ...baseOptions,
                         ]
                     }, [remoteOptions, rest.options, field.value, label])
 
