@@ -10,35 +10,37 @@ import {
     FaUserCircle,
     FaUserTie,
 } from 'react-icons/fa'
+
+const usuario_path = 'app'
 export const navItemsMain: navItemsType = [
     {
         type: 'link',
         name: 'Tablero',
-        href: '/tablero',
+        href: usuario_path + '/tablero',
         icon: <FaTachometerAlt className='inline' />,
     },
     {
         type: 'link',
         name: 'Perfil',
-        href: '/usuario',
+        href: `/${usuario_path}/usuario`,
         icon: <FaUserCircle className='inline' />,
     },
     {
         type: 'link',
         name: 'Citas',
-        href: '/citas',
+        href: `/${usuario_path}/citas`,
         icon: <FaRegCalendarAlt className='inline' />,
     },
     {
         type: 'link',
         name: 'Ordenes',
-        href: '/ordenes',
+        href: `/${usuario_path}/ordenes`,
         icon: <FaFileInvoice className='inline' />,
     },
     {
         type: 'link',
         name: 'Mantenimientos',
-        href: '/mantenimientos',
+        href: `/${usuario_path}/mantenimientos`,
         icon: <FaTools className='inline' />,
     },
 ]

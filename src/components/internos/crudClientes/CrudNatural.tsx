@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react'
+import { FaToggleOff, FaToggleOn } from 'react-icons/fa'
 import { ColumnDef, CrudContainer } from '../../crudGrid'
 import { PerfilPersonaNaturalData } from '../../../validation/perfil.schema'
 import { useForm } from 'react-hook-form'
@@ -172,9 +173,19 @@ export default function CrudNatural() {
         console.warn('Editando cliente natural:', row)
         mostrarModal(row)
     }
-    const actionsCrud: newActionCrud[] = [
+    const actionsCrud: newActionCrud<ClienteNaturalCrud>[] = [
         {
-            component: <div>Activar</div>,
+            component: (row: ClienteNaturalCrud) => {
+                if (!row.estado)
+                    return (
+                        <div
+                            title='Activar Usuario'
+                            className='flex items-center gap-2 text-success cursor-pointer p-1 rounded-md hover:bg-success/20'
+                        >
+                            <FaToggleOn size={20} /> Activar
+                        </div>
+                    )
+            },
             onAction: (row: ClienteNaturalCrud) => {
                 modalAction.showConfirm({
                     title: 'Confirmar activación',
@@ -205,7 +216,17 @@ export default function CrudNatural() {
             },
         },
         {
-            component: <div>Desactivar</div>,
+            component: (row: ClienteNaturalCrud) => {
+                if (row.estado)
+                    return (
+                        <div
+                            title='Desactivar Usuario'
+                            className='flex items-center gap-2 text-error cursor-pointer p-1 rounded-md hover:bg-error/20'
+                        >
+                            <FaToggleOff size={20} /> Desactivar
+                        </div>
+                    )
+            },
             onAction: (row: ClienteNaturalCrud) => {
                 modalAction.showConfirm({
                     title: 'Confirmar activación',

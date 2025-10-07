@@ -50,7 +50,7 @@ export interface CrudTableProps<TData extends Record<string, any>, TForm extends
     onEdit?: (row: TForm) => void
     onDelete?: (row: TData) => void
     getRowId: (row: TForm) => string | number
-    newActionsCrud?: newActionCrud[]
+    newActionsCrud?: newActionCrud<TData>[]
 }
 function compareValues(a: Comparable, b: Comparable): number {
     if (a == null && b == null) return 0
@@ -195,7 +195,7 @@ export function CrudTable<TData extends Record<string, any>, TForm extends Field
                                                                 action.onAction(row.data)
                                                             }
                                                         >
-                                                            {action.component}
+                                                            {action.component(row.data)}
                                                         </div>
                                                     ))}
                                                 {onView && (

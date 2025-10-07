@@ -22,16 +22,16 @@ export interface autoLoadOptions {
     autoLoad?: boolean
     dependencies?: React.DependencyList
 }
-export interface newActionCrud {
-    component: React.ReactNode
-    onAction: (row: any) => void
+export interface newActionCrud<TData> {
+    component: (row: TData) => React.ReactNode
+    onAction: (row: TData) => void
 }
 export interface CrudContainerRawProps<
     TData extends Record<string, any>,
     TForm extends FieldValues
 > {
     onCrudActions?: onCrudActionsProps<TData, TForm>
-    newActionsCrud?: newActionCrud[]
+    newActionsCrud?: newActionCrud<TData>[]
     title?: string
     mostrar_titulo?: boolean
     columns: ColumnDef<TData>[]

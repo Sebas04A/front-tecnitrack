@@ -25,8 +25,8 @@ const columnsNatural: ColumnDef<ClienteEmpresaCrud>[] = [
         key: 'numeroIdentificacion',
     },
     {
-        header: 'Nombre Comercial',
-        key: 'nombreComercial',
+        header: 'Razón Social',
+        key: 'razonSocial',
     },
     {
         header: 'Teléfono',
