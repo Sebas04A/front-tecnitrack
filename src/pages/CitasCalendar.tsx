@@ -26,10 +26,13 @@ export const CitasCalendar: React.FC = () => {
     const citaSel = (location.state as any)?.citaSeleccionada as
         | { dateISO: string; slot: string }
         | undefined
+    console.log('citaSel:', citaSel)
     const defaultSelectedDate = React.useMemo(
         () => (citaSel?.dateISO ? new Date(citaSel.dateISO) : null),
         [citaSel]
     )
+    console.log('defaultSelectedDate:', defaultSelectedDate)
+    console.log(location.state)
     // const defaultSelectedSlot = citaSel?.slot ?? null
 
     // Limpiar state de navegación al montar
@@ -65,6 +68,8 @@ export const CitasCalendar: React.FC = () => {
             })
             return
         }
+
+        console.warn(selectedDate, selection)
 
         // // Autenticado: construir payload listo para API
         // const [h, m] = selectedSlot.split(':').map(Number)
@@ -120,7 +125,7 @@ export const CitasCalendar: React.FC = () => {
     return (
         <div>
             <DateTimeSelector
-                defaultSelectedDate={defaultSelectedDate}
+                defaultSelectedDate={selection.selectedDate}
                 onSelectionChange={s => setSelection(s)}
                 // onSlotSelect={date => abrirModalConfirmarFecha(date)}
             />

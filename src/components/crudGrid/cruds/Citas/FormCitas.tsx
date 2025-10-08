@@ -7,25 +7,49 @@ import GenericSelectSearch from '../../../form/Controls/GenericSelectSearch'
 import { buscarUsuario } from '../../../../services/SelectSearch'
 import GenericForm from '../../../form/GenericForm'
 import GenericSelect from '../../../form/Controls/GenericSelect'
+import GenericButton from '../../../form/Controls/GenericButton'
+import { useModal } from '../../../../hooks/useModal'
+import { CalendarioModal } from '../../../common/modals/Calendario'
+import GenericRowForm from '../../../form/GenericRowForm'
+import { FaCalendarAlt } from 'react-icons/fa'
+import { UseFormReturn } from 'react-hook-form'
+import { convertirDateParaInput } from '../../../../adapters/fecha'
 
-export default function FormCitas({ form, readOnly }: any) {
+export default function FormCitas({ form, readOnly }: { form: UseFormReturn; readOnly: boolean }) {
     console.log('Valores del formulario en FormCitas:', form.getValues())
 
     const tipoMantenimiento = form.watch('tipoMantenimiento')
     console.log('Tipo Mantenimiento observado:', tipoMantenimiento)
 
+    const modal = useModal()
+    function abrirCalendario() {
+        modal.openModal({
+            component: CalendarioModal,
+            props: {
+                onConfirm: (date: Date) => {
+                    const fechaParseada = convertirDateParaInput(date)
+                    console.log('Fecha parseada:', fechaParseada)
+                    form.setValue('fechaHoraInicio', fechaParseada)
+                },
+            },
+        })
+    }
+
     return (
         <>
             {/* <GenericForm> */}
-            <GenericDate
-                label='Fecha y Hora de la Cita'
-                name='fechaHoraInicio'
-                inputType='datetime-local'
-                isReadOnly={true}
-                register={form.register}
-                errors={form.formState.errors}
-                // value={formatDate(fecha)}
-            />
+            <GenericRowForm>
+                <GenericDate
+                    label='Fecha y Hora de la Cita'
+                    name='fechaHoraInicio'
+                    inputType='datetime-local'
+                    isReadOnly={true}
+                    register={form.register}
+                    errors={form.formState.errors}
+                    // value={formatDate(fecha)}
+                />
+                {!readOnly && <GenericButton onClick={abrirCalendario} icon={<FaCalendarAlt />} />}
+            </GenericRowForm>
             <div style={{ height: '16px' }}></div>
             <GenericSelect
                 label='Tipo de Mantenimiento'

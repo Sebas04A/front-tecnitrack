@@ -41,7 +41,7 @@ const columns: ColumnDef<CitaDataCrud>[] = [
     { key: 'descripcion', header: 'Descripción' },
     {
         key: 'estado',
-        header: 'Estado',
+        header: 'Estado Cita',
         render: (row: keyof typeof stylesEstado) => (
             <span className={row in stylesEstado ? stylesEstado[row] : ''}>{row}</span>
         ),

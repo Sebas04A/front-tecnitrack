@@ -48,6 +48,7 @@ export interface CrudContainerProps<TData extends Record<string, any>, TForm ext
     isModalGrande?: boolean
     searchPlaceholder?: string
     pageSize?: number
+    FiltersComponent?: ComponentType<any>
 }
 
 export function CrudContainer<TData extends Record<string, any>, TForm extends FieldValues>({
@@ -57,6 +58,7 @@ export function CrudContainer<TData extends Record<string, any>, TForm extends F
     defaultValues,
     dataToForm = (data: TData) => data as unknown as TForm,
     crudQueries,
+    FiltersComponent,
 
     title,
     mostrar_titulo = true,
@@ -324,6 +326,7 @@ export function CrudContainer<TData extends Record<string, any>, TForm extends F
                 autoLoadOptions={{ autoLoad, dependencies: [...dependencies, reloadKey] }}
                 onCrudActions={onCrudActions}
                 dataToForm={(data: TData) => dataToForm(data)}
+                FiltersComponent={FiltersComponent}
             ></CrudCrudo>
         </>
     )

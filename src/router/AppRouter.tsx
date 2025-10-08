@@ -28,6 +28,7 @@ import ProcesarMantenimiento from '../components/tecnico/ProcesarMantenimiento'
 import RegisterNuevo from '../pages/RegisterNuevo'
 import RootRedirect from './RootRedirect'
 import DireccionesCrud from '../components/crudGrid/cruds/DireccionesCrud'
+import CitaCliente from '../pages/cliente/CitaCliente'
 
 const AppRouter: React.FC = () => {
     return (
@@ -61,6 +62,7 @@ const AppRouter: React.FC = () => {
                     <Route path='mantenimientos' element={<DashboardPage />} />
 
                     <Route path='usuario' element={<UserProfileTabs />} />
+                    <Route path='citas' element={<CitaCliente />} />
 
                     {/* <Route path='ejCrud' element={<DireccionesCrud />} /> */}
                     {/* ... todas las demás rutas para el rol 'usuario' van aquí ... */}

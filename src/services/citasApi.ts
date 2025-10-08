@@ -8,7 +8,7 @@ import {
     OrdenResponse,
 } from '../api'
 
-import { CitaDataCrud, citaDataCompleta } from '../types/cita'
+import { CitaClienteData, CitaDataCrud, citaDataCompleta } from '../types/cita'
 import { CitaDataForm } from '../validation/cita.schema'
 
 export const obtenerCitas = async (): Promise<citaDataCompleta[]> => {
@@ -93,4 +93,25 @@ export const obtenerOrden = async (citaId: number): Promise<OrdenResponse | null
     }
     // if (!res.data.id) throw new Error('No se recibió id de la orden')
     return res.data
+}
+
+export const obtenerCitasCliente = async (): Promise<CitaClienteData[]> => {
+    return [
+        {
+            tipoMantenimiento: 'Correctivo',
+            otro: undefined,
+            descripcion: 'Descripción 2',
+            usuario: 1,
+            fechaHoraInicio: '2024-05-20T10:00',
+            estado: true,
+        },
+        {
+            tipoMantenimiento: 'Otro',
+            otro: 'Mantenimiento de emergencia',
+            descripcion: 'Descripción 3',
+            usuario: 1,
+            fechaHoraInicio: '2024-06-01T15:30',
+            estado: false,
+        },
+    ]
 }

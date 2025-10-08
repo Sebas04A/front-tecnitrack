@@ -79,13 +79,14 @@ const DateTimeSelector: React.FC<DateTimeSelectorProps> = ({
     // })
     useEffect(() => {
         const fecha = getFechaHoraSeleccionada()
-        onSelectionChange &&
-            onSelectionChange({
-                selectedDate,
-                selectedSlot,
-                fechaHoraISO: getFechaHoraSeleccionadaISO(),
-                fecha: getFechaHoraSeleccionada(),
-            })
+        const fechaInfo = {
+            selectedDate,
+            selectedSlot,
+            fechaHoraISO: getFechaHoraSeleccionadaISO(),
+            fecha: getFechaHoraSeleccionada(),
+        }
+        console.log('fechaInfo', fechaInfo)
+        onSelectionChange && onSelectionChange(fechaInfo)
 
         console.log(fecha)
         if (!fecha) return

@@ -138,9 +138,9 @@ export default function CrudEmpresa() {
         // onDelete,
     }
     const modalAction = useModalActions()
-    const actionsCrud: newActionCrud<ClienteNaturalCrud>[] = [
+    const actionsCrud: newActionCrud<ClienteEmpresaCrud>[] = [
         {
-            component: (row: ClienteNaturalCrud) => {
+            component: (row: ClienteEmpresaCrud) => {
                 if (!row.estado)
                     return (
                         <div
@@ -151,7 +151,7 @@ export default function CrudEmpresa() {
                         </div>
                     )
             },
-            onAction: (row: ClienteNaturalCrud) => {
+            onAction: (row: ClienteEmpresaCrud) => {
                 modalActions.showConfirm({
                     title: 'Confirmar activación',
                     message: `¿Estás seguro de que deseas activar al cliente ${row.nombreCompleto}? `,
@@ -181,7 +181,7 @@ export default function CrudEmpresa() {
             },
         },
         {
-            component: (row: ClienteNaturalCrud) => {
+            component: (row: ClienteEmpresaCrud) => {
                 if (row.estado)
                     return (
                         <div
@@ -192,7 +192,7 @@ export default function CrudEmpresa() {
                         </div>
                     )
             },
-            onAction: (row: ClienteNaturalCrud) => {
+            onAction: (row: ClienteEmpresaCrud) => {
                 modalAction.showConfirm({
                     title: 'Confirmar activación',
                     message: `¿Estás seguro de que deseas desactivar al cliente ${row.nombreCompleto}? `,
@@ -227,6 +227,7 @@ export default function CrudEmpresa() {
             onCrudActions={onCrudActions}
             columns={columnsNatural}
             fetchData={fetchData}
+            newActionsCrud={actionsCrud}
             autoLoadOptions={{
                 autoLoad: true,
                 dependencies: [refresh],

@@ -19,6 +19,8 @@ import { CitasFilters } from './CitasFilters'
 import { FaSign, FaSignInAlt } from 'react-icons/fa'
 import MantenimientoIngreso from '../../../mantenimiento/MantenimientoIngreso'
 import { crearOrden, obtenerOrden } from '../../../../services/citasApi'
+import { CalendarioModal } from '../../../common/modals/Calendario'
+import { convertirDateParaInput } from '../../../../adapters/fecha'
 
 interface CrudCitasContainerProps<TData, TForm extends FieldValues> {
     formModalProp: formModalCrudProps
@@ -130,74 +132,39 @@ export default function CrudCitasContainer<
         console.log('Opening data modal', { actualRow, mode })
 
         let id
-        function CitasNew({
-            isOpen,
-            onClose,
-            initialDate,
-        }: {
-            isOpen: boolean
-            onClose: () => void
-            initialDate?: Date
-        }) {
-            useEffect(() => {
-                setFechaSeleccionada(initialDate ?? null)
-            }, [initialDate])
-            const [fechaSeleccionada, setFechaSeleccionada] = useState<Date | null>(null)
-            function handleSelectionChange(selection: DateTimeSelection) {
-                setFechaSeleccionada(selection.fecha ?? null)
-                console.log('Selected Date:', selection.selectedDate)
-                console.log('Selected Slot:', selection.selectedSlot)
-                console.log('Fecha y Hora ISO:', selection.fechaHoraISO)
-            }
-            function handleSlotSelect(date: Date) {
-                console.log('Slot seleccionado')
-                console.log('Fecha seleccionada:', date)
-                modalActions.showConfirm({
-                    title: 'Confirmar',
-                    message: '¿Deseas proceder con la fecha seleccionada?',
-                    confirmText: 'Sí',
-                    cancelText: 'No',
-                    onConfirm: () => {
-                        reset({ ...defaultValues, fechaHoraInicio: formatDate(date) })
-                        openModalForm(date)
-                    },
-                    type: 'info',
-                })
-            }
-
-            return (
-                <BaseModal
-                    title={mode === 'edit' ? 'Editar Cita' : 'Nueva Cita'}
-                    isOpen={isOpen}
-                    onClose={onClose}
-                >
-                    <DateTimeSelector
-                        initialDate={initialDate ?? new Date()}
-                        onSelectionChange={handleSelectionChange}
-                        onSlotSelect={handleSlotSelect}
-                        defaultSelectedDate={fechaSeleccionada}
-                    />
-                </BaseModal>
-            )
-        }
 
         if (mode !== 'view') {
             id = modal.openModal({
-                component: CitasNew,
-                props: {},
+                component: CalendarioModal,
+                props: {
+                    onConfirm: (date: Date) => {
+                        form.reset(defaultValues)
+                        const dateParseada = convertirDateParaInput(date)
+                        form.setValue('fechaHoraInicio' as any, dateParseada as any)
+                        abrirFormularioModal('Crear Cita', false)
+                    },
+                },
             })
             setIdFormModal(id)
             return
         }
-        id = modalActions.showForm({
-            title: 'Ver Cita',
+        // abrirFormularioModal()
+    }
+
+    const abrirFormularioModal = (title: string, readOnly: boolean) => {
+        const id = modalActions.showForm({
+            title: title,
             component: FormComponent,
             onSubmit: onSubmit,
             submitText: '',
             cancelText: 'Cerrar',
             onCancel: closeAndReset,
             size: isModalGrande ? 'xl' : 'md',
-            props: { ...formModalProp.props, readOnly: true, fecha: actualRow?.fechaHoraInicio },
+            props: {
+                ...formModalProp.props,
+                readOnly: readOnly,
+                fecha: actualRow?.fechaHoraInicio,
+            },
         })
     }
 
@@ -285,7 +252,7 @@ export default function CrudCitasContainer<
         onEdit: (row: TForm) => {
             setCamposReadOnly(false)
             setActualRow(row)
-            setMode('edit')
+            abrirFormularioModal('Editar Cita', false)
             setError('')
             reset(row)
             console.log('Editing row:', row)
@@ -296,8 +263,9 @@ export default function CrudCitasContainer<
             console.log('Viewing row:', row)
             setCamposReadOnly(true)
             setActualRow(row)
-            setMode('view')
+            // setMode('view')
             reset(row)
+            abrirFormularioModal('Ver Cita', true)
         },
         onDelete: (row: TData) => {
             modalActions.showConfirm({

@@ -51,3 +51,13 @@ export const CitaCrudSchema = citaSchema.shape({
 })
 
 export type CitaDataForm = yup.InferType<typeof CitaCrudSchema>
+
+export const CitaClienteSchema = citaSchema.shape({
+    fechaHoraInicio: yup
+        .string()
+        .required('La fecha y hora de inicio es obligatoria')
+        .test('is-date', 'Fecha y hora inválida', value => {
+            return !isNaN(Date.parse(value))
+        }),
+})
+export type CitaClienteDataForm = yup.InferType<typeof CitaClienteSchema>

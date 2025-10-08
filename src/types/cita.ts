@@ -19,3 +19,7 @@ export type CitaDataCrud = CitaDataForm & {
     hora: string
     fecha: Date
 }
+
+export type CitaClienteData = CitaDataForm & {
+    estado: boolean
+}
