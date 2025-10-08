@@ -353,8 +353,8 @@ export default function CrudCitasContainer<
     }
 
     // const modal = useModal()
-    const botonIngresar: newActionCrud = {
-        component: (
+    const botonIngresar: newActionCrud<TData> = {
+        component: row => (
             <div className='flex text-sm justify-center items-center gap-2 bg-success-auto px-3 py-2 rounded'>
                 <FaSignInAlt />
                 Ingreso

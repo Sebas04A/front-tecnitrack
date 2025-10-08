@@ -181,6 +181,7 @@ export default function FormsUnidos({
             console.log('Datos obtenidos :', dataLocal)
             setData(dataLocal)
             modal.closeModal(id)
+            return dataLocal
         } catch (e) {
             modal.closeModal(id)
             const errorMessage = e instanceof Error ? e.message : 'Error al obtener datos'
@@ -219,6 +220,7 @@ export default function FormsUnidos({
 
     const renderContent = () => {
         if (activeTab === 'personal') {
+            obtenerData()
             return (
                 <div className='animate-fade-in'>
                     {tipoPersona === TIPO_PERSONA.EMPRESA ? (

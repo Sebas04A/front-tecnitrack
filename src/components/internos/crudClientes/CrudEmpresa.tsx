@@ -4,10 +4,12 @@ import { PerfilEmpresaData, PerfilPersonaNaturalData } from '../../../validation
 import { useForm } from 'react-hook-form'
 import ContainerForm from '../../PerfilForm/containerForm'
 import { makeLocalCrudFetcher } from '../../crudGrid/helper/crud-helpers'
-import CrudCrudo from '../../crudGrid/CrudCrudo'
+import CrudCrudo, { newActionCrud } from '../../crudGrid/CrudCrudo'
 import { useModal } from '../../../hooks/useModal'
 import { Modal } from '../../common/Modal'
 import {
+    activarUsuario,
+    desactivarUsuario,
     getPerfilesJuridicos,
     getPerfilesNaturales,
     getPerfilJuridico,
@@ -18,6 +20,7 @@ import { ClienteEmpresaCrud, ClienteNaturalCrud } from '../../../types/usuario'
 import { useModalActions } from '../../../hooks/useModalActions'
 import FormsUnidos from '../../PerfilForm/FormsUnidos'
 import { TIPO_PERSONA } from '../../../constants/perfil'
+import { FaToggleOff, FaToggleOn } from 'react-icons/fa'
 
 const columnsNatural: ColumnDef<ClienteEmpresaCrud>[] = [
     {
@@ -66,6 +69,11 @@ export default function CrudEmpresa() {
     // const modal = useModalActions()
     const modal = useModal()
     const modalActions = useModalActions()
+
+    const [refresh, setNewRefresh] = useState(0)
+    function refreshTable() {
+        setNewRefresh(prev => prev + 1)
+    }
 
     function createQuery(data: any) {}
     function updateQuery(data: any) {}
@@ -127,13 +135,102 @@ export default function CrudEmpresa() {
         onCreate,
         onView,
         onEdit,
-        onDelete,
+        // onDelete,
     }
+    const modalAction = useModalActions()
+    const actionsCrud: newActionCrud<ClienteNaturalCrud>[] = [
+        {
+            component: (row: ClienteNaturalCrud) => {
+                if (!row.estado)
+                    return (
+                        <div
+                            title='Activar Usuario'
+                            className='flex items-center gap-2 text-success cursor-pointer p-1 rounded-md hover:bg-success/20'
+                        >
+                            <FaToggleOn size={20} /> Activar
+                        </div>
+                    )
+            },
+            onAction: (row: ClienteNaturalCrud) => {
+                modalActions.showConfirm({
+                    title: 'Confirmar activación',
+                    message: `¿Estás seguro de que deseas activar al cliente ${row.nombreCompleto}? `,
+                    onConfirm: () => {
+                        console.log('Activando cliente:', row.id)
+                        const id = modalAction.showLoading('Activando...')
+                        activarUsuario(row.id).then(
+                            () => {
+                                modalAction.closeModal(id)
+                                modalAction.showAlert({
+                                    title: 'Éxito',
+                                    message: `Cliente ${row.nombreCompleto} activado correctamente.`,
+                                    type: 'success',
+                                })
+                                refreshTable()
+                            },
+                            (error: any) => {
+                                modalAction.closeModal(id)
+                                modalAction.showAlert({
+                                    title: 'Error al activar',
+                                    message: error.message,
+                                })
+                            }
+                        )
+                    },
+                })
+            },
+        },
+        {
+            component: (row: ClienteNaturalCrud) => {
+                if (row.estado)
+                    return (
+                        <div
+                            title='Desactivar Usuario'
+                            className='flex items-center gap-2 text-error cursor-pointer p-1 rounded-md hover:bg-error/20'
+                        >
+                            <FaToggleOff size={20} /> Desactivar
+                        </div>
+                    )
+            },
+            onAction: (row: ClienteNaturalCrud) => {
+                modalAction.showConfirm({
+                    title: 'Confirmar activación',
+                    message: `¿Estás seguro de que deseas desactivar al cliente ${row.nombreCompleto}? `,
+                    onConfirm: () => {
+                        console.log('Desactivando cliente:', row.id)
+                        const id = modalAction.showLoading('desactivando...')
+                        desactivarUsuario(row.id).then(
+                            () => {
+                                modalAction.closeModal(id)
+                                modalAction.showAlert({
+                                    title: 'Éxito',
+                                    message: `Cliente ${row.nombreCompleto} desactivado correctamente.`,
+                                    type: 'success',
+                                })
+                                refreshTable()
+                            },
+                            (error: any) => {
+                                modalAction.closeModal(id)
+                                modalAction.showAlert({
+                                    title: 'Error al desactivar',
+                                    message: error.message,
+                                })
+                            }
+                        )
+                    },
+                })
+            },
+        },
+    ]
     return (
         <CrudCrudo<ClienteEmpresaCrud, ClienteEmpresaCrud>
             onCrudActions={onCrudActions}
             columns={columnsNatural}
             fetchData={fetchData}
+            autoLoadOptions={{
+                autoLoad: true,
+                dependencies: [refresh],
+            }}
         ></CrudCrudo>
     )
 }

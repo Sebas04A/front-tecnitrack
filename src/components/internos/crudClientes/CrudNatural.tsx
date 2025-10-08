@@ -124,6 +124,12 @@ export default function CrudNatural() {
 
     function onView(row: ClienteNaturalCrud) {
         console.warn('Viend ocliente natural:', row)
+        if (!row.estado)
+            return modalAction.showAlert({
+                title: 'Error',
+                message: 'Cliente inactivo',
+                type: 'error',
+            })
         // modal.openModal({
         //     component: ComponentePrueba,
         //     props: {},
@@ -171,6 +177,12 @@ export default function CrudNatural() {
     }
     function onEdit(row: ClienteNaturalCrud) {
         console.warn('Editando cliente natural:', row)
+        if (!row.estado)
+            return modalAction.showAlert({
+                title: 'Error',
+                message: 'Cliente inactivo',
+                type: 'error',
+            })
         mostrarModal(row)
     }
     const actionsCrud: newActionCrud<ClienteNaturalCrud>[] = [
@@ -262,7 +274,7 @@ export default function CrudNatural() {
         onCreate,
         onView,
         onEdit,
-        onDelete,
+        // onDelete,
     }
     return (
         <CrudCrudo<ClienteNaturalCrud, ClienteNaturalCrud>
