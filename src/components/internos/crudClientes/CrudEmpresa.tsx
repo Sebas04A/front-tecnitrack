@@ -50,6 +50,17 @@ const columnsNatural: ColumnDef<ClienteEmpresaCrud>[] = [
     {
         header: 'Estado',
         key: 'estado',
+        render: value =>
+            value ? (
+                <div className='rounded p-1 text-xs flex text-center w-full justify-center bg-success-auto'>
+                    Activo
+                </div>
+            ) : (
+                <div className='rounded p-1 text-xs flex text-center w-full justify-center bg-error-auto'>
+                    Inactivo
+                </div>
+            ),
+        sortable: true,
     },
 ]
 const defaultValues: PerfilEmpresaData = {
@@ -117,7 +128,7 @@ export default function CrudEmpresa() {
     function onDelete(row: ClienteEmpresaCrud) {
         modalActions.showConfirm({
             title: 'Confirmar eliminación',
-            message: `¿Estás seguro de que deseas eliminar al cliente ${row.nombreComercial}? `,
+            message: `¿Estás seguro de que deseas eliminar al cliente ${row.razonSocial}? `,
             type: 'warning',
             onConfirm: () => {
                 console.log('Eliminando cliente:', row.id)
@@ -145,7 +156,7 @@ export default function CrudEmpresa() {
                     return (
                         <div
                             title='Activar Usuario'
-                            className='flex items-center gap-2 text-success cursor-pointer p-1 rounded-md hover:bg-success/20'
+                            className='flex items-center gap-2 text-error cursor-pointer p-1 rounded-md hover:bg-error/20'
                         >
                             <FaToggleOn size={20} /> Activar
                         </div>
@@ -154,7 +165,7 @@ export default function CrudEmpresa() {
             onAction: (row: ClienteEmpresaCrud) => {
                 modalActions.showConfirm({
                     title: 'Confirmar activación',
-                    message: `¿Estás seguro de que deseas activar al cliente ${row.nombreCompleto}? `,
+                    message: `¿Estás seguro de que deseas activar al cliente ${row.razonSocial}? `,
                     onConfirm: () => {
                         console.log('Activando cliente:', row.id)
                         const id = modalAction.showLoading('Activando...')
@@ -163,7 +174,7 @@ export default function CrudEmpresa() {
                                 modalAction.closeModal(id)
                                 modalAction.showAlert({
                                     title: 'Éxito',
-                                    message: `Cliente ${row.nombreCompleto} activado correctamente.`,
+                                    message: `Cliente ${row.razonSocial} activado correctamente.`,
                                     type: 'success',
                                 })
                                 refreshTable()
@@ -186,7 +197,7 @@ export default function CrudEmpresa() {
                     return (
                         <div
                             title='Desactivar Usuario'
-                            className='flex items-center gap-2 text-error cursor-pointer p-1 rounded-md hover:bg-error/20'
+                            className='flex items-center gap-2 text-success cursor-pointer p-1 rounded-md hover:bg-error/20'
                         >
                             <FaToggleOff size={20} /> Desactivar
                         </div>

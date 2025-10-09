@@ -123,7 +123,7 @@ export const registerSchema = yup
             // al menos una mayúscula, una minúscula, un número y un carácter especial. sin ñ ni espacios
             .matches(
                 /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                'La contraseña debe contener al menos una mayúscula, una minúscula, un número y un carácter especial'
+                'Incluir mayúscula, minúscula, número y carácter especial'
             ),
         confirmPassword: yup
             .string()

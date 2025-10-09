@@ -148,7 +148,7 @@ export default function FormsUnidos({
                     console.log('Creando nuevo cliente, no se obtienen datos')
                     setData(null)
                     modal.closeModal(id)
-                    return
+                    return null
                 } else {
                     console.log('Obteniendo datos para cliente existente')
                     dataLocal = await (tipoPersona === TIPO_PERSONA.EMPRESA
@@ -220,7 +220,6 @@ export default function FormsUnidos({
 
     const renderContent = () => {
         if (activeTab === 'personal') {
-            obtenerData()
             return (
                 <div className='animate-fade-in'>
                     {tipoPersona === TIPO_PERSONA.EMPRESA ? (
