@@ -233,7 +233,7 @@ export default function CrudNatural() {
                     return (
                         <div
                             title='Desactivar Usuario'
-                            className='flex items-center gap-2 text-error cursor-pointer p-1 rounded-md hover:bg-error/20'
+                            className='flex items-center gap-2 text-success cursor-pointer p-1 rounded-md hover:bg-error/20'
                         >
                             <FaToggleOff size={20} /> Desactivar
                         </div>

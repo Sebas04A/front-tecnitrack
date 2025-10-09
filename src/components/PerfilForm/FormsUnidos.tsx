@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { act, useCallback, useEffect, useState } from 'react'
 import TabsNavigation from '../common/TabsNavigation'
 import { TabKeyType } from '../../types/profile.types'
 
@@ -19,6 +19,7 @@ import DireccionesCrud from '../crudGrid/cruds/DireccionesCrud'
 import ContactosCrud from '../crudGrid/cruds/ContactosCrud'
 import { TIPO_PERSONA, TIPO_PERSONA_TYPE } from '../../constants/perfil'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { ActivosService } from '../../api'
 const tabs: Array<{ key: TabKeyType; label: string; icon: JSX.Element }> = [
     {
         key: 'personal',
@@ -51,6 +52,11 @@ export default function FormsUnidos({
     const [isDirty, setIsDirty] = useState(false)
     const [estaEditando, setEstaEditando] = useState(false)
 
+    useEffect(() => {
+        if (activeTab == 'personal') {
+            obtenerData()
+        }
+    }, [activeTab])
     function openCambiosSinGuardar() {
         modal.showAlert({
             title: 'Cambios sin guardar',
@@ -204,7 +210,7 @@ export default function FormsUnidos({
     useEffect(() => {
         console.log('Tipo de persona cambiado a:', tipoPersona)
         setData(null)
-        obtenerData()
+        // obtenerData()
     }, [tipoPersona])
     useEffect(() => {
         console.log('RENDERIZANDO')
