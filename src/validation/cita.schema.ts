@@ -48,6 +48,7 @@ export const CitaCrudSchema = citaSchema.shape({
         .test('is-date', 'Fecha y hora inválida', value => {
             return !isNaN(Date.parse(value))
         }),
+    id: yup.number().nullable(),
 })
 
 export type CitaDataForm = yup.InferType<typeof CitaCrudSchema>
@@ -59,6 +60,5 @@ export const CitaClienteSchema = citaSchema.shape({
         .test('is-date', 'Fecha y hora inválida', value => {
             return !isNaN(Date.parse(value))
         }),
-    id: yup.number().nullable(),
 })
 export type CitaClienteDataForm = yup.InferType<typeof CitaClienteSchema>

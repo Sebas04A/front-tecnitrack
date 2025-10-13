@@ -13,6 +13,7 @@ import {
     AdministradorService,
     CitasService,
     CrearOrdenConNumeroRequest,
+    EditarCitaClienteRequest,
     EditarCitaRequest,
     GestionCitasService,
     MisCitasResponse,
@@ -44,10 +45,11 @@ export const obtenerCitas = async (): Promise<citaDataCompleta[]> => {
 }
 export const obtenerCitasCliente = async (
     filters: FetchParams<CitasClienteDataType>
-): Promise<CitasClienteDataType[]> => {
+): Promise<FetchReturn<CitasClienteDataType>> => {
     const res = await CitasService.getApiCitasMisCitas(adapterFiltersParams(filters))
     if (!res.data) throw new Error('No se encontraron datos')
-    return parseCitasCliente(res.data)
+    return { items: parseCitasCliente(res.data), pagination: parsePagination(res.pagination ?? {}) }
+    // return parseCitasCliente(res.data)
 }
 
 export const crearCita = async (cita: citaDataCompleta): Promise<any> => {
@@ -108,24 +110,32 @@ export const obtenerCitasAdmin = async (
 export const createCitaAdmin = async (cita: CitaDataForm): Promise<any> => {
     console.log('Creando cita (admin):', cita)
     const requestBody = adapterCitaAdmin(cita)
-    const res = await AdministradorService.postApiAdministradorCrearCitaCliente({ requestBody })
+    const res = await GestionCitasService.postApiGestionCitasCrearCitaCliente({ requestBody })
+    // const res = await AdministradorService.postApiAdministradorCrearCitaCliente({ requestBody })
     return res
 }
 export const updateCitaAdmin = async (cita: CitaDataForm): Promise<any> => {
-    throw new Error('Funcionalidad no implementada')
+    const requestBody: EditarCitaClienteRequest = {
+        clienteId: cita.usuario,
+        fechaHora: cita.fechaHoraInicio,
+        tipoMantenimiento: cita.tipoMantenimiento ?? 'Otro',
+        observaciones: cita.descripcion,
+    }
+    const res = await GestionCitasService.putApiGestionCitasEditarCitaCliente({
+        id: cita.id!,
+        requestBody,
+    })
+    // throw new Error('Funcionalidad no implementada')
     // if (!cita.id) throw new Error('ID de la cita es requerido para actualizar')
     // const requestBody = adapterCitaAdmin(cita)
     // const res = await AdministradorService.pos
-    // return res
+    return res
 }
 export const eliminarCitaAdmin = async (citaId: number): Promise<any> => {
-    console.log(citaId)
-    // const requestBody = await AdministradorService.Citas
-    throw new Error('Funcionalidad no implementada')
-    // const res = await AdministradorService.deleteApiAdministradorEliminarCitaCliente({
-    // citaId: citaId,
-    // })
-    // return res
+    const requestBody = await GestionCitasService.deleteApiGestionCitasCancelarCitaCliente({
+        id: citaId,
+    })
+    return requestBody
 }
 
 export const crearOrden = async (citaId: number): Promise<OrdenResponse> => {

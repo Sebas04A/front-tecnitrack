@@ -129,18 +129,4 @@ export function adapterFiltersCita(filters?: CitasFiltersType) {
         fechaHasta: filters?.fechaFin || '',
         tipoMantenimiento: filters?.tipoMantenimiento || '',
     }
-    const extraFilters: Record<string, string> = {}
-    console.log('Adaptando filtros de cita:', filters)
-    filters?.forEach(filter => {
-        console.log(
-            'Procesando filtro:',
-            filter,
-            filter.key,
-            parseNameFilters[filter.key],
-            filter.value
-        )
-
-        extraFilters[parseNameFilters[filter.key]] = filter.value
-    })
-    return extraFilters
 }
