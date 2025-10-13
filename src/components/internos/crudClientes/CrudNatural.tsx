@@ -10,6 +10,7 @@ import { useModal } from '../../../hooks/useModal'
 import { Modal } from '../../common/Modal'
 import {
     activarUsuario,
+    buscarPerfilesNaturales,
     deletePerfilNaturalAdmin,
     desactivarUsuario,
     getPerfilesNaturales,
@@ -21,6 +22,7 @@ import { useModalActions } from '../../../hooks/useModalActions'
 import FormsUnidos from '../../PerfilForm/FormsUnidos'
 import { TIPO_PERSONA } from '../../../constants/perfil'
 import BaseModal from '../../common/modals/BaseModal'
+import { fetchDataCrudWithFilters } from '../../crudGrid/helper/fetchWithFilters'
 
 const columnsNatural: ColumnDef<ClienteNaturalCrud>[] = [
     {
@@ -90,16 +92,24 @@ export default function CrudNatural() {
         defaultValues,
     })
 
+    // const fetchData = useMemo(
+    //     () =>
+    //         makeLocalCrudFetcher<ClienteNaturalCrud>({
+    //             searchKeys: [
+    //                 'nombreCompleto',
+    //                 'apellidoCompleto',
+    //                 'numeroIdentificacion',
+    //                 'correo',
+    //             ],
+    //             getAll: getPerfilesNaturales,
+    //         }),
+    //     []
+    // )
+
     const fetchData = useMemo(
         () =>
-            makeLocalCrudFetcher<ClienteNaturalCrud>({
-                searchKeys: [
-                    'nombreCompleto',
-                    'apellidoCompleto',
-                    'numeroIdentificacion',
-                    'correo',
-                ],
-                getAll: getPerfilesNaturales,
+            fetchDataCrudWithFilters<ClienteNaturalCrud>({
+                fetchData: buscarPerfilesNaturales,
             }),
         []
     )
@@ -192,7 +202,7 @@ export default function CrudNatural() {
                     return (
                         <div
                             title='Activar Usuario'
-                            className='flex items-center gap-2 text-success cursor-pointer p-1 rounded-md hover:bg-success/20'
+                            className='flex items-center gap-2 text-error cursor-pointer p-1 rounded-md hover:bg-success/20'
                         >
                             <FaToggleOn size={20} /> Activar
                         </div>

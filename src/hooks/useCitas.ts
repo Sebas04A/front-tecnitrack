@@ -19,7 +19,7 @@ const HORAS_DISPONIBLES_DIA = Array.from(
 const TOTAL_SLOTS_PER_DAY = HORAS_DISPONIBLES_DIA.length
 
 export const useCitas = (initialDate: Date = new Date()) => {
-    const [citas, setCitas] = useState<Cita[]>([])
+    const [citasFechas, setCitasFechas] = useState<Cita[]>([])
     const [currentDate, setCurrentDate] = useState<Date>(initialDate)
     const [selectedDate, setSelectedDate] = useState<Date | null>(null)
     const [selectedSlot, setSelectedSlot] = useState<string | null>(null)
@@ -34,9 +34,10 @@ export const useCitas = (initialDate: Date = new Date()) => {
             console.log('Citas obtenidas:', data)
             for (const cita of data) {
                 // Aseguramos que las fechas estén en formato ISO
-                console.log('fecha', new Date(cita.fechaHoraInicio))
+                console.log('fecha', new Date(cita.fechaHoraInicio ?? ''))
             }
-            setCitas(data)
+
+            setCitasFechas(data)
             setLoading(false)
         }
         fetchCitas()
@@ -46,7 +47,7 @@ export const useCitas = (initialDate: Date = new Date()) => {
     const diasCompletos = useMemo(() => {
         const citasPorDia = new Map<string, number>()
 
-        citas.forEach(cita => {
+        citasFechas.forEach(cita => {
             const fecha = cita.fechaHoraInicio.split('T')[0] // "YYYY-MM-DD"
             citasPorDia.set(fecha, (citasPorDia.get(fecha) || 0) + 1)
         })
@@ -56,14 +57,14 @@ export const useCitas = (initialDate: Date = new Date()) => {
             if (count >= TOTAL_SLOTS_PER_DAY) diasLlenos.add(fecha)
         })
         return diasLlenos
-    }, [citas])
+    }, [citasFechas])
 
     // Horas ocupadas para la fecha seleccionada
     const horasOcupadas = useMemo(() => {
         if (!selectedDate) return new Set<string>()
         const fechaSeleccionadaStr = selectedDate.toISOString().split('T')[0]
         const horas = new Set<string>()
-        citas.forEach(cita => {
+        citasFechas.forEach(cita => {
             const fechaCitaStr = cita.fechaHoraInicio.split('T')[0]
             if (fechaCitaStr === fechaSeleccionadaStr) {
                 const hora = cita.fechaHoraInicio.substring(11, 16) // "HH:MM"
@@ -71,7 +72,7 @@ export const useCitas = (initialDate: Date = new Date()) => {
             }
         })
         return horas
-    }, [citas, selectedDate])
+    }, [citasFechas, selectedDate])
 
     // Seleccionar día
     const selectDate = (day: number) => {

@@ -12,10 +12,13 @@ import {
     createCitaAdmin,
     eliminarCitaAdmin,
     obtenerCitasAdmin,
+    updateCitaAdmin,
 } from '../../../../services/citasApi'
 import { CitaAdministradorResponse } from '../../../../api'
 import { CitaDataCrud } from '../../../../types/cita'
 import { div, use } from 'framer-motion/client'
+import { fetchDataCrudWithFilters } from '../../helper/fetchWithFilters'
+import { CitasFilters, CitasFiltersType } from './CitasFilters'
 
 const stylesEstado = {
     Pendiente: 'bg-warning-auto',
@@ -67,17 +70,26 @@ export default function CrudCitas() {
         console.log('Watched values changed:', watchedValues)
     }, [watchedValues])
 
+    // const fetchData = useMemo(
+    //     () =>
+    //         makeLocalCrudFetcher<CitaDataCrud>({
+    //             getAll: obtenerCitasAdmin,
+    //             searchKeys: ['numeroIdentificacion', 'nombreCompleto', 'estado'],
+    //         }),
+    //     []
+    // )
+
     const fetchData = useMemo(
         () =>
-            makeLocalCrudFetcher<CitaDataCrud>({
-                getAll: obtenerCitasAdmin,
-                searchKeys: ['numeroIdentificacion', 'nombreCompleto', 'estado'],
+            fetchDataCrudWithFilters<CitaDataCrud, CitasFiltersType>({
+                fetchData: obtenerCitasAdmin,
             }),
         []
     )
 
     async function edit(data: CitaDataForm) {
         console.log('Editando cita', data)
+        const res = await updateCitaAdmin(data)
         return data
     }
     async function create(data: CitaDataForm) {
@@ -125,7 +137,7 @@ export default function CrudCitas() {
     }
 
     return (
-        <CrudCitasContainer<CitaDataCrud, CitaDataForm>
+        <CrudCitasContainer<CitaDataCrud, CitaDataForm, CitasFiltersType>
             formModalProp={{
                 form: FormCitas,
                 props: { form },
@@ -135,6 +147,7 @@ export default function CrudCitas() {
             defaultValues={defaultValues}
             crudQueries={crudQueries}
             isModalGrande={false}
+            FilterComponent={CitasFilters}
         />
     )
 }

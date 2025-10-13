@@ -13,12 +13,12 @@ import { useModalActions } from '../../hooks/useModalActions'
 import CrudCrudo, { autoLoadOptions, onCrudActionsProps } from './CrudCrudo'
 import { data, use } from 'framer-motion/client'
 import { toFormData } from 'axios'
+import { FetcherFunctionType } from './helper/crud-helpers'
+import { FetcherFunctionWithParams } from './helper/fetchWithFilters'
 
-export interface crudQueries<TData, TForm = any> {
-    fetchData: (params: { page: number; pageSize: number; search: string }) => Promise<{
-        items: TData[]
-        total: number
-    }>
+export interface crudQueries<TData, TForm = any, TFilters = any> {
+    fetchData: //  FetcherFunctionType<TData> |
+    FetcherFunctionWithParams<TData, TFilters>
     createQuery: (data: TForm) => Promise<any>
     editQuery: (data: TForm) => Promise<any>
     deleteQuery: (data: TData) => Promise<any>
@@ -30,7 +30,11 @@ export interface formModalCrudProps {
     propsNoCambiantes?: Record<string, any>
 }
 
-export interface CrudContainerProps<TData extends Record<string, any>, TForm extends FieldValues> {
+export interface CrudContainerProps<
+    TData extends Record<string, any>,
+    TForm extends FieldValues,
+    TFilters
+> {
     formModalProp: formModalCrudProps
     form: UseFormReturn<TForm>
 
@@ -41,7 +45,7 @@ export interface CrudContainerProps<TData extends Record<string, any>, TForm ext
     defaultValues: TForm
     dataToForm?: (data: TData) => TForm
 
-    crudQueries: crudQueries<TData, TForm>
+    crudQueries: crudQueries<TData, TForm, TFilters>
 
     autoLoadOptions?: autoLoadOptions
 
@@ -51,7 +55,11 @@ export interface CrudContainerProps<TData extends Record<string, any>, TForm ext
     FiltersComponent?: ComponentType<any>
 }
 
-export function CrudContainer<TData extends Record<string, any>, TForm extends FieldValues>({
+export function CrudContainer<
+    TData extends Record<string, any>,
+    TForm extends FieldValues,
+    TFilters = any
+>({
     formModalProp,
     form,
     columns,
@@ -66,7 +74,7 @@ export function CrudContainer<TData extends Record<string, any>, TForm extends F
     isModalGrande = false,
     searchPlaceholder,
     pageSize = 10,
-}: CrudContainerProps<TData, TForm>) {
+}: CrudContainerProps<TData, TForm, TFilters>) {
     console.warn('Renderizando CrudContainer')
     const { fetchData, createQuery, editQuery, deleteQuery } = crudQueries
     const { autoLoad = true, dependencies = [] } = autoLoadOptions
@@ -169,7 +177,7 @@ export function CrudContainer<TData extends Record<string, any>, TForm extends F
     useEffect(() => {
         console.log('id form cambiando:', idFormModal)
     }, [idFormModal])
-    const abrirModalDatos = async (mode: 'create' | 'edit' | 'view' | null) => {
+    const abrirModalDatos = async (mode: 'create' | 'edit' | 'view') => {
         const title_modal =
             mode === 'edit' ? 'Editar' : mode === 'view' ? 'Ver ' : 'Crear ' + (title ?? 'Nuevo')
         const submitText = mode === 'edit' ? 'Guardar Cambios' : mode === 'view' ? '' : 'Crear'
@@ -204,20 +212,21 @@ export function CrudContainer<TData extends Record<string, any>, TForm extends F
         })
 
         const valoresRecibidos = await promesaDeEnvio
-        await onSubmit(valoresRecibidos)
+        await onSubmit(valoresRecibidos, mode)
         modalActions.closeModal(id)
     }
 
     const submitingRequest = async <Parametro, Retorno>(
         row: Parametro,
-        cb: (row: Parametro) => Promise<Retorno>,
+        cb: (row: Parametro, mode: string) => Promise<Retorno>,
+        mode: string,
         messageConfirm: string = 'Los datos se han guardado correctamente.'
     ) => {
         console.log('Submitting request with data:', row)
         const id = modalActions.showLoading('Guardando...')
         setError('')
         try {
-            const res = await cb(row)
+            const res = await cb(row, mode)
             console.log('Response from submit:', res)
 
             modalActions.closeModal(id)
@@ -249,7 +258,7 @@ export function CrudContainer<TData extends Record<string, any>, TForm extends F
         console.log('Eliminado:', res)
         return res
     }
-    const submitRequest = async (data: TForm) => {
+    const submitRequest = async (data: TForm, mode: string) => {
         let res
         if (mode === 'edit') {
             res = await editQuery(data)
@@ -267,11 +276,11 @@ export function CrudContainer<TData extends Record<string, any>, TForm extends F
         return submitingRequest(data, deleteRequest, 'El registro se ha eliminado correctamente.')
     }
 
-    const onSubmit = async (values: TForm) => {
+    const onSubmit = async (values: TForm, mode: string) => {
         console.log('Submitted values:', values)
         console.log('Cerrando modal en CRUD con ID:', idFormModal)
         modal.closeModal(idFormModal)
-        return submitingRequest(values, submitRequest)
+        return submitingRequest(values, submitRequest, mode)
     }
 
     const onCrudActions: onCrudActionsProps<TData, TForm> = {
@@ -316,7 +325,7 @@ export function CrudContainer<TData extends Record<string, any>, TForm extends F
 
     return (
         <>
-            <CrudCrudo<TData, TForm>
+            <CrudCrudo<TData, TForm, TFilters>
                 title={title}
                 mostrar_titulo={mostrar_titulo}
                 columns={columns}

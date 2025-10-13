@@ -1,5 +1,6 @@
 import {
     ClienteEmpresaListaResponse,
+    ClienteNaturalBusquedaDto,
     ClienteNaturalDto,
     ClienteNaturalListaResponse,
     ClientesEmpresaRequest,
@@ -104,6 +105,23 @@ export const parseAdapterPerfilNaturalCrud = (
         genero: api.genero ?? '',
         email: api.email ?? '',
     }
+}
+
+export const parseSearchAdapterPefilNaturalCrud = (
+    apis: ClienteNaturalBusquedaDto[]
+): ClienteNaturalCrud[] => {
+    return apis.map(api => ({
+        id: api.clienteId || -1,
+        tipoIdentificacion: api.tipoIdentificacion || '',
+        numeroIdentificacion: api.numeroIdentificacion ?? '',
+        nombreCompleto: api.nombreCompleto ?? '',
+        telefono: api.telefono ?? '',
+        correo: api.correo ?? '',
+        direccion: api.direccion ?? '',
+        estado: api.estado ?? true,
+        fechaCreacion: api.fechaCreacion ? new Date(api.fechaCreacion) : new Date(),
+        // fechaNacimiento: parseFecha(perfil.),
+    }))
 }
 
 export const adapterPerfilJuridico = (data: PerfilEmpresaData) => {

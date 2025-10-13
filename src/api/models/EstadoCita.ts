@@ -2,8 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type AutenticacionRegistroClienteRequest = {
-    email: string;
-    password: string;
-};
-
+export enum EstadoCita {
+    '_1' = 1,
+    '_2' = 2,
+    '_3' = 3,
+}

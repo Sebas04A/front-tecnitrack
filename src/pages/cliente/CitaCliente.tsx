@@ -1,13 +1,16 @@
 import React, { useMemo } from 'react'
 import { ColumnDef, CrudContainer, crudQueries } from '../../components/crudGrid'
-import { CitaClienteData, CitaDataCrud } from '../../types/cita'
+import { CitaDataCrud } from '../../types/cita'
 import { CitaClienteDataForm, CitaClienteSchema, CitaData } from '../../validation/cita.schema'
 import FormCitas from '../../components/crudGrid/cruds/Citas/FormCitas'
 import { Resolver, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { makeLocalCrudFetcher } from '../../components/crudGrid/helper/crud-helpers'
-import { obtenerCitasCliente } from '../../services/citasApi'
+import { crearCita, editCita, eliminarCita, obtenerCitasCliente } from '../../services/citasApi'
 import { CitasFilters } from '../../components/crudGrid/cruds/Citas/CitasFilters'
+import { fetchDataCrudWithFilters } from '../../components/crudGrid/helper/fetchWithFilters'
+import { MisCitasResponse } from '../../api'
+import { CitasClienteDataType } from '../../types/cliente/Cita'
 
 const stylesEstado = {
     Pendiente: 'bg-warning-auto',
@@ -16,12 +19,16 @@ const stylesEstado = {
     Completada: 'bg-info-auto',
 }
 
-const columns: ColumnDef<CitaClienteData>[] = [
+const columns: ColumnDef<CitasClienteDataType>[] = [
     {
-        key: 'fechaHoraInicio',
+        key: 'fecha',
         header: 'Fecha',
         // render: (row: Date) => row.toISOString().slice(0, 10),
         sortable: true,
+    },
+    {
+        key: 'hora',
+        header: 'Hora',
     },
 
     { key: 'tipoMantenimiento', header: 'Tipo Mantenimiento' },
@@ -35,30 +42,13 @@ const columns: ColumnDef<CitaClienteData>[] = [
     },
 ]
 const defaultValues: CitaClienteDataForm = {
+    id: -1,
     fechaHoraInicio: '',
     tipoMantenimiento: '',
     otro: '',
     descripcion: '',
 }
 
-// Placeholder functions for create, edit, delete
-async function create(data: CitaClienteDataForm) {
-    console.log('Placeholder create function called with:', data)
-    // En una aplicación real, harías una llamada a la API aquí
-    return Promise.resolve({ ...data, id: Math.random() }) // Simula un ID para el nuevo elemento
-}
-
-async function edit(data: CitaClienteDataForm) {
-    console.log('Placeholder edit function called with:', data)
-    // En una aplicación real, harías una llamada a la API aquí
-    return Promise.resolve(data)
-}
-
-async function deleteAccion(data: CitaClienteData) {
-    console.log('Placeholder delete function called with:', data)
-    // En una aplicación real, harías una llamada a la API aquí
-    return Promise.resolve(true)
-}
 export default function CitaCliente() {
     const form = useForm<CitaClienteDataForm>({
         mode: 'onChange',
@@ -67,30 +57,32 @@ export default function CitaCliente() {
 
     const fetchData = useMemo(
         () =>
-            makeLocalCrudFetcher<CitaClienteData>({
-                getAll: obtenerCitasCliente,
-                searchKeys: ['descripcion', 'estado'],
+            fetchDataCrudWithFilters<CitasClienteDataType, any>({
+                fetchData: obtenerCitasCliente,
             }),
         []
     )
 
-    const crudQueries: crudQueries<CitaClienteData> = {
+    const crudQueries: crudQueries<CitasClienteDataType, CitaClienteDataForm> = {
         fetchData: fetchData,
-        createQuery: create,
-        editQuery: edit,
-        deleteQuery: deleteAccion,
+        createQuery: crearCita,
+        editQuery: editCita,
+        deleteQuery: eliminarCita,
     }
+
     return (
         <div>
-            <CrudContainer<CitaClienteData, CitaClienteDataForm>
+            <CrudContainer<CitasClienteDataType, CitaClienteDataForm>
                 columns={columns}
                 defaultValues={defaultValues}
                 formModalProp={{
                     form: FormCitas,
+                    propsNoCambiantes: { form, esCrud: false },
                 }}
                 form={form}
                 crudQueries={crudQueries}
                 FiltersComponent={CitasFilters}
+                // dataToForm={}
             />
         </div>
     )

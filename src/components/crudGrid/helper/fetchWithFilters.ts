@@ -214,64 +214,63 @@ function applyFilter<T>(item: T, filter: Filter<T>): boolean {
 
 // ==================== FETCHER PRINCIPAL ====================
 
-type MakeLocalCrudFetcherOptions<T> = {
-    getAll: () => Promise<T[]>
-    searchKeys?: (keyof T)[]
+export type FilterParamOption<T> = {
+    key: keyof T
+    value: string
 }
 
-type FetchParams<T> = {
+export type FetchReturn<T> = {
+    items: T[]
+    pagination: {
+        currentPage: number
+        hasNextPage: boolean
+        hasPreviousPage: boolean
+        pageSize: number
+        totalPages: number
+        totalRecords: number
+    }
+}
+type MakeLocalCrudFetcherOptions<T, FilterType> = {
+    fetchData: (filters: FetchParams<FilterType>) => Promise<FetchReturn<T>>
+}
+
+export type FetchParams<T> = {
     page: number
     pageSize: number
     search?: string
-    filters?: Filter<T>[]
+
+    filters?: T
+    sortColumns: string
 }
 
-export type FetcherFunctionType<T> = (fetchParams: any) => Promise<CrudPage<T>>
+export type FetcherFunctionWithParams<T, FilterType> = (
+    fetchParams: FetchParams<FilterType>
+) => Promise<FetchReturn<T>>
 
-export function makeLocalCrudFetcher<T>({
-    getAll,
-    searchKeys = [],
-}: MakeLocalCrudFetcherOptions<T>): FetcherFunctionType<T> {
-    return async ({
-        page,
-        pageSize,
-        search = '',
-        filters = [],
-    }: FetchParams<T>): Promise<CrudPage<T>> => {
+export function fetchDataCrudWithFilters<T, FilterType>({
+    fetchData,
+}: MakeLocalCrudFetcherOptions<T, FilterType>): (
+    fetchParams: FetchParams<FilterType>
+) => Promise<FetchReturn<T>> {
+    return async (fetchParams: FetchParams<FilterType>): Promise<FetchReturn<T>> => {
         try {
-            const data = await getAll()
+            const data = await fetchData(fetchParams)
             console.log('Datos obtenidos:', data)
-            // console.warn('Datos obtenidos:', data)
 
-            // Aplicar búsqueda de texto
-            const q = normalize(search)
-            console.log('Texto de búsqueda:', q, 'en ', searchKeys)
-            let filtered = q
-                ? data.filter(row => searchKeys.some(k => normalize(row[k]).includes(q)))
-                : data
-            // console.warn('Datos después de búsqueda:', filtered)
-
-            // Aplicar filtros
-            if (filters.length > 0) {
-                filtered = filtered.filter(item =>
-                    filters.every(filter => applyFilter(item, filter))
-                )
-            }
-            // console.warn('Datos después de filtros:', filtered)
-
-            // Paginación
-            const size = Math.max(1, pageSize | 0)
-            const currentPage = Math.max(1, page | 0)
-            const start = (currentPage - 1) * size
-            // console.warn('Paginación:', { size, currentPage, start })
-
-            return {
-                items: filtered.slice(start, start + size),
-                total: filtered.length,
-            }
+            return data
         } catch (err) {
             console.error('Error fetching data:', err)
-            return { items: [], total: 0 }
+            return {
+                items: [],
+                pagination: {
+                    currentPage: 1,
+                    hasNextPage: false,
+                    hasPreviousPage: false,
+                    pageSize: 5,
+                    totalPages: 1,
+                    totalRecords: 0,
+                },
+            }
         }
     }
 }

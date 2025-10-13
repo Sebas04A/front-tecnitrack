@@ -9,8 +9,14 @@ import useDebouncedCallback from '../../hooks/useDebouncedCallback'
 import { Modal } from '../common/Modal'
 import { useModal } from '../../hooks/useModal'
 import { useModalActions } from '../../hooks/useModalActions'
-import { Filter } from './helper/crud-helpers'
+import { FetcherFunctionType, Filter } from './helper/crud-helpers'
 import { div } from 'framer-motion/client'
+import {
+    FetcherFunctionWithParams,
+    FetchParams,
+    FilterParamOption,
+} from './helper/fetchWithFilters'
+import { FetchFunction } from '../form/Controls/GenericSelectSearch'
 
 export interface onCrudActionsProps<TData, TForm> {
     onCreate?: () => void
@@ -28,24 +34,21 @@ export interface newActionCrud<TData> {
 }
 export interface CrudContainerRawProps<
     TData extends Record<string, any>,
-    TForm extends FieldValues
+    TForm extends FieldValues,
+    TFilters = any
 > {
     onCrudActions?: onCrudActionsProps<TData, TForm>
     newActionsCrud?: newActionCrud<TData>[]
     title?: string
     mostrar_titulo?: boolean
     columns: ColumnDef<TData>[]
-    fetchData: (params: {
-        page: number
-        pageSize: number
-        search: string
-        filters: Filter<any>[]
-    }) => Promise<{
-        items: TData[]
-        total: number
-    }>
 
-    FiltersComponent?: ComponentType<any>
+    fetchData: //  FetcherFunctionType<TData> |
+    FetcherFunctionWithParams<TData, TFilters>
+
+    FiltersComponent?: ComponentType<{
+        onChangeFilters: (filters: TFilters) => void
+    }>
 
     pageSize?: number
     searchPlaceholder?: string
@@ -56,7 +59,11 @@ export interface CrudContainerRawProps<
 
     dataToForm?: (data: TData) => TForm
 }
-export default function CrudCrudo<TData extends Record<string, any>, TForm extends FieldValues>({
+export default function CrudCrudo<
+    TData extends Record<string, any>,
+    TForm extends FieldValues,
+    TFilters = any
+>({
     onCrudActions,
     newActionsCrud,
     title,
@@ -68,15 +75,29 @@ export default function CrudCrudo<TData extends Record<string, any>, TForm exten
     searchPlaceholder,
     autoLoadOptions = { autoLoad: true, dependencies: [] },
     dataToForm,
-}: CrudContainerRawProps<TData, TForm>) {
+}: CrudContainerRawProps<TData, TForm, TFilters>) {
     // console.warn('Renderizando CrudCrudo')
     const { autoLoad: autoLoad = true, dependencies = [] } = autoLoadOptions
     const { onCreate, onEdit, onView, onDelete } = onCrudActions || {}
-    const [page, setPage] = useState(1)
 
     const [data, setData] = useState<TData[]>([])
     const [loading, setLoading] = useState(false)
-    const [total, setTotal] = useState(0)
+
+    const [pagination, setPagination] = useState<{
+        currentPage: number
+        hasNextPage: boolean
+        hasPreviousPage: boolean
+        totalPages: number
+        totalRecords: number
+        pageSize: number
+    }>({
+        currentPage: 1,
+        hasNextPage: false,
+        hasPreviousPage: false,
+        totalPages: 0,
+        totalRecords: 0,
+        pageSize: 10,
+    })
 
     const [search, setSearch] = useState('')
 
@@ -89,12 +110,12 @@ export default function CrudCrudo<TData extends Record<string, any>, TForm exten
         debouncedSearch(value)
     }
 
-    const [filters, setFilters] = useState<Filter<any>[]>([])
-    const handleOnChangeFilters = (filters: Filter<any>[]) => {
+    const [filters, setFilters] = useState<TFilters>({} as TFilters)
+    const handleOnChangeFilters = (filters: TFilters) => {
         console.warn('Filters changed:', filters)
         setFilters(filters)
     }
-    const load = async (p = page, s = search) => {
+    const load = async (p = pagination.currentPage, s = search) => {
         console.log(
             'Loading data for page:',
             p,
@@ -107,11 +128,17 @@ export default function CrudCrudo<TData extends Record<string, any>, TForm exten
         )
         setLoading(true)
         try {
-            const res = await fetchData({ page: p, pageSize, search: s, filters })
+            const params: FetchParams<TFilters> = {
+                page: p,
+                pageSize,
+                search: s,
+                filters,
+                sortColumns: '', // Aquí puedes agregar lógica para manejar el ordenamiento si es necesario
+            }
+            const res = await fetchData(params)
             console.log('Fetched data:', res)
             setData(res.items)
-            setTotal(res.total)
-            setPage(p)
+            setPagination(res.pagination)
         } catch (e) {
             console.error('Error cargando datos CRUD', e)
         } finally {
@@ -178,7 +205,12 @@ export default function CrudCrudo<TData extends Record<string, any>, TForm exten
                 newActionsCrud={newActionsCrud}
                 dataToForm={dataToForm}
             />
-            <CrudPagination page={page} pageSize={pageSize} total={total} onChange={p => load(p)} />
+            <CrudPagination
+                page={pagination.currentPage}
+                pageSize={pagination.pageSize}
+                total={pagination.totalRecords}
+                onChange={p => load(p)}
+            />
         </div>
     )
 }

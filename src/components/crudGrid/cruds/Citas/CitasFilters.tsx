@@ -5,8 +5,9 @@ import GenericSelect from '../../../form/Controls/GenericSelect'
 import { createFilter, Filter } from '../../helper/crud-helpers'
 import { CitaDataCrud } from '../../../../types/cita'
 import GenericSelectState from '../../../form/Controls/GenericSelectState'
+import { FilterParamOption } from '../../helper/fetchWithFilters'
 
-export interface CitasFilters {
+export interface CitasFiltersType {
     fechaInicio: string
     fechaFin: string
     estadoCita: string
@@ -16,43 +17,43 @@ export interface CitasFilters {
 export function CitasFilters({
     onChangeFilters,
 }: {
-    onChangeFilters: (filter: Filter<CitaDataCrud>[]) => void
+    onChangeFilters: (filter: CitasFiltersType) => void
 }) {
     // console.warn('Renderizando CitasFilters')
 
-    const [filtros, setFiltros] = React.useState<CitasFilters>({
+    const [filtros, setFiltros] = React.useState<CitasFiltersType>({
         fechaInicio: '',
         fechaFin: '',
         estadoCita: '',
         tipoMantenimiento: '',
     })
 
-    const processedFilters: Filter<CitaDataCrud>[] = useMemo(
-        () =>
-            createFilter<CitaDataCrud>()
-                // Filtro de rango de fechas
-                .whenValue(
-                    filtros.fechaInicio,
-                    (f, fecha) => f.greaterThanOrEqual('fechaHoraInicio', fecha) // ajusta 'fecha' por tu campo real
-                )
-                .whenValue(filtros.fechaFin, (f, fecha) =>
-                    f.lessThanOrEqual('fechaHoraInicio', fecha)
-                )
+    // const processedFilters: Filter<CitaDataCrud>[] = useMemo(
+    //     () =>
+    //         createFilter<CitaDataCrud>()
+    //             // Filtro de rango de fechas
+    //             .whenValue(
+    //                 filtros.fechaInicio,
+    //                 (f, fecha) => f.greaterThanOrEqual('fechaHoraInicio', fecha) // ajusta 'fecha' por tu campo real
+    //             )
+    //             .whenValue(filtros.fechaFin, (f, fecha) =>
+    //                 f.lessThanOrEqual('fechaHoraInicio', fecha)
+    //             )
 
-                // Filtro por estado
-                .whenValue(
-                    filtros.estadoCita,
-                    (f, estado) => f.equals('estado', estado) // ajusta 'estado' por tu campo real
-                )
+    //             // Filtro por estado
+    //             .whenValue(
+    //                 filtros.estadoCita,
+    //                 (f, estado) => f.equals('estado', estado) // ajusta 'estado' por tu campo real
+    //             )
 
-                // Filtro por tipo de mantenimiento
-                .whenValue(filtros.tipoMantenimiento, (f, tipo) =>
-                    f.equals('tipoMantenimiento', tipo)
-                )
+    //             // Filtro por tipo de mantenimiento
+    //             .whenValue(filtros.tipoMantenimiento, (f, tipo) =>
+    //                 f.equals('tipoMantenimiento', tipo)
+    //             )
 
-                .build(),
-        [filtros]
-    )
+    //             .build(),
+    //     [filtros]
+    // )
     const limpiarFiltros = () => {
         setFiltros({
             fechaInicio: '',
@@ -63,9 +64,9 @@ export function CitasFilters({
     }
 
     useEffect(() => {
-        console.warn('Filtros procesados actualizados:', processedFilters)
-        onChangeFilters(processedFilters)
-    }, [processedFilters])
+        console.warn('Filtros procesados actualizados:', filtros)
+        onChangeFilters(filtros)
+    }, [filtros])
 
     return (
         <div className='p-4 '>

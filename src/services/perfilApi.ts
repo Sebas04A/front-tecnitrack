@@ -1,3 +1,4 @@
+import { th } from 'framer-motion/client'
 import {
     adapterPerfilJuridico,
     createAddapterPerfilNatural,
@@ -6,18 +7,22 @@ import {
     parseAdapterPerfilNatural,
     parseAdapterPerfilNaturalCrud,
     parseAdapterPersonasNaturalCrud,
+    parseSearchAdapterPefilNaturalCrud,
 } from '../adapters/perfil'
 import {
     ActualizarClienteEmpresaDto,
     ActualizarClienteNaturalDto,
     ActualizarMisDatosRequest,
     AdministradorService,
+    BusquedaClientesNaturalesResponseDto,
+    ClienteNaturalBusquedaDto,
     ClientesService,
     CrearClienteEmpresaAdminRequest,
     CrearClienteEmpresaDto,
     CrearClienteNaturalDto,
     GestionClientesService,
 } from '../api'
+import { FetchParams, FilterParamOption } from '../components/crudGrid/helper/fetchWithFilters'
 import { ClienteEmpresaCrud, ClienteNaturalCrud } from '../types/usuario'
 import {
     PerfilEmpresaData,
@@ -137,11 +142,38 @@ export async function getTipoPerfil() {
     console.log('Tipos de perfil obtenidos:', response)
     return response.data?.tipoCliente
 }
+
 export async function getPerfilesNaturales(): Promise<ClienteNaturalCrud[]> {
     const data = await AdministradorService.getApiAdministradorListaClientesNaturales()
     console.log('Datos obtenidos de perfiles naturales:', data.data)
     return parseAdapterPersonasNaturalCrud(data.data || [])
 }
+
+export async function buscarPerfilesNaturales(
+    filters?: FetchParams<ClienteNaturalCrud>
+): Promise<ClienteNaturalCrud[]> {
+    console.log('Buscando perfiles naturales... con filtros:', filters || 'Sin filtros')
+    if (!filters) throw new Error('No se encontraron filtros')
+    const ordenarPor = filters.sortColumns
+        ? filters.sortColumns.length > 0
+            ? filters.sortColumns[0]
+            : undefined
+        : undefined
+    const filtersParams = {
+        termino: filters?.search,
+        pagina: filters?.page ?? undefined,
+        tamanoPagina: filters?.pageSize ?? undefined,
+        ordenarPor: ordenarPor ?? undefined,
+    }
+    const data = await GestionClientesService.getApiGestionClientesBuscarClientesNaturales(
+        filtersParams
+    )
+    console.log('Datos obtenidos de búsqueda de perfiles naturales:', data)
+    if (!data || !data.data || !data.data.clientes) throw new Error('No se encontraron datos')
+
+    return parseSearchAdapterPefilNaturalCrud(data.data.clientes || [])
+}
+
 export async function getPerfilNatural(): Promise<PerfilPersonaNaturalData> {
     try {
         const data = await ClientesService.getApiClientesMisDatos()

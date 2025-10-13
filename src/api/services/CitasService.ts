@@ -5,6 +5,8 @@
 import type { CitaRequest } from '../models/CitaRequest';
 import type { CitaResponseApiResponse } from '../models/CitaResponseApiResponse';
 import type { CitaResponseListApiResponse } from '../models/CitaResponseListApiResponse';
+import type { EditarCitaRequest } from '../models/EditarCitaRequest';
+import type { MisCitasResponsePagedResponse } from '../models/MisCitasResponsePagedResponse';
 import type { ObjectApiResponse } from '../models/ObjectApiResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -46,19 +48,40 @@ export class CitasService {
         });
     }
     /**
-     * @returns ObjectApiResponse OK
+     * @returns MisCitasResponsePagedResponse OK
      * @throws ApiError
      */
-    public static putApiCitasCancelarCita({
-        id,
+    public static getApiCitasMisCitas({
+        termino,
+        estado,
+        fechaDesde,
+        fechaHasta,
+        pagina = 1,
+        limite = 10,
+        ordenarPor = 'Fecha',
+        direccionOrden = 'desc',
     }: {
-        id: number,
-    }): CancelablePromise<ObjectApiResponse> {
+        termino?: string,
+        estado?: string,
+        fechaDesde?: string,
+        fechaHasta?: string,
+        pagina?: number,
+        limite?: number,
+        ordenarPor?: string,
+        direccionOrden?: string,
+    }): CancelablePromise<MisCitasResponsePagedResponse> {
         return __request(OpenAPI, {
-            method: 'PUT',
-            url: '/api/Citas/cancelar-cita/{id}',
-            path: {
-                'id': id,
+            method: 'GET',
+            url: '/api/Citas/mis-citas',
+            query: {
+                'termino': termino,
+                'estado': estado,
+                'fechaDesde': fechaDesde,
+                'fechaHasta': fechaHasta,
+                'pagina': pagina,
+                'limite': limite,
+                'ordenarPor': ordenarPor,
+                'direccionOrden': direccionOrden,
             },
             errors: {
                 400: `Bad Request`,
@@ -68,16 +91,51 @@ export class CitasService {
         });
     }
     /**
-     * @returns CitaResponseListApiResponse OK
+     * @returns CitaResponseApiResponse OK
      * @throws ApiError
      */
-    public static getApiCitasVerCitas(): CancelablePromise<CitaResponseListApiResponse> {
+    public static putApiCitasEditarCita({
+        id,
+        requestBody,
+    }: {
+        id: number,
+        requestBody?: EditarCitaRequest,
+    }): CancelablePromise<CitaResponseApiResponse> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/Citas/ver-citas',
+            method: 'PUT',
+            url: '/api/Citas/editar-cita/{id}',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
                 401: `Unauthorized`,
+                404: `Not Found`,
+                500: `Internal Server Error`,
+            },
+        });
+    }
+    /**
+     * @returns ObjectApiResponse OK
+     * @throws ApiError
+     */
+    public static deleteApiCitasCancelarCita({
+        id,
+    }: {
+        id: number,
+    }): CancelablePromise<ObjectApiResponse> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/api/Citas/cancelar-cita/{id}',
+            path: {
+                'id': id,
+            },
+            errors: {
+                400: `Bad Request`,
+                401: `Unauthorized`,
+                404: `Not Found`,
                 500: `Internal Server Error`,
             },
         });

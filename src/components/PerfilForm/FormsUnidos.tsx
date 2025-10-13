@@ -77,18 +77,20 @@ export default function FormsUnidos({
     const [data, setData] = useState<PerfilEmpresaData | PerfilPersonaNaturalData | null>()
     // dataProp ?? null
     function onDatosGuardados(id: number) {
-        if (!id || id == -1) throw new Error('Se necesita el cliente id')
-        console.log('ID guardado', id)
+        if (esCrud && (id || id == -1)) throw new Error('Se necesita el cliente id')
         setDatosYaGuardados(true)
-        // setEstaEditando(false)
+        console.log('ID guardado', id)
         nextTab()
-        setClienteId(id)
+        // setEstaEditando(false)
         console.log('Datos guardados')
         modal.showAlert({
             title: 'Datos guardados',
             message: 'Los datos se han guardado correctamente.',
             type: 'success',
         })
+        if (esCrud) {
+            setClienteId(id)
+        }
     }
 
     function changeActiveTab(key: TabKeyType) {

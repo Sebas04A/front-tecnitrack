@@ -2,8 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { EstadoCita } from './EstadoCita';
-export type CitaAdministradorResponse = {
+export type CrearCitaClienteResponse = {
     id?: number;
     numeroCita?: string | null;
     usuarioId?: number;
@@ -12,12 +11,11 @@ export type CitaAdministradorResponse = {
     numeroIdentificacion?: string | null;
     nombreCompleto?: string | null;
     tipoCliente?: string | null;
-    fecha?: string;
-    hora?: string | null;
-    estado?: EstadoCita;
+    fechaHora?: string;
+    estado?: string | null;
     tipoMantenimiento?: string | null;
     observaciones?: string | null;
     fechaCreacion?: string;
-    fechaActualizacion?: string | null;
+    fechaActualizacion?: string;
 };
 

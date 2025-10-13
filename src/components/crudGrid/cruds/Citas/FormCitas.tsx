@@ -15,7 +15,15 @@ import { FaCalendarAlt } from 'react-icons/fa'
 import { UseFormReturn } from 'react-hook-form'
 import { convertirDateParaInput } from '../../../../adapters/fecha'
 
-export default function FormCitas({ form, readOnly }: { form: UseFormReturn; readOnly: boolean }) {
+export default function FormCitas({
+    form,
+    readOnly,
+    esCrud = true,
+}: {
+    form: UseFormReturn
+    readOnly: boolean
+    esCrud?: boolean
+}) {
     console.log('Valores del formulario en FormCitas:', form.getValues())
 
     const tipoMantenimiento = form.watch('tipoMantenimiento')
@@ -78,23 +86,25 @@ export default function FormCitas({ form, readOnly }: { form: UseFormReturn; rea
                 register={form.register}
                 errors={form.formState.errors}
             />
-            <GenericSelectSearch
-                label='Cliente'
-                name='usuario'
-                control={form.control}
-                fetchOptions={async query => {
-                    const response = await buscarUsuario(query)
-                    return response.map(user => ({
-                        value: user.id ?? -1,
-                        label: user.nombreCompleto + ' - ' + user.numeroIdentificacion,
-                    }))
-                }}
-                minSearchLength={2}
-                debounceMs={1000}
-                isReadOnly={readOnly}
-                selectedLabel={form.getValues('nombreCompleto')}
-                mostrarEspacioError={true}
-            />
+            {esCrud && (
+                <GenericSelectSearch
+                    label='Cliente'
+                    name='usuario'
+                    control={form.control}
+                    fetchOptions={async query => {
+                        const response = await buscarUsuario(query)
+                        return response.map(user => ({
+                            value: user.id ?? -1,
+                            label: user.nombreCompleto + ' - ' + user.numeroIdentificacion,
+                        }))
+                    }}
+                    minSearchLength={2}
+                    debounceMs={1000}
+                    isReadOnly={readOnly}
+                    selectedLabel={form.getValues('nombreCompleto')}
+                    mostrarEspacioError={true}
+                />
+            )}
 
             {/* </GenericForm> */}
         </>
