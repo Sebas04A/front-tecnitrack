@@ -66,9 +66,12 @@ export function adapterCitaAdmin(cita: CitaDataForm): CrearCitaClienteRequest {
         mapperCitaAdminDataToApi,
         { keepUnmappedKeys: false }
     ) as CrearCitaClienteRequest
+
+    console.log('Cita adaptada (admin): ', { baseAdaptedObject })
     return {
         ...baseAdaptedObject,
         tipoMantenimiento: cita.tipoMantenimiento || cita.otro || 'Otro',
+        clienteId: cita.usuario,
     }
 
     // const tipoMantenimiento = cita.tipoMantenimiento || cita.otro || 'Otro'

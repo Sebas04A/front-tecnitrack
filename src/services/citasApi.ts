@@ -112,6 +112,7 @@ export const obtenerCitasAdmin = async (
 export const createCitaAdmin = async (cita: CitaDataForm): Promise<any> => {
     console.log('Creando cita (admin):', cita)
     const requestBody = adapterCitaAdmin(cita)
+    console.log('Datos de la cita a crear (admin):', requestBody)
     const res = await GestionCitasService.postApiGestionCitasCrearCitaCliente({ requestBody })
     // const res = await AdministradorService.postApiAdministradorCrearCitaCliente({ requestBody })
     return res
