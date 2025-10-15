@@ -1,13 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import GenericButton from '../../../form/Controls/GenericButton'
-import GenericDate from '../../../form/Controls/GenericDate'
-import GenericSelect from '../../../form/Controls/GenericSelect'
-import { createFilter, Filter } from '../../helper/crud-helpers'
-import { CitaDataCrud } from '../../../../types/cita'
-import GenericSelectState from '../../../form/Controls/GenericSelectState'
-import { FilterParamOption } from '../../helper/fetchWithFilters'
-import DatePicker from 'react-datepicker'
+
 import 'react-datepicker/dist/react-datepicker.css'
+import GenericButton from '../../form/Controls/GenericButton'
+import GenericDate from '../../form/Controls/GenericDate'
+import GenericSelectState from '../../form/Controls/GenericSelectState'
 
 export interface CitasFiltersType {
     fechaInicio: string
@@ -16,7 +12,7 @@ export interface CitasFiltersType {
     tipoMantenimiento: string
 }
 
-export function CitasFilters({
+export function FiltersCitasCliente({
     onChangeFilters,
 }: {
     onChangeFilters: (filter: CitasFiltersType) => void
@@ -106,7 +102,7 @@ export function CitasFilters({
                         className='min-w-[21ch] flex-1'
                     />
                 </div>
-                <DatePicker
+                {/* <DatePicker
                     selectsRange={true}
                     startDate={startDate}
                     endDate={endDate}
@@ -116,7 +112,7 @@ export function CitasFilters({
                     isClearable={true} // Permite borrar la selección
                     placeholderText='Selecciona un rango de fechas'
                     className='w-full p-2 border border-gray-300 rounded-md' // Adapta las clases a tu diseño
-                />
+                /> */}
 
                 <div className='flex-1 flex  gap-4'>
                     <GenericSelectState

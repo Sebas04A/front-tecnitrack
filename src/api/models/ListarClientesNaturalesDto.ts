@@ -3,13 +3,15 @@
 /* tslint:disable */
 /* eslint-disable */
 export type ListarClientesNaturalesDto = {
-    id?: number;
+    clienteId?: number;
     nombreCompleto?: string | null;
-    tipoDocumento?: string | null;
+    tipoIdentificacion?: string | null;
     numeroIdentificacion?: string | null;
-    email?: string | null;
+    correo?: string | null;
     edad?: number;
     genero?: string | null;
+    telefono?: string | null;
+    direccion?: string | null;
     activo?: boolean;
     usuarioActivo?: boolean;
     fechaCreacion?: string;

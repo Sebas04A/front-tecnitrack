@@ -24,10 +24,10 @@ export default function FormCitas({
     readOnly: boolean
     esCrud?: boolean
 }) {
-    console.log('Valores del formulario en FormCitas:', form.getValues())
+    // console.log('Valores del formulario en FormCitas:', form.getValues())
 
     const tipoMantenimiento = form.watch('tipoMantenimiento')
-    console.log('Tipo Mantenimiento observado:', tipoMantenimiento)
+    // console.log('Tipo Mantenimiento observado:', tipoMantenimiento)
 
     const modal = useModal()
     function abrirCalendario() {
@@ -36,7 +36,7 @@ export default function FormCitas({
             props: {
                 onConfirm: (date: Date) => {
                     const fechaParseada = convertirDateParaInput(date)
-                    console.log('Fecha parseada:', fechaParseada)
+                    // console.log('Fecha parseada:', fechaParseada)
                     form.setValue('fechaHoraInicio', fechaParseada)
                 },
             },

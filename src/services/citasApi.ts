@@ -3,6 +3,7 @@ import {
     adapterCita,
     adapterCitaAdmin,
     adapterFiltersCita,
+    mapperCitaAdminDataToApi,
     parseCitas,
     parseCitasAdmin,
     parseCitasCliente,
@@ -44,7 +45,7 @@ export const obtenerCitas = async (): Promise<citaDataCompleta[]> => {
     }
 }
 export const obtenerCitasCliente = async (
-    filters: FetchParams<CitasClienteDataType>
+    filters: FetchParams<any, CitasClienteDataType>
 ): Promise<FetchReturn<CitasClienteDataType>> => {
     const res = await CitasService.getApiCitasMisCitas(adapterFiltersParams(filters))
     if (!res.data) throw new Error('No se encontraron datos')
@@ -86,7 +87,7 @@ export const eliminarCita = async (cita: CitasClienteDataType): Promise<any> => 
 
 // ---------------------ADMIN
 export const obtenerCitasAdmin = async (
-    filters: FetchParams<CitasFiltersType>
+    filters: FetchParams<CitasFiltersType, CitaDataCrud>
 ): Promise<FetchReturn<CitaDataCrud>> => {
     console.log('------------------FILTERS')
     console.log('Obteniendo citas con filtros (admin):', filters)
@@ -94,10 +95,11 @@ export const obtenerCitasAdmin = async (
     const filtersParams = adapterFiltersParams(filters)
     const filtersParamsExtras = adapterFiltersCita(filters.filters)
     const filtersParamsFinal = { ...filtersParams, ...filtersParamsExtras }
-    console
 
     const res = await GestionCitasService.getApiGestionCitasListarCitas({
         ...filtersParamsFinal,
+        ordenarPor: mapperCitaAdminDataToApi[filters.sortColumns.key as string],
+        direccionOrden: filters.sortColumns.dir ?? 'desc',
     })
     console.log('Citas obtenidas (admin):', res)
     if (!res.data || !Array.isArray(res.data)) {

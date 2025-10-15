@@ -1,6 +1,6 @@
 import React, { Component, ComponentType, useState } from 'react'
 import CrudToolbar from './CrudToolbar'
-import CrudTable, { ColumnDef } from './CrudTable'
+import CrudTable, { ColumnDef, SortState } from './CrudTable'
 import CrudPagination from './CrudPagination'
 import { FieldValues, UseFormHandleSubmit } from 'react-hook-form'
 import { ObjectApiResponse } from '../../api'
@@ -98,6 +98,15 @@ export default function CrudCrudo<
         totalRecords: 0,
         pageSize: 10,
     })
+    const [sort, setSort] = React.useState<SortState<keyof TData>>({ key: null, dir: null })
+    const toggleSort = (key: keyof TData) => {
+        setSort(prev => {
+            if (prev.key !== key) return { key, dir: 'asc' }
+            if (prev.dir === 'asc') return { key, dir: 'desc' }
+            // tercera pulsación: quitar orden
+            return { key: null, dir: null }
+        })
+    }
 
     const [search, setSearch] = useState('')
 
@@ -128,12 +137,12 @@ export default function CrudCrudo<
         )
         setLoading(true)
         try {
-            const params: FetchParams<TFilters> = {
+            const params: FetchParams<TFilters, TData> = {
                 page: p,
                 pageSize,
                 search: s,
                 filters,
-                sortColumns: '', // Aquí puedes agregar lógica para manejar el ordenamiento si es necesario
+                sortColumns: sort, // Aquí puedes agregar lógica para manejar el ordenamiento si es necesario
             }
             const res = await fetchData(params)
             console.log('Fetched data:', res)
@@ -148,7 +157,7 @@ export default function CrudCrudo<
     React.useEffect(() => {
         if (autoLoad) load(1, '')
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [...dependencies, filters])
+    }, [...dependencies, filters, sort])
     // const fetchDataWithFilters = ({
     //     page,
     //     pageSize,
@@ -197,6 +206,8 @@ export default function CrudCrudo<
             <CrudTable<TData, TForm>
                 data={data}
                 columns={columns}
+                toggleSort={toggleSort}
+                sort={sort}
                 loading={loading}
                 onView={onView}
                 onEdit={onEdit}

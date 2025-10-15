@@ -22,6 +22,6 @@ export interface ClienteEmpresaCrud {
     direccion: string
     nombreRepresentanteLegal: string
     estado: boolean
-    fechaCreacion: Date
+    // fechaCreacion: Date
     [key: string]: unknown
 }

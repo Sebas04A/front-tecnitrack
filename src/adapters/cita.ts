@@ -1,8 +1,8 @@
+import { map } from 'framer-motion/client'
 import {
-    CitaAdministradorResponse,
     CitaRequest,
     CitaResponse,
-    CrearCitaAdministradorRequest,
+    CrearCitaClienteRequest,
     ListarCitasResponse,
     MisCitasResponse,
 } from '../api'
@@ -12,6 +12,7 @@ import { CitaDataCrud, citaDataCompleta } from '../types/cita'
 import { CitasClienteDataType } from '../types/cliente/Cita'
 import { CitaDataForm, CitaData } from '../validation/cita.schema'
 import { convertirDateParaInput, parseFechaHora, parseFechaHoraParaInput } from './fecha'
+import { adaptObjectKeys } from './mapper'
 
 export function parseCita(cita: CitaResponse): citaDataCompleta {
     // if (!cita.citaId) throw new Error('ID de la cita es requerido')
@@ -37,49 +38,85 @@ export function adapterCita(cita: citaDataCompleta): CitaRequest {
     }
 }
 
-export function adapterCitaAdmin(cita: CitaDataForm): CrearCitaAdministradorRequest {
-    const tipoMantenimiento = cita.tipoMantenimiento || cita.otro || 'Otro'
+export const mapperCitaAdminApiToData = {
+    tipoMantenimiento: 'tipoMantenimiento',
+    observaciones: 'descripcion',
+    usuario: 'usuarioId',
+    fechaHoraInicio: 'fechaHoraInicio',
+    hora: 'hora',
+    fecha: 'fecha',
+    id: 'id',
+    usuarioId: 'usuarioId',
+    clienteId: 'clienteId',
+    tipoIdentificacion: 'tipoIdentificacion',
+    numeroIdentificacion: 'numeroIdentificacion',
+    nombreCompleto: 'nombreCompleto',
+    tipoCliente: 'tipoCliente',
+    estado: 'estado',
+    fechaCreacion: 'fechaCreacion',
+    fechaActualizacion: 'fechaActualizacion',
+} as const
+export const mapperCitaAdminDataToApi: { [key: string]: string } = Object.fromEntries(
+    Object.entries(mapperCitaAdminApiToData).map(([key, value]) => [value, key])
+)
+
+export function adapterCitaAdmin(cita: CitaDataForm): CrearCitaClienteRequest {
+    const baseAdaptedObject = adaptObjectKeys<CitaDataForm, CrearCitaClienteRequest>(
+        cita,
+        mapperCitaAdminDataToApi,
+        { keepUnmappedKeys: false }
+    ) as CrearCitaClienteRequest
     return {
-        clienteId: cita.usuario,
-        fechaHoraInicio: cita.fechaHoraInicio,
-        tipoMantenimiento: tipoMantenimiento,
-        observaciones: cita.descripcion,
+        ...baseAdaptedObject,
+        tipoMantenimiento: cita.tipoMantenimiento || cita.otro || 'Otro',
     }
+
+    // const tipoMantenimiento = cita.tipoMantenimiento || cita.otro || 'Otro'
+    // return {
+    //     clienteId: cita.usuario,
+    //     fechaHoraInicio: cita.fechaHoraInicio,
+    //     tipoMantenimiento: tipoMantenimiento,
+    //     observaciones: cita.descripcion,
+    // }
 }
 function parseCitaAdmin(cita: ListarCitasResponse): CitaDataCrud {
     const fecha = parseFechaHora(cita.fecha ?? '', cita.hora ?? '')
-    // console.log(
-    //     'Fecha parseada:',
-    //     fecha,
-    //     'from cita.fecha:',
-    //     cita.fecha,
-    //     'and hora:',
-    //     hora,
-    //     'string:',
-    //     convertirDateParaInput(fecha)
-    // )
-
-    return {
-        tipoMantenimiento: cita.tipoMantenimiento ?? '',
-        descripcion: cita.observaciones ?? '',
-        usuario: cita.usuarioId ?? -1,
+    const baseAdaptedObject = adaptObjectKeys<ListarCitasResponse, CitaDataCrud>(
+        cita,
+        mapperCitaAdminApiToData,
+        { keepUnmappedKeys: true }
+    )
+    const citaParseada: CitaDataCrud = {
+        ...baseAdaptedObject,
         fechaHoraInicio: convertirDateParaInput(fecha) ?? '-1',
-        hora: cita.hora ?? '',
         fecha,
-
-        id: cita.id ?? -1,
-        usuarioId: cita.usuarioId ?? -1,
-        clienteId: cita.clienteId ?? -1,
-        tipoIdentificacion: cita.tipoIdentificacion ?? '',
-        numeroIdentificacion: cita.numeroIdentificacion ?? '',
-        nombreCompleto: cita.nombreCompleto ?? '',
-        tipoCliente: cita.tipoCliente ?? '',
         estado: String(cita.estado) ?? '',
+        usuario: cita.usuarioId ?? -1,
+    } as CitaDataCrud
+    console.log('CITA PARSEADA: ', citaParseada)
+    return citaParseada
 
-        // estado: cita.estado ?? '',
-        fechaCreacion: cita.fechaCreacion ?? new Date(-1).toISOString(),
-        fechaActualizacion: cita.fechaActualizacion ?? new Date(-1).toISOString(),
-    }
+    // return {
+    //     tipoMantenimiento: cita.tipoMantenimiento ?? '',
+    //     descripcion: cita.observaciones ?? '',
+    //     usuario: cita.usuarioId ?? -1,
+    //     fechaHoraInicio: convertirDateParaInput(fecha) ?? '-1',
+    //     hora: cita.hora ?? '',
+    //     fecha,
+
+    //     id: cita.id ?? -1,
+    //     usuarioId: cita.usuarioId ?? -1,
+    //     clienteId: cita.clienteId ?? -1,
+    //     tipoIdentificacion: cita.tipoIdentificacion ?? '',
+    //     numeroIdentificacion: cita.numeroIdentificacion ?? '',
+    //     nombreCompleto: cita.nombreCompleto ?? '',
+    //     tipoCliente: cita.tipoCliente ?? '',
+    //     estado: String(cita.estado) ?? '',
+
+    //     // estado: cita.estado ?? '',
+    //     fechaCreacion: cita.fechaCreacion ?? new Date(-1).toISOString(),
+    //     fechaActualizacion: cita.fechaActualizacion ?? new Date(-1).toISOString(),
+    // }
 }
 export function parseCitasAdmin(citas: ListarCitasResponse[]): CitaDataCrud[] {
     return citas.map(cita => parseCitaAdmin(cita))
@@ -113,13 +150,6 @@ export function parseCitasCliente(citas: MisCitasResponse[]): CitasClienteDataTy
         }
         return citaConvertido
     })
-}
-
-const parseNameFilters: Record<keyof CitasFiltersType, string> = {
-    estadoCita: 'estado',
-    fechaInicio: 'fechaDesde',
-    fechaFin: 'fechaHasta',
-    tipoMantenimiento: 'tipoMantenimiento',
 }
 
 export function adapterFiltersCita(filters?: CitasFiltersType) {

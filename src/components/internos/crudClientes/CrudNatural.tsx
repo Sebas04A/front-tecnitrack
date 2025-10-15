@@ -8,21 +8,25 @@ import { makeLocalCrudFetcher } from '../../crudGrid/helper/crud-helpers'
 import CrudCrudo, { newActionCrud, onCrudActionsProps } from '../../crudGrid/CrudCrudo'
 import { useModal } from '../../../hooks/useModal'
 import { Modal } from '../../common/Modal'
-import {
-    activarUsuario,
-    buscarPerfilesNaturales,
-    deletePerfilNaturalAdmin,
-    desactivarUsuario,
-    getPerfilesNaturales,
-    getPerfilNatural,
-} from '../../../services/perfilApi'
-import { ClienteNaturalListaResponse } from '../../../api'
+// import {
+//     activarUsuario,
+//     buscarPerfilesNaturales,
+//     deletePerfilNaturalAdmin,
+//     desactivarUsuario,
+//     getPerfilNatural,
+// } from '../../../services/perfilApi'
 import { ClienteNaturalCrud } from '../../../types/usuario'
 import { useModalActions } from '../../../hooks/useModalActions'
 import FormsUnidos from '../../PerfilForm/FormsUnidos'
 import { TIPO_PERSONA } from '../../../constants/perfil'
 import BaseModal from '../../common/modals/BaseModal'
 import { fetchDataCrudWithFilters } from '../../crudGrid/helper/fetchWithFilters'
+import {
+    activarUsuario,
+    buscarPerfilesNaturales,
+    deletePerfilNaturalAdmin,
+    desactivarUsuario,
+} from '../../../services/Interno/Clientes/natural'
 
 const columnsNatural: ColumnDef<ClienteNaturalCrud>[] = [
     {
@@ -108,7 +112,7 @@ export default function CrudNatural() {
 
     const fetchData = useMemo(
         () =>
-            fetchDataCrudWithFilters<ClienteNaturalCrud>({
+            fetchDataCrudWithFilters<ClienteNaturalCrud, any>({
                 fetchData: buscarPerfilesNaturales,
             }),
         []

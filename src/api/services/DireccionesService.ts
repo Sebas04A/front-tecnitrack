@@ -2,7 +2,6 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { BooleanApiResponse } from '../models/BooleanApiResponse';
 import type { DireccionDetalleResponseApiResponse } from '../models/DireccionDetalleResponseApiResponse';
 import type { DireccionRequest } from '../models/DireccionRequest';
 import type { DireccionResponseListApiResponse } from '../models/DireccionResponseListApiResponse';
@@ -113,42 +112,6 @@ export class DireccionesService {
                 400: `Bad Request`,
                 401: `Unauthorized`,
                 404: `Not Found`,
-            },
-        });
-    }
-    /**
-     * @returns ObjectApiResponse OK
-     * @throws ApiError
-     */
-    public static patchApiDireccionesEstablecerPrincipal({
-        id,
-    }: {
-        id: number,
-    }): CancelablePromise<ObjectApiResponse> {
-        return __request(OpenAPI, {
-            method: 'PATCH',
-            url: '/api/Direcciones/establecer-principal/{id}',
-            path: {
-                'id': id,
-            },
-            errors: {
-                400: `Bad Request`,
-                401: `Unauthorized`,
-                404: `Not Found`,
-            },
-        });
-    }
-    /**
-     * @returns BooleanApiResponse OK
-     * @throws ApiError
-     */
-    public static getApiDireccionesVerificarDireccionPrincipal(): CancelablePromise<BooleanApiResponse> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/Direcciones/verificar-direccion-principal',
-            errors: {
-                400: `Bad Request`,
-                401: `Unauthorized`,
             },
         });
     }

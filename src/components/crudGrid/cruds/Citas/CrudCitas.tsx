@@ -14,7 +14,7 @@ import {
     obtenerCitasAdmin,
     updateCitaAdmin,
 } from '../../../../services/citasApi'
-import { CitaAdministradorResponse } from '../../../../api'
+
 import { CitaDataCrud } from '../../../../types/cita'
 import { div, use } from 'framer-motion/client'
 import { fetchDataCrudWithFilters } from '../../helper/fetchWithFilters'
@@ -49,6 +49,7 @@ const columns: ColumnDef<CitaDataCrud>[] = [
         render: (row: keyof typeof stylesEstado) => (
             <span className={row in stylesEstado ? stylesEstado[row] : ''}>{row}</span>
         ),
+        sortable: true,
     },
 ]
 

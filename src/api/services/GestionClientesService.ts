@@ -7,8 +7,6 @@ import type { ActualizarClienteNaturalDto } from '../models/ActualizarClienteNat
 import type { ActualizarContactoDirectoDto } from '../models/ActualizarContactoDirectoDto';
 import type { ActualizarContactoEmpresaDto } from '../models/ActualizarContactoEmpresaDto';
 import type { ActualizarDireccionDto } from '../models/ActualizarDireccionDto';
-import type { BusquedaClientesEmpresaResponseDtoApiResponse } from '../models/BusquedaClientesEmpresaResponseDtoApiResponse';
-import type { BusquedaClientesNaturalesResponseDtoApiResponse } from '../models/BusquedaClientesNaturalesResponseDtoApiResponse';
 import type { ClienteEmpresaDtoApiResponse } from '../models/ClienteEmpresaDtoApiResponse';
 import type { ClienteNaturalDtoApiResponse } from '../models/ClienteNaturalDtoApiResponse';
 import type { ContactoDirectoDtoApiResponse } from '../models/ContactoDirectoDtoApiResponse';
@@ -22,8 +20,8 @@ import type { CrearContactoEmpresaDto } from '../models/CrearContactoEmpresaDto'
 import type { CrearDireccionDto } from '../models/CrearDireccionDto';
 import type { DireccionDtoApiResponse } from '../models/DireccionDtoApiResponse';
 import type { EstadoClienteResponseDtoApiResponse } from '../models/EstadoClienteResponseDtoApiResponse';
-import type { ListarClientesEmpresaDtoListApiResponse } from '../models/ListarClientesEmpresaDtoListApiResponse';
-import type { ListarClientesNaturalesDtoListApiResponse } from '../models/ListarClientesNaturalesDtoListApiResponse';
+import type { ListarClientesEmpresaDtoPagedResponse } from '../models/ListarClientesEmpresaDtoPagedResponse';
+import type { ListarClientesNaturalesDtoPagedResponse } from '../models/ListarClientesNaturalesDtoPagedResponse';
 import type { ListarContactosDirectosDtoApiResponse } from '../models/ListarContactosDirectosDtoApiResponse';
 import type { ListarContactosEmpresaDtoApiResponse } from '../models/ListarContactosEmpresaDtoApiResponse';
 import type { ListarDireccionesDtoListApiResponse } from '../models/ListarDireccionesDtoListApiResponse';
@@ -393,43 +391,6 @@ export class GestionClientesService {
         });
     }
     /**
-     * @returns BusquedaClientesNaturalesResponseDtoApiResponse OK
-     * @throws ApiError
-     */
-    public static getApiGestionClientesBuscarClientesNaturales({
-        termino,
-        pagina = 1,
-        tamanoPagina = 10,
-        ordenarPor = 'fechaCreacion',
-        direccion = 'desc',
-        soloActivos = true,
-    }: {
-        termino?: string,
-        pagina?: number,
-        tamanoPagina?: number,
-        ordenarPor?: string,
-        direccion?: string,
-        soloActivos?: boolean,
-    }): CancelablePromise<BusquedaClientesNaturalesResponseDtoApiResponse> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/gestion-clientes/buscar-clientes-naturales',
-            query: {
-                'termino': termino,
-                'pagina': pagina,
-                'tamanoPagina': tamanoPagina,
-                'ordenarPor': ordenarPor,
-                'direccion': direccion,
-                'soloActivos': soloActivos,
-            },
-            errors: {
-                400: `Bad Request`,
-                401: `Unauthorized`,
-                403: `Forbidden`,
-            },
-        });
-    }
-    /**
      * @returns CrearClienteNaturalResponseDtoApiResponse Created
      * @throws ApiError
      */
@@ -451,16 +412,40 @@ export class GestionClientesService {
         });
     }
     /**
-     * @returns ListarClientesNaturalesDtoListApiResponse OK
+     * @returns ListarClientesNaturalesDtoPagedResponse OK
      * @throws ApiError
      */
-    public static getApiGestionClientesListarClientesNaturales(): CancelablePromise<ListarClientesNaturalesDtoListApiResponse> {
+    public static getApiGestionClientesListarClientesNaturales({
+        termino,
+        pagina = 1,
+        limite = 10,
+        ordenarPor = 'fechaCreacion',
+        direccion = 'desc',
+        soloActivos = true,
+    }: {
+        termino?: string,
+        pagina?: number,
+        limite?: number,
+        ordenarPor?: string,
+        direccion?: string,
+        soloActivos?: boolean,
+    }): CancelablePromise<ListarClientesNaturalesDtoPagedResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/gestion-clientes/listar-clientes-naturales',
+            query: {
+                'termino': termino,
+                'pagina': pagina,
+                'limite': limite,
+                'ordenarPor': ordenarPor,
+                'direccion': direccion,
+                'soloActivos': soloActivos,
+            },
             errors: {
+                400: `Bad Request`,
                 401: `Unauthorized`,
                 403: `Forbidden`,
+                500: `Internal Server Error`,
             },
         });
     }
@@ -537,43 +522,6 @@ export class GestionClientesService {
         });
     }
     /**
-     * @returns BusquedaClientesEmpresaResponseDtoApiResponse OK
-     * @throws ApiError
-     */
-    public static getApiGestionClientesBuscarClientesEmpresa({
-        termino,
-        pagina = 1,
-        tamanoPagina = 10,
-        ordenarPor = 'fechaCreacion',
-        direccion = 'desc',
-        soloActivos = true,
-    }: {
-        termino?: string,
-        pagina?: number,
-        tamanoPagina?: number,
-        ordenarPor?: string,
-        direccion?: string,
-        soloActivos?: boolean,
-    }): CancelablePromise<BusquedaClientesEmpresaResponseDtoApiResponse> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/gestion-clientes/buscar-clientes-empresa',
-            query: {
-                'termino': termino,
-                'pagina': pagina,
-                'tamanoPagina': tamanoPagina,
-                'ordenarPor': ordenarPor,
-                'direccion': direccion,
-                'soloActivos': soloActivos,
-            },
-            errors: {
-                400: `Bad Request`,
-                401: `Unauthorized`,
-                403: `Forbidden`,
-            },
-        });
-    }
-    /**
      * @returns CrearClienteEmpresaResponseDtoApiResponse Created
      * @throws ApiError
      */
@@ -595,16 +543,40 @@ export class GestionClientesService {
         });
     }
     /**
-     * @returns ListarClientesEmpresaDtoListApiResponse OK
+     * @returns ListarClientesEmpresaDtoPagedResponse OK
      * @throws ApiError
      */
-    public static getApiGestionClientesListarClientesEmpresa(): CancelablePromise<ListarClientesEmpresaDtoListApiResponse> {
+    public static getApiGestionClientesListarClientesEmpresa({
+        termino,
+        pagina = 1,
+        limite = 10,
+        ordenarPor = 'fechaCreacion',
+        direccion = 'desc',
+        soloActivos = true,
+    }: {
+        termino?: string,
+        pagina?: number,
+        limite?: number,
+        ordenarPor?: string,
+        direccion?: string,
+        soloActivos?: boolean,
+    }): CancelablePromise<ListarClientesEmpresaDtoPagedResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/gestion-clientes/listar-clientes-empresa',
+            query: {
+                'termino': termino,
+                'pagina': pagina,
+                'limite': limite,
+                'ordenarPor': ordenarPor,
+                'direccion': direccion,
+                'soloActivos': soloActivos,
+            },
             errors: {
+                400: `Bad Request`,
                 401: `Unauthorized`,
                 403: `Forbidden`,
+                500: `Internal Server Error`,
             },
         });
     }

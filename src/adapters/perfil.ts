@@ -1,12 +1,14 @@
 import {
-    ClienteEmpresaListaResponse,
-    ClienteNaturalBusquedaDto,
+    // ClienteEmpresaListaResponse,
+    // ClienteNaturalBusquedaDto,
     ClienteNaturalDto,
-    ClienteNaturalListaResponse,
+    // ClienteNaturalListaResponse,
     ClientesEmpresaRequest,
     ClientesEmpresaResponse,
     ClientesNaturalRequest,
     ClientesNaturalResponse,
+    ListarClientesEmpresaDto,
+    ListarClientesNaturalesDto,
 } from '../api'
 import { ClienteEmpresaCrud, ClienteNaturalCrud } from '../types/usuario'
 import {
@@ -33,8 +35,8 @@ const adaptFecha = (fecha: string): string => {
     if (!fecha) return ''
     return fecha + 'T00:00:00'
 }
-
-export const createAddapterPerfilNatural = (
+// ----------------------CLIENTES NATURALES----------------------
+export const adapterPerfilNaturalCliente = (
     perfil: PerfilPersonaNaturalData
 ): ClientesNaturalRequest => {
     return {
@@ -46,9 +48,21 @@ export const createAddapterPerfilNatural = (
         genero: perfil.genero || '',
     }
 }
-const parseAdapterPersonaNaturalCrud = (
-    perfil: ClienteNaturalListaResponse
-): ClienteNaturalCrud => {
+
+export const parsePersonaNaturalById = (cliente: ClienteNaturalDto): PerfilPersonaNaturalData => {
+    return {
+        id: cliente.id || -1,
+        genero: cliente.genero ?? '',
+        fechaNacimiento: parseFecha(cliente.fechaNacimiento || ''),
+        nombreCompleto: cliente.nombre ?? '',
+        apellidoCompleto: cliente.apellido ?? '',
+        tipoIdentificacion: cliente.tipoDocumento ?? '',
+        numeroIdentificacion: cliente.numeroIdentificacion ?? '',
+        email: cliente.email ?? '',
+    }
+}
+
+const parseAdapterPersonaNaturalCrud = (perfil: ListarClientesNaturalesDto): ClienteNaturalCrud => {
     return {
         id: perfil.clienteId || -1,
         tipoIdentificacion: perfil.tipoIdentificacion || '',
@@ -57,13 +71,13 @@ const parseAdapterPersonaNaturalCrud = (
         telefono: perfil.telefono ?? '',
         correo: perfil.correo ?? '',
         direccion: perfil.direccion ?? '',
-        estado: perfil.estado ?? true,
+        estado: perfil.activo ?? true,
         fechaCreacion: perfil.fechaCreacion ? new Date(perfil.fechaCreacion) : new Date(),
         // fechaNacimiento: parseFecha(perfil.),
     }
 }
 export const parseAdapterPersonasNaturalCrud = (
-    api: ClienteNaturalListaResponse[]
+    api: ListarClientesNaturalesDto[]
 ): ClienteNaturalCrud[] => {
     return api.map(parseAdapterPersonaNaturalCrud)
 }
@@ -106,23 +120,41 @@ export const parseAdapterPerfilNaturalCrud = (
         email: api.email ?? '',
     }
 }
-
-export const parseSearchAdapterPefilNaturalCrud = (
-    apis: ClienteNaturalBusquedaDto[]
-): ClienteNaturalCrud[] => {
-    return apis.map(api => ({
-        id: api.clienteId || -1,
-        tipoIdentificacion: api.tipoIdentificacion || '',
-        numeroIdentificacion: api.numeroIdentificacion ?? '',
-        nombreCompleto: api.nombreCompleto ?? '',
-        telefono: api.telefono ?? '',
-        correo: api.correo ?? '',
-        direccion: api.direccion ?? '',
-        estado: api.estado ?? true,
-        fechaCreacion: api.fechaCreacion ? new Date(api.fechaCreacion) : new Date(),
-        // fechaNacimiento: parseFecha(perfil.),
-    }))
+export const mapperPerfilNaturalApiToData = {
+    clienteId: 'id',
+    tipoIdentificacion: 'tipoIdentificacion',
+    numeroIdentificacion: 'numeroIdentificacion',
+    nombreCompleto: 'nombreCompleto',
+    apellidoCompleto: 'apellidoCompleto',
+    telefono: 'telefono',
+    correo: 'correo',
+    direccion: 'direccion',
+    fechaNacimiento: 'fechaNacimiento',
+    genero: 'genero',
+    email: 'email',
+    fechaCreacion: 'fechaCreacion',
 }
+export const mapperPerfilNaturalDataToApi = Object.fromEntries(
+    Object.entries(mapperPerfilNaturalApiToData).map(([key, value]) => [value, key])
+)
+// export const parseSearchAdapterPerfilNaturalCrud = (
+//     apis: ClienteNaturalBusquedaDto
+
+//     []
+// ): ClienteNaturalCrud[] => {
+//     return apis.map(api => ({
+//         id: api.clienteId || -1,
+//         tipoIdentificacion: api.tipoIdentificacion || '',
+//         numeroIdentificacion: api.numeroIdentificacion ?? '',
+//         nombreCompleto: api.nombreCompleto ?? '',
+//         telefono: api.telefono ?? '',
+//         correo: api.correo ?? '',
+//         direccion: api.direccion ?? '',
+//         estado: api.estado ?? true,
+//         fechaCreacion: api.fechaCreacion ? new Date(api.fechaCreacion) : new Date(),
+//         // fechaNacimiento: parseFecha(perfil.),
+//     }))
+// }
 
 export const adapterPerfilJuridico = (data: PerfilEmpresaData) => {
     const requestBody: ClientesEmpresaRequest = {
@@ -139,24 +171,41 @@ export const adapterPerfilJuridico = (data: PerfilEmpresaData) => {
     }
     return requestBody
 }
+
+export const mapperPerfilJuridicoApiToData = {
+    clienteId: 'id',
+    numeroIdentificacion: 'RUC',
+    razonSocial: 'razonSocial',
+    nombreComercial: 'nombreComercial',
+    telefonoPrincipal: 'telefonoEmpresa',
+    correoPrincipal: 'emailEmpresa',
+    direccion: 'direccion',
+    nombreRepresentanteLegal: 'nombreRepresentanteLegal',
+    estado: 'estado',
+    fechaCreacion: 'fechaCreacion',
+}
+export const mapperPerfilJuridicoDataToApi = Object.fromEntries(
+    Object.entries(mapperPerfilJuridicoApiToData).map(([key, value]) => [value, key])
+)
+
 export const parseAdapterPerfilJuridicoCrud = (
-    api: ClienteEmpresaListaResponse
+    api: ListarClientesEmpresaDto
 ): ClienteEmpresaCrud => {
     return {
         id: api.clienteId || -1,
         numeroIdentificacion: api.numeroIdentificacion ?? '',
         nombreComercial: api.nombreComercial ?? '',
         razonSocial: api.razonSocial ?? '',
-        telefonoPrincipal: api.telefonoPrincipal ?? '',
-        correoPrincipal: api.correoPrincipal ?? '',
+        telefonoPrincipal: api.telefonoEmpresa ?? '',
+        correoPrincipal: api.correoEmpresa ?? '',
         direccion: api.direccion ?? '',
         nombreRepresentanteLegal: api.nombreRepresentanteLegal ?? '',
-        estado: api.estado ?? true,
-        fechaCreacion: api.fechaCreacion ? new Date(api.fechaCreacion) : new Date(),
+        estado: api.activo ?? true,
+        // fechaCreacion: api. ? new Date(api.fechaCreacion) : new Date(),
     }
 }
 export const parseAdapterPerfilesJuridicosCrud = (
-    api: ClienteEmpresaListaResponse[]
+    api: ListarClientesEmpresaDto[]
 ): ClienteEmpresaCrud[] => {
     return api.map(parseAdapterPerfilJuridicoCrud)
 }

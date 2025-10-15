@@ -28,7 +28,7 @@ function BtnAccion({
         </button>
     )
 }
-type SortState<K extends PropertyKey> = {
+export type SortState<K extends PropertyKey> = {
     key: K | null
     dir: 'asc' | 'desc' | null
 }
@@ -44,6 +44,8 @@ export interface ColumnDef<T> {
 export interface CrudTableProps<TData extends Record<string, any>, TForm extends FieldValues> {
     data: TData[]
     columns: ColumnDef<TData>[]
+    toggleSort: (sort: keyof TData) => void
+    sort: SortState<keyof TData>
     dataToForm?: (data: TData) => TForm
     loading?: boolean
     onView?: (row: TForm) => void
@@ -72,6 +74,8 @@ function compareValues(a: Comparable, b: Comparable): number {
 export function CrudTable<TData extends Record<string, any>, TForm extends FieldValues>({
     data,
     columns,
+    toggleSort,
+    sort,
     loading = false,
     onView,
     onEdit,
@@ -80,15 +84,6 @@ export function CrudTable<TData extends Record<string, any>, TForm extends Field
     newActionsCrud,
     dataToForm = (data: TData) => data as unknown as TForm,
 }: CrudTableProps<TData, TForm>) {
-    const [sort, setSort] = React.useState<SortState<keyof TData>>({ key: null, dir: null })
-    const toggleSort = (key: keyof TData) => {
-        setSort(prev => {
-            if (prev.key !== key) return { key, dir: 'asc' }
-            if (prev.dir === 'asc') return { key, dir: 'desc' }
-            // tercera pulsación: quitar orden
-            return { key: null, dir: null }
-        })
-    }
     const sortIcon = (key: keyof TData) => {
         if (sort.key !== key) return <FaSort className='shrink-0 opacity-60' aria-hidden />
         if (sort.dir === 'asc') return <FaSortUp className='shrink-0' aria-hidden />

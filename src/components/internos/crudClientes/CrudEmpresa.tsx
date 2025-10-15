@@ -7,20 +7,16 @@ import { makeLocalCrudFetcher } from '../../crudGrid/helper/crud-helpers'
 import CrudCrudo, { newActionCrud } from '../../crudGrid/CrudCrudo'
 import { useModal } from '../../../hooks/useModal'
 import { Modal } from '../../common/Modal'
-import {
-    activarUsuario,
-    desactivarUsuario,
-    getPerfilesJuridicos,
-    getPerfilesNaturales,
-    getPerfilJuridico,
-    getPerfilNatural,
-} from '../../../services/perfilApi'
-import { ClienteNaturalListaResponse } from '../../../api'
+
+import { activarUsuario, desactivarUsuario } from '../../../services/Interno/Clientes/natural'
+
 import { ClienteEmpresaCrud, ClienteNaturalCrud } from '../../../types/usuario'
 import { useModalActions } from '../../../hooks/useModalActions'
 import FormsUnidos from '../../PerfilForm/FormsUnidos'
 import { TIPO_PERSONA } from '../../../constants/perfil'
 import { FaToggleOff, FaToggleOn } from 'react-icons/fa'
+import { fetchDataCrudWithFilters } from '../../crudGrid/helper/fetchWithFilters'
+import { buscarPerfilesJuridicos } from '../../../services/Interno/Clientes/juridico'
 
 const columnsNatural: ColumnDef<ClienteEmpresaCrud>[] = [
     {
@@ -98,11 +94,18 @@ export default function CrudEmpresa() {
         // resolver: yupResolver(schema),
         defaultValues,
     })
+    // const fetchData = useMemo(
+    //     () =>
+    //         makeLocalCrudFetcher<ClienteEmpresaCrud>({
+    //             searchKeys: ['nombreCompleto', 'apellidoCompleto', 'numeroIdentificacion'],
+    //             getAll: getPerfilesJuridicos,
+    //         }),
+    //     []
+    // )
     const fetchData = useMemo(
         () =>
-            makeLocalCrudFetcher<ClienteEmpresaCrud>({
-                searchKeys: ['nombreCompleto', 'apellidoCompleto', 'numeroIdentificacion'],
-                getAll: getPerfilesJuridicos,
+            fetchDataCrudWithFilters<ClienteEmpresaCrud, any>({
+                fetchData: buscarPerfilesJuridicos,
             }),
         []
     )

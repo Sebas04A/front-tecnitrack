@@ -279,6 +279,7 @@ export default function CrudCitasContainer<
                 readOnly: readOnly,
                 fecha: actualRow?.fechaHoraInicio,
             },
+            showButtons: !readOnly,
         })
     }
 

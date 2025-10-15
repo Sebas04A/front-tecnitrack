@@ -5,6 +5,7 @@ export type TipoMantenimiento = (typeof TIPO_MANTENIMIENTO_VALUES)[number]
 
 export const citaSchema = yup
     .object({
+        id: yup.number().nullable(),
         tipoMantenimiento: yup
             .string()
             // .oneOf(TIPO_MANTENIMIENTO_VALUES as unknown as string[], 'Seleccione una opción válida')
@@ -48,7 +49,6 @@ export const CitaCrudSchema = citaSchema.shape({
         .test('is-date', 'Fecha y hora inválida', value => {
             return !isNaN(Date.parse(value))
         }),
-    id: yup.number().nullable(),
 })
 
 export type CitaDataForm = yup.InferType<typeof CitaCrudSchema>

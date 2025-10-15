@@ -1,6 +1,6 @@
 import React, { ComponentType, useCallback, useEffect, useMemo, useState } from 'react'
 import CrudToolbar from './CrudToolbar'
-import CrudTable, { ColumnDef } from './CrudTable'
+import CrudTable, { ColumnDef, SortState } from './CrudTable'
 import CrudPagination from './CrudPagination'
 import useDebouncedCallback from '../../hooks/useDebouncedCallback'
 import { Modal } from '../common/Modal'
@@ -91,12 +91,12 @@ export function CrudContainer<
     const [mode, setMode] = useState<'create' | 'edit' | 'view' | null>(null)
     const [actualRow, setActualRow] = useState<TForm | null>(null)
     const [error, setError] = useState<string>('')
-    useEffect(() => {
-        console.log('Dependencies changed, reloading data', { actualRow, mode })
-        // setViewing(actualRow)
-        if (!mode) return
-        abrirModalDatos(mode)
-    }, [actualRow, mode])
+    // useEffect(() => {
+    //     console.log('Dependencies changed, reloading data', { actualRow, mode })
+    //     // setViewing(actualRow)
+    //     if (!mode) return
+    //     abrirModalDatos(mode)
+    // }, [actualRow, mode])
     useEffect(() => {
         console.warn('CONTROL')
     }, [])
@@ -177,7 +177,8 @@ export function CrudContainer<
     useEffect(() => {
         console.log('id form cambiando:', idFormModal)
     }, [idFormModal])
-    const abrirModalDatos = async (mode: 'create' | 'edit' | 'view') => {
+    const abrirModalDatos = async (mode: 'create' | 'edit' | 'view', row: TForm | null) => {
+        const readOnly = mode === 'view'
         const title_modal =
             mode === 'edit' ? 'Editar' : mode === 'view' ? 'Ver ' : 'Crear ' + (title ?? 'Nuevo')
         const submitText = mode === 'edit' ? 'Guardar Cambios' : mode === 'view' ? '' : 'Crear'
@@ -186,10 +187,9 @@ export function CrudContainer<
             ...formModalProp.props,
             ...formModalProp.propsNoCambiantes,
             control: form.control,
-            readOnly: camposReadOnly,
+            readOnly: readOnly,
         }
-        console.log('Opening modal con', { props })
-        let idDelModal
+        console.log('Opening modal con', { props, showButtons: mode !== 'view' })
 
         let resolverPromesaDeEnvio: (valores: TForm) => void
         const promesaDeEnvio = new Promise<TForm>(resolve => {
@@ -199,6 +199,7 @@ export function CrudContainer<
             //  El formulario se envió. Abriendo la barrera de la promesa..
             resolverPromesaDeEnvio(valores)
         }
+
         const id = modalActions.showForm({
             title: title_modal,
             component: FormComponent,
@@ -285,12 +286,13 @@ export function CrudContainer<
 
     const onCrudActions: onCrudActionsProps<TData, TForm> = {
         onCreate: () => {
-            setCamposReadOnly(false)
-            setActualRow(null)
+            // setCamposReadOnly(false)
+            // setActualRow(null)
             console.log('Creating new entry')
-            setMode('create')
+            // setMode('create')
             setError('')
             reset(defaultValues)
+            abrirModalDatos('create', null)
         },
         onEdit: (row: TForm) => {
             setCamposReadOnly(false)
@@ -302,10 +304,11 @@ export function CrudContainer<
             console.log('Editing row:', row)
         },
         onView: (row: TForm) => {
-            setCamposReadOnly(true)
-            setActualRow(row)
-            setMode('view')
+            // setCamposReadOnly(true)
+            // setActualRow(row)
+            // setMode('view')
             reset(row)
+            abrirModalDatos('view', row)
         },
         onDelete: (row: TData) => {
             console.log('Deleting row:', row.id)

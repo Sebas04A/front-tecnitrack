@@ -6,12 +6,6 @@ import PersonaJuridicaForm from './forms/PersonaJuridicaForm'
 import PersonaNaturalForm from './forms/PersonaNaturalForm'
 
 import { PerfilEmpresaData, PerfilPersonaNaturalData } from '../../validation/perfil.schema'
-import {
-    getPerfilJuridico,
-    getPerfilJuridicoById,
-    getPerfilNatural,
-    getPerfilNaturalById,
-} from '../../services/perfilApi'
 
 import { FaEnvelope, FaMapMarkerAlt, FaUser } from 'react-icons/fa'
 import { useModalActions } from '../../hooks/useModalActions'
@@ -20,6 +14,10 @@ import ContactosCrud from '../crudGrid/cruds/ContactosCrud'
 import { TIPO_PERSONA, TIPO_PERSONA_TYPE } from '../../constants/perfil'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { ActivosService } from '../../api'
+import { getPerfilJuridicoById } from '../../services/Interno/Clientes/juridico'
+import { getPerfilNaturalById } from '../../services/Interno/Clientes/natural'
+import { getPerfilJuridico } from '../../services/Cliente/Clientes/juridico'
+import { getPerfilNatural } from '../../services/Cliente/Clientes/natural'
 const tabs: Array<{ key: TabKeyType; label: string; icon: JSX.Element }> = [
     {
         key: 'personal',

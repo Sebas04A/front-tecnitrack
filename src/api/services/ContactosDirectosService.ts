@@ -2,7 +2,6 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { BooleanApiResponse } from '../models/BooleanApiResponse';
 import type { ContactoDirectoRequest } from '../models/ContactoDirectoRequest';
 import type { ContactoDirectoResponseApiResponse } from '../models/ContactoDirectoResponseApiResponse';
 import type { ContactoDirectoResponseListApiResponse } from '../models/ContactoDirectoResponseListApiResponse';
@@ -112,42 +111,6 @@ export class ContactosDirectosService {
                 400: `Bad Request`,
                 401: `Unauthorized`,
                 404: `Not Found`,
-            },
-        });
-    }
-    /**
-     * @returns ObjectApiResponse OK
-     * @throws ApiError
-     */
-    public static patchApiContactosDirectosEstablecerPrincipal({
-        contactoId,
-    }: {
-        contactoId: number,
-    }): CancelablePromise<ObjectApiResponse> {
-        return __request(OpenAPI, {
-            method: 'PATCH',
-            url: '/api/contactos-directos/establecer-principal/{contactoId}',
-            path: {
-                'contactoId': contactoId,
-            },
-            errors: {
-                400: `Bad Request`,
-                401: `Unauthorized`,
-                404: `Not Found`,
-            },
-        });
-    }
-    /**
-     * @returns BooleanApiResponse OK
-     * @throws ApiError
-     */
-    public static getApiContactosDirectosVerificarContactoPrincipal(): CancelablePromise<BooleanApiResponse> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/contactos-directos/verificar-contacto-principal',
-            errors: {
-                400: `Bad Request`,
-                401: `Unauthorized`,
             },
         });
     }

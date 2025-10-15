@@ -19,6 +19,7 @@ export class GestionCitasService {
     public static getApiGestionCitasListarCitas({
         termino,
         estado,
+        tipoMantenimiento,
         fechaDesde,
         fechaHasta,
         pagina = 1,
@@ -28,6 +29,7 @@ export class GestionCitasService {
     }: {
         termino?: string,
         estado?: string,
+        tipoMantenimiento?: string,
         fechaDesde?: string,
         fechaHasta?: string,
         pagina?: number,
@@ -41,6 +43,7 @@ export class GestionCitasService {
             query: {
                 'termino': termino,
                 'estado': estado,
+                'tipoMantenimiento': tipoMantenimiento,
                 'fechaDesde': fechaDesde,
                 'fechaHasta': fechaHasta,
                 'pagina': pagina,

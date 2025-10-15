@@ -16,5 +16,6 @@ export type ListarClientesEmpresaDto = {
     correoEmpresa?: string | null;
     telefonoEmpresaSecundario?: string | null;
     correoEmpresaSecundario?: string | null;
+    direccion?: string | null;
 };
 

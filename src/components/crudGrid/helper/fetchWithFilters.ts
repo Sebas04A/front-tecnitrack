@@ -1,3 +1,5 @@
+import { SortState } from '../CrudTable'
+
 // crud-helpers.ts
 export type CrudPage<T> = { items: T[]; total: number }
 
@@ -231,28 +233,28 @@ export type FetchReturn<T> = {
     }
 }
 type MakeLocalCrudFetcherOptions<T, FilterType> = {
-    fetchData: (filters: FetchParams<FilterType>) => Promise<FetchReturn<T>>
+    fetchData: (filters: FetchParams<FilterType, T>) => Promise<FetchReturn<T>>
 }
 
-export type FetchParams<T> = {
+export type FetchParams<TFilters, TData> = {
     page: number
     pageSize: number
     search?: string
+    sortColumns: SortState<keyof TData>
 
-    filters?: T
-    sortColumns: string
+    filters?: TFilters
 }
 
 export type FetcherFunctionWithParams<T, FilterType> = (
-    fetchParams: FetchParams<FilterType>
+    fetchParams: FetchParams<FilterType, T>
 ) => Promise<FetchReturn<T>>
 
 export function fetchDataCrudWithFilters<T, FilterType>({
     fetchData,
 }: MakeLocalCrudFetcherOptions<T, FilterType>): (
-    fetchParams: FetchParams<FilterType>
+    fetchParams: FetchParams<FilterType, T>
 ) => Promise<FetchReturn<T>> {
-    return async (fetchParams: FetchParams<FilterType>): Promise<FetchReturn<T>> => {
+    return async (fetchParams: FetchParams<FilterType, T>): Promise<FetchReturn<T>> => {
         try {
             const data = await fetchData(fetchParams)
             console.log('Datos obtenidos:', data)

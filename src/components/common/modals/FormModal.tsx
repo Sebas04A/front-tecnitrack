@@ -40,7 +40,7 @@ const FormModal: React.FC<FormModalProps> = ({
     size,
     props,
 }) => {
-    console.warn('Renderizando FormModal:')
+    // console.warn('Renderizando FormModal:')
     const handleSubmit = () => {
         console.log('Submitting form...')
         // Aquí podrías agregar lógica adicional antes de llamar a onSubmit
@@ -71,13 +71,13 @@ const FormModal: React.FC<FormModalProps> = ({
         )
     }
     if (component) {
-        console.log('FormModal renderizando con component:', component)
+        // console.log('FormModal renderizando con component:', component)
         ChildComponent = component
     } else if (children) {
-        console.log('FormModal renderizando con children:', children)
+        // console.log('FormModal renderizando con children:', children)
         ChildComponent = () => <>{children}</>
     } else {
-        console.warn('FormModal no tiene children ni component. No hay nada que renderizar.')
+        // console.warn('FormModal no tiene children ni component. No hay nada que renderizar.')
         return null
     }
     return (
