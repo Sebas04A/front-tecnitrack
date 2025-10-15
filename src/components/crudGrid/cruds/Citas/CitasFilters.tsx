@@ -83,49 +83,49 @@ export function CitasFilters({
                     text='Limpiar'
                 />
             </div>
+            <div className='flex-1 flex  gap-4'>
+                <GenericDate
+                    label='Fecha y hora inicio'
+                    name='fechaInicio'
+                    inputType='datetime-local'
+                    value={filtros.fechaInicio}
+                    onChange={e => setFiltros({ ...filtros, fechaInicio: e.target.value })}
+                    placeholder='Selecciona fecha y hora'
+                    className='min-w-[21ch] flex-1'
+                />
+
+                <GenericDate
+                    label='Fecha y hora fin'
+                    name='fechaFin'
+                    inputType='datetime-local'
+                    value={filtros.fechaFin}
+                    onChange={e => setFiltros({ ...filtros, fechaFin: e.target.value })}
+                    placeholder='Selecciona fecha y hora'
+                    className='min-w-[21ch] flex-1'
+                />
+            </div>
+            <div className='flex-1 flex  gap-4'>
+                <GenericDate
+                    label='Fecha Fin'
+                    name='fechaInicio'
+                    inputType='date'
+                    value={filtros.fechaInicio}
+                    onChange={e => setFiltros({ ...filtros, fechaInicio: e.target.value })}
+                    placeholder='Selecciona fecha y hora'
+                    className='min-w-[21ch] flex-1'
+                />
+                <GenericDate
+                    label='Fecha Fin'
+                    name='fechaFin'
+                    inputType='date'
+                    value={filtros.fechaInicio}
+                    onChange={e => setFiltros({ ...filtros, fechaInicio: e.target.value })}
+                    placeholder='Selecciona fecha y hora'
+                    className='min-w-[21ch] flex-1'
+                />
+            </div>
 
             <div className='flex flex-wrap gap-4'>
-                {/* <div className='flex-1 flex  gap-4'>
-                    <GenericDate
-                        label='Fecha y hora inicio'
-                        name='fechaInicio'
-                        inputType='datetime-local'
-                        value={filtros.fechaInicio}
-                        onChange={e => setFiltros({ ...filtros, fechaInicio: e.target.value })}
-                        placeholder='Selecciona fecha y hora'
-                        className='min-w-[21ch] flex-1'
-                    />
-
-                    <GenericDate
-                        label='Fecha y hora fin'
-                        name='fechaFin'
-                        inputType='datetime-local'
-                        value={filtros.fechaFin}
-                        onChange={e => setFiltros({ ...filtros, fechaFin: e.target.value })}
-                        placeholder='Selecciona fecha y hora'
-                        className='min-w-[21ch] flex-1'
-                    />
-                </div> */}
-                <div className='flex-1 flex  gap-4'>
-                    <GenericDate
-                        label='Fecha'
-                        name='fechaInicio'
-                        inputType='date'
-                        value={filtros.fechaInicio}
-                        onChange={e => setFiltros({ ...filtros, fechaInicio: e.target.value })}
-                        placeholder='Selecciona fecha y hora'
-                        className='min-w-[21ch] flex-1'
-                    />
-                    <GenericDate
-                        label='Hora inicio'
-                        name='fechaInicio'
-                        inputType='date'
-                        value={filtros.fechaInicio}
-                        onChange={e => setFiltros({ ...filtros, fechaInicio: e.target.value })}
-                        placeholder='Selecciona fecha y hora'
-                        className='min-w-[21ch] flex-1'
-                    />
-                </div>
                 <DatePicker
                     selectsRange={true}
                     startDate={startDate}
