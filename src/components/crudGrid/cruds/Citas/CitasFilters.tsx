@@ -106,11 +106,20 @@ export function CitasFilters({
             </div>
             <div className='flex-1 flex  gap-4'>
                 <GenericDate
-                    label='Fecha Fin'
+                    label='Fecha Inicio'
                     name='fechaInicio'
                     inputType='date'
                     value={filtros.fechaInicio}
                     onChange={e => setFiltros({ ...filtros, fechaInicio: e.target.value })}
+                    placeholder='Selecciona fecha y hora'
+                    className='min-w-[21ch] flex-1'
+                />
+                <GenericDate
+                    label='Hora inicio'
+                    name='horaInicio'
+                    inputType='time'
+                    // value={filtros.fechaInicio}
+                    // onChange={e => setFiltros({ ...filtros, fechaInicio: e.target.value })}
                     placeholder='Selecciona fecha y hora'
                     className='min-w-[21ch] flex-1'
                 />
@@ -120,6 +129,15 @@ export function CitasFilters({
                     inputType='date'
                     value={filtros.fechaInicio}
                     onChange={e => setFiltros({ ...filtros, fechaInicio: e.target.value })}
+                    placeholder='Selecciona fecha y hora'
+                    className='min-w-[21ch] flex-1'
+                />
+                <GenericDate
+                    label='Hora Fin'
+                    name='horaFin'
+                    inputType='time'
+                    // value={filtros.fechaInicio}
+                    // onChange={e => setFiltros({ ...filtros, fechaInicio: e.target.value })}
                     placeholder='Selecciona fecha y hora'
                     className='min-w-[21ch] flex-1'
                 />
