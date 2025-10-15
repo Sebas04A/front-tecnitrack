@@ -46,6 +46,7 @@ export default function FormCitas({
     return (
         <>
             {/* <GenericForm> */}
+
             <GenericRowForm>
                 <GenericDate
                     label='Fecha y Hora de la Cita'

@@ -441,12 +441,13 @@ export default function CrudCitasContainer<
 
     // const modal = useModal()
     const botonIngresar: newActionCrud<TData> = {
-        component: row => (
-            <div className='flex text-sm justify-center items-center gap-2 bg-success-auto px-3 py-2 rounded'>
-                <FaSignInAlt />
-                Ingreso
-            </div>
-        ),
+        component: (row: TData) =>
+            row.estado == 'Programada' ? (
+                <div className='flex text-sm justify-center items-center gap-2 bg-success-auto px-3 py-2 rounded'>
+                    <FaSignInAlt />
+                    Ingreso
+                </div>
+            ) : null,
 
         onAction: row => {
             console.log('Ingresar mantenimiento para la orden', row)

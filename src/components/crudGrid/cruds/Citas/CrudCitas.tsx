@@ -30,6 +30,7 @@ const stylesEstado = {
 const columns: ColumnDef<CitaDataCrud>[] = [
     { key: 'numeroIdentificacion', header: 'N° Identificación' },
     { key: 'nombreCompleto', header: 'Usuario', sortable: true },
+    { key: 'id', header: 'Numero Cita' },
     {
         key: 'fecha',
         header: 'Fecha',
