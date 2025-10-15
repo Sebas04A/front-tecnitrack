@@ -125,7 +125,7 @@ export default function Orden({ handleClose, handleSave, N_ORDEN, orden }: Windo
                 console.error('Error al obtener la orden:', error)
                 if (error instanceof Error && error.message === 'Orden no encontrada') {
                     const data: OrderFormData = { ...defaultValues }
-                    data.fechaIngreso = new Date().toISOString().slice(0, 16)
+                    data.fechaIngreso = new Date().toUTCString().slice(0, 16) //cambiar
                     fetchData().then(nombre => {
                         console.log('Usuario logeado', nombre)
                         if (data.registradoPor === null) data.registradoPor = 'No identificado'

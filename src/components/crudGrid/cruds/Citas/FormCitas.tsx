@@ -46,7 +46,16 @@ export default function FormCitas({
     return (
         <>
             {/* <GenericForm> */}
-
+            <GenericRowForm>
+                <GenericTextInput
+                    label='Número de Cita'
+                    name='id'
+                    isReadOnly={readOnly}
+                    type='text'
+                    register={form.register}
+                    errors={form.formState.errors}
+                />
+            </GenericRowForm>
             <GenericRowForm>
                 <GenericDate
                     label='Fecha y Hora de la Cita'
