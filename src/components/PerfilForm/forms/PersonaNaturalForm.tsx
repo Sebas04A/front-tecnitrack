@@ -15,16 +15,17 @@ import FormsButtons from '../../form/formsButtons'
 import { useEffect, useState } from 'react'
 import GenericInput from '../../form/Controls/GenericInput'
 import { parseAxiosError } from '../../../utils/parseError'
-import {
-    crearPerfilNaturaAdmin,
-    updatePerfilNatural,
-    updatePerfilNaturalAdmin,
-} from '../../../services/perfilApi'
+
 import { useModalActions } from '../../../hooks/useModalActions'
 import { h3 } from 'framer-motion/client'
 import { AiOutlineEdit, AiOutlineEye } from 'react-icons/ai'
 import GenericButton from '../../form/Controls/GenericButton'
 import GenericSelect from '../../form/Controls/GenericSelect'
+import {
+    crearPerfilNaturaAdmin,
+    updatePerfilNaturalAdmin,
+} from '../../../services/Interno/Clientes/natural'
+import { updatePerfilNatural } from '../../../services/Cliente/Clientes/natural'
 
 export default function PersonaNaturalForm({
     data,

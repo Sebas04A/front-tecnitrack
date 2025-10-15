@@ -12,15 +12,18 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { FormProfileProps } from '../../../types/formsProfile'
 import GenericForm from '../../form/GenericForm'
 import { useEffect } from 'react'
-import {
-    crearPerfilJuridico,
-    crearPerfilJuridicoAdmin,
-    updatePerfilJuridico,
-    updatePerfilJuridicoAdmin,
-} from '../../../services/perfilApi'
+
 import { useAuth } from '../../../hooks/useAuth'
 import FormsButtons from '../../form/formsButtons'
 import { useModalActions } from '../../../hooks/useModalActions'
+import {
+    crearPerfilJuridicoAdmin,
+    updatePerfilJuridicoAdmin,
+} from '../../../services/Interno/Clientes/juridico'
+import {
+    crearPerfilJuridico,
+    updatePerfilJuridico,
+} from '../../../services/Cliente/Clientes/juridico'
 
 export default function PersonaJuridicaForm({
     estaEditando,
