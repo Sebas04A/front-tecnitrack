@@ -1,3 +1,31 @@
+/**
+ * Crea un objeto Date ajustado para que sus métodos (getHours, getDate, etc.)
+ * devuelvan los valores correspondientes a la hora actual de Ecuador (UTC-5),
+ * sin importar la zona horaria del servidor o navegador.
+ * * @returns {Date} Un objeto Date compensado.
+ */
+export function obtenerDateActualEnEcuador(): Date {
+    // 1. Crear una fecha con la hora actual del sistema.
+    const ahora = new Date()
+
+    // 2. Obtener el offset de la zona horaria local en milisegundos.
+    //    date.getTimezoneOffset() devuelve minutos (ej: para UTC-5 devuelve 300).
+    //    Lo multiplicamos por 60000 para convertirlo a milisegundos.
+    const offsetLocalMs = ahora.getTimezoneOffset() * 60000
+
+    // 3. Calcular el tiempo UTC real sumando el offset local.
+    const utcMs = ahora.getTime() + offsetLocalMs
+
+    // 4. Definir el offset de Ecuador (UTC-5) en milisegundos.
+    //    5 horas * 60 min/hora * 60 seg/min * 1000 ms/seg
+    const offsetEcuadorMs = -5 * 60 * 60 * 1000
+
+    // 5. Crear la nueva fecha aplicando el offset de Ecuador al tiempo UTC.
+    const fechaEcuador = new Date(utcMs + offsetEcuadorMs)
+
+    return fechaEcuador
+}
+
 export function convertirDateParaInput(date: Date): string {
     const year = date.getFullYear()
 

@@ -18,6 +18,7 @@ import { Option } from '../../types/form'
 import { getInformacionUsuarioActual } from '../../services/ORDEN/informacionApi'
 import { useModalActions } from '../../hooks/useModalActions'
 import { citaSchema } from '../../validation/cita.schema'
+import { convertirDateParaInput, obtenerDateActualEnEcuador } from '../../adapters/fecha'
 
 // const defaultValues = {
 //     registradoPor: '',
@@ -96,8 +97,10 @@ export default function Orden({ handleClose, handleSave, N_ORDEN, orden }: Windo
             .then(data => {
                 if (!data) throw new Error('No se encontraron datos de la orden')
                 console.log('DataObtenida', { data })
-                data.fechaIngreso = new Date().toISOString().slice(0, 16)
-                console.log('DataObtenida despues de setear fecha', { data })
+                const dateActual = obtenerDateActualEnEcuador()
+                console.log('Fecha actual Ecuador', dateActual)
+                data.fechaIngreso = convertirDateParaInput(dateActual)
+
                 if (!data.registradoPor)
                     fetchData().then(nombre => {
                         data.registradoPor = nombre
@@ -125,7 +128,9 @@ export default function Orden({ handleClose, handleSave, N_ORDEN, orden }: Windo
                 console.error('Error al obtener la orden:', error)
                 if (error instanceof Error && error.message === 'Orden no encontrada') {
                     const data: OrderFormData = { ...defaultValues }
-                    data.fechaIngreso = new Date().toUTCString().slice(0, 16) //cambiar
+                    const dateActual = obtenerDateActualEnEcuador()
+                    console.log('Fecha actual Ecuador', dateActual)
+                    data.fechaIngreso = convertirDateParaInput(dateActual)
                     fetchData().then(nombre => {
                         console.log('Usuario logeado', nombre)
                         if (data.registradoPor === null) data.registradoPor = 'No identificado'
