@@ -10,7 +10,9 @@ import type { ActualizarDireccionDto } from '../models/ActualizarDireccionDto';
 import type { ClienteEmpresaDtoApiResponse } from '../models/ClienteEmpresaDtoApiResponse';
 import type { ClienteNaturalDtoApiResponse } from '../models/ClienteNaturalDtoApiResponse';
 import type { ContactoDirectoDtoApiResponse } from '../models/ContactoDirectoDtoApiResponse';
+import type { ContactoDirectoDtoPagedResponseApiResponse } from '../models/ContactoDirectoDtoPagedResponseApiResponse';
 import type { ContactoEmpresaDtoApiResponse } from '../models/ContactoEmpresaDtoApiResponse';
+import type { ContactoEmpresaDtoPagedResponseApiResponse } from '../models/ContactoEmpresaDtoPagedResponseApiResponse';
 import type { CrearClienteEmpresaDto } from '../models/CrearClienteEmpresaDto';
 import type { CrearClienteEmpresaResponseDtoApiResponse } from '../models/CrearClienteEmpresaResponseDtoApiResponse';
 import type { CrearClienteNaturalDto } from '../models/CrearClienteNaturalDto';
@@ -22,9 +24,7 @@ import type { DireccionDtoApiResponse } from '../models/DireccionDtoApiResponse'
 import type { EstadoClienteResponseDtoApiResponse } from '../models/EstadoClienteResponseDtoApiResponse';
 import type { ListarClientesEmpresaDtoPagedResponse } from '../models/ListarClientesEmpresaDtoPagedResponse';
 import type { ListarClientesNaturalesDtoPagedResponse } from '../models/ListarClientesNaturalesDtoPagedResponse';
-import type { ListarContactosDirectosDtoApiResponse } from '../models/ListarContactosDirectosDtoApiResponse';
-import type { ListarContactosEmpresaDtoApiResponse } from '../models/ListarContactosEmpresaDtoApiResponse';
-import type { ListarDireccionesDtoListApiResponse } from '../models/ListarDireccionesDtoListApiResponse';
+import type { ListarDireccionesDtoPagedResponseApiResponse } from '../models/ListarDireccionesDtoPagedResponseApiResponse';
 import type { ObjectApiResponse } from '../models/ObjectApiResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -57,19 +57,39 @@ export class GestionClientesService {
         });
     }
     /**
-     * @returns ListarContactosEmpresaDtoApiResponse OK
+     * @returns ContactoEmpresaDtoPagedResponseApiResponse OK
      * @throws ApiError
      */
     public static getApiGestionClientesListarContactosEmpresa({
         clienteId,
+        termino,
+        estado,
+        pagina,
+        limite,
+        ordenarPor,
+        direccionOrden,
     }: {
         clienteId: number,
-    }): CancelablePromise<ListarContactosEmpresaDtoApiResponse> {
+        termino?: string,
+        estado?: string,
+        pagina?: number,
+        limite?: number,
+        ordenarPor?: string,
+        direccionOrden?: string,
+    }): CancelablePromise<ContactoEmpresaDtoPagedResponseApiResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/gestion-clientes/listar-contactos-empresa/{clienteId}',
             path: {
                 'clienteId': clienteId,
+            },
+            query: {
+                'Termino': termino,
+                'Estado': estado,
+                'Pagina': pagina,
+                'Limite': limite,
+                'OrdenarPor': ordenarPor,
+                'DireccionOrden': direccionOrden,
             },
             errors: {
                 400: `Bad Request`,
@@ -177,19 +197,39 @@ export class GestionClientesService {
         });
     }
     /**
-     * @returns ListarContactosDirectosDtoApiResponse OK
+     * @returns ContactoDirectoDtoPagedResponseApiResponse OK
      * @throws ApiError
      */
     public static getApiGestionClientesListarContactosDirectos({
         clienteId,
+        termino,
+        estado,
+        pagina,
+        limite,
+        ordenarPor,
+        direccionOrden,
     }: {
         clienteId: number,
-    }): CancelablePromise<ListarContactosDirectosDtoApiResponse> {
+        termino?: string,
+        estado?: string,
+        pagina?: number,
+        limite?: number,
+        ordenarPor?: string,
+        direccionOrden?: string,
+    }): CancelablePromise<ContactoDirectoDtoPagedResponseApiResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/gestion-clientes/listar-contactos-directos/{clienteId}',
             path: {
                 'clienteId': clienteId,
+            },
+            query: {
+                'Termino': termino,
+                'Estado': estado,
+                'Pagina': pagina,
+                'Limite': limite,
+                'OrdenarPor': ordenarPor,
+                'DireccionOrden': direccionOrden,
             },
             errors: {
                 400: `Bad Request`,
@@ -297,19 +337,39 @@ export class GestionClientesService {
         });
     }
     /**
-     * @returns ListarDireccionesDtoListApiResponse OK
+     * @returns ListarDireccionesDtoPagedResponseApiResponse OK
      * @throws ApiError
      */
     public static getApiGestionClientesListarDirecciones({
         clienteId,
+        termino,
+        estado,
+        pagina,
+        limite,
+        ordenarPor,
+        direccionOrden,
     }: {
         clienteId: number,
-    }): CancelablePromise<ListarDireccionesDtoListApiResponse> {
+        termino?: string,
+        estado?: string,
+        pagina?: number,
+        limite?: number,
+        ordenarPor?: string,
+        direccionOrden?: string,
+    }): CancelablePromise<ListarDireccionesDtoPagedResponseApiResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/gestion-clientes/listar-direcciones/{clienteId}',
             path: {
                 'clienteId': clienteId,
+            },
+            query: {
+                'Termino': termino,
+                'Estado': estado,
+                'Pagina': pagina,
+                'Limite': limite,
+                'OrdenarPor': ordenarPor,
+                'DireccionOrden': direccionOrden,
             },
             errors: {
                 400: `Bad Request`,

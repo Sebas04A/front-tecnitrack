@@ -6,6 +6,9 @@ import {
 import { ComponenteFormData } from '../../validation/IngresoOrden/componenteEstado'
 import { ComponenteData } from '../../components/mantenimiento/InformacionEquipo/ComponentesCrud'
 import { parseComponentesTable } from '../../adapters/IngresoOrden/componente'
+import { FetchParams, FetchReturn } from '../../components/crudGrid/helper/fetchWithFilters'
+import { parsePagination } from '../../adapters/pagination'
+import { createApiSearchFunction } from '../generalGetWithFilters'
 
 export const getComponenteDisponible = async (id: number) => {
     const res = await OrdenesService.getApiOrdenesObtenerComponentesDisponiblesOrden({
@@ -15,13 +18,37 @@ export const getComponenteDisponible = async (id: number) => {
     return res.data
 }
 
-export const getEstadosComponentes = async ({ id }: { id: number }): Promise<ComponenteData[]> => {
-    console.log('Obteniendo estados de componentes para orden ID:', id)
-    const res = await OrdenesService.getApiOrdenesObtenerEstadosComponentesOrden({ ordenId: id })
+export const getEstadosComponentes = async (
+    filters: FetchParams<any, any>,
+    N_ORDEN: number
+): Promise<FetchReturn<ComponenteData>> => {
+    console.log(
+        'Obteniendo estados de componentes para orden ID:',
+        N_ORDEN,
+        'con filtros:',
+        filters
+    )
+    const res = await OrdenesService.getApiOrdenesObtenerEstadosComponentesOrden({
+        ordenId: N_ORDEN,
+    })
     console.log('Estados de componentes encontrados:', res)
     if (!res.data) throw new Error('No se encontraron estados de componentes')
-    return parseComponentesTable(res.data)
+    return {
+        items: parseComponentesTable(res.data),
+        pagination: parsePagination(res.pagination ?? {}),
+    }
 }
+// export const getEstadosComponentes = createApiSearchFunction({
+//     apiServiceCall: async params =>
+//         await OrdenesService.getApiOrdenesObtenerEstadosComponentesOrden({
+//             ordenId: id,
+//         }),
+//     sortKeyMapper: {},
+//     dataParser: parseComponentesTable,
+//     entityName: 'Estados de Componentes',
+// })
+
+// export const getEstadosComponentes =
 export const postEstadosComponentes = async (data: ComponenteFormData, N_ORDEN: number) => {
     const requestBody: RegistrarEstadoComponenteRequest = {
         parteSubtipoId: Number(data.componente),

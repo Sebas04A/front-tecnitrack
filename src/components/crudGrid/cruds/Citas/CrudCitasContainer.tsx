@@ -278,6 +278,7 @@ export default function CrudCitasContainer<
                 ...formModalProp.props,
                 readOnly: readOnly,
                 fecha: actualRow?.fechaHoraInicio,
+                noMostrarNumeroCita: title == 'Ver Cita' ? false : true,
             },
             showButtons: !readOnly,
         })

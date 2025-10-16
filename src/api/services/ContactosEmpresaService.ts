@@ -4,20 +4,42 @@
 /* eslint-disable */
 import type { ContactosEmpresaRequest } from '../models/ContactosEmpresaRequest';
 import type { ContactosEmpresaResponseApiResponse } from '../models/ContactosEmpresaResponseApiResponse';
-import type { ContactosEmpresaResponseListApiResponse } from '../models/ContactosEmpresaResponseListApiResponse';
+import type { ContactosEmpresaResponsePagedResponseApiResponse } from '../models/ContactosEmpresaResponsePagedResponseApiResponse';
 import type { ObjectApiResponse } from '../models/ObjectApiResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 export class ContactosEmpresaService {
     /**
-     * @returns ContactosEmpresaResponseListApiResponse OK
+     * @returns ContactosEmpresaResponsePagedResponseApiResponse OK
      * @throws ApiError
      */
-    public static getApiContactosEmpresaMisContactosEmpresa(): CancelablePromise<ContactosEmpresaResponseListApiResponse> {
+    public static getApiContactosEmpresaMisContactosEmpresa({
+        termino,
+        estado,
+        pagina,
+        limite,
+        ordenarPor,
+        direccionOrden,
+    }: {
+        termino?: string,
+        estado?: string,
+        pagina?: number,
+        limite?: number,
+        ordenarPor?: string,
+        direccionOrden?: string,
+    }): CancelablePromise<ContactosEmpresaResponsePagedResponseApiResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/contactos-empresa/mis-contactos-empresa',
+            query: {
+                'Termino': termino,
+                'Estado': estado,
+                'Pagina': pagina,
+                'Limite': limite,
+                'OrdenarPor': ordenarPor,
+                'DireccionOrden': direccionOrden,
+            },
             errors: {
                 400: `Bad Request`,
                 401: `Unauthorized`,

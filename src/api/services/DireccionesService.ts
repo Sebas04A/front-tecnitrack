@@ -4,7 +4,7 @@
 /* eslint-disable */
 import type { DireccionDetalleResponseApiResponse } from '../models/DireccionDetalleResponseApiResponse';
 import type { DireccionRequest } from '../models/DireccionRequest';
-import type { DireccionResponseListApiResponse } from '../models/DireccionResponseListApiResponse';
+import type { DireccionResponsePagedResponse } from '../models/DireccionResponsePagedResponse';
 import type { ObjectApiResponse } from '../models/ObjectApiResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -80,16 +80,39 @@ export class DireccionesService {
         });
     }
     /**
-     * @returns DireccionResponseListApiResponse OK
+     * @returns DireccionResponsePagedResponse OK
      * @throws ApiError
      */
-    public static getApiDireccionesMisDirecciones(): CancelablePromise<DireccionResponseListApiResponse> {
+    public static getApiDireccionesMisDirecciones({
+        termino,
+        estado = 'Activa',
+        pagina = 1,
+        limite = 10,
+        ordenarPor = 'TipoDireccion',
+        direccionOrden = 'asc',
+    }: {
+        termino?: string,
+        estado?: string,
+        pagina?: number,
+        limite?: number,
+        ordenarPor?: string,
+        direccionOrden?: string,
+    }): CancelablePromise<DireccionResponsePagedResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/Direcciones/mis-direcciones',
+            query: {
+                'termino': termino,
+                'estado': estado,
+                'pagina': pagina,
+                'limite': limite,
+                'ordenarPor': ordenarPor,
+                'direccionOrden': direccionOrden,
+            },
             errors: {
                 400: `Bad Request`,
                 401: `Unauthorized`,
+                500: `Internal Server Error`,
             },
         });
     }

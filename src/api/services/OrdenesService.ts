@@ -14,7 +14,7 @@ import type { ComponenteDisponibleResponseListApiResponse } from '../models/Comp
 import type { CrearActivoYAsociarRequest } from '../models/CrearActivoYAsociarRequest';
 import type { CrearOrdenConNumeroRequest } from '../models/CrearOrdenConNumeroRequest';
 import type { EstadoComponenteIngresoResponseApiResponse } from '../models/EstadoComponenteIngresoResponseApiResponse';
-import type { EstadoComponenteIngresoResponseListApiResponse } from '../models/EstadoComponenteIngresoResponseListApiResponse';
+import type { EstadoComponenteIngresoResponsePagedResponse } from '../models/EstadoComponenteIngresoResponsePagedResponse';
 import type { InformacionPreviaOrdenResponseApiResponse } from '../models/InformacionPreviaOrdenResponseApiResponse';
 import type { InspectorOrdenResponseApiResponse } from '../models/InspectorOrdenResponseApiResponse';
 import type { ObjectApiResponse } from '../models/ObjectApiResponse';
@@ -310,21 +310,39 @@ export class OrdenesService {
         });
     }
     /**
-     * @returns EstadoComponenteIngresoResponseListApiResponse OK
+     * @returns EstadoComponenteIngresoResponsePagedResponse OK
      * @throws ApiError
      */
     public static getApiOrdenesObtenerEstadosComponentesOrden({
         ordenId,
+        termino,
+        pagina = 1,
+        limite = 10,
+        ordenarPor = 'SeveridadDaño',
+        direccionOrden = 'desc',
     }: {
         ordenId: number,
-    }): CancelablePromise<EstadoComponenteIngresoResponseListApiResponse> {
+        termino?: string,
+        pagina?: number,
+        limite?: number,
+        ordenarPor?: string,
+        direccionOrden?: string,
+    }): CancelablePromise<EstadoComponenteIngresoResponsePagedResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/Ordenes/obtener-estados-componentes-orden/{ordenId}',
             path: {
                 'ordenId': ordenId,
             },
+            query: {
+                'termino': termino,
+                'pagina': pagina,
+                'limite': limite,
+                'ordenarPor': ordenarPor,
+                'direccionOrden': direccionOrden,
+            },
             errors: {
+                400: `Bad Request`,
                 404: `Not Found`,
                 500: `Internal Server Error`,
             },

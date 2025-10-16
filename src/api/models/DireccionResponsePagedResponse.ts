@@ -2,12 +2,14 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ListarContactosEmpresaDto } from './ListarContactosEmpresaDto';
-export type ListarContactosEmpresaDtoApiResponse = {
+import type { DireccionResponse } from './DireccionResponse';
+import type { PaginationInfo } from './PaginationInfo';
+export type DireccionResponsePagedResponse = {
     success?: boolean;
-    data?: ListarContactosEmpresaDto;
+    data?: Array<DireccionResponse> | null;
     message?: string | null;
     timestamp?: string;
     errors?: Array<string> | null;
+    pagination?: PaginationInfo;
 };
 

@@ -2,10 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ContactosEmpresaResponse } from './ContactosEmpresaResponse';
-export type ContactosEmpresaResponseListApiResponse = {
+import type { ListarDireccionesDtoPagedResponse } from './ListarDireccionesDtoPagedResponse';
+export type ListarDireccionesDtoPagedResponseApiResponse = {
     success?: boolean;
-    data?: Array<ContactosEmpresaResponse> | null;
+    data?: ListarDireccionesDtoPagedResponse;
     message?: string | null;
     timestamp?: string;
     errors?: Array<string> | null;

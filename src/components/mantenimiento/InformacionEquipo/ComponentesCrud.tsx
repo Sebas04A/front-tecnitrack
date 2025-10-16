@@ -16,6 +16,7 @@ import {
     putEstadosComponentes,
 } from '../../../services/ORDEN/componentesEstado'
 import { useModalActions } from '../../../hooks/useModalActions'
+import { fetchDataCrudWithFilters, FetchParams } from '../../crudGrid/helper/fetchWithFilters'
 
 export type ComponenteData = {
     id: number
@@ -49,15 +50,23 @@ export default function ComponentesCrud({ N_ORDEN }: { N_ORDEN: number }) {
 
     const [idModalError, setIdModalError] = React.useState<string | null>(null)
     const crudQueries: crudQueries<any, ComponenteFormData> = {
+        // fetchData: useMemo(
+        //     () =>
+        //         makeLocalCrudFetcher<any>({
+        //             getAll: async () => {
+        //                 const data = await getEstadosComponentes({ id: N_ORDEN })
+        //                 console.log({ data })
+        //                 return data
+        //             },
+        //             searchKeys: ['nombreCompleto', 'apellidoCompleto', 'email'],
+        //         }),
+        //     []
+        // ),
         fetchData: useMemo(
             () =>
-                makeLocalCrudFetcher<any>({
-                    getAll: async () => {
-                        const data = await getEstadosComponentes({ id: N_ORDEN })
-                        console.log({ data })
-                        return data
-                    },
-                    searchKeys: ['nombreCompleto', 'apellidoCompleto', 'email'],
+                fetchDataCrudWithFilters<any, any>({
+                    fetchData: (filters: FetchParams<any, any>) =>
+                        getEstadosComponentes(filters, N_ORDEN),
                 }),
             []
         ),

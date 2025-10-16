@@ -19,10 +19,12 @@ export default function FormCitas({
     form,
     readOnly,
     esCrud = true,
+    noMostrarNumeroCita = false,
 }: {
     form: UseFormReturn
     readOnly: boolean
     esCrud?: boolean
+    noMostrarNumeroCita?: boolean
 }) {
     // console.log('Valores del formulario en FormCitas:', form.getValues())
 
@@ -47,14 +49,16 @@ export default function FormCitas({
         <>
             {/* <GenericForm> */}
             <GenericRowForm>
-                <GenericTextInput
-                    label='Número de Cita'
-                    name='id'
-                    isReadOnly={readOnly}
-                    type='text'
-                    register={form.register}
-                    errors={form.formState.errors}
-                />
+                {!noMostrarNumeroCita && (
+                    <GenericTextInput
+                        label='Número de Cita'
+                        name='id'
+                        isReadOnly={true}
+                        type='text'
+                        register={form.register}
+                        errors={form.formState.errors}
+                    />
+                )}
             </GenericRowForm>
             <GenericRowForm>
                 <GenericDate

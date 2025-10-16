@@ -4,23 +4,46 @@
 /* eslint-disable */
 import type { ContactoDirectoRequest } from '../models/ContactoDirectoRequest';
 import type { ContactoDirectoResponseApiResponse } from '../models/ContactoDirectoResponseApiResponse';
-import type { ContactoDirectoResponseListApiResponse } from '../models/ContactoDirectoResponseListApiResponse';
+import type { ContactoDirectoResponsePagedResponse } from '../models/ContactoDirectoResponsePagedResponse';
 import type { ObjectApiResponse } from '../models/ObjectApiResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 export class ContactosDirectosService {
     /**
-     * @returns ContactoDirectoResponseListApiResponse OK
+     * @returns ContactoDirectoResponsePagedResponse OK
      * @throws ApiError
      */
-    public static getApiContactosDirectosMisContactos(): CancelablePromise<ContactoDirectoResponseListApiResponse> {
+    public static getApiContactosDirectosMisContactos({
+        termino,
+        estado = 'Activo',
+        pagina = 1,
+        limite = 10,
+        ordenarPor = 'TipoContacto',
+        direccionOrden = 'asc',
+    }: {
+        termino?: string,
+        estado?: string,
+        pagina?: number,
+        limite?: number,
+        ordenarPor?: string,
+        direccionOrden?: string,
+    }): CancelablePromise<ContactoDirectoResponsePagedResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/contactos-directos/mis-contactos',
+            query: {
+                'termino': termino,
+                'estado': estado,
+                'pagina': pagina,
+                'limite': limite,
+                'ordenarPor': ordenarPor,
+                'direccionOrden': direccionOrden,
+            },
             errors: {
                 400: `Bad Request`,
                 401: `Unauthorized`,
+                500: `Internal Server Error`,
             },
         });
     }
