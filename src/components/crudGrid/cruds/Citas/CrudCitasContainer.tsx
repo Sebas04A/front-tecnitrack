@@ -278,7 +278,7 @@ export default function CrudCitasContainer<
                 ...formModalProp.props,
                 readOnly: readOnly,
                 fecha: actualRow?.fechaHoraInicio,
-                noMostrarNumeroCita: title == 'Ver Cita' ? false : true,
+                noMostrarNumeroCita: title == 'Crear Cita' ? true : false,
             },
             showButtons: !readOnly,
         })
@@ -442,15 +442,28 @@ export default function CrudCitasContainer<
 
     // const modal = useModal()
     const botonIngresar: newActionCrud<TData> = {
-        component: (row: TData) =>
-            row.estado == 'Programada' ? (
-                <div className='flex text-sm justify-center items-center gap-2 bg-success-auto px-3 py-2 rounded'>
-                    <FaSignInAlt />
-                    Ingreso
-                </div>
-            ) : null,
+        component: (row: TData) => (
+            <div
+                className={`flex text-sm justify-center items-center gap-2  px-3 py-2 rounded ${
+                    row.estado == 'Programada' ? 'bg-success-auto' : 'bg-unavailable-auto '
+                }`}
+            >
+                <FaSignInAlt />
+                Ingreso
+            </div>
+        ),
 
         onAction: row => {
+            console.log('row:', row, ' estado:', row.estado)
+            if (row.estado != 'Programada') {
+                modalActions.showAlert({
+                    title: 'Acción no permitida',
+                    message:
+                        'Solo se puede ingresar mantenimiento para citas en estado "Programada".',
+                    type: 'warning',
+                })
+                return
+            }
             console.log('Ingresar mantenimiento para la orden', row)
             crearOrdenParaIngresar(row.id).then(orden => {
                 console.warn('Abrir modal de ingreso para la orden', orden)
