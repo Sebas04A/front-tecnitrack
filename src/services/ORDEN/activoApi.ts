@@ -69,7 +69,7 @@ export const postActivoNuevo = async (data: any, N_ORDEN: number) => {
         modelo: data.modelo,
         numeroSerie: data.numeroSerie,
         nombreComercial: data.nombreComercial,
-        accesoriosIncluidos: data.accesoriosIncluidos,
+        accesoriosIncluidos: data.accesorios,
     }
     console.log(requestBody)
     const res = await OrdenesService.postApiOrdenesCrearActivoYAsociar({ id: N_ORDEN, requestBody })
