@@ -14,6 +14,7 @@ import { PiUserSquareFill } from 'react-icons/pi'
 import GenericSelectState from '../../components/form/Controls/GenericSelectState'
 import { fetchDataCrudWithFilters } from '../../components/crudGrid/helper/fetchWithFilters'
 import { obtenerOrdenesAsignadasInterno } from '../../services/Interno/ordenes'
+import GenericDate from '../../components/form/Controls/GenericDate'
 
 function InfoCards() {
     return (
@@ -72,21 +73,47 @@ function Filters({ onChangeFilters }: { onChangeFilters: (filters: Filter<any>[]
                     tipoCatalogo='ESTADO_ORDEN'
                 />
                 <GenericSelectState
+                    name={'Tecnico'}
+                    label='Técnico'
+                    value={filters.estado}
+                    onChange={e => setFilters({ ...filters, estado: e.target.value })}
+                    className='min-w-[21ch] flex-1'
+                    tipoCatalogo='tecnicos'
+                />
+                <GenericSelectState
+                    name='Prioridad'
+                    label='Prioridad'
+                    value={filters.estado}
+                    onChange={e => setFilters({ ...filters, estado: e.target.value })}
+                    className='min-w-[21ch] flex-1'
+                    tipoCatalogo='PRIORIDAD_ORDEN'
+                />
+                {/* <GenericSelectState
                     name={'TipoMantenimiento'}
                     label='Tipo de Mantenimiento'
                     value={filters.tipoMantenimiento}
                     onChange={e => setFilters({ ...filters, tipoMantenimiento: e.target.value })}
                     className='min-w-[21ch] flex-1'
                     tipoCatalogo='tipoMantenimiento'
+                /> */}
+                <GenericDate
+                    name='FechaIngresoDesde'
+                    label='Fecha Ingreso Desde'
+                    value={undefined}
                 />
-                <GenericSelectState
+                <GenericDate
+                    name='FechaIngresoHasta'
+                    label='Fecha Ingreso Hasta'
+                    value={undefined}
+                />
+                {/* <GenericSelectState
                     name={'TipoEquipo'}
                     label='Tipo de Equipo'
                     value={filters.tipoEquipo}
                     onChange={e => setFilters({ ...filters, tipoEquipo: e.target.value })}
                     className='min-w-[21ch] flex-1'
                     tipoCatalogo='tipoEquipo'
-                />
+                /> */}
             </div>
         </div>
     )
@@ -112,7 +139,6 @@ const columns: ColumnDef<any>[] = [
     // { key: 'estadoMantenimiento', header: 'Estado Mantenimiento', sortable: true },
     { key: 'progreso', header: 'Progreso', sortable: true },
 ]
-
 // const style_buttons = 'flex text-sm justify-center items-center gap-2 px-3 py-2 rounded'
 const style_icon = 'size-6'
 export default function OrdenesAsignadas() {
