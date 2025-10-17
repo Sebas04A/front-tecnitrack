@@ -94,12 +94,18 @@ function Filters({ onChangeFilters }: { onChangeFilters: (filters: Filter<any>[]
 
 const columns: ColumnDef<any>[] = [
     { key: 'numeroOrden', header: '# Orden', sortable: true },
-    { key: '', header: 'Tipo de Equipo', sortable: true },
-    { key: 'subtipo', header: 'Subtipo', sortable: true },
-    { key: 'estadoMantenimiento', header: 'Estado Mantenimiento', sortable: true },
+    { key: 'fechaIngresoOrden', header: 'Fecha Ingreso', sortable: true },
+    { key: 'clienteNombre', header: 'Cliente', sortable: true },
+    { key: 'equipoNombre', header: 'Equipo', sortable: true },
+    { key: 'tecnicoNombre', header: 'Técnico', sortable: true },
+    { key: 'prioridad', header: 'Prioridad', sortable: true },
     { key: 'estado', header: 'Estado Orden', sortable: true },
+
+    // { key: '', header: 'Tipo de Equipo', sortable: true },
+    // { key: 'subtipo', header: 'Subtipo', sortable: true },
+    { key: 'estadoMantenimiento', header: 'Estado Mantenimiento', sortable: true },
     { key: 'tipoMantenimiento', header: 'Tipo de Mantenimiento', sortable: true },
-    { key: 'fechaIngresoOrden', header: 'Fecha Asignación', sortable: true },
+    { key: 'progreso', header: 'Progreso', sortable: true },
 ]
 
 // const style_buttons = 'flex text-sm justify-center items-center gap-2 px-3 py-2 rounded'
