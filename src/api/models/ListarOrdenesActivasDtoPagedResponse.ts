@@ -2,11 +2,11 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { MantenimientoAsignadoGridResponse } from './MantenimientoAsignadoGridResponse';
+import type { ListarOrdenesActivasDto } from './ListarOrdenesActivasDto';
 import type { PaginationInfo } from './PaginationInfo';
-export type MantenimientoAsignadoGridResponsePagedResponse = {
+export type ListarOrdenesActivasDtoPagedResponse = {
     success?: boolean;
-    data?: Array<MantenimientoAsignadoGridResponse> | null;
+    data?: Array<ListarOrdenesActivasDto> | null;
     message?: string | null;
     timestamp?: string;
     errors?: Array<string> | null;

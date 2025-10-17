@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import StatCard from '../../components/dashboard/StatCard'
 import { FaClipboardList } from 'react-icons/fa'
 
@@ -12,6 +12,8 @@ import { BsPlayFill } from 'react-icons/bs'
 import { BiCheck } from 'react-icons/bi'
 import { PiUserSquareFill } from 'react-icons/pi'
 import GenericSelectState from '../../components/form/Controls/GenericSelectState'
+import { fetchDataCrudWithFilters } from '../../components/crudGrid/helper/fetchWithFilters'
+import { obtenerOrdenesAsignadasInterno } from '../../services/Interno/ordenes'
 
 function InfoCards() {
     return (
@@ -91,21 +93,21 @@ function Filters({ onChangeFilters }: { onChangeFilters: (filters: Filter<any>[]
 }
 
 const columns: ColumnDef<any>[] = [
-    { key: 'nOrden', header: '# Orden', sortable: true },
-    { key: 'tipoEquipo', header: 'Tipo de Equipo', sortable: true },
+    { key: 'numeroOrden', header: '# Orden', sortable: true },
+    { key: '', header: 'Tipo de Equipo', sortable: true },
     { key: 'subtipo', header: 'Subtipo', sortable: true },
     { key: 'estadoMantenimiento', header: 'Estado Mantenimiento', sortable: true },
-    { key: 'estadoOrden', header: 'Estado Orden', sortable: true },
+    { key: 'estado', header: 'Estado Orden', sortable: true },
     { key: 'tipoMantenimiento', header: 'Tipo de Mantenimiento', sortable: true },
-    { key: 'fechaAsignacion', header: 'Fecha Asignación', sortable: true },
+    { key: 'fechaIngresoOrden', header: 'Fecha Asignación', sortable: true },
 ]
 
 // const style_buttons = 'flex text-sm justify-center items-center gap-2 px-3 py-2 rounded'
 const style_icon = 'size-6'
 export default function OrdenesAsignadas() {
-    const actionsCrud: newActionCrud[] = [
+    const actionsCrud: newActionCrud<any>[] = [
         {
-            component: (
+            component: (): JSX.Element => (
                 // <div className={`${style_buttons} bg-info-auto`}>
                 <BsPlayFill className={`text-info ${style_icon}`} />
                 // </div>
@@ -115,7 +117,7 @@ export default function OrdenesAsignadas() {
             },
         },
         {
-            component: (
+            component: (): JSX.Element => (
                 // <button className={`${style_buttons} bg-success-auto `}>
                 <BiCheck className={`text-success ${style_icon}`} />
                 // </button>
@@ -125,7 +127,7 @@ export default function OrdenesAsignadas() {
             },
         },
         {
-            component: (
+            component: (): JSX.Element => (
                 // <button className={`${style_buttons} bg-warning-auto `}>
                 <PiUserSquareFill className={`text-warning ${style_icon}`} />
                 // </button>
@@ -135,39 +137,13 @@ export default function OrdenesAsignadas() {
             },
         },
     ]
-    function fetchData({
-        page,
-        pageSize,
-        search,
-        filters,
-    }: {
-        page: number
-        pageSize: number
-        search: string
-        filters: any[]
-    }) {
-        console.log('Fetch data called with:', { page, pageSize, search, filters })
-        // Aquí iría la lógica para obtener los datos desde una API o base de datos
-        return new Promise<{ items: any[]; total: number }>(resolve => {
-            setTimeout(() => {
-                const total = 15
-                const items = Array.from({ length: pageSize }, (_, i) => {
-                    const id = (page - 1) * pageSize + i + 1
-                    return {
-                        id,
-                        nOrden: `ORD-${id.toString().padStart(4, '0')}`,
-                        tipoEquipo: 'Computadora',
-                        subtipo: 'Portátil',
-                        estadoOrden: ['Cancelada', 'Generada'][id % 2],
-                        estadoMantenimiento: ['Pendiente', 'En Proceso', 'Completada'][id % 3],
-                        tipoMantenimiento: ['Preventivo', 'Correctivo'][id % 2],
-                        fechaAsignacion: new Date().toLocaleDateString(),
-                    }
-                })
-                resolve({ items, total })
-            }, 500)
-        })
-    }
+    const fetchData = useMemo(
+        () =>
+            fetchDataCrudWithFilters<any, any>({
+                fetchData: obtenerOrdenesAsignadasInterno,
+            }),
+        []
+    )
 
     return (
         <div>

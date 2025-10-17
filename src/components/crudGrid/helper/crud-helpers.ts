@@ -215,7 +215,7 @@ function applyFilter<T>(item: T, filter: Filter<T>): boolean {
 // ==================== FETCHER PRINCIPAL ====================
 
 type MakeLocalCrudFetcherOptions<T> = {
-    getAll: () => Promise<T[]>
+    getAll: ({ any }: any) => Promise<T[]>
     searchKeys?: (keyof T)[]
 }
 
