@@ -24,7 +24,12 @@ export type ApiSearchParams = {
  * @template T_Api El modelo de datos que retorna la API.
  * @template T_Filters Los parámetros que espera la función del servicio API.
  */
-interface SearchFunctionConfig<T_FrontEnd, T_Api, T_Filters> {
+interface SearchFunctionConfig<
+    T_FrontEnd,
+    T_Api,
+    T_Filters_FrontEnd extends object,
+    T_Filters_Api extends object
+> {
     /**
      * La función del servicio que realiza la llamada a la API.
      * @param params Los filtros y parámetros de paginación adaptados para la API.
@@ -37,6 +42,13 @@ interface SearchFunctionConfig<T_FrontEnd, T_Api, T_Filters> {
      * Ejemplo: { 'nombreCompleto': 'nombres' }
      */
     sortKeyMapper: { [key in keyof Partial<T_FrontEnd>]: string }
+
+    /**
+     * Función que transforma los filtros del frontend al formato que espera la API.
+     * @param filters Los filtros del frontend.
+     * @returns Los filtros adaptados para la API.
+     */
+    filterAdapter: (filters?: T_Filters_FrontEnd) => T_Filters_Api
 
     /**
      * Función que transforma la lista de datos de la API al formato del frontend.
@@ -56,15 +68,18 @@ interface SearchFunctionConfig<T_FrontEnd, T_Api, T_Filters> {
  * @param config La configuración que define cómo buscar, mapear y transformar los datos.
  * @returns Una función de búsqueda asíncrona y tipada.
  */
-export function createApiSearchFunction<T_FrontEnd, T_Api, T_Filters extends object>(
-    config: SearchFunctionConfig<T_FrontEnd, T_Api, T_Filters>
-) {
+export function createApiSearchFunction<
+    T_FrontEnd,
+    T_Api,
+    T_Filters_FrontEnd extends object,
+    T_Filters_Api extends object
+>(config: SearchFunctionConfig<T_FrontEnd, T_Api, T_Filters_FrontEnd, T_Filters_Api>) {
     /**
      * Función generada que busca y procesa datos de una entidad específica.
      * @param filters Parámetros de paginación, ordenamiento y filtrado del frontend.
      */
     return async function generatedSearchFunction(
-        filters: FetchParams<T_Filters, T_FrontEnd>
+        filters: FetchParams<T_Filters_FrontEnd, T_FrontEnd>
     ): Promise<FetchReturn<T_FrontEnd>> {
         const { apiServiceCall, sortKeyMapper, dataParser, entityName } = config
 
@@ -79,9 +94,11 @@ export function createApiSearchFunction<T_FrontEnd, T_Api, T_Filters extends obj
         // Preparamos los parámetros para la llamada al servicio de la API
         const apiParams = {
             ...adapterFiltersParams(filters),
+            ...config.filterAdapter(filters.filters),
             ordenarPor: apiSortKey,
             direccion: filters.sortColumns.dir ?? 'desc',
         } as ApiSearchParams
+        console.log(`Parámetros para la API de ${entityName}:`, apiParams)
 
         // Realizamos la llamada a la API
         const response = await apiServiceCall(apiParams)

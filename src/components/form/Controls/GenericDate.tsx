@@ -17,6 +17,7 @@ type GenericDateProps = {
     onChange?: React.ChangeEventHandler<HTMLInputElement>
     value?: string | number | readonly string[]
     defaultValue?: string | number
+    mostrarEspacioError?: boolean
 }
 
 const GenericDate: React.FC<GenericDateProps> = ({
@@ -29,6 +30,7 @@ const GenericDate: React.FC<GenericDateProps> = ({
     placeholder,
     required,
     inputType = 'date',
+    mostrarEspacioError,
     ...rest
 }) => {
     const errorObject = errors ? getNestedError(errors, name) : undefined
@@ -46,6 +48,7 @@ const GenericDate: React.FC<GenericDateProps> = ({
             placeholder={placeholder}
             required={required}
             value={rest.value}
+            mostrarEspacioError={mostrarEspacioError}
             {...rest}
         />
     )

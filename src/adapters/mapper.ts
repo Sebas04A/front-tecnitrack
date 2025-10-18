@@ -38,3 +38,12 @@ export function adaptObjectKeys<T extends object, U extends object>(
 
     return newObject
 }
+
+export function reverseMapObjectKeys<T, U>(
+    mapper: Record<keyof T, U | undefined>
+): Record<string, keyof T> {
+    return Object.entries(mapper).reduce((acc, [key, value]) => {
+        acc[key] = value as keyof T
+        return acc
+    }, {} as Record<string, keyof T>)
+}

@@ -100,7 +100,7 @@ export default function GenericInput({
                 )}
                 {endContent && <div className='absolute right-3'>{endContent}</div>}
             </div>
-            {(mostrarEspacioError || (register && !isReadOnly)) && (
+            {(mostrarEspacioError ?? (register && !isReadOnly)) && (
                 <div className='h-[1.25rem]'>
                     {error && <p className='text-error text-xs '>{error}</p>}
                 </div>
