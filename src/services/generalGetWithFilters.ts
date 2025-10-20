@@ -107,11 +107,13 @@ export function createApiSearchFunction<
         if (!response || !response.data) {
             throw new Error(`No se encontraron datos para ${entityName}`)
         }
-
-        // Procesamos y retornamos la respuesta en el formato esperado
-        return {
+        const returnData = {
             items: dataParser(response.data),
             pagination: parsePagination(response.pagination || {}),
         }
+        console.log(`Datos procesados de ${entityName}:`, returnData)
+
+        // Procesamos y retornamos la respuesta en el formato esperado
+        return returnData
     }
 }

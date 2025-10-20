@@ -5,7 +5,7 @@
 export type AgregarDatosFaltantesOrdenRequest = {
     fechaIngreso: string;
     registradoPor: string;
-    inspeccionadoPor?: string | null;
+    inspectorId?: number | null;
     tallerBodegaDestino: string;
     observacionesIngreso?: string | null;
 };

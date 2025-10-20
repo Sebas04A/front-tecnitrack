@@ -1,7 +1,7 @@
 import { adapterFiltersCita } from '../../../../../adapters/cita'
 import { adapterFiltersParams } from '../../../../../adapters/filtersToParams'
 import { parsePagination } from '../../../../../adapters/pagination'
-import { GestionOrdenesService, OrdenesService } from '../../../../../api'
+import { GestionOrdenesService, ListarOrdenesActivasDto, OrdenesService } from '../../../../../api'
 import { makeLocalCrudFetcher } from '../../../../../components/crudGrid/helper/crud-helpers'
 import {
     FetchParams,
@@ -10,10 +10,17 @@ import {
 import { createApiSearchFunction } from '../../../../../services/generalGetWithFilters'
 import {
     adapterFiltersOrdenesAdminFromApi,
+    adapterOrdenesFiltersToApi,
     mapperOrdenesApiToFilters,
     mapperOrdenesFiltersToApi,
 } from '../adapter/adapterFiltersOrdenesAdmin'
-import { mapperApiToOrdenesAdmin } from '../adapter/adapterOrdenesAdmin'
+import {
+    adapterOrdenesAdminFromApi,
+    adapterOrdenesAdminToApi,
+    mapperApiToOrdenesAdmin,
+} from '../adapter/adapterOrdenesAdmin'
+import { OrdenData } from '../models/ordenData'
+import { OrdenesFiltersType } from '../models/ordenFilter'
 
 export const obtenerOrdenesAsignadasInterno = async (
     filters: FetchParams<any, any>
@@ -38,10 +45,15 @@ export const obtenerOrdenesAsignadasInterno = async (
     return { items: res.data, pagination: parsePagination(res.pagination ?? {}) }
 }
 
-export const obtenerOrdenesAsignadasInternoFetcher = createApiSearchFunction<any, any, any, any>({
+export const obtenerOrdenesAsignadasInternoFetcher = createApiSearchFunction<
+    OrdenData,
+    ListarOrdenesActivasDto,
+    OrdenesFiltersType,
+    any
+>({
     apiServiceCall: GestionOrdenesService.getApiGestionOrdenesListarOrdenesActivas,
     sortKeyMapper: mapperApiToOrdenesAdmin,
-    filterAdapter: adapterFiltersOrdenesAdminFromApi,
-    dataParser: (apiData: any[]) => apiData,
+    filterAdapter: adapterOrdenesFiltersToApi,
+    dataParser: adapterOrdenesAdminFromApi,
     entityName: 'Órdenes Asignadas Interno',
 })

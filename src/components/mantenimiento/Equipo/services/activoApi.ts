@@ -3,8 +3,8 @@ import {
     AsociarActivoOrdenRequest,
     CrearActivoYAsociarRequest,
     OrdenesService,
-} from '../../api'
-import { Option } from '../../types/form'
+} from '../../../../api'
+import { Option } from '../../../../types/form'
 
 export const buscarSelectActivo = async (ordenId: number, query: string): Promise<Option[]> => {
     console.log('Buscando activo con query:', query)
@@ -101,5 +101,20 @@ export const getObtenerActivoOrden = async (ordenId: number) => {
         modelo: activo.modelo,
         numeroSerie: activo.numeroSerie,
         nombreComercial: activo.nombreComercial,
+    }
+}
+
+export const getInformacionActivoAsignado = async (ordenId: number) => {
+    const res = await OrdenesService.getApiOrdenesObtenerActivoAsociadoOrden({ id: ordenId })
+    console.log('Activo asignado a la orden encontrado:', res)
+    if (!res || !res.data) throw new Error('No se encontraron activos asociados a la orden')
+    const data = res.data
+    return {
+        tipoEquipo: data.tipoActivo?.id,
+        subtipo: data.subtipoActivo?.id,
+        marca: data.marca?.id,
+        modelo: data.modelo,
+        numeroSerie: data.numeroSerie,
+        nombreComercial: data.nombreComercial,
     }
 }

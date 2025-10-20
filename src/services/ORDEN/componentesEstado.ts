@@ -4,7 +4,7 @@ import {
     RegistrarEstadoComponenteRequest,
 } from '../../api'
 import { ComponenteFormData } from '../../validation/IngresoOrden/componenteEstado'
-import { ComponenteData } from '../../components/mantenimiento/InformacionEquipo/ComponentesCrud'
+import { ComponenteData } from '../../components/mantenimiento/Equipo/InformacionEquipo/ComponentesCrud'
 import { parseComponentesTable } from '../../adapters/IngresoOrden/componente'
 import { FetchParams, FetchReturn } from '../../components/crudGrid/helper/fetchWithFilters'
 import { parsePagination } from '../../adapters/pagination'

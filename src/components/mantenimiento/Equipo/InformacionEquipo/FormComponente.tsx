@@ -1,12 +1,12 @@
 import { UseFormReturn } from 'react-hook-form'
-import GenericCheckbox from '../../form/Controls/GenericCheckbox'
-import GenericSelect from '../../form/Controls/GenericSelect'
-import GenericSelectSearch, { FetchFunction } from '../../form/Controls/GenericSelectSearch'
-import GenericTextInput from '../../form/Controls/GenericTextInput'
-import GenericForm from '../../form/GenericForm'
-import GenericRowForm from '../../form/GenericRowForm'
-import { getComponenteDisponible } from '../../../services/ORDEN/componentesEstado'
-import { Option } from '../../../types/form'
+import GenericCheckbox from '../../../form/Controls/GenericCheckbox'
+import GenericSelect from '../../../form/Controls/GenericSelect'
+import GenericSelectSearch, { FetchFunction } from '../../../form/Controls/GenericSelectSearch'
+import GenericTextInput from '../../../form/Controls/GenericTextInput'
+import GenericForm from '../../../form/GenericForm'
+import GenericRowForm from '../../../form/GenericRowForm'
+import { getComponenteDisponible } from '../../../../services/ORDEN/componentesEstado'
+import { Option } from '../../../../types/form'
 
 export function ComponentForm({
     control,

@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
-import GenericForm from '../../form/GenericForm'
+import GenericForm from '../../../form/GenericForm'
 
-import GenericTextInput from '../../form/Controls/GenericTextInput'
+import GenericTextInput from '../../../form/Controls/GenericTextInput'
 
 import ComponentesCrud from './ComponentesCrud'
-import { WindowProps } from '../MantenimientoIngreso'
-import { getInspector } from '../../../services/ORDEN/mantenimiento'
+import { WindowProps } from '../../MantenimientoIngreso'
+import { getInspector } from '../../../../services/ORDEN/mantenimiento'
 
 interface Componente {
     id: number

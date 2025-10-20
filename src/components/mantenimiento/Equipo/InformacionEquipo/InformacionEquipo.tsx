@@ -1,17 +1,17 @@
 import { useForm } from 'react-hook-form'
-import GenericTextInput from '../../form/Controls/GenericTextInput'
-import GenericRowForm from '../../form/GenericRowForm'
-import GenericSection from '../../form/GenericSection'
-import GenericSelectSearch from '../../form/Controls/GenericSelectSearch'
-import GenericSelect from '../../form/Controls/GenericSelect'
-import GenericForm from '../../form/GenericForm'
+import GenericTextInput from '../../../form/Controls/GenericTextInput'
+import GenericRowForm from '../../../form/GenericRowForm'
+import GenericSection from '../../../form/GenericSection'
+import GenericSelectSearch from '../../../form/Controls/GenericSelectSearch'
+import GenericSelect from '../../../form/Controls/GenericSelect'
+import GenericForm from '../../../form/GenericForm'
 import { useCallback, useEffect, useState } from 'react'
 import {
     buscarSelectActivo,
     obtenerMarcasActivosSelect,
     obtenerSubtiposActivosSelect,
     obtenerTiposActivosSelect,
-} from '../../../services/ORDEN/activoApi'
+} from '../services/activoApi'
 import { form, sub } from 'framer-motion/client'
 
 function SoloEquipoForm({

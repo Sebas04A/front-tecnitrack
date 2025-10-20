@@ -1,22 +1,22 @@
 import React, { Component, useMemo } from 'react'
-import { ColumnDef, CrudContainer, crudQueries, formModalCrudProps } from '../../crudGrid'
+import { ColumnDef, CrudContainer, crudQueries, formModalCrudProps } from '../../../crudGrid'
 import { ComponentForm } from './FormComponente'
 import { useForm } from 'react-hook-form'
-import { makeLocalCrudFetcher } from '../../crudGrid/helper/crud-helpers'
-import { UsuarioInternoData } from '../../../validation/usuarioInterno'
+import { makeLocalCrudFetcher } from '../../../crudGrid/helper/crud-helpers'
+import { UsuarioInternoData } from '../../../../validation/usuarioInterno'
 import { yupResolver } from '@hookform/resolvers/yup'
 import {
     ComponenteFormData,
     validacionComponentes,
-} from '../../../validation/IngresoOrden/componenteEstado'
+} from '../../../../validation/IngresoOrden/componenteEstado'
 import {
     deleteEstadosComponentes,
     getEstadosComponentes,
     postEstadosComponentes,
     putEstadosComponentes,
-} from '../../../services/ORDEN/componentesEstado'
-import { useModalActions } from '../../../hooks/useModalActions'
-import { fetchDataCrudWithFilters, FetchParams } from '../../crudGrid/helper/fetchWithFilters'
+} from '../../../../services/ORDEN/componentesEstado'
+import { useModalActions } from '../../../../hooks/useModalActions'
+import { fetchDataCrudWithFilters, FetchParams } from '../../../crudGrid/helper/fetchWithFilters'
 
 export type ComponenteData = {
     id: number

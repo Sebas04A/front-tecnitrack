@@ -13,6 +13,14 @@ export const mapperOrdenesFiltersToApi: Record<keyof OrdenesFiltersType, string>
 export const mapperOrdenesApiToFilters: Record<string, keyof OrdenesFiltersType> =
     reverseMapObjectKeys<OrdenesFiltersType, string>(mapperOrdenesFiltersToApi)
 
+export function adapterOrdenesFiltersToApi(filters?: OrdenesFiltersType): Record<string, any> {
+    if (!filters) return {}
+    return adaptObjectKeys<OrdenesFiltersType, Record<string, any>>(
+        filters,
+        mapperOrdenesFiltersToApi
+    )
+}
+
 export function adapterFiltersOrdenesAdminFromApi(
     apiData: Record<string, any>
 ): Partial<OrdenesFiltersType> {

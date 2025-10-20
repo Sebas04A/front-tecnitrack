@@ -12,8 +12,8 @@ export const mapperOrdenesAdminToApi: Record<
     tecnicoNombre: 'tecnicoAsignado',
     prioridad: 'prioridad',
     estado: 'estado',
-    tipoMantenimiento: undefined,
-    equipoNombre: undefined,
+    tipoMantenimiento: 'tipoMantenimiento',
+    equipoNombre: 'equipo',
     progreso: undefined,
 }
 
@@ -25,6 +25,12 @@ export const mapperApiToOrdenesAdmin: Record<keyof ListarOrdenesActivasDto, keyo
         return acc
     }, {} as Record<keyof ListarOrdenesActivasDto, keyof OrdenData>)
 
-export function adapterOrdenesAdminFromApi(apiData: ListarOrdenesActivasDto): Partial<OrdenData> {
-    return adaptObjectKeys<ListarOrdenesActivasDto, OrdenData>(apiData, mapperApiToOrdenesAdmin)
+export function adapterOrdenesAdminToApi(data: Partial<OrdenData>): Record<string, any> {
+    return adaptObjectKeys<Partial<OrdenData>, Record<string, any>>(data, mapperOrdenesAdminToApi)
+}
+
+export function adapterOrdenesAdminFromApi(apiData: ListarOrdenesActivasDto[]): OrdenData[] {
+    return apiData.map(item =>
+        adaptObjectKeys<ListarOrdenesActivasDto, OrdenData>(item, mapperApiToOrdenesAdmin)
+    ) as OrdenData[]
 }

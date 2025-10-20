@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { ActivoAsociadoOrdenResponseApiResponse } from '../models/ActivoAsociadoOrdenResponseApiResponse';
 import type { ActivoDtoPagedResponse } from '../models/ActivoDtoPagedResponse';
 import type { ActualizarEstadoComponenteRequest } from '../models/ActualizarEstadoComponenteRequest';
 import type { AgregarDatosFaltantesOrdenRequest } from '../models/AgregarDatosFaltantesOrdenRequest';
@@ -226,6 +227,27 @@ export class OrdenesService {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/Ordenes/obtener-inspector-orden/{id}',
+            path: {
+                'id': id,
+            },
+            errors: {
+                404: `Not Found`,
+                500: `Internal Server Error`,
+            },
+        });
+    }
+    /**
+     * @returns ActivoAsociadoOrdenResponseApiResponse OK
+     * @throws ApiError
+     */
+    public static getApiOrdenesObtenerActivoAsociadoOrden({
+        id,
+    }: {
+        id: number,
+    }): CancelablePromise<ActivoAsociadoOrdenResponseApiResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/Ordenes/obtener-activo-asociado-orden/{id}',
             path: {
                 'id': id,
             },

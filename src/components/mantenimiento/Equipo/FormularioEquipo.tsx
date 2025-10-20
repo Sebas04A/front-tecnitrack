@@ -1,25 +1,26 @@
 import React, { useEffect } from 'react'
-import GenericForm from '../form/GenericForm'
-import GenericTextInput from '../form/Controls/GenericTextInput'
+import GenericForm from '../../form/GenericForm'
+import GenericTextInput from '../../form/Controls/GenericTextInput'
 import { useForm } from 'react-hook-form'
-import GenericRowForm from '../form/GenericRowForm'
-import GenericSelectSearch from '../form/Controls/GenericSelectSearch'
-import GenericSection from '../form/GenericSection'
-import GenericButton from '../form/Controls/GenericButton'
+import GenericRowForm from '../../form/GenericRowForm'
+import GenericSelectSearch from '../../form/Controls/GenericSelectSearch'
+import GenericSection from '../../form/GenericSection'
+import GenericButton from '../../form/Controls/GenericButton'
 import { FaPlus } from 'react-icons/fa'
-import GenericTextarea from '../form/Controls/GenericTextArea'
-import GenericSelect from '../form/Controls/GenericSelect'
+import GenericTextarea from '../../form/Controls/GenericTextArea'
+import GenericSelect from '../../form/Controls/GenericSelect'
 import InspeccionForm from './InformacionEquipo/InspeccionForm'
 import { EquipoSection } from './InformacionEquipo/InformacionEquipo'
-import { WindowProps } from './MantenimientoIngreso'
+import { WindowProps } from '../MantenimientoIngreso'
 import {
     getInformacionActivo,
+    getInformacionActivoAsignado,
     getObtenerActivoOrden,
     postActivo,
     postActivoNuevo,
-} from '../../services/ORDEN/activoApi'
+} from './services/activoApi'
 import { th } from 'framer-motion/client'
-import { useModalActions } from '../../hooks/useModalActions'
+import { useModalActions } from '../../../hooks/useModalActions'
 
 export default function FormularioEquipo({ handleClose, handleSave, N_ORDEN, orden }: WindowProps) {
     const form = useForm()
@@ -27,7 +28,7 @@ export default function FormularioEquipo({ handleClose, handleSave, N_ORDEN, ord
 
     const equipoSeleccionado = watch('equipo')
     React.useEffect(() => {
-        getObtenerActivoOrden(orden.idOrden!).then(data => {
+        getInformacionActivoAsignado(orden.idOrden!).then(data => {
             console.log('Activo asociado a la orden:', data)
             console.log(data.nombreComercial)
             form.reset(data)

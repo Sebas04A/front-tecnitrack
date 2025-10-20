@@ -4,12 +4,12 @@ import { tabsInfoType } from '../../types/profile.types'
 import { FaCogs, FaDesktop, FaSignInAlt, FaTools, FaUserCircle } from 'react-icons/fa'
 
 import BaseModal from '../common/modals/BaseModal'
-import FormularioEquipo from './FormularioEquipo'
-import MantenimientoForm from './MantenimientoForm'
-import InspeccionForm from './InformacionEquipo/InspeccionForm'
+import FormularioEquipo from './Equipo/FormularioEquipo'
+import MantenimientoForm from './Mantenimiento/MantenimientoForm'
+import InspeccionForm from './Equipo/InformacionEquipo/InspeccionForm'
 
-import InformacionGeneral from './InformacionGeneral'
-import Orden from './Orden'
+import InformacionGeneral from './InformacionGeneral/InformacionGeneral'
+import Orden from './Orden/Orden'
 import { BaseModalProps } from '../../types/modal.types'
 import { useModalActions } from '../../hooks/useModalActions'
 

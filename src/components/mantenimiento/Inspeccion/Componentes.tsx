@@ -1,5 +1,5 @@
 import React from 'react'
-import ComponentesCrud from './InformacionEquipo/ComponentesCrud'
+import ComponentesCrud from '../Equipo/InformacionEquipo/ComponentesCrud'
 
 export default function Componentes({ N_ORDEN }: { N_ORDEN: number }) {
     return (

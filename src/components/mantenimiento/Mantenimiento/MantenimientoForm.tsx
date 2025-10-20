@@ -1,18 +1,18 @@
 import { useEffect } from 'react'
-import GenericForm from '../form/GenericForm'
-import GenericSelect from '../form/Controls/GenericSelect'
+import GenericForm from '../../form/GenericForm'
+import GenericSelect from '../../form/Controls/GenericSelect'
 import { useForm } from 'react-hook-form'
 
-import GenericSelectSearch from '../form/Controls/GenericSelectSearch'
-import GenericRowForm from '../form/GenericRowForm'
-import GenericTextarea from '../form/Controls/GenericTextArea'
-import { WindowProps } from './MantenimientoIngreso'
+import GenericSelectSearch from '../../form/Controls/GenericSelectSearch'
+import GenericRowForm from '../../form/GenericRowForm'
+import GenericTextarea from '../../form/Controls/GenericTextArea'
+import { WindowProps } from '../MantenimientoIngreso'
 
-import { getDatosMantenimiento, postMantenimiento } from '../../services/ORDEN/mantenimiento'
+import { getDatosMantenimiento, postMantenimiento } from '../../../services/ORDEN/mantenimiento'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { mantenimientoValidationSchema } from '../../validation/IngresoOrden/mantenimiento'
-import { getTecnicosSearch } from '../../services/Select/usuariosSearch'
-import { Option } from '../../types/form'
+import { mantenimientoValidationSchema } from '../../../validation/IngresoOrden/mantenimiento'
+import { getTecnicosSearch } from '../../../services/Select/usuariosSearch'
+import { Option } from '../../../types/form'
 
 // const defaultValues = {
 //     tipoMantenimiento: 'Correctivo',

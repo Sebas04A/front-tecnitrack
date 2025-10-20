@@ -7,6 +7,8 @@ export { CancelablePromise, CancelError } from './core/CancelablePromise';
 export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
+export type { ActivoAsociadoOrdenResponse } from './models/ActivoAsociadoOrdenResponse';
+export type { ActivoAsociadoOrdenResponseApiResponse } from './models/ActivoAsociadoOrdenResponseApiResponse';
 export type { ActivoCreateUpdateRequest } from './models/ActivoCreateUpdateRequest';
 export type { ActivoDto } from './models/ActivoDto';
 export type { ActivoDtoPagedResponse } from './models/ActivoDtoPagedResponse';
@@ -133,6 +135,7 @@ export type { ListarOrdenesActivasDto } from './models/ListarOrdenesActivasDto';
 export type { ListarOrdenesActivasDtoPagedResponse } from './models/ListarOrdenesActivasDtoPagedResponse';
 export type { MantenimientoProgramadoResponse } from './models/MantenimientoProgramadoResponse';
 export type { MarcaCreateUpdateRequest } from './models/MarcaCreateUpdateRequest';
+export type { MarcaInfo } from './models/MarcaInfo';
 export type { MisCitasResponse } from './models/MisCitasResponse';
 export type { MisCitasResponsePagedResponse } from './models/MisCitasResponsePagedResponse';
 export type { ObjectApiResponse } from './models/ObjectApiResponse';
@@ -161,7 +164,9 @@ export type { RestablecerPasswordRequest } from './models/RestablecerPasswordReq
 export type { SolicitarRestablecimientoRequest } from './models/SolicitarRestablecimientoRequest';
 export type { StringIEnumerableApiResponse } from './models/StringIEnumerableApiResponse';
 export type { SubTipoActivoCreateUpdateRequest } from './models/SubTipoActivoCreateUpdateRequest';
+export type { SubtipoActivoInfo } from './models/SubtipoActivoInfo';
 export type { TipoActivoCreateUpdateRequest } from './models/TipoActivoCreateUpdateRequest';
+export type { TipoActivoInfo } from './models/TipoActivoInfo';
 export type { TipoClienteResponse } from './models/TipoClienteResponse';
 export type { TipoClienteResponseApiResponse } from './models/TipoClienteResponseApiResponse';
 

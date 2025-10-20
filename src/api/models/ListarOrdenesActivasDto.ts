@@ -9,10 +9,13 @@ export type ListarOrdenesActivasDto = {
     fechaIngresoOrden?: string;
     idCliente?: number;
     cliente?: string | null;
+    equipo?: string | null;
     idActivoAsociado?: number;
     nombreComercial?: string | null;
     idMantenimiento?: number;
+    tipoMantenimiento?: string | null;
     tecnicoAsignado?: string | null;
+    tecnicoAsignadoId?: number;
     prioridad?: string | null;
     estadoMantenimiento?: string | null;
 };
