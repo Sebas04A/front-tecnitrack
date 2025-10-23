@@ -5,6 +5,7 @@
 export type ListarOrdenesActivasDto = {
     idOrden?: number;
     numeroOrden?: string | null;
+    idCita?: number | null;
     estado?: string | null;
     fechaIngresoOrden?: string;
     idCliente?: number;

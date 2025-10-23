@@ -20,12 +20,14 @@ function SoloEquipoForm({
     control,
     blockForm,
     watch,
+    readOnly,
 }: {
     ordenId: number
     register: ReturnType<typeof useForm>['register']
     control: any
     blockForm: boolean
     watch: ReturnType<typeof useForm>['watch']
+    readOnly: boolean
 }) {
     const tipoEquipo = watch('tipoEquipo')
     const subtipo = watch('subtipo')
@@ -46,7 +48,7 @@ function SoloEquipoForm({
                     label='Tipo Equipo'
                     control={control}
                     name='tipoEquipo'
-                    isReadOnly={blockForm}
+                    isReadOnly={readOnly}
                     getOptions={obtenerTiposActivosSelect}
                     required={true}
                     mostrarEspacioError={true}
@@ -64,7 +66,7 @@ function SoloEquipoForm({
                     //     { label: 'Router', value: '4' },
                     // ]}
                     refreshKey={[tipoEquipo]}
-                    isReadOnly={blockForm}
+                    isReadOnly={readOnly}
                     mostrarEspacioError={true}
                     required={true}
                 />
@@ -74,7 +76,7 @@ function SoloEquipoForm({
                     placeholder='Ingrese el Nombre Comercial'
                     register={register}
                     name='nombreComercial'
-                    isReadOnly={blockForm}
+                    isReadOnly={readOnly}
                     required={true}
                     mostrarEspacioError={true}
                 />
@@ -86,7 +88,7 @@ function SoloEquipoForm({
                     control={control}
                     name='marca'
                     tipoCatalogo='marcaEquipo'
-                    isReadOnly={blockForm || !subtipo}
+                    isReadOnly={readOnly || !subtipo}
                     mostrarEspacioError={true}
                     required={true}
                     getOptions={obtenerMarcaOptions}
@@ -98,7 +100,7 @@ function SoloEquipoForm({
                     placeholder='Ingrese el Modelo'
                     register={register}
                     name='modelo'
-                    isReadOnly={blockForm}
+                    isReadOnly={readOnly}
                     required={true}
                     mostrarEspacioError={true}
                 />
@@ -107,7 +109,7 @@ function SoloEquipoForm({
                     placeholder='Ingrese el Número de Serie'
                     register={register}
                     name='numeroSerie'
-                    isReadOnly={blockForm}
+                    isReadOnly={readOnly}
                     required={true}
                     mostrarEspacioError={true}
                 />
@@ -120,10 +122,14 @@ export function EquipoSection({
     ordenId,
     form,
     blockForm,
+    estaEditando,
+    readOnly,
 }: {
     ordenId: number
     form: ReturnType<typeof useForm>
     blockForm: boolean
+    estaEditando?: boolean
+    readOnly?: boolean
 }) {
     return (
         <GenericSection>
@@ -133,6 +139,7 @@ export function EquipoSection({
                 control={form.control}
                 name='equipo'
                 fetchOptions={q => buscarSelectActivo(ordenId, q)}
+                isReadOnly={blockForm || readOnly}
             />
             <div className='px-6 mt-2'>
                 <SoloEquipoForm
@@ -141,6 +148,7 @@ export function EquipoSection({
                     blockForm={blockForm}
                     register={form.register}
                     watch={form.watch}
+                    readOnly={blockForm || (readOnly ?? false)}
                 />
             </div>
         </GenericSection>

@@ -124,6 +124,8 @@ export default function CrudCrudo<
         console.warn('Filters changed:', filters)
         setFilters(filters)
     }
+    const modalActions = useModalActions()
+
     const load = async (p = pagination.currentPage, s = search) => {
         console.log(
             'Loading data for page:',
@@ -150,6 +152,11 @@ export default function CrudCrudo<
             setPagination(res.pagination)
         } catch (e) {
             console.error('Error cargando datos CRUD', e)
+            modalActions.showAlert({
+                title: 'Error',
+                message: e instanceof Error ? e.message : 'Error desconocido',
+                type: 'error',
+            })
         } finally {
             setLoading(false)
         }

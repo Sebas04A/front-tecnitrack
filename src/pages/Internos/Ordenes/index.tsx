@@ -1,4 +1,4 @@
-import CrudOrdenes from './Crud/components/CrudOrdenes'
+import CrudOrdenes from './Crud/CrudOrdenes'
 
 export function OrdenPage() {
     return (

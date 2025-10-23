@@ -1,5 +1,5 @@
 import { EstadoComponenteIngresoResponse } from '../../api'
-import { ComponenteData } from '../../components/mantenimiento/Equipo/InformacionEquipo/ComponentesCrud'
+import { ComponenteData } from '../../components/mantenimiento/Equipo/InformacionEquipo/CrudComponentes/ComponentesCrud'
 
 export const parseComponentesTable = (
     data: EstadoComponenteIngresoResponse[]

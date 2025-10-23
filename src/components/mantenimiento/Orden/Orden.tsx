@@ -10,7 +10,7 @@ import GenericSelectSearch, { FetchFunction } from '../../form/Controls/GenericS
 import { useAuth } from '../../../hooks/useAuth'
 import { buscarUsuario } from '../../../services/SelectSearch'
 import { WindowProps } from '../MantenimientoIngreso'
-import { getInformacionOrden, postOrden } from '../../../services/ORDEN/ordenApi'
+import { getInformacionOrden, postOrden } from './services/ordenApi'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { OrderFormData, orderValidationSchema } from '../../../validation/IngresoOrden/orden'
 import { getInspectoresSearch } from '../../../services/Select/usuariosSearch'
@@ -34,7 +34,7 @@ const defaultValues = {
     observacionesIngreso: '',
 }
 
-export default function Orden({ handleClose, handleSave, N_ORDEN, orden }: WindowProps) {
+export default function Orden({ handleClose, handleSave, orden, readOnly }: WindowProps) {
     const auth = useAuth()
     const [nombreUsuario, setNombreUsuario] = React.useState<string>('Cargando...')
 
@@ -49,10 +49,10 @@ export default function Orden({ handleClose, handleSave, N_ORDEN, orden }: Windo
     const { register, handleSubmit, reset } = form
     const onSubmit = (data: OrderFormData) => {
         console.log('GUARDANDO DATA', data)
-        if (!orden.idOrden) throw new Error('La orden no tiene un ID válido')
+        if (!orden.id) throw new Error('La orden no tiene un ID válido')
         const idLoading = modal.showLoading('Guardando Orden...')
         try {
-            const res = postOrden(data, orden.idOrden)
+            const res = postOrden(data, orden.id)
             modal.closeModal(idLoading)
             modal.showAlert({
                 title: 'Éxito',
@@ -93,7 +93,7 @@ export default function Orden({ handleClose, handleSave, N_ORDEN, orden }: Windo
     }
 
     useEffect(() => {
-        getInformacionOrden(orden.idOrden!)
+        getInformacionOrden(orden.id!)
             .then(data => {
                 if (!data) throw new Error('No se encontraron datos de la orden')
                 console.log('DataObtenida', { data })
@@ -107,6 +107,7 @@ export default function Orden({ handleClose, handleSave, N_ORDEN, orden }: Windo
 
                         reset({ ...data })
                     })
+                console.log('Resetear formulario con data:', data)
                 reset({
                     ...data,
                 })
@@ -197,12 +198,16 @@ export default function Orden({ handleClose, handleSave, N_ORDEN, orden }: Windo
                     control={form.control}
                     name='inspeccionadoPor'
                     fetchOptions={fetchInspectores}
+                    selectedLabel={form.getValues('inspeccionadoPor') as unknown as string}
+                    isReadOnly={readOnly}
+                    mostrarEspacioError={!readOnly}
                 />
                 <GenericSelect
                     label='Taller/Bodega'
                     control={form.control}
                     name='tallerBodegaDestino'
                     tipoCatalogo='tallerBodega'
+                    isReadOnly={readOnly}
                 />
             </GenericRowForm>
             <GenericTextarea
@@ -210,6 +215,7 @@ export default function Orden({ handleClose, handleSave, N_ORDEN, orden }: Windo
                 register={register}
                 errors={form.formState.errors}
                 name='observacionesIngreso'
+                isReadOnly={readOnly}
             />
         </GenericForm>
     )

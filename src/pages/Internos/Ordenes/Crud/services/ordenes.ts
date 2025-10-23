@@ -1,4 +1,4 @@
-import { adapterFiltersCita } from '../../../../../adapters/cita'
+import { adapterFiltersCita } from '../../../Citas/Crud/adapter/cita'
 import { adapterFiltersParams } from '../../../../../adapters/filtersToParams'
 import { parsePagination } from '../../../../../adapters/pagination'
 import { GestionOrdenesService, ListarOrdenesActivasDto, OrdenesService } from '../../../../../api'

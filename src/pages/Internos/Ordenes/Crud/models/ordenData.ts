@@ -21,6 +21,8 @@ import { ColumnDef } from '../../../../../components/crudGrid'
 //     { key: 'progreso', header: 'Progreso', sortable: true },
 // ]
 export type OrdenData = {
+    id?: number
+    idCita: number
     numeroOrden: string
     fechaIngresoOrden: string
     clienteNombre: string

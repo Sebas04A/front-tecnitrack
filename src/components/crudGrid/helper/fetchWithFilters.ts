@@ -262,6 +262,7 @@ export function fetchDataCrudWithFilters<T, FilterType>({
             return data
         } catch (err) {
             console.error('Error fetching data:', err)
+            throw err
             return {
                 items: [],
                 pagination: {

@@ -96,7 +96,7 @@ export function OrdenesFilters({
                     control={form.control}
                     className='min-w-[21ch] flex-1'
                     mostrarEspacioError={false}
-                    // tipoCatalogo='ESTADO_ORDEN'
+                    tipoCatalogo='estadoOrden'
                 />
                 {/* <GenericSelect
                     name='Prioridad'

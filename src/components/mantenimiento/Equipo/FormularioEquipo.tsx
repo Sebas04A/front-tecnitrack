@@ -9,7 +9,7 @@ import GenericButton from '../../form/Controls/GenericButton'
 import { FaPlus } from 'react-icons/fa'
 import GenericTextarea from '../../form/Controls/GenericTextArea'
 import GenericSelect from '../../form/Controls/GenericSelect'
-import InspeccionForm from './InformacionEquipo/InspeccionForm'
+import InspeccionForm from '../Inspeccion/InspeccionForm'
 import { EquipoSection } from './InformacionEquipo/InformacionEquipo'
 import { WindowProps } from '../MantenimientoIngreso'
 import {
@@ -21,14 +21,21 @@ import {
 } from './services/activoApi'
 import { th } from 'framer-motion/client'
 import { useModalActions } from '../../../hooks/useModalActions'
+import { useModal } from '../../../hooks/useModal'
 
-export default function FormularioEquipo({ handleClose, handleSave, N_ORDEN, orden }: WindowProps) {
+export default function FormularioEquipo({
+    handleClose,
+    handleSave,
+    estaEditando,
+    orden,
+    readOnly,
+}: WindowProps) {
     const form = useForm()
+    const [confirmoEditar, setConfirmoEditar] = React.useState(false)
     const { register, handleSubmit, watch } = form
-
     const equipoSeleccionado = watch('equipo')
     React.useEffect(() => {
-        getInformacionActivoAsignado(orden.idOrden!).then(data => {
+        getInformacionActivoAsignado(orden.id!).then(data => {
             console.log('Activo asociado a la orden:', data)
             console.log(data.nombreComercial)
             form.reset(data)
@@ -50,17 +57,37 @@ export default function FormularioEquipo({ handleClose, handleSave, N_ORDEN, ord
     }, [equipoSeleccionado])
 
     const modalActions = useModalActions()
-    const onSubmit = handleSubmit(data => {
+    const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        if (estaEditando && !confirmoEditar) {
+            modalActions.showConfirm({
+                title: 'Confirmar Edición',
+                message:
+                    'Está a punto de editar un activo ya asignado a una orden. ¿Desea continuar?',
+                onConfirm: () => {
+                    // setConfirmoEditar(true)
+                    submit(e)
+                },
+                onCancel: () => {
+                    return form.reset()
+                },
+                type: 'warning',
+            })
+        } else {
+            submit(e)
+        }
+    }
+    const submit = handleSubmit(data => {
         console.log({ equipoSeleccionado })
         console.log('data a submit', data)
-        if (!orden || !orden.idOrden) throw new Error('No se recibió orden id en FormularioEquipo')
+        if (!orden || !orden.id) throw new Error('No se recibió orden id en FormularioEquipo')
         const id = modalActions.showLoading('Guardando Activo...')
         try {
             if (data.equipo) {
-                postActivo(data, orden.idOrden!)
+                postActivo(data, orden.id!)
                 handleSave()
             } else {
-                postActivoNuevo(data, orden.idOrden!)
+                postActivoNuevo(data, orden.id!)
             }
             modalActions.closeModal(id)
             modalActions.showAlert({
@@ -94,12 +121,19 @@ export default function FormularioEquipo({ handleClose, handleSave, N_ORDEN, ord
                 onCancel={onCancel}
                 title='Informacion Equipo'
             >
-                <EquipoSection form={form} blockForm={blockForm} ordenId={orden.idOrden ?? -1} />
+                <EquipoSection
+                    estaEditando={estaEditando}
+                    form={form}
+                    blockForm={blockForm}
+                    ordenId={orden.id ?? -1}
+                    readOnly={readOnly}
+                />
                 <GenericTextarea
                     label='Accesorios'
                     placeholder='Ingrese los Accesorios'
                     register={register}
                     name='accesorios'
+                    isReadOnly={readOnly}
                 />
             </GenericForm>
 

@@ -2,7 +2,7 @@ import { FaArrowLeft, FaEnvelope, FaMapMarkerAlt, FaUser } from 'react-icons/fa'
 
 import { useModalActions } from '../../hooks/useModalActions'
 import { TIPO_PERSONA_TYPE } from '../../constants/perfil'
-import FormsUnidos from './FormsUnidos'
+import FormsUnidos from './forms/FormsUnidos'
 
 export default function ContainerForm({
     tipoPersona,

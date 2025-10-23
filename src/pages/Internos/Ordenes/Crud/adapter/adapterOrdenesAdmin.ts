@@ -6,6 +6,7 @@ export const mapperOrdenesAdminToApi: Record<
     keyof OrdenData,
     keyof ListarOrdenesActivasDto | undefined
 > = {
+    id: 'idOrden',
     numeroOrden: 'numeroOrden',
     fechaIngresoOrden: 'fechaIngresoOrden',
     clienteNombre: 'cliente',
@@ -15,6 +16,7 @@ export const mapperOrdenesAdminToApi: Record<
     tipoMantenimiento: 'tipoMantenimiento',
     equipoNombre: 'equipo',
     progreso: undefined,
+    idCita: 'idCita',
 }
 
 export const mapperApiToOrdenesAdmin: Record<keyof ListarOrdenesActivasDto, keyof OrdenData> =

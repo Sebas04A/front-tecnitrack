@@ -97,7 +97,7 @@ export function createApiSearchFunction<
             ...config.filterAdapter(filters.filters),
             ordenarPor: apiSortKey,
             direccion: filters.sortColumns.dir ?? 'desc',
-        } as ApiSearchParams
+        }
         console.log(`Parámetros para la API de ${entityName}:`, apiParams)
 
         // Realizamos la llamada a la API

@@ -1,16 +1,17 @@
 import React, { useMemo } from 'react'
 import { ColumnDef, CrudContainer, crudQueries } from '../../components/crudGrid'
-import { CitaDataCrud } from '../../types/cita'
+
 import { CitaClienteDataForm, CitaClienteSchema, CitaData } from '../../validation/cita.schema'
-import FormCitas from '../../components/crudGrid/cruds/Citas/FormCitas'
+
 import { Resolver, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { makeLocalCrudFetcher } from '../../components/crudGrid/helper/crud-helpers'
 import { crearCita, editCita, eliminarCita, obtenerCitasCliente } from '../../services/citasApi'
-import { CitasFilters } from '../../components/crudGrid/cruds/Citas/CitasFilters'
+import { CitasFilters } from '../Internos/Citas/Crud/components/CitasFilters'
 import { fetchDataCrudWithFilters } from '../../components/crudGrid/helper/fetchWithFilters'
 import { MisCitasResponse } from '../../api'
 import { CitasClienteDataType } from '../../types/cliente/Cita'
+import FormCitas from '../Internos/Citas/Crud/components/FormCitas'
 
 const stylesEstado = {
     Pendiente: 'bg-warning-auto',

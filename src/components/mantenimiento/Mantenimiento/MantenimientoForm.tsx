@@ -8,11 +8,11 @@ import GenericRowForm from '../../form/GenericRowForm'
 import GenericTextarea from '../../form/Controls/GenericTextArea'
 import { WindowProps } from '../MantenimientoIngreso'
 
-import { getDatosMantenimiento, postMantenimiento } from '../../../services/ORDEN/mantenimiento'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { mantenimientoValidationSchema } from '../../../validation/IngresoOrden/mantenimiento'
 import { getTecnicosSearch } from '../../../services/Select/usuariosSearch'
 import { Option } from '../../../types/form'
+import { getDatosMantenimiento, postMantenimiento } from './services/mantenimiento'
 
 // const defaultValues = {
 //     tipoMantenimiento: 'Correctivo',
@@ -22,8 +22,8 @@ import { Option } from '../../../types/form'
 export default function MantenimientoForm({
     handleClose,
     handleSave,
-    N_ORDEN,
     orden,
+    readOnly,
 }: WindowProps) {
     const form = useForm({
         // defaultValues,
@@ -37,13 +37,13 @@ export default function MantenimientoForm({
     }
     function onSubmit(data: any) {
         console.log('GUARDANDO DATA', data)
-        postMantenimiento(data, orden.idOrden!)
+        postMantenimiento(data, orden.id!)
         handleSave()
     }
 
     useEffect(() => {
         // cargar datos de mantenimiento
-        getDatosMantenimiento(orden.idOrden!).then(data => {
+        getDatosMantenimiento(orden.id!).then(data => {
             console.log({ data })
             form.reset(data)
         })
@@ -89,7 +89,8 @@ export default function MantenimientoForm({
                         tipoCatalogo='tipoMantenimiento'
                         placeholderOptionLabel='Seleccione un tipo de mantenimiento'
                         // isReadOnly={true}
-                        mostrarEspacioError={true}
+                        mostrarEspacioError={!readOnly}
+                        isReadOnly={readOnly}
                     />
                     <GenericSelect
                         label='Prioridad'
@@ -97,6 +98,7 @@ export default function MantenimientoForm({
                         name='prioridad'
                         tipoCatalogo='prioridad'
                         placeholderOptionLabel='Seleccione una prioridad'
+                        isReadOnly={readOnly}
                     />
                 </GenericRowForm>
                 <GenericTextarea
@@ -104,6 +106,7 @@ export default function MantenimientoForm({
                     register={register}
                     errors={form.formState.errors}
                     name='descripcionProblema'
+                    isReadOnly={readOnly}
                     // isReadOnly={true}
                 />
                 <GenericRowForm>
@@ -112,6 +115,8 @@ export default function MantenimientoForm({
                         control={form.control}
                         name='tecnico'
                         fetchOptions={fetchTecnicos}
+                        isReadOnly={readOnly}
+                        mostrarEspacioError={!readOnly}
                     />
                     <GenericSelect
                         label='Condición General'
@@ -119,6 +124,7 @@ export default function MantenimientoForm({
                         name='estado'
                         tipoCatalogo='CondicionGeneral'
                         placeholderOptionLabel='Seleccione un estado'
+                        isReadOnly={readOnly}
                     />
                 </GenericRowForm>
                 <GenericTextarea
@@ -126,6 +132,7 @@ export default function MantenimientoForm({
                     register={register}
                     errors={form.formState.errors}
                     name='observaciones'
+                    isReadOnly={readOnly}
                 />
             </GenericForm>
         </div>

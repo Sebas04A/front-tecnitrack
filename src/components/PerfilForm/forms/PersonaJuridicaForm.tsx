@@ -19,7 +19,7 @@ import { useModalActions } from '../../../hooks/useModalActions'
 import {
     crearPerfilJuridicoAdmin,
     updatePerfilJuridicoAdmin,
-} from '../../../services/Interno/Clientes/juridico'
+} from '../../../pages/Internos/Clientes/Cruds/CrudEmpresa/services/juridico'
 import {
     crearPerfilJuridico,
     updatePerfilJuridico,

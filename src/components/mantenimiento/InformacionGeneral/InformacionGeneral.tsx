@@ -22,7 +22,7 @@ import { getInformacionGeneralOrden } from '../../../services/ORDEN/informacionA
 export default function InformacionGeneral({
     // handleClose,
     change,
-    N_ORDEN,
+    orden,
 }: WindowProps & { change: () => void }) {
     const form = useForm({
         // defaultValues,
@@ -32,7 +32,7 @@ export default function InformacionGeneral({
         formState: { errors },
     } = form
     useEffect(() => {
-        getInformacionGeneralOrden(N_ORDEN).then(data => {
+        getInformacionGeneralOrden(orden.idCita).then(data => {
             form.reset(data)
         })
     }, [])

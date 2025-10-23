@@ -24,7 +24,7 @@ import GenericSelect from '../../form/Controls/GenericSelect'
 import {
     crearPerfilNaturaAdmin,
     updatePerfilNaturalAdmin,
-} from '../../../services/Interno/Clientes/natural'
+} from '../../../pages/Internos/Clientes/Cruds/CrudNatural/services/natural'
 import { updatePerfilNatural } from '../../../services/Cliente/Clientes/natural'
 
 export default function PersonaNaturalForm({

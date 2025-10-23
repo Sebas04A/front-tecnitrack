@@ -6,7 +6,7 @@ import { FaCogs, FaDesktop, FaSignInAlt, FaTools, FaUserCircle } from 'react-ico
 import BaseModal from '../common/modals/BaseModal'
 import FormularioEquipo from './Equipo/FormularioEquipo'
 import MantenimientoForm from './Mantenimiento/MantenimientoForm'
-import InspeccionForm from './Equipo/InformacionEquipo/InspeccionForm'
+import InspeccionForm from './Inspeccion/InspeccionForm'
 
 import InformacionGeneral from './InformacionGeneral/InformacionGeneral'
 import Orden from './Orden/Orden'
@@ -14,6 +14,7 @@ import { BaseModalProps } from '../../types/modal.types'
 import { useModalActions } from '../../hooks/useModalActions'
 
 import { OrdenResponse } from '../../api'
+import { OrdenData } from '../../pages/Internos/Ordenes/Crud/models/ordenData'
 
 type tabsTypes =
     | 'informacion'
@@ -37,15 +38,23 @@ const tabs: tabsInfoType<tabsTypes> = [
 export interface WindowProps {
     handleClose: () => void
     handleSave: () => void
-    N_ORDEN: number
-    orden: OrdenResponse
+    estaEditando?: boolean
+    orden: OrdenData
+    readOnly?: boolean
 }
 
 export default function MantenimientoIngreso({
-    N_ORDEN = 1,
     orden,
-}: BaseModalProps & { N_ORDEN: number; orden: OrdenResponse }) {
-    console.warn('MantenimientoIngreso render', { N_ORDEN, orden })
+    readOnlyCampos,
+    estaEditando = false,
+    readOnly = false,
+}: BaseModalProps & {
+    orden: OrdenData
+    readOnlyCampos?: Record<keyof OrdenData, boolean>
+    estaEditando?: boolean
+    readOnly?: boolean
+}) {
+    console.warn('MantenimientoIngreso render', { orden })
 
     const [activeTab, setActiveTab] = React.useState<tabsTypes>('informacion')
 
@@ -53,7 +62,7 @@ export default function MantenimientoIngreso({
     function changeActiveTab(tab: tabsTypes) {
         console.log('Cambiando a tab', tab)
         console.log('Tab actual', activeTab)
-        if (activeTab === 'informacion') return setActiveTab(tab)
+        if (activeTab === 'informacion' || readOnly) return setActiveTab(tab)
         modalActions.showConfirm({
             title: '¿Está seguro de que desea cambiar de pestaña?',
             message: 'Si cambia de pestaña, se perderán los datos no guardados. ¿Desea continuar?',
@@ -119,33 +128,35 @@ export default function MantenimientoIngreso({
                         <InformacionGeneral
                             handleClose={handleClose}
                             handleSave={handleSave}
-                            N_ORDEN={N_ORDEN}
                             orden={orden}
                             change={changeNextTab}
+                            // readonly={readonly}
                         />
                     )}
                     {activeTab === 'orden' && (
                         <Orden
                             handleClose={handleClose}
                             handleSave={handleSave}
-                            N_ORDEN={N_ORDEN}
                             orden={orden}
+                            readOnly={readOnly}
                         />
                     )}
                     {activeTab === 'equipo' && (
                         <FormularioEquipo
                             handleClose={handleClose}
                             handleSave={handleSave}
-                            N_ORDEN={N_ORDEN}
                             orden={orden}
+                            estaEditando={estaEditando}
+                            readOnly={readOnly}
                         />
                     )}
                     {activeTab === 'componentes' && (
                         <InspeccionForm
                             handleClose={handleClose}
                             handleSave={handleSave}
-                            N_ORDEN={N_ORDEN}
+                            estaEditando={estaEditando}
                             orden={orden}
+                            readOnly={readOnly}
                         />
                     )}
                     {/* {activeTab === 'direccion' && <FormularioEquipo />} */}
@@ -154,8 +165,10 @@ export default function MantenimientoIngreso({
                         <MantenimientoForm
                             handleClose={handleClose}
                             handleSave={handleSave}
-                            N_ORDEN={N_ORDEN}
+                            // ID_CITA={orden.idCita || 0}
                             orden={orden}
+                            estaEditando={estaEditando}
+                            readOnly={readOnly}
                         />
                     )}
                     {/* {activeTab === 'contacto' && <InspeccionForm />} */}
