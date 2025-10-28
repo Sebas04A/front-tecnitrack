@@ -1,17 +1,26 @@
 import { adapterFiltersParams } from '../../../../../adapters/filtersToParams'
 import { parsePagination } from '../../../../../adapters/pagination'
-import { EditarCitaClienteRequest, GestionCitasService } from '../../../../../api'
+import {
+    CrearOrdenConNumeroRequest,
+    EditarCitaClienteRequest,
+    GestionCitasService,
+    OrdenesService,
+    OrdenResponse,
+} from '../../../../../api'
 import {
     FetchParams,
     FetchReturn,
 } from '../../../../../components/crudGrid/helper/fetchWithFilters'
+import { parseAdapterOrden } from '../../../../../components/mantenimiento/Orden/adapters/orden'
 import { createApiSearchFunction } from '../../../../../services/generalGetWithFilters'
+import { OrdenData } from '../../../Ordenes/Crud/models/ordenData'
 import {
     adapterCitaAdmin,
     adapterFiltersCita,
     mapperCitaAdminDataToApi,
     parseCitasAdmin,
 } from '../adapter/cita'
+import { parseOrden } from '../adapter/orden'
 import { CitaDataCrud } from '../models/citaCrudModel'
 import { CitasFiltersType } from '../models/citaFiltersType'
 import { CitaDataForm } from '../models/validationCitaCrud'
@@ -77,4 +86,16 @@ export const eliminarCitaAdmin = async (citaId: number): Promise<any> => {
         id: citaId,
     })
     return requestBody
+}
+
+export const crearOrden = async (citaId: number): Promise<OrdenData> => {
+    const requestBody: CrearOrdenConNumeroRequest = {
+        citaId: citaId,
+    }
+    const res = await OrdenesService.postApiOrdenesCrearOrdenConNumero({ requestBody })
+    console.log('Orden creada:', res)
+    if (!res.data) {
+        throw new Error('No se recibió data al crear la orden')
+    }
+    return parseOrden(res.data)
 }

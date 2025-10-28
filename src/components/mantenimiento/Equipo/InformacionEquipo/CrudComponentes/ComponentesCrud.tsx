@@ -39,7 +39,13 @@ const defaultValues = {
     seguimiento: false,
 }
 
-export default function ComponentesCrud({ N_ORDEN }: { N_ORDEN: number }) {
+export default function ComponentesCrud({
+    N_ORDEN,
+    readOnly,
+}: {
+    N_ORDEN: number
+    readOnly: boolean
+}) {
     const form = useForm<ComponenteFormData>({
         resolver: yupResolver(validacionComponentes) as any,
     })
@@ -81,6 +87,11 @@ export default function ComponentesCrud({ N_ORDEN }: { N_ORDEN: number }) {
             const res = await deleteEstadosComponentes(Number(id))
             return res
         },
+    }
+    if (readOnly) {
+        crudQueries.createQuery = undefined
+        crudQueries.editQuery = undefined
+        crudQueries.deleteQuery = undefined
     }
 
     const formModal: formModalCrudProps = {

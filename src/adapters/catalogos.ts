@@ -1,6 +1,6 @@
 import { CatalogoDto } from '../api'
 import { Option } from '../types/form'
-import { CatalogoFormData } from '../validation/catalogo.schema'
+import { CatalogoFormData } from '../pages/Internos/catalogo/generales/models/catalogo.schema'
 
 export function obtenerCatalogos(data: CatalogoDto[]): Option[] {
     if (!data) return []

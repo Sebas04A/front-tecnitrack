@@ -57,3 +57,7 @@ export const obtenerOrdenesAsignadasInternoFetcher = createApiSearchFunction<
     dataParser: adapterOrdenesAdminFromApi,
     entityName: 'Órdenes Asignadas Interno',
 })
+export const deleteOrden = async (id: number) => {
+    const res = await GestionOrdenesService.deleteApiGestionOrdenesEliminarOrden({ id })
+    return res.data
+}

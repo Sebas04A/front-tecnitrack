@@ -1,7 +1,9 @@
 import {
     ActivosService,
     AsociarActivoOrdenRequest,
+    CambiarActivoAsociadoRequest,
     CrearActivoYAsociarRequest,
+    GestionOrdenesService,
     OrdenesService,
 } from '../../../../api'
 import { Option } from '../../../../types/form'
@@ -58,6 +60,19 @@ export const postActivo = async (data: any, N_ORDEN: number) => {
     const res = await OrdenesService.postApiOrdenesAsociarActivo({ id: N_ORDEN, requestBody })
     console.log('Activo guardado:', res)
     return { success: true }
+}
+export const updateActivo = async (data: any, N_ORDEN: number) => {
+    const requestBody: CambiarActivoAsociadoRequest = {
+        activoId: data.equipo,
+        accesoriosIncluidos: data.accesorios,
+    }
+    console.log('UPDATE ACTIVO EXISTENTE', { requestBody }, 'en orden', N_ORDEN)
+    const res = await GestionOrdenesService.putApiGestionOrdenesCambiarActivoAsociado({
+        id: N_ORDEN,
+        requestBody,
+    })
+    console.log('Activo actualizado:', res)
+    return res
 }
 
 export const postActivoNuevo = async (data: any, N_ORDEN: number) => {

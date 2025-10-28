@@ -93,3 +93,12 @@ export async function updatePerfilJuridicoAdmin(
         throw new Error('No se encontro el id del perfil jurídico')
     return res.data?.id
 }
+
+export async function deleteClienteEmpresa(clienteId: number) {
+    const res = await GestionClientesService.deleteApiGestionClientesEliminarClienteEmpresa({
+        clienteId,
+    })
+    // if (!res || !res.data || !res.data.id)
+    // throw new Error('')
+    return res
+}

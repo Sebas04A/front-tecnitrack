@@ -10,7 +10,7 @@ import GenericSelectSearch, { FetchFunction } from '../../form/Controls/GenericS
 import { useAuth } from '../../../hooks/useAuth'
 import { buscarUsuario } from '../../../services/SelectSearch'
 import { WindowProps } from '../MantenimientoIngreso'
-import { getInformacionOrden, postOrden } from './services/ordenApi'
+import { getInformacionOrden, postOrden, updateOrden } from './services/ordenApi'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { OrderFormData, orderValidationSchema } from '../../../validation/IngresoOrden/orden'
 import { getInspectoresSearch } from '../../../services/Select/usuariosSearch'
@@ -20,11 +20,6 @@ import { useModalActions } from '../../../hooks/useModalActions'
 import { citaSchema } from '../../../validation/cita.schema'
 import { convertirDateParaInput, obtenerDateActualEnEcuador } from '../../../adapters/fecha'
 
-// const defaultValues = {
-//     registradoPor: '',
-//     numeroOrden: 'Cargando...',
-//     fechaIngreso: 'Cargando...',
-// }
 const defaultValues = {
     numeroOrden: 'Cargando...',
     fechaIngreso: '',
@@ -34,25 +29,37 @@ const defaultValues = {
     observacionesIngreso: '',
 }
 
-export default function Orden({ handleClose, handleSave, orden, readOnly }: WindowProps) {
+export default function Orden({
+    handleClose,
+    handleSave,
+    orden,
+    readOnly,
+    estaEditando,
+}: WindowProps) {
     const auth = useAuth()
-    const [nombreUsuario, setNombreUsuario] = React.useState<string>('Cargando...')
 
     defaultValues.registradoPor = auth.user?.usuario || 'Usuario'
-    console.log({ defaultValues })
+
     const form = useForm({
         defaultValues,
         resolver: yupResolver(orderValidationSchema),
     })
+    const { register, handleSubmit, reset } = form
+
     const modal = useModalActions()
 
-    const { register, handleSubmit, reset } = form
-    const onSubmit = (data: OrderFormData) => {
+    const onSubmit = async (data: OrderFormData) => {
         console.log('GUARDANDO DATA', data)
         if (!orden.id) throw new Error('La orden no tiene un ID válido')
         const idLoading = modal.showLoading('Guardando Orden...')
         try {
-            const res = postOrden(data, orden.id)
+            let res
+            if (estaEditando) {
+                res = await updateOrden(data, orden.id)
+            } else {
+                res = await postOrden(data, orden.id)
+            }
+
             modal.closeModal(idLoading)
             modal.showAlert({
                 title: 'Éxito',
@@ -63,8 +70,8 @@ export default function Orden({ handleClose, handleSave, orden, readOnly }: Wind
             console.error('Error al guardar la orden:', error)
             modal.closeModal(idLoading)
             modal.showAlert({
-                title: 'Error',
-                message: 'Ocurrió un error al guardar la orden. Por favor, inténtelo de nuevo.',
+                title: 'Error al Guardar la Orden',
+                message: error instanceof Error ? error.message : 'Error desconocido',
                 type: 'error',
             })
             return
@@ -73,14 +80,6 @@ export default function Orden({ handleClose, handleSave, orden, readOnly }: Wind
         handleSave()
     }
 
-    useEffect(() => {
-        // const user = auth.user?.usuario
-        // buscarUsuario(user!).then(res => {
-        //     console.log({ res })
-        // })
-        // reset({ ...defaultValues })
-    }, [auth.user])
-
     function onCancel() {
         // reset({ ...defaultValues })
         handleClose()
@@ -88,7 +87,7 @@ export default function Orden({ handleClose, handleSave, orden, readOnly }: Wind
     async function fetchData() {
         const nombreLogeado = await getInformacionUsuarioActual()
         console.log('Usuario logeado', nombreLogeado)
-        setNombreUsuario(nombreLogeado?.nombre ?? 'No identificado')
+        // setNombreUsuario(nombreLogeado?.nombre ?? 'No identificado')
         return nombreLogeado?.nombre ?? 'No identificado'
     }
 
@@ -111,19 +110,6 @@ export default function Orden({ handleClose, handleSave, orden, readOnly }: Wind
                 reset({
                     ...data,
                 })
-                // data.fechaIngreso = new Date().toISOString().slice(0, 16)
-                // fetchData().then(nombre => {
-                //     console.log('Usuario logeado', nombre)
-                //     if (data.registradoPor === null) data.registradoPor = 'No identificado'
-                //     // reset({ numeroOrden: data.numeroOrden ?? "No" })
-                //     reset({
-                //         numeroOrden: data.numeroOrden ?? 'No encontrado',
-                //         fechaIngreso: data.fechaIngreso,
-                //         registradoPor: nombre,
-                //         tallerBodegaDestino: data.tallerBodegaDestino ?? null,
-                //         observacionesIngreso: data.observacionesIngreso ?? '',
-                //     })
-                // })
             })
             .catch(error => {
                 console.error('Error al obtener la orden:', error)
@@ -162,7 +148,7 @@ export default function Orden({ handleClose, handleSave, orden, readOnly }: Wind
 
     return (
         <GenericForm
-            showButtons={true}
+            showButtons={!readOnly}
             onSubmit={handleSubmit(onSubmit)}
             title='Orden'
             onCancel={onCancel}

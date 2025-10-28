@@ -79,7 +79,7 @@ export default function MantenimientoForm({
                 }}
                 title='Información Mantenimiento'
                 onCancel={resetearValores}
-                showButtons={true}
+                showButtons={!readOnly}
             >
                 <GenericRowForm>
                     <GenericSelect

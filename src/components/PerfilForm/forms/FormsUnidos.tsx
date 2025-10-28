@@ -29,13 +29,11 @@ const tabs: Array<{ key: TabKeyType; label: string; icon: JSX.Element }> = [
 ]
 export default function FormsUnidos({
     tipoPersona,
-    // dataProp,
     setDatosYaGuardados,
     clienteId,
     esCrud,
 }: {
     tipoPersona: TIPO_PERSONA_TYPE
-    // dataProp?: PerfilEmpresaData | PerfilPersonaNaturalData
     datosYaGuardados: boolean
     setDatosYaGuardados: (valor: boolean) => void
     clienteId?: number
@@ -109,16 +107,7 @@ export default function FormsUnidos({
         console.log('Guardando datos, loading ID:', id)
         setIdLoading(id)
     }
-    // function onSubmitError(errorMessage: string | undefined) {
-    //     console.log('Error al guardar datos:', errorMessage)
-    //     console.log('Cerrando loading con ID:', idLoading)
-    //     modal.closeModal(idLoading)
-    //     modal.showAlert({
-    //         title: 'Error al guardar',
-    //         message: errorMessage ?? 'Error desconocido',
-    //         type: 'error',
-    //     })
-    // }
+
     const onSubmitError = useCallback(
         (errorMessage: string | undefined) => {
             console.log('Error al guardar datos:', errorMessage)
@@ -170,20 +159,6 @@ export default function FormsUnidos({
                 console.log('Datos obtenidos cliente actual:', dataLocal)
             }
 
-            // if (clienteId === -1 && esCrud) {
-            //     console.log('Creando nuevo cliente, no se obtienen datos')
-            //     dataLocal = null
-            // } else if (clienteId) {
-            //     console.log('Obteniendo datos para cliente existente')
-            //     dataLocal = await (tipoPersona === TIPO_PERSONA.EMPRESA
-            //         ? getPerfilJuridicoById(clienteId)
-            //         : getPerfilNaturalById(clienteId))
-            //     console.log('Datos obtenidos cliente existente:', dataLocal)
-            // } else {
-            //     dataLocal = await (tipoPersona === TIPO_PERSONA.EMPRESA
-            //         ? getPerfilJuridico()
-            //         : getPerfilNatural())
-            // }
             console.log('Datos obtenidos :', dataLocal)
             setData(dataLocal)
             modal.closeModal(id)
@@ -279,8 +254,7 @@ export default function FormsUnidos({
                 activeTab={activeTab}
                 setActiveTab={(key: TabKeyType) => {
                     changeActiveTab(key)
-                    // setEstaEditando(false) // Cambia de pestaña y desactiva edición
-                    // activeForm.reset() // Resetea el formulario activo al cambiar de pestaña
+                   
                 }}
                 estaEditando={estaEditando}
                 // onToggleEdit={

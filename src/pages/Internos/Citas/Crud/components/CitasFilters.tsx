@@ -7,6 +7,7 @@ import GenericSelectState from '../../../../../components/form/Controls/GenericS
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { CitasFiltersType } from '../models/citaFiltersType'
+import { convertirDateParaInput } from '../../../../../adapters/fecha'
 
 export function CitasFilters({
     onChangeFilters,
@@ -14,7 +15,7 @@ export function CitasFilters({
     onChangeFilters: (filter: CitasFiltersType) => void
 }) {
     // console.warn('Renderizando CitasFilters')
-    const [dateRange, setDateRange] = useState([null, null])
+    const [dateRange, setDateRange] = useState<Date[] | null[]>([null, null])
     const [startDate, endDate] = dateRange
 
     const [filtros, setFiltros] = React.useState<CitasFiltersType>({
@@ -75,7 +76,7 @@ export function CitasFilters({
                     text='Limpiar'
                 />
             </div>
-            <div className='flex-1 flex  gap-4'>
+            {/* <div className='flex-1 flex  gap-4'>
                 <GenericDate
                     label='Fecha y hora inicio'
                     name='fechaInicio'
@@ -95,9 +96,9 @@ export function CitasFilters({
                     placeholder='Selecciona fecha y hora'
                     className='min-w-[21ch] flex-1'
                 />
-            </div>
+            </div> */}
             <div className='flex-1 flex  gap-4'>
-                <GenericDate
+                {/* <GenericDate
                     label='Fecha Inicio'
                     name='fechaInicio'
                     inputType='date'
@@ -105,17 +106,9 @@ export function CitasFilters({
                     onChange={e => setFiltros({ ...filtros, fechaInicio: e.target.value })}
                     placeholder='Selecciona fecha y hora'
                     className='min-w-[21ch] flex-1'
-                />
-                <GenericDate
-                    label='Hora inicio'
-                    name='horaInicio'
-                    inputType='time'
-                    // value={filtros.fechaInicio}
-                    // onChange={e => setFiltros({ ...filtros, fechaInicio: e.target.value })}
-                    placeholder='Selecciona fecha y hora'
-                    className='min-w-[21ch] flex-1'
-                />
-                <GenericDate
+                /> */}
+
+                {/* <GenericDate
                     label='Fecha Fin'
                     name='fechaFin'
                     inputType='date'
@@ -123,29 +116,74 @@ export function CitasFilters({
                     onChange={e => setFiltros({ ...filtros, fechaInicio: e.target.value })}
                     placeholder='Selecciona fecha y hora'
                     className='min-w-[21ch] flex-1'
+                /> */}
+            </div>
+
+            <div className='flex flex-wrap gap-4'>
+                <div className='flex flex-col justify-end flex-1 h-full min-w-[100px] mt-auto'>
+                    <label
+                        className='block mb-1 ms-1 text-xs sm:text-sm md:text-base '
+                        htmlFor={'fechaRango'}
+                    >
+                        {'Rango Fechas'}
+                    </label>
+                    <DatePicker
+                        name='fechaRango'
+                        timeInputLabel='Gola'
+                        selectsRange={true}
+                        startDate={startDate}
+                        endDate={endDate}
+                        isClearable
+                        toggleCalendarOnIconClick
+                        onChange={update => {
+                            console.log('Rango de fechas seleccionado:', update)
+                            const fechaInicio = update[0]
+                                ? convertirDateParaInput(update[0] as Date)
+                                : null
+                            const fechaFin = update[1]
+                                ? convertirDateParaInput(update[1] as Date)
+                                : null
+                            setFiltros({
+                                ...filtros,
+                                fechaInicio: fechaInicio ?? '',
+                                fechaFin: fechaFin ?? '',
+                            })
+                            const datos = update as Date[]
+                            setDateRange(datos)
+                        }}
+                        // isClearable={true} // Permite borrar la selección
+                        placeholderText='Selecciona un rango de fechas'
+                        className='w-full p-2 border border-gray-300 rounded-md h-[3rem] bg-background-auto  border-gray-300' // Adapta las clases a tu diseño
+                    />
+                </div>
+                <GenericDate
+                    label='Hora inicio'
+                    name='horaInicio'
+                    inputType='time'
+                    value={filtros.fechaInicio.split('T')[1] || ''}
+                    onChange={e => {
+                        let fechaInicio = filtros.fechaInicio.split('T')[0]
+                        fechaInicio = fechaInicio ? fechaInicio : '1970-01-01'
+                        fechaInicio += 'T' + e.target.value
+
+                        setFiltros({ ...filtros, fechaInicio: fechaInicio })
+                    }}
+                    placeholder='Selecciona fecha y hora'
+                    className='min-w-[21ch] flex-1'
                 />
                 <GenericDate
                     label='Hora Fin'
                     name='horaFin'
                     inputType='time'
-                    // value={filtros.fechaInicio}
-                    // onChange={e => setFiltros({ ...filtros, fechaInicio: e.target.value })}
+                    value={filtros.fechaFin.split('T')[1] || ''}
+                    onChange={e => {
+                        let fechaFin = filtros.fechaFin.split('T')[0]
+                        fechaFin = fechaFin ? fechaFin : '1970-01-01'
+                        fechaFin += 'T' + e.target.value
+                        setFiltros({ ...filtros, fechaFin: fechaFin })
+                    }}
                     placeholder='Selecciona fecha y hora'
                     className='min-w-[21ch] flex-1'
-                />
-            </div>
-
-            <div className='flex flex-wrap gap-4'>
-                <DatePicker
-                    selectsRange={true}
-                    startDate={startDate}
-                    endDate={endDate}
-                    onChange={update => {
-                        // setDateRange(update)
-                    }}
-                    isClearable={true} // Permite borrar la selección
-                    placeholderText='Selecciona un rango de fechas'
-                    className='w-full p-2 border border-gray-300 rounded-md' // Adapta las clases a tu diseño
                 />
 
                 <div className='flex-1 flex  gap-4'>

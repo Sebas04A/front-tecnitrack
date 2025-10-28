@@ -10,7 +10,7 @@ import {
     provinciaSchema,
     defaultProvinciaValues,
     ProvinciaFormData,
-} from '../../../../../validation/localidades.schema'
+} from '../../../../../pages/Internos/catalogo/localidades/localidades.schema'
 import {
     getProvincias,
     getProvinciaById,

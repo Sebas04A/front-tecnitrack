@@ -4,7 +4,7 @@ import {
     provinciaFormToApi,
 } from '../../adapters/localidades/provincias'
 import { LocalidadesService, ObjectApiResponse } from '../../api'
-import { ProvinciaFormData } from '../../validation/localidades.schema'
+import { ProvinciaFormData } from '../../pages/Internos/catalogo/localidades/localidades.schema'
 
 export async function getProvincias(): Promise<ProvinciaData[]> {
     const apiList = await LocalidadesService.getApiLocalidadesObtenerProvincias()

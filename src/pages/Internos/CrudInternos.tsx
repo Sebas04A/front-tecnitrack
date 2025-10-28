@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from 'react'
-import { ColumnDef, CrudContainer } from '../../components/crudGrid'
+import { ColumnDef, CrudContainer, crudQueries } from '../../components/crudGrid'
 import { UsuarioInternoData, usuarioInternoSchema } from '../../validation/usuarioInterno'
 import { makeLocalCrudFetcher } from '../../components/crudGrid/helper/crud-helpers'
 import { Resolver, useForm } from 'react-hook-form'
@@ -60,7 +60,7 @@ export default function CrudInternos() {
         const res = await deleteInterno(id as number)
         return res
     }
-    const crudQueries = {
+    const crudQueries: crudQueries<UsuarioInternoData, UsuarioInternoData, any> = {
         fetchData: fetchData,
         createQuery: createQuery,
         editQuery: updateQuery,

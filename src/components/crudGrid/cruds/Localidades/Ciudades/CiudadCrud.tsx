@@ -11,9 +11,9 @@ import {
     ciudadSchema,
     defaultCiudadValues,
     CiudadFormData,
-} from '../../../../../validation/localidades.schema'
-import type { CiudadData } from '../../../../../adapters/localidades/ciudad'
-import { apiCiudadToData } from '../../../../../adapters/localidades/ciudad'
+} from '../../../../../pages/Internos/catalogo/localidades/localidades.schema'
+import type { CiudadData } from '../../../../../pages/Internos/catalogo/localidades/ciudad/ciudad'
+import { apiCiudadToData } from '../../../../../pages/Internos/catalogo/localidades/ciudad/ciudad'
 import {
     getCiudades,
     getCiudadById,

@@ -14,7 +14,7 @@ import {
     RegisterEmpresaFormData,
     RegisterFormData,
     RegisterNaturalFormData,
-} from '../validation/register.schema'
+} from '../pages/nologin/register/register.schema'
 
 const storageNames = {
     usuario: 'usuario',

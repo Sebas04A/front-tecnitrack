@@ -45,12 +45,12 @@ export interface WindowProps {
 
 export default function MantenimientoIngreso({
     orden,
-    readOnlyCampos,
     estaEditando = false,
     readOnly = false,
+    size = 'full',
 }: BaseModalProps & {
     orden: OrdenData
-    readOnlyCampos?: Record<keyof OrdenData, boolean>
+
     estaEditando?: boolean
     readOnly?: boolean
 }) {
@@ -75,14 +75,13 @@ export default function MantenimientoIngreso({
             type: 'warning',
         })
     }
-    // SOLO POR AHORA
-    const [isOpen, setIsOpen] = React.useState(true)
-    const onClose = () => {
-        console.log('Cerrar modal')
-        setIsOpen(false)
-    }
 
+    const [isOpen, setIsOpen] = React.useState(true)
     function handleClose() {
+        if (readOnly) {
+            setIsOpen(false)
+            return
+        }
         modalActions.showConfirm({
             title: '¿Está seguro de que desea cerrar?',
             message:
@@ -97,12 +96,12 @@ export default function MantenimientoIngreso({
         })
     }
     function handleSave() {
-        // modalActions.showAlert({
-        //     title: 'Guardado',
-        //     message: 'Los datos se han guardado correctamente.',
-        //     type: 'success',
-        // })
-        // changeNextTab()
+        modalActions.showAlert({
+            title: 'Guardado',
+            message: 'Los datos se han guardado correctamente.',
+            type: 'success',
+        })
+        changeNextTab()
     }
     function changeNextTab() {
         const currentIndex = tabs.findIndex(tab => tab.key === activeTab)
@@ -114,7 +113,7 @@ export default function MantenimientoIngreso({
             isOpen={isOpen}
             title='Ingreso de Mantenimiento'
             onClose={handleClose}
-            size='full'
+            size={size}
             noPadding={true}
         >
             <div className='w-full p-1 '>
@@ -139,6 +138,7 @@ export default function MantenimientoIngreso({
                             handleSave={handleSave}
                             orden={orden}
                             readOnly={readOnly}
+                            estaEditando={estaEditando}
                         />
                     )}
                     {activeTab === 'equipo' && (

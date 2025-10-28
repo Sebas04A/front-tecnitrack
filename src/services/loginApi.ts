@@ -13,7 +13,7 @@ import {
     RegisterEmpresaFormData,
     RegisterFormData,
     RegisterNaturalFormData,
-} from '../validation/register.schema'
+} from '../pages/nologin/register/register.schema'
 
 export const forgotPasswordRequest = async (email: string) => {
     const requestBody = { email }
@@ -22,16 +22,7 @@ export const forgotPasswordRequest = async (email: string) => {
     })
     return response.message
 }
-export const resetPasswordRequest = async (token: string, nuevaPassword: string) => {
-    const requestBody: RestablecerPasswordRequest = {
-        token,
-        nuevaPassword,
-    }
-    const response = await AutenticacionService.postApiAutenticacionRestablecerPassword({
-        requestBody,
-    })
-    return response.data
-}
+
 export const loginInternoRequest = async (usuario: string, password: string) => {
     const requestBody: AutenticacionLoginInternoRequest = {
         username: usuario,
@@ -73,29 +64,29 @@ export const loginRequest = async (
     //     throw error
     // }
 }
-export const singupRequest = async (email: string, password: string) => {
-    const response = await getDataApiResponse(
-        AutenticacionService.postApiAutenticacionRegistro({
-            requestBody: {
-                email,
-                password,
-            },
-        })
-    )
-    console.log('Respuesta de la API al registrarse:', response)
-    return response
-    // try {
-    //     const response = await http.post(`/api/Autenticacion/registro`, {
-    //         username,
-    //         email,
-    //         password,
-    //     })
-    //     return response.data
-    // } catch (error) {
-    //     // console.error('Error en el registro:', error)
-    //     throw error
-    // }
-}
+// export const singupRequest = async (email: string, password: string) => {
+//     const response = await getDataApiResponse(
+//         AutenticacionService.postApiAutenticacionRegistro({
+//             requestBody: {
+//                 email,
+//                 password,
+//             },
+//         })
+//     )
+//     console.log('Respuesta de la API al registrarse:', response)
+//     return response
+//     // try {
+//     //     const response = await http.post(`/api/Autenticacion/registro`, {
+//     //         username,
+//     //         email,
+//     //         password,
+//     //     })
+//     //     return response.data
+//     // } catch (error) {
+//     //     // console.error('Error en el registro:', error)
+//     //     throw error
+//     // }
+// }
 
 export const registrarNatural = async (data: RegisterNaturalFormData) => {
     const requestBody: RegistroClienteNaturalRequest = {

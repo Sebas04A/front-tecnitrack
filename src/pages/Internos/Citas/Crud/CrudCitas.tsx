@@ -1,26 +1,24 @@
-import React, { useEffect, useMemo } from 'react'
-import CrudContainer, { crudQueries } from '../../../../components/crudGrid/CrudContainer'
-import { Resolver, useForm } from 'react-hook-form'
-import CrudCrudo from '../../../../components/crudGrid/CrudCrudo'
+import { useMemo } from 'react'
 
+import { Resolver, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { makeLocalCrudFetcher } from '../../../../components/crudGrid/helper/crud-helpers'
+
 import { ColumnDef } from '../../../../components/crudGrid/CrudTable'
+import { fetchDataCrudWithFilters } from '../../../../components/crudGrid/helper/fetchWithFilters'
+
 import CrudCitasContainer from './components/CrudCitasContainer'
+import FormCitas from './components/FormCitas'
+import { CitasFilters } from './components/CitasFilters'
+import { CitaDataCrud } from './models/citaCrudModel'
+import { CitasFiltersType } from './models/citaFiltersType'
+import { CitaCrudSchema, CitaDataForm } from './models/validationCitaCrud'
 import {
     createCitaAdmin,
     eliminarCitaAdmin,
     obtenerCitasAdmin,
     updateCitaAdmin,
 } from './services/crudCitasApi'
-
-import { div, use } from 'framer-motion/client'
-import { fetchDataCrudWithFilters } from '../../../../components/crudGrid/helper/fetchWithFilters'
-import { CitasFilters } from './components/CitasFilters'
-import { CitaDataCrud } from './models/citaCrudModel'
-import { CitasFiltersType } from './models/citaFiltersType'
-import { CitaCrudSchema, CitaDataForm } from './models/validationCitaCrud'
-import FormCitas from './components/FormCitas'
+import { crudQueries } from '../../../../components/crudGrid'
 
 const stylesEstado = {
     Pendiente: 'bg-warning-auto',
@@ -64,32 +62,12 @@ const defaultValues: CitaDataForm = {
     descripcion: '',
 }
 
-export default function 
-
-
-
-
-
-
-CrudCitas() {
+export default function CrudCitas() {
     // console.warn('RENDERIZANDO')
     const form = useForm<CitaDataForm>({
         mode: 'onChange',
         resolver: yupResolver(CitaCrudSchema) as Resolver<CitaDataForm>,
     })
-    const watchedValues = form.watch()
-    useEffect(() => {
-        console.log('Watched values changed:', watchedValues)
-    }, [watchedValues])
-
-    // const fetchData = useMemo(
-    //     () =>
-    //         makeLocalCrudFetcher<CitaDataCrud>({
-    //             getAll: obtenerCitasAdmin,
-    //             searchKeys: ['numeroIdentificacion', 'nombreCompleto', 'estado'],
-    //         }),
-    //     []
-    // )
 
     const fetchData = useMemo(
         () =>
@@ -102,7 +80,7 @@ CrudCitas() {
     async function edit(data: CitaDataForm) {
         console.log('Editando cita', data)
         const res = await updateCitaAdmin(data)
-        return data
+        return res
     }
     async function create(data: CitaDataForm) {
         console.log('Creando cita', data)
@@ -112,40 +90,13 @@ CrudCitas() {
     async function deleteAccion(data: CitaDataCrud) {
         console.log('Eliminando cita', data)
         const res = await eliminarCitaAdmin(data.id)
-        return data
+        return res
     }
-    const crudQueries: crudQueries<CitaDataCrud> = {
+    const crudQueries: Required<crudQueries<CitaDataCrud, CitaDataForm, CitasFiltersType>> = {
         fetchData: fetchData,
         createQuery: create,
         editQuery: edit,
         deleteQuery: deleteAccion,
-    }
-
-    const [camposReadOnly, setCamposReadOnly] = React.useState<boolean>(false)
-    const [mode, setMode] = React.useState<'create' | 'edit' | 'view'>('create')
-    const [actualRow, setActualRow] = React.useState<CitaDataForm | null>(null)
-
-    function onEdit(row: CitaDataForm) {
-        setCamposReadOnly(false)
-        form.reset(row)
-        setMode('edit')
-        setActualRow(row)
-    }
-    function onView(row: CitaDataForm) {
-        debugger
-        setCamposReadOnly(true)
-        form.reset(row)
-        setMode('view')
-        setActualRow(row)
-    }
-    function onCreate() {
-        setCamposReadOnly(false)
-        form.reset(defaultValues)
-        setMode('create')
-        setActualRow(null)
-    }
-    function onDelete(row: CitaDataForm) {
-        console.log('Eliminando cita', row)
     }
 
     return (
@@ -163,5 +114,3 @@ CrudCitas() {
         />
     )
 }
-
-

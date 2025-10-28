@@ -1,6 +1,9 @@
 // src/contexts/auth-context.tsx
 import { createContext } from 'react'
-import { RegisterEmpresaFormData, RegisterNaturalFormData } from '../validation/register.schema'
+import {
+    RegisterEmpresaFormData,
+    RegisterNaturalFormData,
+} from '../pages/nologin/register/register.schema'
 
 export interface User {
     usuario: string

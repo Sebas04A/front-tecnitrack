@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import DateTimeSelector, { DateTimeSelection } from '../../citas/DateTimeSelector'
+import DateTimeSelector, { DateTimeSelection } from '../../calendario/DateTimeSelector'
 import { useModalActions } from '../../../hooks/useModalActions'
 import BaseModal from './BaseModal'
 

@@ -1,4 +1,4 @@
-import { ProvinciaFormData } from "../../validation/localidades.schema"
+import { ProvinciaFormData } from '../../pages/Internos/catalogo/localidades/localidades.schema'
 
 export interface ProvinciaData {
     id?: number

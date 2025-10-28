@@ -8,6 +8,7 @@ export type OrdenResponse = {
     estado?: string | null;
     fechaIngreso?: string;
     registradoPor?: string | null;
+    inspectorId?: number | null;
     tallerBodegaDestino?: string | null;
     observacionesIngreso?: string | null;
     accesoriosIncluidos?: string | null;

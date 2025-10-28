@@ -2,7 +2,12 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { CambiarActivoAsociadoRequest } from '../models/CambiarActivoAsociadoRequest';
+import type { EditarDatosOrdenRequest } from '../models/EditarDatosOrdenRequest';
+import type { EditarMantenimientoProgramadoRequest } from '../models/EditarMantenimientoProgramadoRequest';
 import type { ListarOrdenesActivasDtoPagedResponse } from '../models/ListarOrdenesActivasDtoPagedResponse';
+import type { OrdenResponseApiResponse } from '../models/OrdenResponseApiResponse';
+import type { StringApiResponse } from '../models/StringApiResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -57,6 +62,105 @@ export class GestionOrdenesService {
             },
             errors: {
                 400: `Bad Request`,
+                500: `Internal Server Error`,
+            },
+        });
+    }
+    /**
+     * @returns OrdenResponseApiResponse OK
+     * @throws ApiError
+     */
+    public static putApiGestionOrdenesEditarDatosOrden({
+        id,
+        requestBody,
+    }: {
+        id: number,
+        requestBody?: EditarDatosOrdenRequest,
+    }): CancelablePromise<OrdenResponseApiResponse> {
+        return __request(OpenAPI, {
+            method: 'PUT',
+            url: '/api/GestionOrdenes/editar-datos-orden/{id}',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad Request`,
+                404: `Not Found`,
+                500: `Internal Server Error`,
+            },
+        });
+    }
+    /**
+     * @returns OrdenResponseApiResponse OK
+     * @throws ApiError
+     */
+    public static putApiGestionOrdenesCambiarActivoAsociado({
+        id,
+        requestBody,
+    }: {
+        id: number,
+        requestBody?: CambiarActivoAsociadoRequest,
+    }): CancelablePromise<OrdenResponseApiResponse> {
+        return __request(OpenAPI, {
+            method: 'PUT',
+            url: '/api/GestionOrdenes/cambiar-activo-asociado/{id}',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad Request`,
+                404: `Not Found`,
+                500: `Internal Server Error`,
+            },
+        });
+    }
+    /**
+     * @returns OrdenResponseApiResponse OK
+     * @throws ApiError
+     */
+    public static putApiGestionOrdenesEditarMantenimientoProgramado({
+        id,
+        requestBody,
+    }: {
+        id: number,
+        requestBody?: EditarMantenimientoProgramadoRequest,
+    }): CancelablePromise<OrdenResponseApiResponse> {
+        return __request(OpenAPI, {
+            method: 'PUT',
+            url: '/api/GestionOrdenes/editar-mantenimiento-programado/{id}',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad Request`,
+                404: `Not Found`,
+                500: `Internal Server Error`,
+            },
+        });
+    }
+    /**
+     * @returns StringApiResponse OK
+     * @throws ApiError
+     */
+    public static deleteApiGestionOrdenesEliminarOrden({
+        id,
+    }: {
+        id: number,
+    }): CancelablePromise<StringApiResponse> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/api/GestionOrdenes/eliminar-orden/{id}',
+            path: {
+                'id': id,
+            },
+            errors: {
+                404: `Not Found`,
                 500: `Internal Server Error`,
             },
         });

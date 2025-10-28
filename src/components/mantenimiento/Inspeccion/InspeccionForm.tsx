@@ -43,7 +43,7 @@ export default function InspeccionForm({ handleClose, handleSave, readOnly, orde
             </GenericForm>
             <div className='mt-10'></div>
 
-            <ComponentesCrud N_ORDEN={orden.id!} />
+            <ComponentesCrud N_ORDEN={orden.id!} readOnly={readOnly ?? false} />
         </>
     )
 }

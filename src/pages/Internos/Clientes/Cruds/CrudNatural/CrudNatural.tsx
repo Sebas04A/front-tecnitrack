@@ -1,27 +1,25 @@
 import { useMemo, useState } from 'react'
+
 import { FaToggleOff, FaToggleOn } from 'react-icons/fa'
-import { ColumnDef } from '../../../../../components/crudGrid'
-import { PerfilPersonaNaturalData } from '../../../../../validation/perfil.schema'
 import { useForm } from 'react-hook-form'
 
+import { useModalActions } from '../../../../../hooks/useModalActions'
+
+import { ColumnDef } from '../../../../../components/crudGrid'
 import CrudCrudo, {
     newActionCrud,
     onCrudActionsProps,
 } from '../../../../../components/crudGrid/CrudCrudo'
-import { useModal } from '../../../../../hooks/useModal'
+import { fetchDataCrudWithFilters } from '../../../../../components/crudGrid/helper/fetchWithFilters'
 
-import { useModalActions } from '../../../../../hooks/useModalActions'
-import FormsUnidos from '../../../../../components/PerfilForm/forms/FormsUnidos'
+import { PerfilPersonaNaturalData } from '../../../../../validation/perfil.schema'
 import { TIPO_PERSONA } from '../../../../../constants/perfil'
 
-import { fetchDataCrudWithFilters } from '../../../../../components/crudGrid/helper/fetchWithFilters'
-import {
-    activarUsuario,
-    buscarPerfilesNaturales,
-    deletePerfilNaturalAdmin,
-    desactivarUsuario,
-} from './services/natural'
+import FormsUnidos from '../../../../../components/PerfilForm/forms/FormsUnidos'
+
+import { buscarPerfilesNaturales, deletePerfilNaturalAdmin } from './services/natural'
 import { ClienteNaturalCrud } from './models/CrudNaturalModel'
+import { activarUsuario, desactivarUsuario } from '../services/clienteService'
 
 const columnsNatural: ColumnDef<ClienteNaturalCrud>[] = [
     {
@@ -70,7 +68,6 @@ const defaultValues: PerfilPersonaNaturalData = {
     genero: '',
 }
 export default function CrudNatural() {
-    const modal = useModal()
     const modalAction = useModalActions()
 
     const [refresh, setNewRefresh] = useState(0)
@@ -78,12 +75,7 @@ export default function CrudNatural() {
         setNewRefresh(prev => prev + 1)
     }
 
-    function createQuery(data: any) {}
-    function updateQuery(data: any) {}
-    function deleteQuery(data: any) {}
     const {
-        handleSubmit,
-        reset,
         formState: { isDirty },
     } = useForm<PerfilPersonaNaturalData>({
         mode: 'onChange',
@@ -125,48 +117,10 @@ export default function CrudNatural() {
                 message: 'Cliente inactivo',
                 type: 'error',
             })
-        // modal.openModal({
-        //     component: ComponentePrueba,
-        //     props: {},
-        // })
+
         mostrarModal(row)
-        // modal.openModal({
-        //     component: FormsUnidos,
-        //     props: {
-        //         tipoPersona: TIPO_PERSONA.NATURAL,
-        //         clienteId: row.clienteId,
-        //         datosYaGuardados: !isDirty,
-        //         setDatosYaGuardados: () => {},
-        //     },
-        // })
     }
-    function onDelete(row: ClienteNaturalCrud) {
-        console.log('Eliminando cliente natural con id:', row.id)
-        modalAction.showConfirm({
-            title: 'Confirmar eliminación',
-            message: `¿Estás seguro de que deseas eliminar al cliente ${row.nombreCompleto}? `,
-            onConfirm: () => {
-                console.log('Eliminando cliente:', row.id)
-                deletePerfilNaturalAdmin(row.id)
-                    .then(() => {
-                        modalAction.showAlert({
-                            title: 'Éxito',
-                            message: `Cliente ${row.id} eliminado correctamente.`,
-                            type: 'success',
-                        })
-                        refreshTable()
-                    })
-                    .catch((error: any) => {
-                        modalAction.showAlert({
-                            title: 'Error al eliminar',
-                            message: error instanceof Error ? error.message : 'Error desconocido',
-                            type: 'error',
-                        })
-                    })
-            },
-            type: 'warning',
-        })
-    }
+
     function onCreate() {
         mostrarModal({} as ClienteNaturalCrud)
     }

@@ -1,6 +1,5 @@
 import {
     mapperPerfilNaturalDataToApi,
-    parseAdapterPerfilNaturalCrud,
     parseAdapterPersonasNaturalCrud,
     parsePersonaNaturalById,
 } from '../../../../../../adapters/perfil'
@@ -11,7 +10,7 @@ import {
     ListarClientesNaturalesDto,
 } from '../../../../../../api'
 import { ClienteNaturalCrud } from '../models/CrudNaturalModel'
-// import { ClienteNaturalCrud } from '../../../types/usuario'
+
 import {
     PerfilPersonaNaturalCrudData,
     PerfilPersonaNaturalData,
@@ -80,20 +79,6 @@ export async function updatePerfilNaturalAdmin(
 }
 export async function deletePerfilNaturalAdmin(clienteId: number) {
     const res = await GestionClientesService.deleteApiGestionClientesEliminarClienteNatural({
-        clienteId: clienteId,
-    })
-    return res
-}
-
-export async function activarUsuario(clienteId: number) {
-    const res = GestionClientesService.patchApiGestionClientesActivarCliente({
-        clienteId: clienteId,
-    })
-    return res
-}
-
-export async function desactivarUsuario(clienteId: number) {
-    const res = GestionClientesService.patchApiGestionClientesDesactivarCliente({
         clienteId: clienteId,
     })
     return res

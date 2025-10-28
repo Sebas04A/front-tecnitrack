@@ -9,7 +9,7 @@ import {
     UseFormWatch,
 } from 'react-hook-form'
 import { getNestedError } from '../../../utils/formError'
-import { getCatalogo } from '../../../services/catalogos'
+import { getCatalogo } from '../../../pages/Internos/catalogo/generales/services/catalogos'
 import { Option } from '../../../types/form'
 import { input } from 'framer-motion/client'
 

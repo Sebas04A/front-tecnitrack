@@ -1,7 +1,7 @@
 // src/components/crud/Ciudades/CiudadesForm.tsx
 import React from 'react'
 import { UseFormRegister, FieldErrors } from 'react-hook-form'
-import { CiudadFormData } from '../../../../../validation/localidades.schema'
+import { CiudadFormData } from '../../../../../pages/Internos/catalogo/localidades/localidades.schema'
 import GenericTextInput from '../../../../form/Controls/GenericTextInput'
 import GenericSelect from '../../../../form/Controls/GenericSelect'
 import GenericCheckbox from '../../../../form/Controls/GenericCheckbox'

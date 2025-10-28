@@ -1,25 +1,23 @@
-import React, { useMemo, useState } from 'react'
-import { ColumnDef, CrudContainer } from '../../../../../components/crudGrid'
-import {
-    PerfilEmpresaData,
-    PerfilPersonaNaturalData,
-} from '../../../../../validation/perfil.schema'
-import { useForm } from 'react-hook-form'
-import ContainerForm from '../../../../../components/PerfilForm/containerForm'
-import { makeLocalCrudFetcher } from '../../../../../components/crudGrid/helper/crud-helpers'
-import CrudCrudo, { newActionCrud } from '../../../../../components/crudGrid/CrudCrudo'
-import { useModal } from '../../../../../hooks/useModal'
-import { Modal } from '../../../../../components/common/Modal'
+import { useMemo, useState } from 'react'
 
-import { activarUsuario, desactivarUsuario } from '../CrudNatural/services/natural'
-
-import { useModalActions } from '../../../../../hooks/useModalActions'
-import FormsUnidos from '../../../../../components/PerfilForm/forms/FormsUnidos'
-import { TIPO_PERSONA } from '../../../../../constants/perfil'
 import { FaToggleOff, FaToggleOn } from 'react-icons/fa'
+import { useForm } from 'react-hook-form'
+
+import { ColumnDef } from '../../../../../components/crudGrid'
+import CrudCrudo, { newActionCrud } from '../../../../../components/crudGrid/CrudCrudo'
 import { fetchDataCrudWithFilters } from '../../../../../components/crudGrid/helper/fetchWithFilters'
+
+import { useModal } from '../../../../../hooks/useModal'
+import { useModalActions } from '../../../../../hooks/useModalActions'
+
+import { PerfilEmpresaData } from '../../../../../validation/perfil.schema'
+
+import { TIPO_PERSONA } from '../../../../../constants/perfil'
+import FormsUnidos from '../../../../../components/PerfilForm/forms/FormsUnidos'
+
 import { buscarPerfilesJuridicos } from './services/juridico'
 import { ClienteEmpresaCrud } from './models/crudEmpresaModel'
+import { activarUsuario, desactivarUsuario } from '../services/clienteService'
 
 const columnsNatural: ColumnDef<ClienteEmpresaCrud>[] = [
     {
@@ -76,8 +74,6 @@ const defaultValues: PerfilEmpresaData = {
     // genero: '',
 }
 export default function CrudEmpresa() {
-    // const modal = useModalActions()
-    const modal = useModal()
     const modalActions = useModalActions()
 
     const [refresh, setNewRefresh] = useState(0)
@@ -85,26 +81,14 @@ export default function CrudEmpresa() {
         setNewRefresh(prev => prev + 1)
     }
 
-    function createQuery(data: any) {}
-    function updateQuery(data: any) {}
-    function deleteQuery(data: any) {}
     const {
-        handleSubmit,
-        reset,
         formState: { isDirty },
     } = useForm<PerfilEmpresaData>({
         mode: 'onChange',
         // resolver: yupResolver(schema),
         defaultValues,
     })
-    // const fetchData = useMemo(
-    //     () =>
-    //         makeLocalCrudFetcher<ClienteEmpresaCrud>({
-    //             searchKeys: ['nombreCompleto', 'apellidoCompleto', 'numeroIdentificacion'],
-    //             getAll: getPerfilesJuridicos,
-    //         }),
-    //     []
-    // )
+
     const fetchData = useMemo(
         () =>
             fetchDataCrudWithFilters<ClienteEmpresaCrud, any>({
@@ -112,6 +96,7 @@ export default function CrudEmpresa() {
             }),
         []
     )
+
     function openModal(row: ClienteEmpresaCrud) {
         modalActions.showEmptyModal({
             title: 'Información de la empresa',
@@ -131,17 +116,17 @@ export default function CrudEmpresa() {
     function onView(row: ClienteEmpresaCrud) {
         openModal(row)
     }
-    function onDelete(row: ClienteEmpresaCrud) {
-        modalActions.showConfirm({
-            title: 'Confirmar eliminación',
-            message: `¿Estás seguro de que deseas eliminar al cliente ${row.razonSocial}? `,
-            type: 'warning',
-            onConfirm: () => {
-                console.log('Eliminando cliente:', row.id)
-                deleteQuery(row.id)
-            },
-        })
-    }
+    // function onDelete(row: ClienteEmpresaCrud) {
+    //     modalActions.showConfirm({
+    //         title: 'Confirmar eliminación',
+    //         message: `¿Estás seguro de que deseas eliminar al cliente ${row.razonSocial}? `,
+    //         type: 'warning',
+    //         onConfirm: () => {
+    //             console.log('Eliminando cliente:', row.id)
+    //             deleteQuery(row.id)
+    //         },
+    //     })
+    // }
     function onCreate() {
         openModal({ id: -1 } as ClienteEmpresaCrud)
     }

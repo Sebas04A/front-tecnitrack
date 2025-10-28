@@ -7,6 +7,7 @@ import { BsPlayFill } from 'react-icons/bs'
 import { BiCheck } from 'react-icons/bi'
 import { fetchDataCrudWithFilters } from '../../../../components/crudGrid/helper/fetchWithFilters'
 import {
+    deleteOrden,
     obtenerOrdenesAsignadasInterno,
     obtenerOrdenesAsignadasInternoFetcher,
 } from './services/ordenes'
@@ -98,7 +99,13 @@ export default function CrudOrdenes() {
         // })
         modal.openModal({
             component: MantenimientoIngreso,
-            props: { orden: row, estaEditando: !readOnly, readOnly: readOnly },
+            props: {
+                orden: row,
+                estaEditando: !readOnly,
+                readOnly: readOnly,
+                size: 'xl',
+            },
+            // size: 'md',
         })
     }
     const modalActions = useModalActions()
@@ -118,6 +125,24 @@ export default function CrudOrdenes() {
                 message: `¿Está seguro de que desea eliminar la orden #${row.numeroOrden}? Esta acción no se puede deshacer.`,
                 onConfirm: () => {
                     console.log('Eliminando Orden', row)
+                    if (!row.id) throw new Error('ID de orden no válido')
+                    deleteOrden(row.id)
+                        .then(() => {
+                            modalActions.showAlert({
+                                title: 'Orden Eliminada',
+                                message: `La orden #${row.numeroOrden} ha sido eliminada correctamente.`,
+                                type: 'success',
+                            })
+                        })
+                        .catch(error => {
+                            console.error('Error eliminando la orden:', error)
+                            modalActions.showAlert({
+                                title: 'Error al Eliminar',
+                                message:
+                                    error instanceof Error ? error.message : 'Error desconocido',
+                                type: 'error',
+                            })
+                        })
                 },
                 onCancel: () => {
                     console.log('Eliminación cancelada')

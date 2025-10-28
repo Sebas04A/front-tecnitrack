@@ -11,14 +11,6 @@ import { WindowProps } from '../MantenimientoIngreso'
 import GenericButton from '../../form/Controls/GenericButton'
 import { getInformacionGeneralOrden } from '../../../services/ORDEN/informacionApi'
 
-// const defaultValues = {
-//     numeroTurno: 'TUR-000123',
-//     fechaTurno: new Date().toISOString().slice(0, 16),
-//     numeroIdentificacion: '1717171717',
-//     nombreCompleto: 'Juan Perez',
-//     direccion: 'Av. Siempre Viva 123',
-//     telefono: '0999999999',
-// }
 export default function InformacionGeneral({
     // handleClose,
     change,
@@ -32,6 +24,10 @@ export default function InformacionGeneral({
         formState: { errors },
     } = form
     useEffect(() => {
+        if (!orden.idCita) {
+            console.error('La orden no tiene un ID de cita válido')
+            return
+        }
         getInformacionGeneralOrden(orden.idCita).then(data => {
             form.reset(data)
         })
@@ -97,7 +93,11 @@ export default function InformacionGeneral({
                     />
                 </GenericRowForm>
             </GenericSection>
-            <GenericButton text='Siguiente' onClick={change} className='mt-4' />
+
+            <div className='flex justify-end'>
+                <GenericButton text='Siguiente' onClick={change} className='mt-4 ' />
+            </div>
+            {/* <GenericButton text='Siguiente' onClick={change} className='mt-4 ' /> */}
         </GenericForm>
     )
 }

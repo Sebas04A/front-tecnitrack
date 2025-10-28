@@ -13,23 +13,15 @@ import CrudCrudo, {
 import { ComponentType, useEffect, useState } from 'react'
 import { useModal } from '../../../../../hooks/useModal'
 import { useModalActions } from '../../../../../hooks/useModalActions'
-import GenericForm from '../../../../../components/form/GenericForm'
-import { ObjectApiResponse } from '../../../../../api'
 import { parseAxiosError } from '../../../../../utils/parseError'
-
-import DateTimeSelector, {
-    DateTimeSelection,
-} from '../../../../../components/citas/DateTimeSelector'
-import BaseModal from '../../../../../components/common/modals/BaseModal'
-import { div, i, use } from 'framer-motion/client'
-import { CitasFilters } from './CitasFilters'
 
 import { FaSign, FaSignInAlt } from 'react-icons/fa'
 import MantenimientoIngreso from '../../../../../components/mantenimiento/MantenimientoIngreso'
-import { crearOrden, obtenerOrden } from '../../../../../services/citasApi'
+
 import { CalendarioModal } from '../../../../../components/common/modals/Calendario'
 import { convertirDateParaInput } from '../../../../../adapters/fecha'
-import { FilterParamOption } from '../../../../../components/crudGrid/helper/fetchWithFilters'
+import { crearOrden } from '../services/crudCitasApi'
+import { OrdenData } from '../../../Ordenes/Crud/models/ordenData'
 
 // type ModeActionType = 'create' | 'edit' | 'view' | 'delete'
 
@@ -42,7 +34,7 @@ interface CrudCitasContainerProps<TData, TForm extends FieldValues, TFilters> {
     columns: ColumnDef<TData>[]
     defaultValues: TForm
 
-    crudQueries: crudQueries<TData, TForm, TFilters>
+    crudQueries: Required<crudQueries<TData, TForm, TFilters>>
 
     autoLoadOptions?: autoLoadOptions
 
@@ -474,6 +466,7 @@ export default function CrudCitasContainer<
             }
             console.log('Ingresar mantenimiento para la orden', row)
             crearOrdenParaIngresar(row.id).then(orden => {
+                orden = orden as OrdenData
                 console.warn('Abrir modal de ingreso para la orden', orden)
                 modal.openModal({
                     component: MantenimientoIngreso,

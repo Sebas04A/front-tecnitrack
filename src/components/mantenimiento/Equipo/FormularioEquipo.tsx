@@ -18,6 +18,7 @@ import {
     getObtenerActivoOrden,
     postActivo,
     postActivoNuevo,
+    updateActivo,
 } from './services/activoApi'
 import { th } from 'framer-motion/client'
 import { useModalActions } from '../../../hooks/useModalActions'
@@ -30,10 +31,10 @@ export default function FormularioEquipo({
     orden,
     readOnly,
 }: WindowProps) {
+    // const [confirmoEditar, setConfirmoEditar] = React.useState(false)
     const form = useForm()
-    const [confirmoEditar, setConfirmoEditar] = React.useState(false)
     const { register, handleSubmit, watch } = form
-    const equipoSeleccionado = watch('equipo')
+
     React.useEffect(() => {
         getInformacionActivoAsignado(orden.id!).then(data => {
             console.log('Activo asociado a la orden:', data)
@@ -43,6 +44,8 @@ export default function FormularioEquipo({
             setBlockForm(false)
         })
     }, [])
+
+    const equipoSeleccionado = watch('equipo')
     React.useEffect(() => {
         console.log('Equipo seleccionado:', equipoSeleccionado)
         if (equipoSeleccionado) {
@@ -57,9 +60,10 @@ export default function FormularioEquipo({
     }, [equipoSeleccionado])
 
     const modalActions = useModalActions()
+
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        if (estaEditando && !confirmoEditar) {
+        if (estaEditando) {
             modalActions.showConfirm({
                 title: 'Confirmar Edición',
                 message:
@@ -77,16 +81,23 @@ export default function FormularioEquipo({
             submit(e)
         }
     }
-    const submit = handleSubmit(data => {
+    const submit = handleSubmit(async data => {
         console.log({ equipoSeleccionado })
         console.log('data a submit', data)
         if (!orden || !orden.id) throw new Error('No se recibió orden id en FormularioEquipo')
+
         const id = modalActions.showLoading('Guardando Activo...')
         try {
             if (data.equipo) {
-                postActivo(data, orden.id!)
-                handleSave()
+                if (estaEditando) {
+                    let res = await updateActivo(data, orden.id!)
+                } else {
+                    let res = await postActivo(data, orden.id!)
+                }
+                // handleSave()
             } else {
+                if (estaEditando) {
+                }
                 postActivoNuevo(data, orden.id!)
             }
             modalActions.closeModal(id)
@@ -116,7 +127,7 @@ export default function FormularioEquipo({
     return (
         <>
             <GenericForm
-                showButtons={true}
+                showButtons={!readOnly}
                 onSubmit={onSubmit}
                 onCancel={onCancel}
                 title='Informacion Equipo'

@@ -1,9 +1,11 @@
 import { useState } from 'react'
 
-import { TIPO_PERSONA, TIPO_PERSONA_TYPE } from '../../../constants/perfil'
-import CrudEmpresa from './Cruds/CrudEmpresa/CrudEmpresa'
-import CrudNatural from './Cruds/CrudNatural/CrudNatural'
 import GenericSelectState from '../../../components/form/Controls/GenericSelectState'
+
+import { TIPO_PERSONA, TIPO_PERSONA_TYPE } from '../../../constants/perfil'
+
+import CrudNatural from './Cruds/CrudNatural/CrudNatural'
+import CrudEmpresa from './Cruds/CrudEmpresa/CrudEmpresa'
 
 export default function CrudClientes() {
     const [tipoPersona, setTipoPersona] = useState<TIPO_PERSONA_TYPE>(TIPO_PERSONA.NATURAL)

@@ -11,7 +11,7 @@ import { ObjectApiResponse } from '../../api'
 import GenericForm from '../form/GenericForm'
 import { useModalActions } from '../../hooks/useModalActions'
 import CrudCrudo, { autoLoadOptions, onCrudActionsProps } from './CrudCrudo'
-import { data, use } from 'framer-motion/client'
+import { data, th, use } from 'framer-motion/client'
 import { toFormData } from 'axios'
 import { FetcherFunctionType } from './helper/crud-helpers'
 import { FetcherFunctionWithParams } from './helper/fetchWithFilters'
@@ -19,9 +19,9 @@ import { FetcherFunctionWithParams } from './helper/fetchWithFilters'
 export interface crudQueries<TData, TForm = any, TFilters = any> {
     fetchData: //  FetcherFunctionType<TData> |
     FetcherFunctionWithParams<TData, TFilters>
-    createQuery: (data: TForm) => Promise<any>
-    editQuery: (data: TForm) => Promise<any>
-    deleteQuery: (data: TData) => Promise<any>
+    createQuery?: (data: TForm) => Promise<any>
+    editQuery?: (data: TForm) => Promise<any>
+    deleteQuery?: (data: TData) => Promise<any>
 }
 
 export interface formModalCrudProps {
@@ -255,6 +255,7 @@ export function CrudContainer<
         if (!data) {
             throw new Error('No se puede eliminar un registro sin ID')
         }
+        if (!deleteQuery) throw new Error('No se proporcionó deleteQuery para eliminación')
         const res = await deleteQuery(data)
         console.log('Eliminado:', res)
         return res
@@ -262,8 +263,10 @@ export function CrudContainer<
     const submitRequest = async (data: TForm, mode: string) => {
         let res
         if (mode === 'edit') {
+            if (!editQuery) throw new Error('No se proporcionó editQuery para el modo edición')
             res = await editQuery(data)
         } else if (mode === 'create') {
+            if (!createQuery) throw new Error('No se proporcionó createQuery para el modo creación')
             res = await createQuery(data)
         } else {
             throw new Error(`Modo inválido para enviar el formulario ${mode}`)
@@ -285,24 +288,28 @@ export function CrudContainer<
     }
 
     const onCrudActions: onCrudActionsProps<TData, TForm> = {
-        onCreate: () => {
-            // setCamposReadOnly(false)
-            // setActualRow(null)
-            console.log('Creating new entry')
-            // setMode('create')
-            setError('')
-            reset(defaultValues)
-            abrirModalDatos('create', null)
-        },
-        onEdit: (row: TForm) => {
-            setCamposReadOnly(false)
-            setActualRow(row)
-            setMode('edit')
-            setError('')
-            reset(row)
+        onCreate: createQuery
+            ? () => {
+                  // setCamposReadOnly(false)
+                  // setActualRow(null)
+                  console.log('Creating new entry')
+                  // setMode('create')
+                  setError('')
+                  reset(defaultValues)
+                  abrirModalDatos('create', null)
+              }
+            : undefined,
+        onEdit: editQuery
+            ? (row: TForm) => {
+                  setCamposReadOnly(false)
+                  setActualRow(row)
+                  setMode('edit')
+                  setError('')
+                  reset(row)
 
-            console.log('Editing row:', row)
-        },
+                  console.log('Editing row:', row)
+              }
+            : undefined,
         onView: (row: TForm) => {
             // setCamposReadOnly(true)
             // setActualRow(row)
@@ -310,20 +317,22 @@ export function CrudContainer<
             reset(row)
             abrirModalDatos('view', row)
         },
-        onDelete: (row: TData) => {
-            console.log('Deleting row:', row.id)
-            modalActions.showConfirm({
-                title: 'Confirmar Eliminación',
-                message: `¿Estás seguro de que quieres eliminar? Esta acción no se puede deshacer.`,
-                confirmText: 'Eliminar',
-                cancelText: 'Cancelar',
-                onConfirm: async () => {
-                    deleteAccion(row)
-                },
-                type: 'warning',
-            })
-            setError('')
-        },
+        onDelete: deleteQuery
+            ? (row: TData) => {
+                  console.log('Deleting row:', row.id)
+                  modalActions.showConfirm({
+                      title: 'Confirmar Eliminación',
+                      message: `¿Estás seguro de que quieres eliminar? Esta acción no se puede deshacer.`,
+                      confirmText: 'Eliminar',
+                      cancelText: 'Cancelar',
+                      onConfirm: async () => {
+                          deleteAccion(row)
+                      },
+                      type: 'warning',
+                  })
+                  setError('')
+              }
+            : undefined,
     }
 
     return (

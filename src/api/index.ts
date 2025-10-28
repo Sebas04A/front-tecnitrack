@@ -37,6 +37,7 @@ export type { AutenticacionLoginResponse } from './models/AutenticacionLoginResp
 export type { AutenticacionLoginResponseApiResponse } from './models/AutenticacionLoginResponseApiResponse';
 export type { BuscarInspectorMantenimientoRequest } from './models/BuscarInspectorMantenimientoRequest';
 export type { BuscarTecnicoMantenimientoRequest } from './models/BuscarTecnicoMantenimientoRequest';
+export type { CambiarActivoAsociadoRequest } from './models/CambiarActivoAsociadoRequest';
 export type { CambiarPasswordRequest } from './models/CambiarPasswordRequest';
 export type { CatalogoDto } from './models/CatalogoDto';
 export type { CatalogoDtoApiResponse } from './models/CatalogoDtoApiResponse';
@@ -112,6 +113,8 @@ export type { DireccionResponse } from './models/DireccionResponse';
 export type { DireccionResponsePagedResponse } from './models/DireccionResponsePagedResponse';
 export type { EditarCitaClienteRequest } from './models/EditarCitaClienteRequest';
 export type { EditarCitaRequest } from './models/EditarCitaRequest';
+export type { EditarDatosOrdenRequest } from './models/EditarDatosOrdenRequest';
+export type { EditarMantenimientoProgramadoRequest } from './models/EditarMantenimientoProgramadoRequest';
 export type { EstadoClienteResponseDto } from './models/EstadoClienteResponseDto';
 export type { EstadoClienteResponseDtoApiResponse } from './models/EstadoClienteResponseDtoApiResponse';
 export type { EstadoComponenteIngresoResponse } from './models/EstadoComponenteIngresoResponse';
@@ -162,6 +165,7 @@ export type { RegistroClienteNaturalResponse } from './models/RegistroClienteNat
 export type { RegistroClienteNaturalResponseApiResponse } from './models/RegistroClienteNaturalResponseApiResponse';
 export type { RestablecerPasswordRequest } from './models/RestablecerPasswordRequest';
 export type { SolicitarRestablecimientoRequest } from './models/SolicitarRestablecimientoRequest';
+export type { StringApiResponse } from './models/StringApiResponse';
 export type { StringIEnumerableApiResponse } from './models/StringIEnumerableApiResponse';
 export type { SubTipoActivoCreateUpdateRequest } from './models/SubTipoActivoCreateUpdateRequest';
 export type { SubtipoActivoInfo } from './models/SubtipoActivoInfo';

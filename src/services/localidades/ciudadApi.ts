@@ -1,7 +1,11 @@
 // src/services/ciudadApi.ts
-import { apiCiudadToData, CiudadData, ciudadFormToApi } from '../../adapters/localidades/ciudad'
+import {
+    apiCiudadToData,
+    CiudadData,
+    ciudadFormToApi,
+} from '../../pages/Internos/catalogo/localidades/ciudad/ciudad'
 import { LocalidadesService, ObjectApiResponse } from '../../api'
-import { CiudadFormData } from '../../validation/localidades.schema'
+import { CiudadFormData } from '../../pages/Internos/catalogo/localidades/localidades.schema'
 
 export async function getCiudades(): Promise<CiudadData[]> {
     const apiList = await LocalidadesService.getApiLocalidadesObtenerCiudades()
