@@ -134,6 +134,7 @@ export function CitasFilters({
                         startDate={startDate}
                         endDate={endDate}
                         isClearable
+                        dateFormat='dd/MM/yyyy'
                         toggleCalendarOnIconClick
                         onChange={update => {
                             console.log('Rango de fechas seleccionado:', update)

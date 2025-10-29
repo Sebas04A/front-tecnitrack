@@ -22,6 +22,7 @@ import {
     deleteCiudad,
 } from '../../../../../services/localidades/ciudadApi'
 import { makeLocalCrudFetcher } from '../../../helper/crud-helpers'
+import { fetchDataCrudWithFilters } from '../../../helper/fetchWithFilters'
 
 interface CiudadesCrudProps {
     titulo?: string
@@ -46,16 +47,23 @@ const CiudadCrud: React.FC<CiudadesCrudProps> = ({ ciudadId }) => {
         []
     )
 
+    // const fetchData = useMemo(
+    //     () =>
+    //         makeLocalCrudFetcher<CiudadData>({
+    //             getAll: async () => {
+    //                 const data = ciudadId ? [await getCiudadById(ciudadId)] : await getCiudades()
+    //                 return data.map(apiCiudadToData)
+    //             },
+    //             searchKeys: ['nombre', 'provinciaNombre', 'paisNombre'] as any,
+    //         }),
+    //     [ciudadId]
+    // )
     const fetchData = useMemo(
         () =>
-            makeLocalCrudFetcher<CiudadData>({
-                getAll: async () => {
-                    const data = ciudadId ? [await getCiudadById(ciudadId)] : await getCiudades()
-                    return data.map(apiCiudadToData)
-                },
-                searchKeys: ['nombre', 'provinciaNombre', 'paisNombre'] as any,
+            fetchDataCrudWithFilters<CiudadData, any>({
+                fetchData: getCiudades,
             }),
-        [ciudadId]
+        []
     )
 
     async function onCreate(values: CiudadFormData) {

@@ -6,27 +6,55 @@ import type { ActualizarCiudadDto } from '../models/ActualizarCiudadDto';
 import type { ActualizarPaisDto } from '../models/ActualizarPaisDto';
 import type { ActualizarProvinciaDto } from '../models/ActualizarProvinciaDto';
 import type { CiudadDtoApiResponse } from '../models/CiudadDtoApiResponse';
-import type { CiudadDtoIEnumerableApiResponse } from '../models/CiudadDtoIEnumerableApiResponse';
+import type { CiudadDtoPagedResponse } from '../models/CiudadDtoPagedResponse';
 import type { CrearCiudadDto } from '../models/CrearCiudadDto';
 import type { CrearPaisDto } from '../models/CrearPaisDto';
 import type { CrearProvinciaDto } from '../models/CrearProvinciaDto';
 import type { ObjectApiResponse } from '../models/ObjectApiResponse';
 import type { PaisDtoApiResponse } from '../models/PaisDtoApiResponse';
-import type { PaisDtoIEnumerableApiResponse } from '../models/PaisDtoIEnumerableApiResponse';
+import type { PaisDtoPagedResponse } from '../models/PaisDtoPagedResponse';
 import type { ProvinciaDtoApiResponse } from '../models/ProvinciaDtoApiResponse';
-import type { ProvinciaDtoIEnumerableApiResponse } from '../models/ProvinciaDtoIEnumerableApiResponse';
+import type { ProvinciaDtoPagedResponse } from '../models/ProvinciaDtoPagedResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 export class LocalidadesService {
     /**
-     * @returns PaisDtoIEnumerableApiResponse OK
+     * @returns PaisDtoPagedResponse OK
      * @throws ApiError
      */
-    public static getApiLocalidadesObtenerPaises(): CancelablePromise<PaisDtoIEnumerableApiResponse> {
+    public static getApiLocalidadesObtenerPaises({
+        termino,
+        activo,
+        codigoIso,
+        codigoTelefonico,
+        pagina,
+        limite,
+        ordenarPor,
+        direccionOrden,
+    }: {
+        termino?: string,
+        activo?: boolean,
+        codigoIso?: string,
+        codigoTelefonico?: string,
+        pagina?: number,
+        limite?: number,
+        ordenarPor?: string,
+        direccionOrden?: string,
+    }): CancelablePromise<PaisDtoPagedResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/localidades/obtener-paises',
+            query: {
+                'Termino': termino,
+                'Activo': activo,
+                'CodigoISO': codigoIso,
+                'CodigoTelefonico': codigoTelefonico,
+                'Pagina': pagina,
+                'Limite': limite,
+                'OrdenarPor': ordenarPor,
+                'DireccionOrden': direccionOrden,
+            },
             errors: {
                 500: `Internal Server Error`,
             },
@@ -128,35 +156,40 @@ export class LocalidadesService {
         });
     }
     /**
-     * @returns ProvinciaDtoIEnumerableApiResponse OK
+     * @returns ProvinciaDtoPagedResponse OK
      * @throws ApiError
      */
-    public static getApiLocalidadesObtenerProvincias(): CancelablePromise<ProvinciaDtoIEnumerableApiResponse> {
+    public static getApiLocalidadesObtenerProvincias({
+        termino,
+        paisId,
+        activo,
+        pagina,
+        limite,
+        ordenarPor,
+        direccionOrden,
+    }: {
+        termino?: string,
+        paisId?: number,
+        activo?: boolean,
+        pagina?: number,
+        limite?: number,
+        ordenarPor?: string,
+        direccionOrden?: string,
+    }): CancelablePromise<ProvinciaDtoPagedResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/localidades/obtener-provincias',
-            errors: {
-                500: `Internal Server Error`,
-            },
-        });
-    }
-    /**
-     * @returns ProvinciaDtoIEnumerableApiResponse OK
-     * @throws ApiError
-     */
-    public static getApiLocalidadesObtenerProvinciasPorPais({
-        paisId,
-    }: {
-        paisId: number,
-    }): CancelablePromise<ProvinciaDtoIEnumerableApiResponse> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/localidades/obtener-provincias-por-pais/{paisId}',
-            path: {
-                'paisId': paisId,
+            query: {
+                'Termino': termino,
+                'PaisId': paisId,
+                'Activo': activo,
+                'Pagina': pagina,
+                'Limite': limite,
+                'OrdenarPor': ordenarPor,
+                'DireccionOrden': direccionOrden,
             },
             errors: {
-                404: `Not Found`,
+                400: `Bad Request`,
                 500: `Internal Server Error`,
             },
         });
@@ -256,35 +289,42 @@ export class LocalidadesService {
         });
     }
     /**
-     * @returns CiudadDtoIEnumerableApiResponse OK
+     * @returns CiudadDtoPagedResponse OK
      * @throws ApiError
      */
-    public static getApiLocalidadesObtenerCiudades(): CancelablePromise<CiudadDtoIEnumerableApiResponse> {
+    public static getApiLocalidadesObtenerCiudades({
+        termino,
+        activo,
+        provinciaId,
+        esCapital,
+        pagina,
+        tamanoPagina,
+        ordenarPor,
+        direccionOrden,
+    }: {
+        termino?: string,
+        activo?: boolean,
+        provinciaId?: number,
+        esCapital?: boolean,
+        pagina?: number,
+        tamanoPagina?: number,
+        ordenarPor?: string,
+        direccionOrden?: string,
+    }): CancelablePromise<CiudadDtoPagedResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/localidades/obtener-ciudades',
-            errors: {
-                500: `Internal Server Error`,
-            },
-        });
-    }
-    /**
-     * @returns CiudadDtoIEnumerableApiResponse OK
-     * @throws ApiError
-     */
-    public static getApiLocalidadesObtenerCiudadesPorProvincia({
-        provinciaId,
-    }: {
-        provinciaId: number,
-    }): CancelablePromise<CiudadDtoIEnumerableApiResponse> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/localidades/obtener-ciudades-por-provincia/{provinciaId}',
-            path: {
-                'provinciaId': provinciaId,
+            query: {
+                'Termino': termino,
+                'Activo': activo,
+                'ProvinciaId': provinciaId,
+                'EsCapital': esCapital,
+                'Pagina': pagina,
+                'TamanoPagina': tamanoPagina,
+                'OrdenarPor': ordenarPor,
+                'DireccionOrden': direccionOrden,
             },
             errors: {
-                404: `Not Found`,
                 500: `Internal Server Error`,
             },
         });

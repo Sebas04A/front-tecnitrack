@@ -20,6 +20,7 @@ import {
 } from '../../../../../services/localidades/provinciasApi'
 import { makeLocalCrudFetcher } from '../../../helper/crud-helpers'
 import { apiProvinciaToData, ProvinciaData } from '../../../../../adapters/localidades/provincias'
+import { fetchDataCrudWithFilters } from '../../../helper/fetchWithFilters'
 
 interface ProvinciasCrudProps {
     titulo?: string
@@ -42,18 +43,25 @@ const ProvinciasCrud: React.FC<ProvinciasCrudProps> = ({ provinciaId }) => {
         []
     )
 
+    // const fetchData = useMemo(
+    //     () =>
+    //         makeLocalCrudFetcher<ProvinciaData>({
+    //             getAll: async () => {
+    //                 const data = provinciaId
+    //                     ? [await getProvinciaById(provinciaId)]
+    //                     : await getProvincias()
+    //                 return data.map(apiProvinciaToData)
+    //             },
+    //             searchKeys: ['nombre', 'paisNombre'] as any,
+    //         }),
+    //     [provinciaId]
+    // )
     const fetchData = useMemo(
         () =>
-            makeLocalCrudFetcher<ProvinciaData>({
-                getAll: async () => {
-                    const data = provinciaId
-                        ? [await getProvinciaById(provinciaId)]
-                        : await getProvincias()
-                    return data.map(apiProvinciaToData)
-                },
-                searchKeys: ['nombre', 'paisNombre'] as any,
+            fetchDataCrudWithFilters<ProvinciaData, any>({
+                fetchData: getProvincias,
             }),
-        [provinciaId]
+        []
     )
 
     async function onCreate(values: ProvinciaFormData) {

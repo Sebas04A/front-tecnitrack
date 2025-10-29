@@ -6,20 +6,35 @@ import {
 } from '../../pages/Internos/catalogo/localidades/ciudad/ciudad'
 import { LocalidadesService, ObjectApiResponse } from '../../api'
 import { CiudadFormData } from '../../pages/Internos/catalogo/localidades/localidades.schema'
+import { createApiSearchFunction } from '../generalGetWithFilters'
 
-export async function getCiudades(): Promise<CiudadData[]> {
-    const apiList = await LocalidadesService.getApiLocalidadesObtenerCiudades()
-    if (!apiList.data) throw new Error('No se recibieron datos de ciudades')
-    return apiList.data.map(apiCiudadToData)
-}
+// export async function getCiudades(): Promise<CiudadData[]> {
+//     const apiList = await LocalidadesService.getApiLocalidadesObtenerCiudades()
+//     if (!apiList.data) throw new Error('No se recibieron datos de ciudades')
+//     return apiList.data.map(apiCiudadToData)
+// }
+export const getCiudades = createApiSearchFunction<CiudadData, any, any, any>({
+    apiServiceCall: LocalidadesService.getApiLocalidadesObtenerCiudades,
+    sortKeyMapper: {},
+    filterAdapter: filters => {
+        return {
+            ...filters,
+        }
+    },
+    dataParser: data => {
+        if (!data) return []
+        return data.map(apiCiudadToData)
+    },
+    entityName: 'Ciudades',
+})
 
-export async function getCiudadesPorProvincia(provinciaId: number): Promise<CiudadData[]> {
-    const apiList = await LocalidadesService.getApiLocalidadesObtenerCiudadesPorProvincia({
-        provinciaId,
-    })
-    if (!apiList.data) throw new Error('No se recibieron datos de ciudades por provincia')
-    return apiList.data.map(apiCiudadToData)
-}
+// export async function getCiudadesPorProvincia(provinciaId: number): Promise<CiudadData[]> {
+//     const apiList = await LocalidadesService.getApiLocalidadesObtenerCiudadesPorProvincia({
+//         provinciaId,
+//     })
+//     if (!apiList.data) throw new Error('No se recibieron datos de ciudades por provincia')
+//     return apiList.data.map(apiCiudadToData)
+// }
 
 export async function getCiudadById(id: number): Promise<CiudadData> {
     const apiObj = await LocalidadesService.getApiLocalidadesObtenerCiudad({ id })

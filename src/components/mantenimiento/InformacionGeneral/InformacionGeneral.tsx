@@ -13,6 +13,7 @@ import { getInformacionGeneralOrden } from '../../../services/ORDEN/informacionA
 
 export default function InformacionGeneral({
     // handleClose,
+    estaEditando,
     change,
     orden,
 }: WindowProps & { change: () => void }) {
@@ -94,9 +95,11 @@ export default function InformacionGeneral({
                 </GenericRowForm>
             </GenericSection>
 
-            <div className='flex justify-end'>
-                <GenericButton text='Siguiente' onClick={change} className='mt-4 ' />
-            </div>
+            {estaEditando && (
+                <div className='flex justify-end'>
+                    <GenericButton text='Siguiente' onClick={change} className='mt-4 ' />
+                </div>
+            )}
             {/* <GenericButton text='Siguiente' onClick={change} className='mt-4 ' /> */}
         </GenericForm>
     )

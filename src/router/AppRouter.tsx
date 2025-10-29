@@ -16,7 +16,7 @@ import InternalLayout from '../layouts/InternalLayout'
 import RecuperarContra from '../pages/nologin/recuperarContra/RecuperarContra'
 import RestablecerContra from '../pages/nologin/restablecerContra/RestablecerContra'
 import CatalogosCrud from '../pages/Internos/catalogo/generales/CatalogosCrud'
-import CrudInternos from '../pages/Internos/CrudInternos'
+import CrudInternos from '../pages/Internos/usuarios/CrudInternos'
 
 import Citas from '../pages/Internos/Citas/Citas'
 

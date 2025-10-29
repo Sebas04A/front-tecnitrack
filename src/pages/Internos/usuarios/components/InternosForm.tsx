@@ -1,8 +1,7 @@
-import React from 'react'
-import GenericRowForm from '../../../form/GenericRowForm'
-import GenericSelect from '../../../form/Controls/GenericSelect'
-import GenericTextInput from '../../../form/Controls/GenericTextInput'
-import GenericDate from '../../../form/Controls/GenericDate'
+import GenericRowForm from '../../../../components/form/GenericRowForm'
+import GenericSelect from '../../../../components/form/Controls/GenericSelect'
+import GenericTextInput from '../../../../components/form/Controls/GenericTextInput'
+import GenericDate from '../../../../components/form/Controls/GenericDate'
 
 export default function InternosForm({
     register,
@@ -46,7 +45,7 @@ export default function InternosForm({
                 <div className='flex gap-2 flex-1 '>
                     <GenericSelect
                         label='Tipo de Documento'
-                        name='tipoDocumento'
+                        name='tipoIdentificacion'
                         control={control}
                         tipoCatalogo='tipoDocumento'
                         isReadOnly={!!viewing}
@@ -54,7 +53,7 @@ export default function InternosForm({
                     />
                     <GenericTextInput
                         label='N. de Documento'
-                        name='numeroDocumento'
+                        name='numeroIdentificacion'
                         type='text'
                         register={register}
                         errors={errors}

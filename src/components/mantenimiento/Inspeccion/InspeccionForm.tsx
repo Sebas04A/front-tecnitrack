@@ -11,11 +11,6 @@ export default function InspeccionForm({ handleClose, handleSave, readOnly, orde
     console.warn('InspeccionForm render')
     console.log('N_ORDEN en InspeccionForm:', handleClose, handleSave, orden)
 
-    // const [componentes, setComponentes] = React.useState<Componente[]>([])
-    // const eliminarComponente = (i: number) => {
-    //     setComponentes(componentes.filter((_, index) => index !== i))
-    // }
-
     const [inspector, setInspector] = React.useState('Cargando...')
     useEffect(() => {
         getInspector(orden.id!).then(data => {

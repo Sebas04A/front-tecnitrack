@@ -1,5 +1,5 @@
 import * as yup from 'yup'
-import { personaNaturalSchema } from './perfil.schema'
+import { personaNaturalSchema } from '../../../../validation/perfil.schema'
 
 export const usuarioInternoSchema = personaNaturalSchema.concat(
     yup.object({

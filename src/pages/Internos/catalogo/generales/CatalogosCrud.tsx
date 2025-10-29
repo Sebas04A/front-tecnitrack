@@ -151,6 +151,7 @@ export default function CatalogosCrud() {
                     }}
                     placeholderOptionLabel='Seleccione un tipo'
                     options={opcionesTiposCatalogo}
+                    className='max-w-xs'
                 />
             </div>
 

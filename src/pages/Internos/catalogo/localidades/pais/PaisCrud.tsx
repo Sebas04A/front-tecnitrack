@@ -8,9 +8,20 @@ import { makeLocalCrudFetcher } from '../../../../../components/crudGrid/helper/
 import CrudContainer, { crudQueries } from '../../../../../components/crudGrid/CrudContainer'
 
 import { apiToData, PaisData } from './models/paises'
-import { createPais, deletePais, getPaisById, getPaises, updatePais } from './services/paisApi'
+import {
+    createPais,
+    deletePais,
+    getPaisById,
+    getPaises,
+    getPaisesCrud,
+    updatePais,
+} from './services/paisApi'
 import PaisesForm from './components/PaisForm'
 import { PaisFormData, defaultPaisValues, paisSchema } from './models/paises.schema'
+import {
+    fetchDataCrudWithFilters,
+    FetchParams,
+} from '../../../../../components/crudGrid/helper/fetchWithFilters'
 
 interface PaisesCrudProps {
     titulo?: string
@@ -31,17 +42,25 @@ export const PaisesCrud: React.FC<PaisesCrudProps> = ({ titulo, paisId }) => {
         ],
         []
     )
+    // const fetchData = useMemo(
+    //     () =>
+    //         makeLocalCrudFetcher<PaisData>({
+    //             getAll: async () => {
+    //                 const data = paisId ? [await getPaisById(paisId)] : await getPaises()
+    //                 return data.map(apiToData)
+    //             },
+    //             searchKeys: ['nombre', 'codigoISO', 'codigoTelefonico'] as any,
+    //         }),
+    //     [paisId]
+    // )
     const fetchData = useMemo(
         () =>
-            makeLocalCrudFetcher<PaisData>({
-                getAll: async () => {
-                    const data = paisId ? [await getPaisById(paisId)] : await getPaises()
-                    return data.map(apiToData)
-                },
-                searchKeys: ['nombre', 'codigoISO', 'codigoTelefonico'] as any,
+            fetchDataCrudWithFilters<PaisData, any>({
+                fetchData: getPaisesCrud(),
             }),
-        [paisId]
+        []
     )
+
     async function onCreate(values: PaisFormData) {
         const created = await createPais(values) // form->api en service
         return apiToData(created)

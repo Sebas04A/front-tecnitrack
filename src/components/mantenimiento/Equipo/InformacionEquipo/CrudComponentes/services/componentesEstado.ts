@@ -2,13 +2,13 @@ import {
     ActualizarEstadoComponenteRequest,
     OrdenesService,
     RegistrarEstadoComponenteRequest,
-} from '../../api'
-import { ComponenteFormData } from '../../components/mantenimiento/Equipo/InformacionEquipo/CrudComponentes/componenteEstado'
-import { ComponenteData } from '../../components/mantenimiento/Equipo/InformacionEquipo/CrudComponentes/ComponentesCrud'
-import { parseComponentesTable } from '../../adapters/IngresoOrden/componente'
-import { FetchParams, FetchReturn } from '../../components/crudGrid/helper/fetchWithFilters'
-import { parsePagination } from '../../adapters/pagination'
-import { createApiSearchFunction } from '../generalGetWithFilters'
+} from '../../../../../../api'
+
+import { ComponenteFormData } from '../models/componenteEstado'
+import { ComponenteData } from '../ComponentesCrud'
+import { parseComponentesTable } from '../../../../../../adapters/IngresoOrden/componente'
+import { FetchParams, FetchReturn } from '../../../../../crudGrid/helper/fetchWithFilters'
+import { parsePagination } from '../../../../../../adapters/pagination'
 
 export const getComponenteDisponible = async (id: number) => {
     const res = await OrdenesService.getApiOrdenesObtenerComponentesDisponiblesOrden({

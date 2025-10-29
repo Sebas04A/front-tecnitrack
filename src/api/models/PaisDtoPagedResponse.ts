@@ -2,12 +2,14 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { PaginationInfo } from './PaginationInfo';
 import type { PaisDto } from './PaisDto';
-export type PaisDtoIEnumerableApiResponse = {
+export type PaisDtoPagedResponse = {
     success?: boolean;
     data?: Array<PaisDto> | null;
     message?: string | null;
     timestamp?: string;
     errors?: Array<string> | null;
+    pagination?: PaginationInfo;
 };
 

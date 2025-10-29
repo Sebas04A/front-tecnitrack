@@ -1,13 +1,16 @@
 import { useEffect, useMemo } from 'react'
-import { ColumnDef, CrudContainer, crudQueries } from '../../components/crudGrid'
-import { UsuarioInternoData, usuarioInternoSchema } from '../../validation/usuarioInterno'
-import { makeLocalCrudFetcher } from '../../components/crudGrid/helper/crud-helpers'
+
 import { Resolver, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { createInterno, deleteInterno, getInternos, updateInterno } from '../../services/internos'
+import { ColumnDef, CrudContainer, crudQueries } from '../../../components/crudGrid'
+import { makeLocalCrudFetcher } from '../../../components/crudGrid/helper/crud-helpers'
 
-import InternosForm from '../../components/crudGrid/cruds/Internos/InternosForm'
+import { UsuarioInternoData, usuarioInternoSchema } from './models/usuarioInterno'
+import { createInterno, deleteInterno, getInternos, updateInterno } from './services/internos'
+
+import InternosForm from './components/InternosForm'
+import { fetchDataCrudWithFilters } from '../../../components/crudGrid/helper/fetchWithFilters'
 
 export default function CrudInternos() {
     console.warn('CrudInternos render')
@@ -22,8 +25,8 @@ export default function CrudInternos() {
         usuario: '',
         contraseña: '',
         fechaNacimiento: '2000-01-01',
-        tipoDocumento: '',
-        numeroDocumento: '',
+        tipoIdentificacion: '',
+        numeroIdentificacion: '',
     }
     const form = useForm<UsuarioInternoData>({
         mode: 'onChange',
@@ -41,9 +44,8 @@ export default function CrudInternos() {
 
     const fetchData = useMemo(
         () =>
-            makeLocalCrudFetcher<UsuarioInternoData>({
-                getAll: getInternos,
-                searchKeys: ['nombreCompleto', 'apellidoCompleto', 'email'],
+            fetchDataCrudWithFilters<UsuarioInternoData, any>({
+                fetchData: getInternos,
             }),
         []
     )
@@ -56,8 +58,8 @@ export default function CrudInternos() {
         const res = await updateInterno(data.id, data)
         return res
     }
-    async function deleteQuery(id: number | string) {
-        const res = await deleteInterno(id as number)
+    async function deleteQuery(id: UsuarioInternoData) {
+        const res = await deleteInterno(id.id as number)
         return res
     }
     const crudQueries: crudQueries<UsuarioInternoData, UsuarioInternoData, any> = {

@@ -5,7 +5,7 @@ import GenericSelectSearch, { FetchFunction } from '../../../form/Controls/Gener
 import GenericTextInput from '../../../form/Controls/GenericTextInput'
 import GenericForm from '../../../form/GenericForm'
 import GenericRowForm from '../../../form/GenericRowForm'
-import { getComponenteDisponible } from '../../../../services/ORDEN/componentesEstado'
+import { getComponenteDisponible } from './CrudComponentes/services/componentesEstado'
 import { Option } from '../../../../types/form'
 
 export function ComponentForm({

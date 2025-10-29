@@ -3,11 +3,13 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { CiudadDto } from './CiudadDto';
-export type CiudadDtoIEnumerableApiResponse = {
+import type { PaginationInfo } from './PaginationInfo';
+export type CiudadDtoPagedResponse = {
     success?: boolean;
     data?: Array<CiudadDto> | null;
     message?: string | null;
     timestamp?: string;
     errors?: Array<string> | null;
+    pagination?: PaginationInfo;
 };
 

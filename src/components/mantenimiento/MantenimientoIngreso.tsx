@@ -129,6 +129,7 @@ export default function MantenimientoIngreso({
                             handleSave={handleSave}
                             orden={orden}
                             change={changeNextTab}
+                            estaEditando={estaEditando}
                             // readonly={readonly}
                         />
                     )}

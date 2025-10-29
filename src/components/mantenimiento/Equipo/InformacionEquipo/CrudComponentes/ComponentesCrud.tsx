@@ -3,15 +3,15 @@ import { ColumnDef, CrudContainer, crudQueries, formModalCrudProps } from '../..
 import { ComponentForm } from '../FormComponente'
 import { useForm } from 'react-hook-form'
 import { makeLocalCrudFetcher } from '../../../../crudGrid/helper/crud-helpers'
-import { UsuarioInternoData } from '../../../../../validation/usuarioInterno'
+import { UsuarioInternoData } from '../../../../../pages/Internos/usuarios/models/usuarioInterno'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { ComponenteFormData, validacionComponentes } from './componenteEstado'
+import { ComponenteFormData, validacionComponentes } from './models/componenteEstado'
 import {
     deleteEstadosComponentes,
     getEstadosComponentes,
     postEstadosComponentes,
     putEstadosComponentes,
-} from '../../../../../services/ORDEN/componentesEstado'
+} from './services/componentesEstado'
 import { useModalActions } from '../../../../../hooks/useModalActions'
 import { fetchDataCrudWithFilters, FetchParams } from '../../../../crudGrid/helper/fetchWithFilters'
 
