@@ -35,6 +35,7 @@ export const mapperUsuarioInternoFromApi: Partial<
     // estado: 'estado',
     tipoDocumento: 'tipoIdentificacion',
     numeroIdentificacion: 'numeroIdentificacion',
+    usuarioActivo: 'estado',
 }
 
 export const parseAdapterUsuarioInterno = (

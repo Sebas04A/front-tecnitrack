@@ -3,17 +3,13 @@ import React, { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import CrudContainer from '../../../CrudContainer'
-import { ColumnDef } from '../../../CrudTable'
+import CrudContainer from '../../../../../components/crudGrid/CrudContainer'
+import { ColumnDef } from '../../../../../components/crudGrid/CrudTable'
 
-import CiudadesForm from './CiudadForm'
-import {
-    ciudadSchema,
-    defaultCiudadValues,
-    CiudadFormData,
-} from '../../../../../pages/Internos/catalogo/localidades/localidades.schema'
-import type { CiudadData } from '../../../../../pages/Internos/catalogo/localidades/ciudad/ciudad'
-import { apiCiudadToData } from '../../../../../pages/Internos/catalogo/localidades/ciudad/ciudad'
+import CiudadesForm from '../../../../../components/crudGrid/cruds/Localidades/Ciudades/CiudadForm'
+import { ciudadSchema, defaultCiudadValues, CiudadFormData } from '../localidades.schema'
+import type { CiudadData } from './ciudad'
+import { apiCiudadToData } from './ciudad'
 import {
     getCiudades,
     getCiudadById,
@@ -21,8 +17,8 @@ import {
     updateCiudad,
     deleteCiudad,
 } from '../../../../../services/localidades/ciudadApi'
-import { makeLocalCrudFetcher } from '../../../helper/crud-helpers'
-import { fetchDataCrudWithFilters } from '../../../helper/fetchWithFilters'
+import { makeLocalCrudFetcher } from '../../../../../components/crudGrid/helper/crud-helpers'
+import { fetchDataCrudWithFilters } from '../../../../../components/crudGrid/helper/fetchWithFilters'
 
 interface CiudadesCrudProps {
     titulo?: string
@@ -38,9 +34,9 @@ const CiudadCrud: React.FC<CiudadesCrudProps> = ({ ciudadId }) => {
 
     const columns: ColumnDef<CiudadData>[] = useMemo(
         () => [
-            { key: 'nombre', header: 'Nombre' },
-            { key: 'provinciaNombre', header: 'Provincia' },
             { key: 'paisNombre', header: 'País' },
+            { key: 'provinciaNombre', header: 'Provincia' },
+            { key: 'nombre', header: 'Ciudad' },
             { key: 'esCapital', header: 'Capital', render: v => (v ? 'Sí' : 'No') },
             { key: 'activo', header: 'Activo', render: v => (v ? 'Sí' : 'No') },
         ],

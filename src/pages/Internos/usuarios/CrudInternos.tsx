@@ -39,7 +39,20 @@ export default function CrudInternos() {
         { header: 'Nombre', key: 'nombreCompleto' },
         { header: 'Apellido', key: 'apellidoCompleto' },
         { header: 'Email', key: 'email' },
-        { header: 'Estado', key: 'estado' },
+        {
+            header: 'Estado',
+            key: 'estado',
+            render: value =>
+                value ? (
+                    <div className='rounded p-1 text-xs flex text-center w-full justify-center bg-success-auto'>
+                        Activo
+                    </div>
+                ) : (
+                    <div className='rounded p-1 text-xs flex text-center w-full justify-center bg-error-auto'>
+                        Inactivo
+                    </div>
+                ),
+        },
     ]
 
     const fetchData = useMemo(

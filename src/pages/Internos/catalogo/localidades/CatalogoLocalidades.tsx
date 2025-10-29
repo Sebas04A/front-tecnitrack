@@ -1,7 +1,7 @@
 import React from 'react'
 import { PaisesCrud } from './pais/PaisCrud'
 import ProvinciasCrud from '../../../../components/crudGrid/cruds/Localidades/Provincias/ProvinicasCrud'
-import CiudadCrud from '../../../../components/crudGrid/cruds/Localidades/Ciudades/CiudadCrud'
+import CiudadCrud from './ciudad/CiudadCrud'
 import LocationSelector from '../../../../components/crudGrid/cruds/Internos/Catalogos/SelectTipoLocalidad'
 
 export default function CatalogoLocalidades() {
