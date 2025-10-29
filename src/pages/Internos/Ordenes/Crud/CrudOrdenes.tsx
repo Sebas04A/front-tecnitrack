@@ -26,7 +26,7 @@ import { useModalActions } from '../../../../hooks/useModalActions'
 //   )
 // }
 
-const camposReadOnly = {}
+// const camposReadOnly = {}
 
 const columns: ColumnDef<any>[] = [
     { key: 'numeroOrden', header: '# Orden', sortable: true },
@@ -34,7 +34,18 @@ const columns: ColumnDef<any>[] = [
         key: 'fechaIngresoOrden',
         header: 'Fecha Ingreso',
         sortable: true,
-        render: (row: string) => row.split('T')[0],
+        render: (row: Date) => {
+            // Create a new Date object to ensure you're working with a valid date
+            const date = new Date(row)
+
+            // Get day, month, and year
+            const day = String(date.getDate()).padStart(2, '0')
+            const month = String(date.getMonth() + 1).padStart(2, '0') // Month is 0-indexed, so add 1
+            const year = date.getFullYear()
+
+            // Return the formatted string
+            return `${day}/${month}/${year}`
+        },
     },
     { key: 'clienteNombre', header: 'Cliente', sortable: true },
     { key: 'equipoNombre', header: 'Equipo', sortable: true },
