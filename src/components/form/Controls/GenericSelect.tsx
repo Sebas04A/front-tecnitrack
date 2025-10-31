@@ -8,7 +8,7 @@ import {
     UseFormRegister,
     UseFormWatch,
 } from 'react-hook-form'
-import { getNestedError } from '../../../utils/formError'
+import { getNestedError } from '../utils/formError'
 import { getCatalogo } from '../../../pages/Internos/catalogo/generales/services/catalogos'
 import { Option } from '../../../types/form'
 import { input } from 'framer-motion/client'

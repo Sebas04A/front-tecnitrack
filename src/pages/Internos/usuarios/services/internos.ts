@@ -41,14 +41,22 @@ export async function updateInterno(
     data: UsuarioInternoData
 ): Promise<ObjectApiResponse> {
     console.log(id, data)
-    throw new Error('Función no implementada')
-    // const requestBody = adapterUsuarioInterno(data)
-    // const res = ClienteInternoService.
-    // console.log(`Actualizando interno ${id} con datos:`, data)
-    // return { id, ...data }
-    return { success: true }
+    const requestBody = adapterUsuarioInterno(data)
+    const res =
+        await GestionClientesInternosService.putApiGestionClientesInternosActualizarClienteInterno({
+            id,
+            requestBody,
+        })
+    return res
 }
 export async function deleteInterno(id: number): Promise<ObjectApiResponse> {
     console.log(`Eliminando interno con ID: ${id}`)
-    return { success: true }
+    const res =
+        await GestionClientesInternosService.deleteApiGestionClientesInternosEliminarClienteInterno(
+            {
+                id,
+            }
+        )
+    return res
+    // return { success: true }
 }

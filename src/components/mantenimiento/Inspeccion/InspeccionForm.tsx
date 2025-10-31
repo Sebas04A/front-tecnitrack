@@ -3,7 +3,7 @@ import GenericForm from '../../form/GenericForm'
 
 import GenericTextInput from '../../form/Controls/GenericTextInput'
 
-import ComponentesCrud from '../Equipo/InformacionEquipo/CrudComponentes/ComponentesCrud'
+import ComponentesCrud from './CrudComponentes/ComponentesCrud'
 import { WindowProps } from '../MantenimientoIngreso'
 import { getInspector } from './services/inspeccion'
 
@@ -33,8 +33,6 @@ export default function InspeccionForm({ handleClose, handleSave, readOnly, orde
                     isReadOnly={true}
                     value={inspector}
                 />
-                {/* <GenericButton type='submit' text='Guardar' className='m-0 mt-auto' /> */}
-                {/* </GenericRowForm> */}
             </GenericForm>
             <div className='mt-10'></div>
 

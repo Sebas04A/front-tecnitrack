@@ -3,8 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 import { Resolver, useForm } from 'react-hook-form'
 
-import CrudContainer, { crudQueries } from '../../../../components/crudGrid/CrudContainer'
-import { ColumnDef } from '../../../../components/crudGrid/CrudTable'
+import CrudContainer, { crudQueries } from '../../../../components/crud/CrudContainer'
 
 import GenericSelectState from '../../../../components/form/Controls/GenericSelectState'
 
@@ -19,7 +18,8 @@ import {
     getTiposCatalogos,
     updateCatalogo,
 } from './services/catalogos'
-import { fetchDataCrudWithFilters } from '../../../../components/crudGrid/helper/fetchWithFilters'
+import { fetchDataCrudWithFilters } from '../../../../components/crud/helper/fetchWithFilters'
+import { ColumnDef } from '../../../../components/crud/components/CrudTable'
 
 const columns: ColumnDef<CatalogoDto>[] = [
     // { header: 'ID', key: 'id' },
@@ -29,7 +29,7 @@ const columns: ColumnDef<CatalogoDto>[] = [
     {
         header: 'Estado',
         key: 'activo',
-        render: value => (value ? 'Activo' : 'Inactivo'),
+        render: (value: boolean) => (value ? 'Activo' : 'Inactivo'),
         sortable: true,
     },
 ]

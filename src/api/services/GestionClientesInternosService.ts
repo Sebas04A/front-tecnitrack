@@ -2,6 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { ActualizarClienteInternoRequest } from '../models/ActualizarClienteInternoRequest';
+import type { ClienteInternoResponseApiResponse } from '../models/ClienteInternoResponseApiResponse';
 import type { ClienteInternoResponsePagedResponse } from '../models/ClienteInternoResponsePagedResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -45,6 +47,74 @@ export class GestionClientesInternosService {
                 401: `Unauthorized`,
                 403: `Forbidden`,
                 500: `Internal Server Error`,
+            },
+        });
+    }
+    /**
+     * @returns ClienteInternoResponseApiResponse OK
+     * @throws ApiError
+     */
+    public static getApiGestionClientesInternosObtenerClienteInterno({
+        id,
+    }: {
+        id: number,
+    }): CancelablePromise<ClienteInternoResponseApiResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/gestion-clientes-internos/obtener-cliente-interno/{id}',
+            path: {
+                'id': id,
+            },
+            errors: {
+                401: `Unauthorized`,
+                403: `Forbidden`,
+                404: `Not Found`,
+                500: `Internal Server Error`,
+            },
+        });
+    }
+    /**
+     * @returns ClienteInternoResponseApiResponse OK
+     * @throws ApiError
+     */
+    public static putApiGestionClientesInternosActualizarClienteInterno({
+        id,
+        requestBody,
+    }: {
+        id: number,
+        requestBody?: ActualizarClienteInternoRequest,
+    }): CancelablePromise<ClienteInternoResponseApiResponse> {
+        return __request(OpenAPI, {
+            method: 'PUT',
+            url: '/api/gestion-clientes-internos/actualizar-cliente-interno/{id}',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad Request`,
+                401: `Unauthorized`,
+                403: `Forbidden`,
+                404: `Not Found`,
+                500: `Internal Server Error`,
+            },
+        });
+    }
+    /**
+     * @returns any OK
+     * @throws ApiError
+     */
+    public static deleteApiGestionClientesInternosEliminarClienteInterno({
+        id,
+    }: {
+        id: number,
+    }): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/api/gestion-clientes-internos/eliminar-cliente-interno/{id}',
+            path: {
+                'id': id,
             },
         });
     }

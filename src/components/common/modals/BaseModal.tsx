@@ -1,5 +1,3 @@
-// components/modals/BaseModal.tsx
-
 import React, { useEffect, useId, useRef } from 'react'
 import { IoClose } from 'react-icons/io5'
 import { motion, AnimatePresence } from 'framer-motion'

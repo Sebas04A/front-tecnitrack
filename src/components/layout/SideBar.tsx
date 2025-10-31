@@ -1,10 +1,13 @@
 // components/layout/Sidebar.tsx
 import { useEffect, useMemo, useState } from 'react'
-import { NavLink, useLocation } from 'react-router-dom'
-import { FaSignOutAlt, FaChevronDown, FaChevronRight, FaTimes } from 'react-icons/fa'
+
+import { FaSignOutAlt, FaTimes } from 'react-icons/fa'
+
 import { navItemsType, NavItem } from '../../types/nav'
 import { useAuth } from '../../hooks/useAuth'
+
 import clsx from 'clsx'
+
 import MenuList from './MenuList'
 
 export const slug = (s: string) =>

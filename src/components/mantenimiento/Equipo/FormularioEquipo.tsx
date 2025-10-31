@@ -1,28 +1,20 @@
-import React, { useEffect } from 'react'
-import GenericForm from '../../form/GenericForm'
-import GenericTextInput from '../../form/Controls/GenericTextInput'
+import React from 'react'
 import { useForm } from 'react-hook-form'
-import GenericRowForm from '../../form/GenericRowForm'
-import GenericSelectSearch from '../../form/Controls/GenericSelectSearch'
-import GenericSection from '../../form/GenericSection'
-import GenericButton from '../../form/Controls/GenericButton'
-import { FaPlus } from 'react-icons/fa'
+
+import { useModalActions } from '../../../hooks/useModalActions'
+
+import GenericForm from '../../form/GenericForm'
 import GenericTextarea from '../../form/Controls/GenericTextArea'
-import GenericSelect from '../../form/Controls/GenericSelect'
-import InspeccionForm from '../Inspeccion/InspeccionForm'
-import { EquipoSection } from './InformacionEquipo/InformacionEquipo'
+
+import { EquipoSection } from './InformacionEquipo/components/InformacionEquipo'
 import { WindowProps } from '../MantenimientoIngreso'
 import {
     getInformacionActivo,
     getInformacionActivoAsignado,
-    getObtenerActivoOrden,
     postActivo,
     postActivoNuevo,
     updateActivo,
 } from './services/activoApi'
-import { th } from 'framer-motion/client'
-import { useModalActions } from '../../../hooks/useModalActions'
-import { useModal } from '../../../hooks/useModal'
 
 export default function FormularioEquipo({
     handleClose,

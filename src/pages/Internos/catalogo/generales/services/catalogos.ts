@@ -1,15 +1,14 @@
-import {
-    adapterCatalogo,
-    obtenerCatalogos,
-    parseAdapterCatalogo,
-} from '../../../../../adapters/catalogos'
+import { adapterCatalogo, obtenerCatalogos, parseAdapterCatalogo } from '../adapters/catalogos'
 import { CatalogoDto, CatalogosService, CrearCatalogoDto } from '../../../../../api'
-import { makeLocalCrudFetcher } from '../../../../../components/crudGrid/helper/crud-helpers'
+import { makeLocalCrudFetcher } from '../../../../../components/crud/helper/crud-helpers'
 import {
     fetchDataCrudWithFilters,
     FetchParams,
-} from '../../../../../components/crudGrid/helper/fetchWithFilters'
-import { createApiSearchFunction } from '../../../../../services/generalGetWithFilters'
+} from '../../../../../components/crud/helper/fetchWithFilters'
+import {
+    ApiSearchParams,
+    createApiSearchFunction,
+} from '../../../../../services/generalGetWithFilters'
 import { CatalogoFormData } from '../models/catalogo.schema'
 
 export async function getTiposCatalogos(): Promise<string[]> {
@@ -29,8 +28,11 @@ export async function getCatalogo(tipo: string) {
 //     return parseAdapterCatalogo(response.data ?? [])
 // }
 export const getCatalogoPorTipo = (tipo: string) =>
-    createApiSearchFunction<CatalogoFormData, CatalogoFormData, any, any>({
-        apiServiceCall: () => CatalogosService.getApiCatalogosObtenerCatalogosPorTipo({ tipo }),
+    createApiSearchFunction<CatalogoFormData, CatalogoDto, any, any>({
+        apiServiceCall: (filters: ApiSearchParams) => {
+            console.log('Obteniendo catálogo para tipo:', tipo, 'con filtros:', filters)
+            return CatalogosService.getApiCatalogosObtenerCatalogosPorTipo({ tipo, ...filters })
+        },
         sortKeyMapper: {},
         filterAdapter: filters => ({ ...filters, tipo }),
         dataParser: parseAdapterCatalogo,
@@ -46,10 +48,10 @@ export const getCatalogoPorTipo = (tipo: string) =>
 
 // })
 
-export async function getCatalogos() {
-    const response = await CatalogosService.getApiCatalogosObtenerTodosCatalogos()
-    return response
-}
+// export async function getCatalogos() {
+//     const response = await CatalogosService.getApiCatalogosObtenerTodosCatalogos()
+//     return response
+// }
 export async function createCatalogo(data: CatalogoFormData) {
     const adaptCatalogo: CatalogoDto = adapterCatalogo(data)
     const requestBody: CrearCatalogoDto = adaptCatalogo as CrearCatalogoDto

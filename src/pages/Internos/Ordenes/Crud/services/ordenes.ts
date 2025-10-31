@@ -2,11 +2,8 @@ import { adapterFiltersCita } from '../../../Citas/Crud/adapter/cita'
 import { adapterFiltersParams } from '../../../../../adapters/filtersToParams'
 import { parsePagination } from '../../../../../adapters/pagination'
 import { GestionOrdenesService, ListarOrdenesActivasDto, OrdenesService } from '../../../../../api'
-import { makeLocalCrudFetcher } from '../../../../../components/crudGrid/helper/crud-helpers'
-import {
-    FetchParams,
-    FetchReturn,
-} from '../../../../../components/crudGrid/helper/fetchWithFilters'
+import { makeLocalCrudFetcher } from '../../../../../components/crud/helper/crud-helpers'
+import { FetchParams, FetchReturn } from '../../../../../components/crud/helper/fetchWithFilters'
 import { createApiSearchFunction } from '../../../../../services/generalGetWithFilters'
 import {
     adapterFiltersOrdenesAdminFromApi,

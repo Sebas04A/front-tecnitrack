@@ -5,21 +5,19 @@ import { useForm } from 'react-hook-form'
 
 import { useModalActions } from '../../../../../hooks/useModalActions'
 
-import { ColumnDef } from '../../../../../components/crudGrid'
-import CrudCrudo, {
-    newActionCrud,
-    onCrudActionsProps,
-} from '../../../../../components/crudGrid/CrudCrudo'
-import { fetchDataCrudWithFilters } from '../../../../../components/crudGrid/helper/fetchWithFilters'
+import CrudCrudo from '../../../../../components/crud/CrudCrudo'
+import { fetchDataCrudWithFilters } from '../../../../../components/crud/helper/fetchWithFilters'
 
 import { PerfilPersonaNaturalData } from '../../../../../validation/perfil.schema'
 import { TIPO_PERSONA } from '../../../../../constants/perfil'
 
-import FormsUnidos from '../../../../../components/PerfilForm/forms/FormsUnidos'
+import FormsUnidos from '../../../../../components/PerfilForm/FormsUnidos'
 
-import { buscarPerfilesNaturales, deletePerfilNaturalAdmin } from './services/natural'
+import { buscarPerfilesNaturales } from './services/natural'
 import { ClienteNaturalCrud } from './models/CrudNaturalModel'
 import { activarUsuario, desactivarUsuario } from '../services/clienteService'
+import { ColumnDef } from '../../../../../components/crud/components/CrudTable'
+import { newActionCrud, onCrudActionsProps } from '../../../../../components/crud/models/crud.types'
 
 const columnsNatural: ColumnDef<ClienteNaturalCrud>[] = [
     {
@@ -46,7 +44,7 @@ const columnsNatural: ColumnDef<ClienteNaturalCrud>[] = [
     {
         header: 'Estado',
         key: 'estado',
-        render: value =>
+        render: (value: boolean) =>
             value ? (
                 <div className='rounded p-1 text-xs flex text-center w-full justify-center bg-success-auto'>
                     Activo

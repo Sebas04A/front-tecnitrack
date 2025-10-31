@@ -1,15 +1,16 @@
 import { useEffect } from 'react'
-import GenericForm from '../../form/GenericForm'
 
+import { useForm } from 'react-hook-form'
+
+import GenericForm from '../../form/GenericForm'
 import GenericTextInput from '../../form/Controls/GenericTextInput'
 import GenericDate from '../../form/Controls/GenericDate'
 import GenericRowForm from '../../form/GenericRowForm'
 import GenericSection from '../../form/GenericSection'
-
-import { useForm } from 'react-hook-form'
-import { WindowProps } from '../MantenimientoIngreso'
 import GenericButton from '../../form/Controls/GenericButton'
-import { getInformacionGeneralOrden } from '../../../services/ORDEN/informacionApi'
+
+import { WindowProps } from '../MantenimientoIngreso'
+import { getInformacionGeneralOrden } from './services/informacionGeneralServices'
 
 export default function InformacionGeneral({
     // handleClose,

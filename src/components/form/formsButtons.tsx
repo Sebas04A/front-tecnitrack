@@ -1,4 +1,3 @@
-import React from 'react'
 import GenericButton from './Controls/GenericButton'
 
 export default function FormsButtons({

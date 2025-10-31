@@ -1,6 +1,6 @@
 import React from 'react'
 import { FieldErrors, UseFormRegister } from 'react-hook-form'
-import { getNestedError } from '../../../utils/formError'
+import { getNestedError } from '../utils/formError'
 
 type GenericCheckboxProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'name'> & {
     /** Texto que aparece a la derecha del checkbox */

@@ -3,22 +3,17 @@ import React, { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import CrudContainer from '../../../../../components/crudGrid/CrudContainer'
-import { ColumnDef } from '../../../../../components/crudGrid/CrudTable'
+import CrudContainer from '../../../../../components/crud/CrudContainer'
 
-import CiudadesForm from '../../../../../components/crudGrid/cruds/Localidades/Ciudades/CiudadForm'
+import { fetchDataCrudWithFilters } from '../../../../../components/crud/helper/fetchWithFilters'
+
+import CiudadesForm from './components/CiudadForm'
 import { ciudadSchema, defaultCiudadValues, CiudadFormData } from '../localidades.schema'
-import type { CiudadData } from './ciudad'
-import { apiCiudadToData } from './ciudad'
-import {
-    getCiudades,
-    getCiudadById,
-    createCiudad,
-    updateCiudad,
-    deleteCiudad,
-} from '../../../../../services/localidades/ciudadApi'
-import { makeLocalCrudFetcher } from '../../../../../components/crudGrid/helper/crud-helpers'
-import { fetchDataCrudWithFilters } from '../../../../../components/crudGrid/helper/fetchWithFilters'
+import { CiudadData } from './models.ts/ciudad'
+import { apiCiudadToData } from './adapters/ciudad'
+
+import { createCiudad, deleteCiudad, getCiudades, updateCiudad } from './services/ciudadService'
+import { ColumnDef } from '../../../../../components/crud/components/CrudTable'
 
 interface CiudadesCrudProps {
     titulo?: string
@@ -37,8 +32,8 @@ const CiudadCrud: React.FC<CiudadesCrudProps> = ({ ciudadId }) => {
             { key: 'paisNombre', header: 'País' },
             { key: 'provinciaNombre', header: 'Provincia' },
             { key: 'nombre', header: 'Ciudad' },
-            { key: 'esCapital', header: 'Capital', render: v => (v ? 'Sí' : 'No') },
-            { key: 'activo', header: 'Activo', render: v => (v ? 'Sí' : 'No') },
+            { key: 'esCapital', header: 'Capital', render: (v: boolean) => (v ? 'Sí' : 'No') },
+            { key: 'activo', header: 'Activo', render: (v: boolean) => (v ? 'Sí' : 'No') },
         ],
         []
     )

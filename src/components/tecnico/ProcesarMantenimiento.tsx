@@ -1,13 +1,14 @@
 import { Tab } from '@headlessui/react'
 import React from 'react'
-import TabsNavigation from '../common/TabsNavigation'
-import { tabsInfoType } from '../../types/profile.types'
+import TabsNavigation from '../common/tabs/TabsNavigation'
+
 import InformacionGeneral from './procesar/InformacionGeneral'
 import Diagnostico from './procesar/Diagnostico'
 import Cotizacion from './procesar/Cotizacion'
 import Aprobacion from './procesar/Aprobacion'
 import Reparacion from './procesar/Reparacion'
 import Finalizacion from './procesar/Finalizacion'
+import { tabsInfoType } from '../common/tabs/models/tabs.type'
 
 const tabs: tabsInfoType<string> = [
     { key: 'Informacion General', label: 'Informacion General', icon: <></> },

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Filter } from '../../../../../components/crudGrid/helper/crud-helpers'
+import { Filter } from '../../../../../components/crud/helper/crud-helpers'
 import { OrdenesFiltersType } from '../models/ordenFilter'
 import GenericButton from '../../../../../components/form/Controls/GenericButton'
 import GenericDate from '../../../../../components/form/Controls/GenericDate'

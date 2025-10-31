@@ -40,6 +40,12 @@ export function convertirDateParaInput(date: Date): string {
     // Unimos todo en el formato requerido.
     return `${year}-${month}-${day}T${hours}:${minutes}`
 }
+export function convertirSoloFechaParaInput(date: Date): string {
+    const year = date.getFullYear()
+    const month = (date.getMonth() + 1).toString().padStart(2, '0')
+    const day = date.getDate().toString().padStart(2, '0')
+    return `${year}-${month}-${day}`
+}
 
 export function parseFechaHoraUnido(fechaHoraApi: string): Date {
     const [fecha, hora] = fechaHoraApi.split('T')

@@ -3,8 +3,7 @@ import { useMemo } from 'react'
 import { Resolver, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { ColumnDef } from '../../../../components/crudGrid/CrudTable'
-import { fetchDataCrudWithFilters } from '../../../../components/crudGrid/helper/fetchWithFilters'
+import { fetchDataCrudWithFilters } from '../../../../components/crud/helper/fetchWithFilters'
 
 import CrudCitasContainer from './components/CrudCitasContainer'
 import FormCitas from './components/FormCitas'
@@ -18,7 +17,8 @@ import {
     obtenerCitasAdmin,
     updateCitaAdmin,
 } from './services/crudCitasApi'
-import { crudQueries } from '../../../../components/crudGrid'
+import { ColumnDef } from '../../../../components/crud/components/CrudTable'
+import { crudQueries } from '../../../../components/crud/CrudContainer'
 
 const stylesEstado = {
     Pendiente: 'bg-warning-auto',

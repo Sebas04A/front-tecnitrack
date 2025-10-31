@@ -1,5 +1,8 @@
-import React, { useEffect } from 'react'
-import { get, useForm } from 'react-hook-form'
+import { useEffect } from 'react'
+
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+
 import GenericForm from '../../form/GenericForm'
 import GenericTextInput from '../../form/Controls/GenericTextInput'
 import GenericDate from '../../form/Controls/GenericDate'
@@ -7,15 +10,21 @@ import GenericRowForm from '../../form/GenericRowForm'
 import GenericTextarea from '../../form/Controls/GenericTextArea'
 import GenericSelect from '../../form/Controls/GenericSelect'
 import GenericSelectSearch, { FetchFunction } from '../../form/Controls/GenericSelectSearch'
+
 import { useAuth } from '../../../hooks/useAuth'
-import { buscarUsuario } from '../../../services/SelectSearch'
+
 import { WindowProps } from '../MantenimientoIngreso'
-import { getInformacionOrden, postOrden, updateOrden } from './services/ordenApi'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { OrderFormData, orderValidationSchema } from '../../../validation/IngresoOrden/orden'
+import {
+    getInformacionOrden,
+    getInformacionUsuarioActual,
+    postOrden,
+    updateOrden,
+} from './services/ordenApi'
+
+import { OrderFormData, orderValidationSchema } from './models/orden'
 import { getInspectoresSearch } from '../../../services/Select/usuariosSearch'
 import { Option } from '../../../types/form'
-import { getInformacionUsuarioActual } from '../../../services/ORDEN/informacionApi'
+
 import { useModalActions } from '../../../hooks/useModalActions'
 import { citaSchema } from '../../../validation/cita.schema'
 import { convertirDateParaInput, obtenerDateActualEnEcuador } from '../../../adapters/fecha'

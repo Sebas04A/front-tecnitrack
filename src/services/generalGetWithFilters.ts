@@ -1,7 +1,7 @@
 import { adapterFiltersParams } from '../adapters/filtersToParams'
 import { parsePagination } from '../adapters/pagination'
 import { PaginationInfo } from '../api'
-import { FetchParams, FetchReturn } from '../components/crudGrid/helper/fetchWithFilters'
+import { FetchParams, FetchReturn } from '../components/crud/helper/fetchWithFilters'
 
 export type ApiResponseSearch<Data> = {
     success?: boolean
@@ -73,7 +73,13 @@ export function createApiSearchFunction<
     T_Api,
     T_Filters_FrontEnd extends object,
     T_Filters_Api extends object
->(config: SearchFunctionConfig<T_FrontEnd, T_Api, T_Filters_FrontEnd, T_Filters_Api>) {
+>({
+    apiServiceCall,
+    sortKeyMapper,
+    filterAdapter,
+    dataParser,
+    entityName,
+}: SearchFunctionConfig<T_FrontEnd, T_Api, T_Filters_FrontEnd, T_Filters_Api>) {
     /**
      * Función generada que busca y procesa datos de una entidad específica.
      * @param filters Parámetros de paginación, ordenamiento y filtrado del frontend.
@@ -81,7 +87,7 @@ export function createApiSearchFunction<
     return async function generatedSearchFunction(
         filters: FetchParams<T_Filters_FrontEnd, T_FrontEnd>
     ): Promise<FetchReturn<T_FrontEnd>> {
-        const { apiServiceCall, sortKeyMapper, dataParser, entityName } = config
+        // const { apiServiceCall, sortKeyMapper, dataParser, entityName } = config
 
         console.log(`Buscando ${entityName}... con filtros:`, filters || 'Sin filtros')
         // if (!filters) {
@@ -94,7 +100,7 @@ export function createApiSearchFunction<
         // Preparamos los parámetros para la llamada al servicio de la API
         const apiParams = {
             ...adapterFiltersParams(filters),
-            ...config.filterAdapter(filters.filters),
+            ...filterAdapter(filters.filters),
             ordenarPor: apiSortKey,
             direccion: filters.sortColumns.dir ?? 'desc',
         }

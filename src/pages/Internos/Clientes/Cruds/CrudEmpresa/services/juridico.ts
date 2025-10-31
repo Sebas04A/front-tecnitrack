@@ -1,9 +1,4 @@
 import {
-    mapperPerfilJuridicoDataToApi,
-    parseAdapterPerfilesJuridicosCrud,
-    parseAdapterPerfilJuridico,
-} from '../../../../../../adapters/perfil'
-import {
     ActualizarClienteEmpresaDto,
     CrearClienteEmpresaDto,
     GestionClientesService,
@@ -12,6 +7,11 @@ import {
 import { ClienteEmpresaCrud } from '../models/crudEmpresaModel'
 import { PerfilEmpresaData } from '../../../../../../validation/perfil.schema'
 import { createApiSearchFunction } from '../../../../../../services/generalGetWithFilters'
+import {
+    mapperPerfilJuridicoDataToApi,
+    parseAdapterPerfilesJuridicosCrud,
+} from '../adapters/crudEmpresa'
+import { parseAdapterPerfilJuridico } from '../../../../../../components/PerfilForm/perfil/juridico/adapters/juridico'
 
 export const buscarPerfilesJuridicos = createApiSearchFunction<
     ClienteEmpresaCrud,

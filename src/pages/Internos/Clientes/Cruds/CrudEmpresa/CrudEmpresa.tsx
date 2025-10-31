@@ -3,21 +3,21 @@ import { useMemo, useState } from 'react'
 import { FaToggleOff, FaToggleOn } from 'react-icons/fa'
 import { useForm } from 'react-hook-form'
 
-import { ColumnDef } from '../../../../../components/crudGrid'
-import CrudCrudo, { newActionCrud } from '../../../../../components/crudGrid/CrudCrudo'
-import { fetchDataCrudWithFilters } from '../../../../../components/crudGrid/helper/fetchWithFilters'
+import CrudCrudo from '../../../../../components/crud/CrudCrudo'
+import { fetchDataCrudWithFilters } from '../../../../../components/crud/helper/fetchWithFilters'
 
-import { useModal } from '../../../../../hooks/useModal'
 import { useModalActions } from '../../../../../hooks/useModalActions'
 
 import { PerfilEmpresaData } from '../../../../../validation/perfil.schema'
 
 import { TIPO_PERSONA } from '../../../../../constants/perfil'
-import FormsUnidos from '../../../../../components/PerfilForm/forms/FormsUnidos'
+import FormsUnidos from '../../../../../components/PerfilForm/FormsUnidos'
 
 import { buscarPerfilesJuridicos } from './services/juridico'
 import { ClienteEmpresaCrud } from './models/crudEmpresaModel'
 import { activarUsuario, desactivarUsuario } from '../services/clienteService'
+import { ColumnDef } from '../../../../../components/crud/components/CrudTable'
+import { newActionCrud } from '../../../../../components/crud/models/crud.types'
 
 const columnsNatural: ColumnDef<ClienteEmpresaCrud>[] = [
     {

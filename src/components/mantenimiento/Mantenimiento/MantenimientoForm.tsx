@@ -9,7 +9,7 @@ import GenericTextarea from '../../form/Controls/GenericTextArea'
 import { WindowProps } from '../MantenimientoIngreso'
 
 import { yupResolver } from '@hookform/resolvers/yup'
-import { mantenimientoValidationSchema } from '../../../validation/IngresoOrden/mantenimiento'
+import { mantenimientoValidationSchema } from './models/mantenimiento'
 import { getTecnicosSearch } from '../../../services/Select/usuariosSearch'
 import { Option } from '../../../types/form'
 import { getDatosMantenimiento, postMantenimiento } from './services/mantenimiento'

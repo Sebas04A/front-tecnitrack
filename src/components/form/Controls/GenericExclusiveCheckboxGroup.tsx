@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import GenericCheckbox from './GenericCheckbox'
 import { FieldErrors, UseFormRegister } from 'react-hook-form'
-import { getNestedError } from '../../../utils/formError'
+import { getNestedError } from '../utils/formError'
 
 type Option = { value: string; label: string; disabled?: boolean }
 

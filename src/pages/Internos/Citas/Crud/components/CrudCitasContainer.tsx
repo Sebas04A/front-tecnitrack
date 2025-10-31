@@ -1,15 +1,11 @@
 import { FieldValues, UseFormReturn } from 'react-hook-form'
-import { ColumnDef } from '../../../../../components/crudGrid/CrudTable'
+
 import {
     CrudContainerProps,
     crudQueries,
     formModalCrudProps,
-} from '../../../../../components/crudGrid/CrudContainer'
-import CrudCrudo, {
-    autoLoadOptions,
-    newActionCrud,
-    onCrudActionsProps,
-} from '../../../../../components/crudGrid/CrudCrudo'
+} from '../../../../../components/crud/CrudContainer'
+import CrudCrudo from '../../../../../components/crud/CrudCrudo'
 import { ComponentType, useEffect, useState } from 'react'
 import { useModal } from '../../../../../hooks/useModal'
 import { useModalActions } from '../../../../../hooks/useModalActions'
@@ -22,6 +18,12 @@ import { CalendarioModal } from '../../../../../components/common/modals/Calenda
 import { convertirDateParaInput } from '../../../../../adapters/fecha'
 import { crearOrden } from '../services/crudCitasApi'
 import { OrdenData } from '../../../Ordenes/Crud/models/ordenData'
+import { ColumnDef } from '../../../../../components/crud/components/CrudTable'
+import {
+    autoLoadOptions,
+    newActionCrud,
+    onCrudActionsProps,
+} from '../../../../../components/crud/models/crud.types'
 
 // type ModeActionType = 'create' | 'edit' | 'view' | 'delete'
 

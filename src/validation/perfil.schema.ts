@@ -201,11 +201,13 @@ const isValidCedulaEc = (value?: string) => {
 /** Helpers ya existentes... (onlyDigits, inRange, isValidCedulaEc, isValidRucEc, PASSPORT_RE) **/
 
 /** Nuevos helpers para fecha **/
-const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/
+const ISO_DATE_RE = /^\d{2}-\d{2}-\d{4}$/
+
 const isValidISODateInPast = (s?: string) => {
-    if (!ISO_DATE_RE.test(s ?? '')) return false
+    // if (!ISO_DATE_RE.test(s ?? '')) return false
     const [y, m, d] = (s as string).split('-').map(Number)
     const dt = new Date(Date.UTC(y, m - 1, d))
+    console.log('Validando fecha:', y, m, d, dt)
     // valida que sea una fecha real
     if (dt.getUTCFullYear() !== y || dt.getUTCMonth() !== m - 1 || dt.getUTCDate() !== d)
         return false
@@ -244,11 +246,11 @@ export const personaNaturalSchema = yup.object({
         .transform((value, originalValue) => {
             return originalValue.trim() === '' ? null : value
         })
-        .test('fecha-formato', 'Use el formato YYYY-MM-DD', v =>
-            ISO_DATE_RE.test(v ?? '2023-01-01')
-        )
+        // .test('fecha-formato', 'Use el formato DD-MM-YYYY', v =>
+        //     ISO_DATE_RE.test(v ?? '01-01-2023')
+        // )
         .test('fecha-rango', 'Fecha inválida o en el futuro', v =>
-            isValidISODateInPast(v || '1990-01-01')
+            isValidISODateInPast(v || '01-01-1990')
         ),
     // .required('La fecha de nacimiento es obligatoria')
     // .test('mayor-de-18', 'Debe ser mayor de 18 años', v => getAge(v) >= 18) // ← activa si tu negocio lo requiere

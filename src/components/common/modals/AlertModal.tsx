@@ -1,5 +1,3 @@
-// components/modals/AlertModal.tsx
-
 import React from 'react'
 import BaseModal from './BaseModal'
 import { IoCheckmarkCircle, IoInformationCircle, IoCloseCircle, IoWarning } from 'react-icons/io5'

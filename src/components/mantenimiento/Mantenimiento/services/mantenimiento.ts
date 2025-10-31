@@ -1,6 +1,6 @@
-import { parseAdapterMantenimiento } from '../../../../adapters/IngresoOrden/mantenimiento'
+import { parseAdapterMantenimiento } from '../adapters/mantenimiento'
 import { OrdenesService, ProgramarMantenimientoRequest } from '../../../../api'
-import { MantenimientoFormType } from '../../../../validation/IngresoOrden/mantenimiento'
+import { MantenimientoFormType } from '../models/mantenimiento'
 
 export const getDatosMantenimiento = async (
     id: number

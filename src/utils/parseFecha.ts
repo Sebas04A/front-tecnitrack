@@ -1,4 +1,4 @@
-function formatDate(fecha: Date): string {
+export function formatDate(fecha: Date): string {
     const year = fecha.getFullYear()
     const month = String(fecha.getMonth() + 1).padStart(2, '0')
     const day = String(fecha.getDate()).padStart(2, '0')
@@ -7,3 +7,12 @@ function formatDate(fecha: Date): string {
 
     return `${year}-${month}-${day}T${hours}:${minutes}`
 }
+
+export function parseFecha(fechaStr: string): Date | null {
+    if (!fechaStr) return null
+
+    const fecha = new Date(fechaStr)
+    return isNaN(fecha.getTime()) ? null : fecha
+}
+
+// export function dateToInput

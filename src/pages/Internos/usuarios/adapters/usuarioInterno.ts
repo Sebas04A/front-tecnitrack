@@ -1,6 +1,7 @@
 import { ClienteInternoRequest, ClienteInternoResponse } from '../../../../api'
 import { UsuarioInternoData } from '../models/usuarioInterno'
 import { adaptObjectKeys } from '../../../../adapters/mapper'
+import { convertirDateParaInput, convertirSoloFechaParaInput } from '../../../../adapters/fecha'
 
 export const adapterUsuarioInterno = (data: UsuarioInternoData): ClienteInternoRequest => {
     return {
@@ -23,7 +24,7 @@ export const mapperUsuarioInternoFromApi: Partial<
 > = {
     id: 'id',
     usuarioId: 'id',
-    nombreCompleto: 'nombreCompleto',
+    nombres: 'nombreCompleto',
     apellidos: 'apellidoCompleto',
     genero: 'genero',
     fechaNacimiento: 'fechaNacimiento',
@@ -35,7 +36,7 @@ export const mapperUsuarioInternoFromApi: Partial<
     // estado: 'estado',
     tipoDocumento: 'tipoIdentificacion',
     numeroIdentificacion: 'numeroIdentificacion',
-    usuarioActivo: 'estado',
+    usuarioActivo: 'estadoString',
 }
 
 export const parseAdapterUsuarioInterno = (
@@ -43,8 +44,20 @@ export const parseAdapterUsuarioInterno = (
 ): UsuarioInternoData[] => {
     // const rol = data.rol === 'Empleado' ? 'Empleado' : 'Cliente'
     const usuarios = data.map(cliente => {
-        return adaptObjectKeys(cliente, mapperUsuarioInternoFromApi)
+        const usuario = adaptObjectKeys(cliente, mapperUsuarioInternoFromApi, {
+            keepUnmappedKeys: false,
+        })
+        usuario.estadoString = cliente.usuarioActivo ? 'Activo' : 'Inactivo'
+        const fecha = cliente.fechaNacimiento?.split('T')[0] ?? ''
+        // const [year, month, day] = fecha.split('-')
+        const fechaDate = new Date(cliente.fechaNacimiento ?? '')
+        usuario.fechaNacimiento = convertirSoloFechaParaInput(fechaDate) ?? fecha
+
+        // usuario.fechaNacimiento = `${day}-${month}-${year}`
+
+        return usuario
     })
+
     return usuarios as UsuarioInternoData[]
 }
 

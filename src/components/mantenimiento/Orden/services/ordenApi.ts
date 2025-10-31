@@ -5,7 +5,7 @@ import {
     GestionOrdenesService,
     OrdenesService,
 } from '../../../../api'
-import { OrderFormData } from '../../../../validation/IngresoOrden/orden'
+import { OrderFormData } from '../models/orden'
 
 export const getInformacionOrden = async (id: number): Promise<OrderFormData> => {
     // const response = await OrdenesService.getApiOrdenesObtenerInformacionPreviaCita({ citaId })
@@ -42,5 +42,9 @@ export const updateOrden = async (data: OrderFormData, N_ORDEN: number) => {
         id: N_ORDEN,
         requestBody,
     })
+    return res.data
+}
+export const getInformacionUsuarioActual = async () => {
+    const res = await OrdenesService.getApiOrdenesObtenerNombreClienteLogueado()
     return res.data
 }

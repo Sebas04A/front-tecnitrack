@@ -14,6 +14,7 @@ export default function InternosForm({
     control: any
     viewing: any
 }) {
+    console.log('ERRORES EN INTERNO FORM:', errors)
     return (
         <>
             <GenericRowForm>
@@ -29,7 +30,7 @@ export default function InternosForm({
                 />
                 <GenericSelect
                     label='Estado'
-                    name='estado'
+                    name='estadoString'
                     isReadOnly // creado como Inactivo, bloqueado en alta
                     control={control}
                     // options={[
@@ -119,7 +120,7 @@ export default function InternosForm({
                     label='Fecha de nacimiento'
                     name='fechaNacimiento'
                     isReadOnly={!!viewing}
-                    placeholder='dd/mm/aaaa'
+                    // placeholder='dd/mm/aaaa'
                     register={register}
                     errors={errors}
                 />

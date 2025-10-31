@@ -1,4 +1,4 @@
-import { FetchParams } from '../components/crudGrid/helper/fetchWithFilters'
+import { FetchParams } from '../components/crud/helper/fetchWithFilters'
 
 export function adapterFiltersParams(filters: FetchParams<any, any>) {
     return {

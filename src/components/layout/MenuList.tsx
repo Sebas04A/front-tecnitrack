@@ -34,7 +34,7 @@ export default function MenuList({
         >
             {items.map(item => {
                 const key = keyFor(item, path)
-                const paddingLeft = Math.min(level * 8, 32) // indent visual
+                // const paddingLeft = Math.min(level * 8, 32) // indent visual
 
                 if (item.type === 'link') {
                     return (

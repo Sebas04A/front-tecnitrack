@@ -3,14 +3,15 @@ import { useEffect, useMemo } from 'react'
 import { Resolver, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { ColumnDef, CrudContainer, crudQueries } from '../../../components/crudGrid'
-import { makeLocalCrudFetcher } from '../../../components/crudGrid/helper/crud-helpers'
+import CrudContainer, { crudQueries } from '../../../components/crud/CrudContainer'
+import { makeLocalCrudFetcher } from '../../../components/crud/helper/crud-helpers'
 
 import { UsuarioInternoData, usuarioInternoSchema } from './models/usuarioInterno'
 import { createInterno, deleteInterno, getInternos, updateInterno } from './services/internos'
 
 import InternosForm from './components/InternosForm'
-import { fetchDataCrudWithFilters } from '../../../components/crudGrid/helper/fetchWithFilters'
+import { fetchDataCrudWithFilters } from '../../../components/crud/helper/fetchWithFilters'
+import { ColumnDef } from '../../../components/crud/components/CrudTable'
 
 export default function CrudInternos() {
     console.warn('CrudInternos render')
@@ -19,7 +20,7 @@ export default function CrudInternos() {
         nombreCompleto: '',
         apellidoCompleto: '',
         rol: 'Empleado',
-        estado: 'Inactivo', // siempre Inactivo al crear
+        estadoString: 'Inactivo', // siempre Inactivo al crear
         email: '',
         genero: 'Masculino',
         usuario: '',
@@ -41,9 +42,9 @@ export default function CrudInternos() {
         { header: 'Email', key: 'email' },
         {
             header: 'Estado',
-            key: 'estado',
+            key: 'estadoString',
             render: value =>
-                value ? (
+                value == 'Activo' ? (
                     <div className='rounded p-1 text-xs flex text-center w-full justify-center bg-success-auto'>
                         Activo
                     </div>

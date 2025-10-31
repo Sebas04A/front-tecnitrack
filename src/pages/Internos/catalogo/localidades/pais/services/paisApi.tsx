@@ -3,10 +3,7 @@ import { LocalidadesService, ObjectApiResponse, PaisDto } from '../../../../../.
 import { PaisFormData } from '../models/paises.schema'
 import { create } from 'framer-motion/client'
 import { createApiSearchFunction } from '../../../../../../services/generalGetWithFilters'
-import {
-    FetchParams,
-    FetchReturn,
-} from '../../../../../../components/crudGrid/helper/fetchWithFilters'
+import { FetchParams, FetchReturn } from '../../../../../../components/crud/helper/fetchWithFilters'
 
 // export async function getPaises(): Promise<PaisData[]> {
 //     const apiList = await LocalidadesService.getApiLocalidadesObtenerPaises()

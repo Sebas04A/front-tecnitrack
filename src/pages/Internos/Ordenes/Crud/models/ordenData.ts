@@ -1,4 +1,4 @@
-import { ColumnDef } from '../../../../../components/crudGrid'
+import { ColumnDef } from '../../../../../components/crud'
 
 // const columns: ColumnDef<any>[] = [
 //     { key: 'numeroOrden', header: '# Orden', sortable: true },

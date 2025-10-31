@@ -1,8 +1,8 @@
 import React from 'react'
 import { PaisesCrud } from './pais/PaisCrud'
-import ProvinciasCrud from '../../../../components/crudGrid/cruds/Localidades/Provincias/ProvinicasCrud'
+import ProvinciasCrud from './provincia/ProvinicasCrud'
 import CiudadCrud from './ciudad/CiudadCrud'
-import LocationSelector from '../../../../components/crudGrid/cruds/Internos/Catalogos/SelectTipoLocalidad'
+import LocationSelector from './components/SelectTipoLocalidad'
 
 export default function CatalogoLocalidades() {
     const [tipoLocalidad, setTipoLocalidad] = React.useState<'paises' | 'provincias' | 'ciudades'>(

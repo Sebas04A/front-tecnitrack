@@ -1,5 +1,5 @@
 import { PaginationInfo } from '../api'
-import { FetchReturn } from '../components/crudGrid/helper/fetchWithFilters'
+import { FetchReturn } from '../components/crud/helper/fetchWithFilters'
 import { FetchFunction } from '../components/form/Controls/GenericSelectSearch'
 
 export function parsePagination(pagination: PaginationInfo): FetchReturn<any>['pagination'] {

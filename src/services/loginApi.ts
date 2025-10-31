@@ -5,23 +5,20 @@ import {
     AutenticacionService,
     RegistroClienteEmpresaRequest,
     RegistroClienteNaturalRequest,
-    RestablecerPasswordRequest,
 } from '../api'
-// import http from '../api/http'
-import { getDataApiResponse } from '../utils/getDataApiResponse'
+
 import {
     RegisterEmpresaFormData,
-    RegisterFormData,
     RegisterNaturalFormData,
 } from '../pages/nologin/register/register.schema'
 
-export const forgotPasswordRequest = async (email: string) => {
-    const requestBody = { email }
-    const response = await AutenticacionService.postApiAutenticacionSolicitarRestablecimiento({
-        requestBody,
-    })
-    return response.message
-}
+// export const forgotPasswordRequest = async (email: string) => {
+//     const requestBody = { email }
+//     const response = await AutenticacionService.postApiAutenticacionSolicitarRestablecimiento({
+//         requestBody,
+//     })
+//     return response.message
+// }
 
 export const loginInternoRequest = async (usuario: string, password: string) => {
     const requestBody: AutenticacionLoginInternoRequest = {
@@ -53,16 +50,6 @@ export const loginRequest = async (
         console.error('Error al iniciar sesión:', error)
         throw error
     }
-    // try {
-    //     const response = await http.post(`/api/Autenticacion/login`, {
-    //         email,
-    //         password,
-    //     })
-    //     return response.data
-    // } catch (error) {
-    //     // console.error('Error en el login:', error)
-    //     throw error
-    // }
 }
 // export const singupRequest = async (email: string, password: string) => {
 //     const response = await getDataApiResponse(

@@ -1,6 +1,6 @@
 import React from 'react'
-import TabsNavigation from '../common/TabsNavigation'
-import { tabsInfoType } from '../../types/profile.types'
+import TabsNavigation from '../common/tabs/TabsNavigation'
+
 import { FaCogs, FaDesktop, FaSignInAlt, FaTools, FaUserCircle } from 'react-icons/fa'
 
 import BaseModal from '../common/modals/BaseModal'
@@ -13,8 +13,8 @@ import Orden from './Orden/Orden'
 import { BaseModalProps } from '../../types/modal.types'
 import { useModalActions } from '../../hooks/useModalActions'
 
-import { OrdenResponse } from '../../api'
 import { OrdenData } from '../../pages/Internos/Ordenes/Crud/models/ordenData'
+import { tabsInfoType } from '../common/tabs/models/tabs.type'
 
 type tabsTypes =
     | 'informacion'

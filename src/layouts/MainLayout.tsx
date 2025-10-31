@@ -1,13 +1,12 @@
-// src/layouts/MainLayout.tsx
+import { useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
+import { FaBars } from 'react-icons/fa'
 
 import SideBar from '../components/layout/SideBar'
 import Footer from '../components/layout/Footer'
-import { FaBars } from 'react-icons/fa'
-
-import { useState } from 'react'
-import { getNavItem, navItemsMain } from '../router/ruta'
 import TituloPagina from '../components/common/TituloPagina'
+
+import { getNavItem, navItemsMain } from '../router/ruta'
 
 // const anchoSidebar = '15rem'
 

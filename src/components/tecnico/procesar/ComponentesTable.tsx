@@ -1,4 +1,4 @@
-import { ColumnDef, CrudTable } from '../../crudGrid'
+import CrudTable, { ColumnDef } from '../../crud/components/CrudTable'
 
 const columns: ColumnDef<any>[] = [
     { key: 'componente', header: 'Componente' },

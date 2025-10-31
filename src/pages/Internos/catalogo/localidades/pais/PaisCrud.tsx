@@ -3,9 +3,8 @@ import { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { ColumnDef } from '../../../../../components/crudGrid/CrudTable'
-import { makeLocalCrudFetcher } from '../../../../../components/crudGrid/helper/crud-helpers'
-import CrudContainer, { crudQueries } from '../../../../../components/crudGrid/CrudContainer'
+import { makeLocalCrudFetcher } from '../../../../../components/crud/helper/crud-helpers'
+import CrudContainer, { crudQueries } from '../../../../../components/crud/CrudContainer'
 
 import { apiToData, PaisData } from './models/paises'
 import {
@@ -21,7 +20,8 @@ import { PaisFormData, defaultPaisValues, paisSchema } from './models/paises.sch
 import {
     fetchDataCrudWithFilters,
     FetchParams,
-} from '../../../../../components/crudGrid/helper/fetchWithFilters'
+} from '../../../../../components/crud/helper/fetchWithFilters'
+import { ColumnDef } from '../../../../../components/crud/components/CrudTable'
 
 interface PaisesCrudProps {
     titulo?: string
@@ -38,7 +38,7 @@ export const PaisesCrud: React.FC<PaisesCrudProps> = ({ titulo, paisId }) => {
             { key: 'nombre', header: 'Nombre' },
             { key: 'codigoISO', header: 'Código ISO' },
             { key: 'codigoTelefonico', header: 'Código Tel.' },
-            { key: 'activo', header: 'Activo', render: v => (v ? 'Sí' : 'No') },
+            { key: 'activo', header: 'Activo', render: (v: boolean) => (v ? 'Sí' : 'No') },
         ],
         []
     )

@@ -7,10 +7,7 @@ import {
     OrdenesService,
     OrdenResponse,
 } from '../../../../../api'
-import {
-    FetchParams,
-    FetchReturn,
-} from '../../../../../components/crudGrid/helper/fetchWithFilters'
+import { FetchParams, FetchReturn } from '../../../../../components/crud/helper/fetchWithFilters'
 import { parseAdapterOrden } from '../../../../../components/mantenimiento/Orden/adapters/orden'
 import { createApiSearchFunction } from '../../../../../services/generalGetWithFilters'
 import { OrdenData } from '../../../Ordenes/Crud/models/ordenData'

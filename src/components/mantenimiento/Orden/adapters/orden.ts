@@ -1,5 +1,5 @@
 import { OrdenResponse } from '../../../../api'
-import { OrderFormData } from '../../../../validation/IngresoOrden/orden'
+import { OrderFormData } from '../models/orden'
 
 export const parseAdapterOrden = (data: OrdenResponse): OrderFormData => {
     return {

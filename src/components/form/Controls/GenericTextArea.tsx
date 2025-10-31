@@ -1,6 +1,6 @@
 import GenericInput from './GenericInput'
 import { FieldErrors, UseFormRegister } from 'react-hook-form'
-import { getNestedError } from '../../../utils/formError'
+import { getNestedError } from '../utils/formError'
 
 type GenericTextareaProps = {
     label?: string

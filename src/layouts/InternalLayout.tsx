@@ -1,12 +1,12 @@
-// src/layouts/MainLayout.tsx
+import { useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
-import Header from '../components/layout/Header'
-import SideBar from '../components/layout/SideBar'
-import Footer from '../components/layout/Footer'
+
 import { FaBars } from 'react-icons/fa'
 
-import { useState } from 'react'
+import SideBar from '../components/layout/SideBar'
+import Footer from '../components/layout/Footer'
 import TituloPagina from '../components/common/TituloPagina'
+
 import { getNavItem, navItemsInterno } from '../router/ruta'
 
 export default function InternalLayout() {

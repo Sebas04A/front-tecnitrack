@@ -1,17 +1,14 @@
 import React, { useMemo } from 'react'
-import CrudCrudo, {
-    newActionCrud,
-    onCrudActionsProps,
-} from '../../../../components/crudGrid/CrudCrudo'
+import CrudCrudo, { newActionCrud, onCrudActionsProps } from '../../../../components/crud/CrudCrudo'
 import { BsPlayFill } from 'react-icons/bs'
 import { BiCheck } from 'react-icons/bi'
-import { fetchDataCrudWithFilters } from '../../../../components/crudGrid/helper/fetchWithFilters'
+import { fetchDataCrudWithFilters } from '../../../../components/crud/helper/fetchWithFilters'
 import {
     deleteOrden,
     obtenerOrdenesAsignadasInterno,
     obtenerOrdenesAsignadasInternoFetcher,
 } from './services/ordenes'
-import { ColumnDef } from '../../../../components/crudGrid'
+import { ColumnDef } from '../../../../components/crud'
 import { OrdenesFilters } from './components/FiltersOrdenes'
 import { OrdenesFiltersType } from './models/ordenFilter'
 import { OrdenData } from './models/ordenData'

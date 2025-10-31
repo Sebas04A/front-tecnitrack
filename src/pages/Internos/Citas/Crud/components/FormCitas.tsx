@@ -27,7 +27,7 @@ import GenericButton from '../../../../../components/form/Controls/GenericButton
 import { FaCalendarAlt } from 'react-icons/fa'
 import GenericSelect from '../../../../../components/form/Controls/GenericSelect'
 import GenericSelectSearch from '../../../../../components/form/Controls/GenericSelectSearch'
-import { buscarUsuario } from '../../../../../services/SelectSearch'
+import { buscarUsuario } from '../../../../../services/Select/SelectSearch'
 
 export default function FormCitas({
     form,

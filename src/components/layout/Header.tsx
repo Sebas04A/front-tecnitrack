@@ -1,5 +1,3 @@
-// import { logout } from '../../hooks/useAuth'
-
 import { useAuth } from '../../hooks/useAuth'
 
 const Header = () => {

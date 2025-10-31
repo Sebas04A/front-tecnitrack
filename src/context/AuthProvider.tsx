@@ -1,6 +1,6 @@
 // src/components/AuthProvider.tsx
 import { useEffect, useState, ReactNode } from 'react'
-import { getTokenFromResponse } from '../utils/getToken'
+
 import {
     loginInternoRequest,
     loginRequest,
@@ -12,7 +12,6 @@ import { setupApi } from '../api/setupApi'
 import { rolType } from '../types/usuario'
 import {
     RegisterEmpresaFormData,
-    RegisterFormData,
     RegisterNaturalFormData,
 } from '../pages/nologin/register/register.schema'
 
@@ -54,7 +53,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         } else {
             res = await loginRequest(usuario, password)
         }
-        const token = getTokenFromResponse(res)
+        const token = res.token
         if (!token) {
             throw new Error('Login failed: token not found')
         }

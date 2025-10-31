@@ -4,7 +4,7 @@ import { useModalActions } from '../../../../hooks/useModalActions'
 
 import { TIPO_PERSONA_TYPE } from '../../../../constants/perfil'
 
-import FormsUnidos from '../../../../components/PerfilForm/forms/FormsUnidos'
+import FormsUnidos from '../../../../components/PerfilForm/FormsUnidos'
 
 export default function ContainerForm({
     tipoPersona,

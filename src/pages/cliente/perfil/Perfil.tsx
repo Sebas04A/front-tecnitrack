@@ -6,9 +6,8 @@ import { useAuth } from '../../../hooks/useAuth'
 import ProfileHeader from './components/ProfileHeader'
 import ContainerForm from './components/containerForm'
 
-import { getTipoPerfil } from '../../../services/perfilApi'
-
 import { TIPO_PERSONA, TIPO_PERSONA_TYPE } from '../../../constants/perfil'
+import { getTipoPerfil } from './services/pefilClienteServices'
 
 export default function Perfil() {
     const { user } = useAuth()

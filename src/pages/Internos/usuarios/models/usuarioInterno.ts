@@ -9,7 +9,7 @@ export const usuarioInternoSchema = personaNaturalSchema.concat(
             .default('Empleado')
             .required('El rol es obligatorio'), // Se muestra arriba y no editable
 
-        estado: yup.string().oneOf(['Activo', 'Inactivo']).default('Inactivo'),
+        estadoString: yup.string().oneOf(['Activo', 'Inactivo']).default('Inactivo'),
         usuario: yup
             .string()
             .matches(/^[a-zA-Z0-9]*$/, 'El usuario debe ser alfanumérico')

@@ -1,0 +1,449 @@
+"filename", "language", "JavaScript", "JSON", "TypeScript", "JSON with Comments", "HTML", "TypeScript JSX", "PostCSS", "Markdown", "comment", "blank", "total"
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\README.md", "Markdown", 0, 0, 0, 0, 0, 0, 0, 54, 0, 12, 66
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\eslint.config.js", "JavaScript", 27, 0, 0, 0, 0, 0, 0, 0, 0, 2, 29
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\index.html", "HTML", 0, 0, 0, 0, 12, 0, 0, 0, 1, 1, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\package.json", "JSON", 0, 47, 0, 0, 0, 0, 0, 0, 0, 1, 48
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\postcss.config.js", "JavaScript", 6, 0, 0, 0, 0, 0, 0, 0, 0, 1, 7
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\scripts\gen-openapi-client.mjs", "JavaScript", 20, 0, 0, 0, 0, 0, 0, 0, 0, 4, 24
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\App.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 0, 42, 1, 43
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\App.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 5, 0, 0, 1, 4, 10
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\adapters\IngresoOrden\componente.ts", "TypeScript", 0, 0, 15, 0, 0, 0, 0, 0, 0, 2, 17
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\adapters\IngresoOrden\mantenimiento.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 0, 2, 10
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\adapters\catalogos.ts", "TypeScript", 0, 0, 31, 0, 0, 0, 0, 0, 0, 2, 33
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\adapters\direccion.ts", "TypeScript", 0, 0, 32, 0, 0, 0, 0, 0, 8, 3, 43
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\adapters\fecha.ts", "TypeScript", 0, 0, 34, 0, 0, 0, 0, 0, 17, 13, 64
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\adapters\filtersToParams.ts", "TypeScript", 0, 0, 10, 0, 0, 0, 0, 0, 0, 2, 12
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\adapters\localidades\provincias.ts", "TypeScript", 0, 0, 28, 0, 0, 0, 0, 0, 0, 4, 32
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\adapters\mapper.ts", "TypeScript", 0, 0, 30, 0, 0, 0, 0, 0, 14, 6, 50
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\adapters\pagination.ts", "TypeScript", 0, 0, 13, 0, 0, 0, 0, 0, 0, 2, 15
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\adapters\perfil.ts", "TypeScript", 0, 0, 181, 0, 0, 0, 0, 0, 36, 9, 226
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\core\ApiError.ts", "TypeScript", 0, 0, 18, 0, 0, 0, 0, 0, 4, 4, 26
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\core\ApiRequestOptions.ts", "TypeScript", 0, 0, 13, 0, 0, 0, 0, 0, 4, 1, 18
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\core\ApiResult.ts", "TypeScript", 0, 0, 7, 0, 0, 0, 0, 0, 4, 1, 12
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\core\CancelablePromise.ts", "TypeScript", 0, 0, 108, 0, 0, 0, 0, 0, 4, 20, 132
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\core\OpenAPI.ts", "TypeScript", 0, 0, 25, 0, 0, 0, 0, 0, 4, 4, 33
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\core\request.ts", "TypeScript", 0, 0, 303, 0, 0, 0, 0, 0, 13, 47, 363
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\index.ts", "TypeScript", 0, 0, 186, 0, 0, 0, 0, 0, 4, 3, 193
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ActivoAsociadoOrdenResponse.ts", "TypeScript", 0, 0, 14, 0, 0, 0, 0, 0, 4, 2, 20
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ActivoAsociadoOrdenResponseApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ActivoCreateUpdateRequest.ts", "TypeScript", 0, 0, 9, 0, 0, 0, 0, 0, 4, 2, 15
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ActivoDto.ts", "TypeScript", 0, 0, 17, 0, 0, 0, 0, 0, 4, 2, 23
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ActivoDtoPagedResponse.ts", "TypeScript", 0, 0, 10, 0, 0, 0, 0, 0, 4, 2, 16
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ActualizarCatalogoDto.ts", "TypeScript", 0, 0, 6, 0, 0, 0, 0, 0, 4, 2, 12
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ActualizarCiudadDto.ts", "TypeScript", 0, 0, 6, 0, 0, 0, 0, 0, 4, 2, 12
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ActualizarClienteEmpresaDto.ts", "TypeScript", 0, 0, 14, 0, 0, 0, 0, 0, 4, 2, 20
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ActualizarClienteNaturalDto.ts", "TypeScript", 0, 0, 11, 0, 0, 0, 0, 0, 4, 2, 17
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ActualizarContactoDirectoDto.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ActualizarContactoEmpresaDto.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ActualizarDireccionDto.ts", "TypeScript", 0, 0, 11, 0, 0, 0, 0, 0, 4, 2, 17
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ActualizarEstadoComponenteRequest.ts", "TypeScript", 0, 0, 5, 0, 0, 0, 0, 0, 4, 2, 11
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ActualizarMisDatosRequest.ts", "TypeScript", 0, 0, 9, 0, 0, 0, 0, 0, 4, 2, 15
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ActualizarMisDatosResponse.ts", "TypeScript", 0, 0, 15, 0, 0, 0, 0, 0, 4, 2, 21
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ActualizarMisDatosResponseApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ActualizarPaisDto.ts", "TypeScript", 0, 0, 6, 0, 0, 0, 0, 0, 4, 2, 12
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ActualizarParteRequest.ts", "TypeScript", 0, 0, 7, 0, 0, 0, 0, 0, 4, 2, 13
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ActualizarProvinciaDto.ts", "TypeScript", 0, 0, 5, 0, 0, 0, 0, 0, 4, 2, 11
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\AgregarDatosFaltantesOrdenRequest.ts", "TypeScript", 0, 0, 7, 0, 0, 0, 0, 0, 4, 2, 13
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ApiErrorResponse.ts", "TypeScript", 0, 0, 7, 0, 0, 0, 0, 0, 4, 2, 13
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\AsociarActivoOrdenRequest.ts", "TypeScript", 0, 0, 4, 0, 0, 0, 0, 0, 4, 2, 10
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\AutenticacionLoginInternoRequest.ts", "TypeScript", 0, 0, 4, 0, 0, 0, 0, 0, 4, 2, 10
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\AutenticacionLoginInternoResponse.ts", "TypeScript", 0, 0, 5, 0, 0, 0, 0, 0, 4, 2, 11
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\AutenticacionLoginInternoResponseApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\AutenticacionLoginRequest.ts", "TypeScript", 0, 0, 4, 0, 0, 0, 0, 0, 4, 2, 10
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\AutenticacionLoginResponse.ts", "TypeScript", 0, 0, 6, 0, 0, 0, 0, 0, 4, 2, 12
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\AutenticacionLoginResponseApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\BuscarInspectorMantenimientoRequest.ts", "TypeScript", 0, 0, 10, 0, 0, 0, 0, 0, 4, 2, 16
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\BuscarTecnicoMantenimientoRequest.ts", "TypeScript", 0, 0, 10, 0, 0, 0, 0, 0, 4, 2, 16
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\CambiarActivoAsociadoRequest.ts", "TypeScript", 0, 0, 4, 0, 0, 0, 0, 0, 4, 2, 10
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\CambiarPasswordRequest.ts", "TypeScript", 0, 0, 4, 0, 0, 0, 0, 0, 4, 2, 10
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\CatalogoDto.ts", "TypeScript", 0, 0, 10, 0, 0, 0, 0, 0, 4, 2, 16
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\CatalogoDtoApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\CatalogoDtoIEnumerableApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\CitaRequest.ts", "TypeScript", 0, 0, 5, 0, 0, 0, 0, 0, 4, 2, 11
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\CitaResponse.ts", "TypeScript", 0, 0, 12, 0, 0, 0, 0, 0, 4, 2, 18
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\CitaResponseApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\CitaResponseListApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\CiudadDto.ts", "TypeScript", 0, 0, 11, 0, 0, 0, 0, 0, 4, 2, 17
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\CiudadDtoApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\CiudadDtoPagedResponse.ts", "TypeScript", 0, 0, 10, 0, 0, 0, 0, 0, 4, 2, 16
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ClienteEmpresaDto.ts", "TypeScript", 0, 0, 18, 0, 0, 0, 0, 0, 4, 2, 24
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ClienteEmpresaDtoApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ClienteInternoRequest.ts", "TypeScript", 0, 0, 13, 0, 0, 0, 0, 0, 4, 2, 19
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ClienteInternoResponse.ts", "TypeScript", 0, 0, 19, 0, 0, 0, 0, 0, 4, 2, 25
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ClienteInternoResponseApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ClienteInternoResponsePagedResponse.ts", "TypeScript", 0, 0, 10, 0, 0, 0, 0, 0, 4, 2, 16
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ClienteNaturalDto.ts", "TypeScript", 0, 0, 17, 0, 0, 0, 0, 0, 4, 2, 23
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ClienteNaturalDtoApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ClienteSelectorResponse.ts", "TypeScript", 0, 0, 11, 0, 0, 0, 0, 0, 4, 2, 17
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ClienteSelectorResponseIEnumerableApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ClientesEmpresaRequest.ts", "TypeScript", 0, 0, 12, 0, 0, 0, 0, 0, 4, 2, 18
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ClientesEmpresaResponse.ts", "TypeScript", 0, 0, 16, 0, 0, 0, 0, 0, 4, 2, 22
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ClientesEmpresaResponseApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ClientesNaturalRequest.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ClientesNaturalResponse.ts", "TypeScript", 0, 0, 14, 0, 0, 0, 0, 0, 4, 2, 20
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ClientesNaturalResponseApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ComponenteDisponibleResponse.ts", "TypeScript", 0, 0, 9, 0, 0, 0, 0, 0, 4, 2, 15
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ComponenteDisponibleResponseListApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ContactoDirectoDto.ts", "TypeScript", 0, 0, 11, 0, 0, 0, 0, 0, 4, 2, 17
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ContactoDirectoDtoApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ContactoDirectoDtoPagedResponse.ts", "TypeScript", 0, 0, 10, 0, 0, 0, 0, 0, 4, 2, 16
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ContactoDirectoDtoPagedResponseApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ContactoDirectoRequest.ts", "TypeScript", 0, 0, 6, 0, 0, 0, 0, 0, 4, 2, 12
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ContactoDirectoResponse.ts", "TypeScript", 0, 0, 14, 0, 0, 0, 0, 0, 4, 2, 20
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ContactoDirectoResponseApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ContactoDirectoResponsePagedResponse.ts", "TypeScript", 0, 0, 10, 0, 0, 0, 0, 0, 4, 2, 16
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ContactoEmpresaDto.ts", "TypeScript", 0, 0, 11, 0, 0, 0, 0, 0, 4, 2, 17
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ContactoEmpresaDtoApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ContactoEmpresaDtoPagedResponse.ts", "TypeScript", 0, 0, 10, 0, 0, 0, 0, 0, 4, 2, 16
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ContactoEmpresaDtoPagedResponseApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ContactosEmpresaRequest.ts", "TypeScript", 0, 0, 7, 0, 0, 0, 0, 0, 4, 2, 13
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ContactosEmpresaResponse.ts", "TypeScript", 0, 0, 9, 0, 0, 0, 0, 0, 4, 2, 15
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ContactosEmpresaResponseApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ContactosEmpresaResponsePagedResponse.ts", "TypeScript", 0, 0, 10, 0, 0, 0, 0, 0, 4, 2, 16
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ContactosEmpresaResponsePagedResponseApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\CrearActivoYAsociarRequest.ts", "TypeScript", 0, 0, 9, 0, 0, 0, 0, 0, 4, 2, 15
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\CrearCatalogoDto.ts", "TypeScript", 0, 0, 7, 0, 0, 0, 0, 0, 4, 2, 13
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\CrearCitaClienteRequest.ts", "TypeScript", 0, 0, 6, 0, 0, 0, 0, 0, 4, 2, 12
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\CrearCitaClienteResponse.ts", "TypeScript", 0, 0, 16, 0, 0, 0, 0, 0, 4, 2, 22
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\CrearCiudadDto.ts", "TypeScript", 0, 0, 6, 0, 0, 0, 0, 0, 4, 2, 12
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\CrearClienteEmpresaDto.ts", "TypeScript", 0, 0, 13, 0, 0, 0, 0, 0, 4, 2, 19
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\CrearClienteEmpresaResponseDto.ts", "TypeScript", 0, 0, 13, 0, 0, 0, 0, 0, 4, 2, 19
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\CrearClienteEmpresaResponseDtoApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\CrearClienteNaturalDto.ts", "TypeScript", 0, 0, 10, 0, 0, 0, 0, 0, 4, 2, 16
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\CrearClienteNaturalResponseDto.ts", "TypeScript", 0, 0, 16, 0, 0, 0, 0, 0, 4, 2, 22
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\CrearClienteNaturalResponseDtoApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\CrearContactoDirectoDto.ts", "TypeScript", 0, 0, 7, 0, 0, 0, 0, 0, 4, 2, 13
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\CrearContactoEmpresaDto.ts", "TypeScript", 0, 0, 7, 0, 0, 0, 0, 0, 4, 2, 13
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\CrearDireccionDto.ts", "TypeScript", 0, 0, 10, 0, 0, 0, 0, 0, 4, 2, 16
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\CrearEmpleadoResponse.ts", "TypeScript", 0, 0, 7, 0, 0, 0, 0, 0, 4, 2, 13
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\CrearEmpleadoResponseApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\CrearOrdenConNumeroRequest.ts", "TypeScript", 0, 0, 3, 0, 0, 0, 0, 0, 4, 2, 9
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\CrearPaisDto.ts", "TypeScript", 0, 0, 6, 0, 0, 0, 0, 0, 4, 2, 12
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\CrearParteRequest.ts", "TypeScript", 0, 0, 7, 0, 0, 0, 0, 0, 4, 2, 13
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\CrearProvinciaDto.ts", "TypeScript", 0, 0, 5, 0, 0, 0, 0, 0, 4, 2, 11
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\DireccionDetalleResponse.ts", "TypeScript", 0, 0, 17, 0, 0, 0, 0, 0, 4, 2, 23
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\DireccionDetalleResponseApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\DireccionDto.ts", "TypeScript", 0, 0, 17, 0, 0, 0, 0, 0, 4, 2, 23
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\DireccionDtoApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\DireccionRequest.ts", "TypeScript", 0, 0, 9, 0, 0, 0, 0, 0, 4, 2, 15
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\DireccionResponse.ts", "TypeScript", 0, 0, 21, 0, 0, 0, 0, 0, 4, 2, 27
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\DireccionResponsePagedResponse.ts", "TypeScript", 0, 0, 10, 0, 0, 0, 0, 0, 4, 2, 16
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\EditarCitaClienteRequest.ts", "TypeScript", 0, 0, 6, 0, 0, 0, 0, 0, 4, 2, 12
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\EditarCitaRequest.ts", "TypeScript", 0, 0, 5, 0, 0, 0, 0, 0, 4, 2, 11
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\EditarDatosOrdenRequest.ts", "TypeScript", 0, 0, 7, 0, 0, 0, 0, 0, 4, 2, 13
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\EditarMantenimientoProgramadoRequest.ts", "TypeScript", 0, 0, 9, 0, 0, 0, 0, 0, 4, 2, 15
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\EstadoClienteResponseDto.ts", "TypeScript", 0, 0, 11, 0, 0, 0, 0, 0, 4, 2, 17
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\EstadoClienteResponseDtoApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\EstadoComponenteIngresoResponse.ts", "TypeScript", 0, 0, 10, 0, 0, 0, 0, 0, 4, 2, 16
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\EstadoComponenteIngresoResponseApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\EstadoComponenteIngresoResponsePagedResponse.ts", "TypeScript", 0, 0, 10, 0, 0, 0, 0, 0, 4, 2, 16
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\EstadoEmpleadoRequest.ts", "TypeScript", 0, 0, 3, 0, 0, 0, 0, 0, 4, 2, 9
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\InformacionPreviaOrdenResponse.ts", "TypeScript", 0, 0, 12, 0, 0, 0, 0, 0, 4, 2, 18
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\InformacionPreviaOrdenResponseApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\InspectorOrdenResponse.ts", "TypeScript", 0, 0, 7, 0, 0, 0, 0, 0, 4, 2, 13
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\InspectorOrdenResponseApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ListarCitasResponse.ts", "TypeScript", 0, 0, 17, 0, 0, 0, 0, 0, 4, 2, 23
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ListarCitasResponsePagedResponse.ts", "TypeScript", 0, 0, 10, 0, 0, 0, 0, 0, 4, 2, 16
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ListarClientesEmpresaDto.ts", "TypeScript", 0, 0, 16, 0, 0, 0, 0, 0, 4, 2, 22
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ListarClientesEmpresaDtoPagedResponse.ts", "TypeScript", 0, 0, 10, 0, 0, 0, 0, 0, 4, 2, 16
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ListarClientesNaturalesDto.ts", "TypeScript", 0, 0, 14, 0, 0, 0, 0, 0, 4, 2, 20
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ListarClientesNaturalesDtoPagedResponse.ts", "TypeScript", 0, 0, 10, 0, 0, 0, 0, 0, 4, 2, 16
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ListarDireccionesDto.ts", "TypeScript", 0, 0, 14, 0, 0, 0, 0, 0, 4, 2, 20
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ListarDireccionesDtoPagedResponse.ts", "TypeScript", 0, 0, 10, 0, 0, 0, 0, 0, 4, 2, 16
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ListarDireccionesDtoPagedResponseApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ListarOrdenesActivasDto.ts", "TypeScript", 0, 0, 18, 0, 0, 0, 0, 0, 4, 2, 24
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ListarOrdenesActivasDtoPagedResponse.ts", "TypeScript", 0, 0, 10, 0, 0, 0, 0, 0, 4, 2, 16
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\MantenimientoProgramadoResponse.ts", "TypeScript", 0, 0, 17, 0, 0, 0, 0, 0, 4, 2, 23
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\MarcaCreateUpdateRequest.ts", "TypeScript", 0, 0, 5, 0, 0, 0, 0, 0, 4, 2, 11
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\MarcaInfo.ts", "TypeScript", 0, 0, 4, 0, 0, 0, 0, 0, 4, 2, 10
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\MisCitasResponse.ts", "TypeScript", 0, 0, 14, 0, 0, 0, 0, 0, 4, 2, 20
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\MisCitasResponsePagedResponse.ts", "TypeScript", 0, 0, 10, 0, 0, 0, 0, 0, 4, 2, 16
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ObjectApiResponse.ts", "TypeScript", 0, 0, 7, 0, 0, 0, 0, 0, 4, 2, 13
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ObtenerDetalleCitaResponse.ts", "TypeScript", 0, 0, 17, 0, 0, 0, 0, 0, 4, 2, 23
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\OrdenDetalladaResponse.ts", "TypeScript", 0, 0, 21, 0, 0, 0, 0, 0, 4, 2, 27
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\OrdenDetalladaResponseApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\OrdenResponse.ts", "TypeScript", 0, 0, 18, 0, 0, 0, 0, 0, 4, 2, 24
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\OrdenResponseApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\PaginationInfo.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\PaisDto.ts", "TypeScript", 0, 0, 9, 0, 0, 0, 0, 0, 4, 2, 15
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\PaisDtoApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\PaisDtoPagedResponse.ts", "TypeScript", 0, 0, 10, 0, 0, 0, 0, 0, 4, 2, 16
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ProgramarMantenimientoRequest.ts", "TypeScript", 0, 0, 9, 0, 0, 0, 0, 0, 4, 2, 15
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ProvinciaDto.ts", "TypeScript", 0, 0, 9, 0, 0, 0, 0, 0, 4, 2, 15
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ProvinciaDtoApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\ProvinciaDtoPagedResponse.ts", "TypeScript", 0, 0, 10, 0, 0, 0, 0, 0, 4, 2, 16
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\RegistrarEstadoComponenteRequest.ts", "TypeScript", 0, 0, 6, 0, 0, 0, 0, 0, 4, 2, 12
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\RegistrarEstadosComponentesRequest.ts", "TypeScript", 0, 0, 4, 0, 0, 0, 0, 0, 4, 2, 10
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\RegistroClienteEmpresaRequest.ts", "TypeScript", 0, 0, 9, 0, 0, 0, 0, 0, 4, 2, 15
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\RegistroClienteEmpresaResponse.ts", "TypeScript", 0, 0, 11, 0, 0, 0, 0, 0, 4, 2, 17
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\RegistroClienteEmpresaResponseApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\RegistroClienteNaturalRequest.ts", "TypeScript", 0, 0, 10, 0, 0, 0, 0, 0, 4, 2, 16
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\RegistroClienteNaturalResponse.ts", "TypeScript", 0, 0, 9, 0, 0, 0, 0, 0, 4, 2, 15
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\RegistroClienteNaturalResponseApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\RestablecerPasswordRequest.ts", "TypeScript", 0, 0, 4, 0, 0, 0, 0, 0, 4, 2, 10
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\SolicitarRestablecimientoRequest.ts", "TypeScript", 0, 0, 3, 0, 0, 0, 0, 0, 4, 2, 9
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\StringApiResponse.ts", "TypeScript", 0, 0, 7, 0, 0, 0, 0, 0, 4, 2, 13
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\StringIEnumerableApiResponse.ts", "TypeScript", 0, 0, 7, 0, 0, 0, 0, 0, 4, 2, 13
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\SubTipoActivoCreateUpdateRequest.ts", "TypeScript", 0, 0, 6, 0, 0, 0, 0, 0, 4, 2, 12
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\SubtipoActivoInfo.ts", "TypeScript", 0, 0, 4, 0, 0, 0, 0, 0, 4, 2, 10
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\TipoActivoCreateUpdateRequest.ts", "TypeScript", 0, 0, 5, 0, 0, 0, 0, 0, 4, 2, 11
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\TipoActivoInfo.ts", "TypeScript", 0, 0, 4, 0, 0, 0, 0, 0, 4, 2, 10
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\TipoClienteResponse.ts", "TypeScript", 0, 0, 4, 0, 0, 0, 0, 0, 4, 2, 10
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\models\TipoClienteResponseApiResponse.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\services\ActivosService.ts", "TypeScript", 0, 0, 367, 0, 0, 0, 0, 0, 108, 1, 476
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\services\AdministradorService.ts", "TypeScript", 0, 0, 34, 0, 0, 0, 0, 0, 8, 1, 43
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\services\AutenticacionService.ts", "TypeScript", 0, 0, 139, 0, 0, 0, 0, 0, 36, 1, 176
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\services\CatalogosService.ts", "TypeScript", 0, 0, 214, 0, 0, 0, 0, 0, 76, 1, 291
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\services\CitasService.ts", "TypeScript", 0, 0, 119, 0, 0, 0, 0, 0, 24, 1, 144
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\services\ClienteInternoService.ts", "TypeScript", 0, 0, 77, 0, 0, 0, 0, 0, 20, 1, 98
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\services\ClientesService.ts", "TypeScript", 0, 0, 109, 0, 0, 0, 0, 0, 32, 1, 142
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\services\ContactosDirectosService.ts", "TypeScript", 0, 0, 116, 0, 0, 0, 0, 0, 24, 1, 141
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\services\ContactosEmpresaService.ts", "TypeScript", 0, 0, 120, 0, 0, 0, 0, 0, 24, 1, 145
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\services\DireccionesService.ts", "TypeScript", 0, 0, 117, 0, 0, 0, 0, 0, 24, 1, 142
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\services\GestionCitasService.ts", "TypeScript", 0, 0, 137, 0, 0, 0, 0, 0, 24, 1, 162
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\services\GestionClientesInternosService.ts", "TypeScript", 0, 0, 43, 0, 0, 0, 0, 0, 8, 1, 52
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\services\GestionClientesService.ts", "TypeScript", 0, 0, 650, 0, 0, 0, 0, 0, 112, 1, 763
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\services\GestionOrdenesService.ts", "TypeScript", 0, 0, 144, 0, 0, 0, 0, 0, 24, 1, 169
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\services\LocalidadesService.ts", "TypeScript", 0, 0, 394, 0, 0, 0, 0, 0, 76, 1, 471
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\services\OrdenesService.ts", "TypeScript", 0, 0, 473, 0, 0, 0, 0, 0, 92, 1, 566
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\api\setupApi.ts", "TypeScript", 0, 0, 9, 0, 0, 0, 0, 0, 12, 5, 26
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\PerfilForm\FormsUnidos.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 244, 0, 0, 14, 17, 275
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\PerfilForm\UnsavedChangesModal.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 26, 0, 0, 3, 4, 33
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\PerfilForm\contactos\ContactoForm.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 92, 5, 97
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\PerfilForm\contactos\ContactosCrud.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 165, 0, 0, 22, 18, 205
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\PerfilForm\contactos\ContactosForm.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 75, 0, 0, 13, 2, 90
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\PerfilForm\contactos\adapters\contacto.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 0, 1, 9
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\PerfilForm\contactos\adapters\contactos.ts", "TypeScript", 0, 0, 43, 0, 0, 0, 0, 0, 3, 3, 49
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\PerfilForm\contactos\models\contacto.schema.ts", "TypeScript", 0, 0, 42, 0, 0, 0, 0, 0, 8, 7, 57
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\PerfilForm\contactos\services\contactoEmpresaService.ts", "TypeScript", 0, 0, 71, 0, 0, 0, 0, 0, 6, 5, 82
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\PerfilForm\contactos\services\contactoService.ts", "TypeScript", 0, 0, 74, 0, 0, 0, 0, 0, 0, 6, 80
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\PerfilForm\direccion\DireccionesCrud.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 132, 0, 0, 7, 14, 153
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\PerfilForm\direccion\models\direccion.schema.ts", "TypeScript", 0, 0, 34, 0, 0, 0, 0, 0, 4, 1, 39
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\PerfilForm\models\formsProfile.ts", "TypeScript", 0, 0, 12, 0, 0, 0, 0, 0, 3, 1, 16
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\PerfilForm\perfil\juridico\PersonaJuridicaForm.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 250, 0, 0, 7, 17, 274
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\PerfilForm\perfil\natural\PersonaNaturalForm.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 231, 0, 0, 11, 17, 259
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\calendario\DateTimeSelector.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 118, 0, 0, 3, 17, 138
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\calendario\components\CalendarGrid.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 85, 0, 0, 1, 11, 97
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\calendario\components\TimeSlots.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 63, 0, 0, 2, 9, 74
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\citas\cliente\FiltersCitasCliente.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 130, 14, 144
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\common\Modal.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 117, 0, 0, 6, 4, 127
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\common\NavTitulo.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 25, 0, 0, 0, 2, 27
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\common\SubmitStatusModal.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 60, 10, 70
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\common\TituloPagina.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 14, 0, 0, 15, 3, 32
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\common\modals\AlertModal.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 61, 0, 0, 5, 10, 76
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\common\modals\BaseModal.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 118, 0, 0, 1, 10, 129
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\common\modals\Calendario.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 55, 0, 0, 0, 4, 59
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\common\modals\ConfirmModal.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 68, 0, 0, 2, 3, 73
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\common\modals\EmptyModal.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 25, 0, 0, 0, 2, 27
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\common\modals\FormModal.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 85, 0, 0, 12, 8, 105
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\common\modals\LoadingModal.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 16, 0, 0, 0, 2, 18
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\common\modals\logica\ModalRendered.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 24, 0, 0, 2, 3, 29
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\common\modals\useFormModal.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 123, 0, 0, 16, 21, 160
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\common\tabs\TabsNavigation.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 53, 0, 0, 0, 2, 55
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\common\tabs\models\tabs.type.ts", "TypeScript", 0, 0, 6, 0, 0, 0, 0, 0, 1, 1, 8
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\crudGrid\CrudContainer.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 301, 0, 0, 22, 34, 357
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\crudGrid\CrudCrudo.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 190, 0, 0, 28, 17, 235
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\crudGrid\CrudPagination.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 52, 0, 0, 0, 6, 58
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\crudGrid\CrudTable.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 221, 0, 0, 5, 6, 232
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\crudGrid\CrudToolbar.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 44, 0, 0, 6, 5, 55
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\crudGrid\cruds\Direcciones\DireccionesForm.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 82, 0, 0, 97, 13, 192
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\crudGrid\cruds\Internos\Catalogos\SelectTipoLocalidad.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 35, 0, 0, 2, 6, 43
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\crudGrid\cruds\Localidades\Ciudades\CiudadForm.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 66, 0, 0, 1, 6, 73
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\crudGrid\cruds\Localidades\Provincias\ProvinciasForm.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 44, 0, 0, 0, 5, 49
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\crudGrid\cruds\Localidades\Provincias\ProvinicasCrud.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 85, 0, 0, 13, 13, 111
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\crudGrid\helper\crud-helpers.ts", "TypeScript", 0, 0, 92, 0, 0, 0, 0, 0, 137, 49, 278
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\crudGrid\helper\fetchWithFilters.ts", "TypeScript", 0, 0, 210, 0, 0, 0, 0, 0, 21, 49, 280
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\crudGrid\index.ts", "TypeScript", 0, 0, 4, 0, 0, 0, 0, 0, 0, 1, 5
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\dashboard\CardTablero.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 10, 0, 0, 0, 2, 12
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\dashboard\CardValue.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 24, 0, 0, 0, 2, 26
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\dashboard\StatCard.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 24, 0, 0, 0, 2, 26
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\ex\ColorPallete.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 49, 0, 0, 0, 8, 57
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\ex\Colores.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 39, 0, 0, 0, 2, 41
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\ex\ComponenteCambia.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 4, 0, 0, 5, 2, 11
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\ex\ComponentePadreEx.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 248, 0, 0, 7, 26, 281
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\ex\ModalEx.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 200, 0, 0, 3, 21, 224
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\ex\PrevisualizacionContrastes.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 63, 0, 0, 0, 5, 68
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\ex\PrevisualizacionEjemplos.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 31, 0, 0, 6, 6, 43
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\ex\PrevisualizacionReutilizables.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 57, 0, 0, 2, 1, 60
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\ex\UserList.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 274, 0, 0, 5, 28, 307
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\form\Controls\GenericButton.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 48, 0, 0, 1, 4, 53
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\form\Controls\GenericCheckbox.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 70, 0, 0, 17, 9, 96
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\form\Controls\GenericDate.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 51, 0, 0, 2, 5, 58
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\form\Controls\GenericExclusiveCheckboxGroup.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 96, 0, 0, 14, 13, 123
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\form\Controls\GenericInput.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 103, 0, 0, 4, 4, 111
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\form\Controls\GenericLink.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 19, 0, 0, 0, 6, 25
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\form\Controls\GenericLocalidadesSelect.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 110, 0, 0, 22, 12, 144
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\form\Controls\GenericSelect.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 148, 0, 0, 82, 23, 253
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\form\Controls\GenericSelectSearch.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 300, 0, 0, 22, 24, 346
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\form\Controls\GenericSelectState.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 134, 0, 0, 23, 17, 174
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\form\Controls\GenericTextArea.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 45, 0, 0, 0, 5, 50
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\form\Controls\GenericTextInput.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 46, 0, 0, 0, 5, 51
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\form\GenericForm.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 29, 0, 0, 0, 4, 33
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\form\GenericRowForm.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 4, 0, 0, 0, 2, 6
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\form\GenericSection.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 15, 0, 0, 0, 2, 17
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\form\formsButtons.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 27, 0, 0, 1, 2, 30
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\form\utils\formError.ts", "TypeScript", 0, 0, 13, 0, 0, 0, 0, 0, 12, 6, 31
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\layout\Footer.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 7, 0, 0, 0, 1, 8
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\layout\Header.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 20, 0, 0, 2, 4, 26
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\layout\MenuList.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 91, 0, 0, 2, 6, 99
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\layout\SideBar.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 121, 0, 0, 18, 13, 152
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\mantenimiento\Equipo\FormularioEquipo.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 139, 0, 0, 6, 10, 155
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\mantenimiento\Equipo\InformacionEquipo\CrudComponentes\ComponentesCrud.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 99, 0, 0, 14, 6, 119
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\mantenimiento\Equipo\InformacionEquipo\CrudComponentes\models\componenteEstado.ts", "TypeScript", 0, 0, 9, 0, 0, 0, 0, 0, 0, 3, 12
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\mantenimiento\Equipo\InformacionEquipo\CrudComponentes\services\componentesEstado.ts", "TypeScript", 0, 0, 69, 0, 0, 0, 0, 0, 10, 8, 87
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\mantenimiento\Equipo\InformacionEquipo\FormComponente.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 62, 0, 0, 1, 4, 67
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\mantenimiento\Equipo\InformacionEquipo\InformacionEquipo.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 143, 0, 0, 8, 6, 157
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\mantenimiento\Equipo\services\activoApi.ts", "TypeScript", 0, 0, 126, 0, 0, 0, 0, 0, 2, 8, 136
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\mantenimiento\InformacionGeneral\InformacionGeneral.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 99, 0, 0, 3, 5, 107
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\mantenimiento\InformacionGeneral\adapters\informacionGeneral.ts", "TypeScript", 0, 0, 19, 0, 0, 0, 0, 0, 2, 4, 25
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\mantenimiento\InformacionGeneral\models\informacionGeneralOrden.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 0, 1, 9
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\mantenimiento\InformacionGeneral\services\informacionGeneralServices.ts", "TypeScript", 0, 0, 7, 0, 0, 0, 0, 0, 2, 2, 11
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\mantenimiento\Inspeccion\InspeccionForm.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 32, 0, 0, 7, 6, 45
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\mantenimiento\Inspeccion\services\inspeccion.ts", "TypeScript", 0, 0, 6, 0, 0, 0, 0, 0, 0, 2, 8
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\mantenimiento\MantenimientoIngreso.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 162, 0, 0, 6, 14, 182
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\mantenimiento\Mantenimiento\MantenimientoForm.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 123, 0, 0, 9, 9, 141
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\mantenimiento\Mantenimiento\models\mantenimiento.ts", "TypeScript", 0, 0, 10, 0, 0, 0, 0, 0, 0, 2, 12
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\mantenimiento\Mantenimiento\services\mantenimiento.ts", "TypeScript", 0, 0, 27, 0, 0, 0, 0, 0, 1, 3, 31
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\mantenimiento\Orden\Orden.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 193, 0, 0, 4, 21, 218
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\mantenimiento\Orden\adapters\orden.ts", "TypeScript", 0, 0, 12, 0, 0, 0, 0, 0, 1, 2, 15
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\mantenimiento\Orden\models\orden.ts", "TypeScript", 0, 0, 16, 0, 0, 0, 0, 0, 2, 5, 23
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\mantenimiento\Orden\services\ordenApi.ts", "TypeScript", 0, 0, 46, 0, 0, 0, 0, 0, 1, 4, 51
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\tecnico\ProcesarMantenimiento.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 47, 0, 0, 0, 5, 52
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\tecnico\procesar\Aprobacion.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 57, 0, 0, 3, 7, 67
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\tecnico\procesar\ComponentesTable.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 41, 0, 0, 0, 4, 45
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\tecnico\procesar\Cotizacion.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 102, 0, 0, 1, 10, 113
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\tecnico\procesar\Diagnostico.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 67, 0, 0, 31, 6, 104
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\tecnico\procesar\Finalizacion.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 99, 0, 0, 1, 6, 106
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\tecnico\procesar\InformacionGeneral.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 176, 0, 0, 0, 6, 182
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\components\tecnico\procesar\Reparacion.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 91, 0, 0, 3, 4, 98
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\constants\perfil.ts", "TypeScript", 0, 0, 5, 0, 0, 0, 0, 0, 0, 2, 7
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\context\AuthProvider.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 94, 0, 0, 6, 16, 116
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\context\ModalContext.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 61, 0, 0, 1, 12, 74
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\context\ThemContext.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 27, 0, 0, 5, 8, 40
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\context\auth-context.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 18, 0, 0, 1, 4, 23
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\hooks\useAuth.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 7, 0, 0, 1, 2, 10
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\hooks\useCitas.ts", "TypeScript", 0, 0, 125, 0, 0, 0, 0, 0, 16, 18, 159
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\hooks\useDebouncedCallback.ts", "TypeScript", 0, 0, 36, 0, 0, 0, 0, 0, 5, 9, 50
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\hooks\useLocalidades.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 30, 0, 0, 3, 6, 39
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\hooks\useModal.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 10, 0, 0, 0, 2, 12
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\hooks\useModalActions.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 67, 0, 0, 10, 7, 84
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\index.css", "PostCSS", 0, 0, 0, 0, 0, 0, 8, 0, 69, 2, 79
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\layouts\AuthLayout.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 14, 0, 0, 0, 2, 16
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\layouts\InternalLayout.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 47, 0, 0, 2, 6, 55
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\layouts\MainLayout.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 47, 0, 0, 4, 9, 60
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\main.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 25, 0, 0, 9, 5, 39
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\Citas\Citas.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 9, 0, 0, 1, 3, 13
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\Citas\Crud\CrudCitas.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 111, 0, 0, 4, 13, 128
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\Citas\Crud\adapter\cita.ts", "TypeScript", 0, 0, 123, 0, 0, 0, 0, 0, 38, 16, 177
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\Citas\Crud\adapter\orden.ts", "TypeScript", 0, 0, 17, 0, 0, 0, 0, 0, 4, 4, 25
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\Citas\Crud\components\CitasFilters.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 138, 0, 0, 64, 15, 217
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\Citas\Crud\components\CrudCitasContainer.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 320, 0, 0, 134, 41, 495
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\Citas\Crud\components\FormCitas.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 110, 0, 0, 24, 7, 141
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\Citas\Crud\models\citaCrudModel.ts", "TypeScript", 0, 0, 15, 0, 0, 0, 0, 0, 0, 2, 17
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\Citas\Crud\models\citaFiltersType.ts", "TypeScript", 0, 0, 6, 0, 0, 0, 0, 0, 0, 1, 7
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\Citas\Crud\models\validationCitaCrud.ts", "TypeScript", 0, 0, 12, 0, 0, 0, 0, 0, 0, 1, 13
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\Citas\Crud\services\crudCitasApi.ts", "TypeScript", 0, 0, 70, 0, 0, 0, 0, 0, 25, 7, 102
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\Clientes\CrudClientes.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 29, 0, 0, 0, 7, 36
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\Clientes\Cruds\CrudEmpresa\CrudEmpresa.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 208, 0, 0, 20, 12, 240
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\Clientes\Cruds\CrudEmpresa\models\crudEmpresaModel.ts", "TypeScript", 0, 0, 12, 0, 0, 0, 0, 0, 1, 1, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\Clientes\Cruds\CrudEmpresa\services\juridico.ts", "TypeScript", 0, 0, 91, 0, 0, 0, 0, 0, 9, 5, 105
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\Clientes\Cruds\CrudNatural\CrudNatural.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 223, 0, 0, 2, 16, 241
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\Clientes\Cruds\CrudNatural\models\CrudNaturalModel.ts", "TypeScript", 0, 0, 12, 0, 0, 0, 0, 0, 0, 1, 13
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\Clientes\Cruds\CrudNatural\services\natural.ts", "TypeScript", 0, 0, 81, 0, 0, 0, 0, 0, 0, 5, 86
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\Clientes\Cruds\services\clienteService.ts", "TypeScript", 0, 0, 13, 0, 0, 0, 0, 0, 0, 3, 16
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\Ordenes\Crud\CrudOrdenes.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 123, 0, 0, 48, 11, 182
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\Ordenes\Crud\adapter\adapterFiltersOrdenesAdmin.ts", "TypeScript", 0, 0, 28, 0, 0, 0, 0, 0, 0, 4, 32
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\Ordenes\Crud\adapter\adapterOrdenesAdmin.ts", "TypeScript", 0, 0, 34, 0, 0, 0, 0, 0, 0, 5, 39
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\Ordenes\Crud\components\FiltersOrdenes.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 78, 0, 0, 45, 7, 130
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\Ordenes\Crud\components\FormCrudOrdenesAdmin.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 4, 0, 0, 0, 2, 6
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\Ordenes\Crud\models\ordenData.ts", "TypeScript", 0, 0, 14, 0, 0, 0, 0, 0, 19, 3, 36
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\Ordenes\Crud\models\ordenFilter.ts", "TypeScript", 0, 0, 9, 0, 0, 0, 0, 0, 0, 1, 10
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\Ordenes\Crud\services\ordenes.ts", "TypeScript", 0, 0, 57, 0, 0, 0, 0, 0, 2, 5, 64
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\Ordenes\index.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 9, 0, 0, 0, 2, 11
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\catalogo\generales\CatalogosCrud.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 138, 0, 0, 26, 14, 178
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\catalogo\generales\components\CatalogoForm.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 50, 0, 0, 0, 2, 52
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\catalogo\generales\models\catalogo.schema.ts", "TypeScript", 0, 0, 25, 0, 0, 0, 0, 0, 1, 8, 34
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\catalogo\generales\services\catalogos.ts", "TypeScript", 0, 0, 56, 0, 0, 0, 0, 0, 14, 6, 76
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\catalogo\localidades\CatalogoLocalidades.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 25, 0, 0, 0, 2, 27
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\catalogo\localidades\ciudad\CiudadCrud.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 78, 0, 0, 18, 14, 110
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\catalogo\localidades\ciudad\adapters\ciudad.ts", "TypeScript", 0, 0, 23, 0, 0, 0, 0, 0, 0, 3, 26
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\catalogo\localidades\ciudad\models.ts\ciudad.ts", "TypeScript", 0, 0, 11, 0, 0, 0, 0, 0, 0, 1, 12
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\catalogo\localidades\ciudad\services\ciudadService.ts", "TypeScript", 0, 0, 39, 0, 0, 0, 0, 0, 0, 7, 46
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\catalogo\localidades\localidades.schema.ts", "TypeScript", 0, 0, 34, 0, 0, 0, 0, 0, 3, 8, 45
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\catalogo\localidades\pais\PaisCrud.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 87, 0, 0, 11, 9, 107
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\catalogo\localidades\pais\components\PaisForm.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 51, 0, 0, 2, 7, 60
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\catalogo\localidades\pais\models\paises.schema.ts", "TypeScript", 0, 0, 27, 0, 0, 0, 0, 0, 0, 4, 31
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\catalogo\localidades\pais\models\paises.ts", "TypeScript", 0, 0, 30, 0, 0, 0, 0, 0, 3, 4, 37
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\catalogo\localidades\pais\services\paisApi.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 48, 0, 0, 7, 6, 61
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\catalogo\localidades\provincia\services\provinciasApi.ts", "TypeScript", 0, 0, 45, 0, 0, 0, 0, 0, 10, 8, 63
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\home\HomeInternos.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 117, 0, 0, 10, 7, 134
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\usuarios\CrudInternos.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 94, 0, 0, 2, 9, 105
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\usuarios\adapters\usuarioInterno.ts", "TypeScript", 0, 0, 43, 0, 0, 0, 0, 0, 18, 5, 66
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\usuarios\components\InternosForm.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 134, 0, 0, 11, 3, 148
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\usuarios\models\usuarioInterno.ts", "TypeScript", 0, 0, 20, 0, 0, 0, 0, 0, 2, 5, 27
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\Internos\usuarios\services\internos.ts", "TypeScript", 0, 0, 41, 0, 0, 0, 0, 0, 9, 5, 55
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\NofoundPage.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 18, 0, 0, 0, 2, 20
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\cliente\citas\CitaCliente.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 82, 0, 0, 1, 13, 96
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\cliente\citas\services\citasClientesServices.ts", "TypeScript", 0, 0, 51, 0, 0, 0, 0, 0, 0, 6, 57
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\cliente\dashboard\Dashboard.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 22, 0, 0, 1, 2, 25
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\cliente\dashboard\components\MaintenanceTable.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 67, 0, 0, 0, 6, 73
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\cliente\perfil\Perfil.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 44, 0, 0, 2, 10, 56
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\cliente\perfil\components\ProfileHeader.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 51, 0, 0, 0, 5, 56
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\cliente\perfil\components\containerForm.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 46, 0, 0, 0, 5, 51
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\cliente\perfil\services\pefilClienteServices.ts", "TypeScript", 0, 0, 5, 0, 0, 0, 0, 0, 0, 1, 6
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\cliente\tablero\Tablero.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 116, 0, 0, 32, 8, 156
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\nologin\Login\Login.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 110, 0, 0, 3, 14, 127
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\nologin\Login\models\login.schema.ts", "TypeScript", 0, 0, 22, 0, 0, 0, 0, 0, 1, 5, 28
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\nologin\calendarioCita\CitasCalendar.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 103, 0, 0, 8, 14, 125
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\nologin\calendarioCita\components\IngresarCitaModal.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 92, 0, 0, 30, 10, 132
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\nologin\calendarioCita\services\obtenerTipoMantenimiento.ts", "TypeScript", 0, 0, 6, 0, 0, 0, 0, 0, 0, 2, 8
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\nologin\confirmarEmail\ConfirmarEmail.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 107, 0, 0, 7, 9, 123
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\nologin\confirmarEmail\services\confirmarEmailServices.ts", "TypeScript", 0, 0, 4, 0, 0, 0, 0, 0, 0, 2, 6
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\nologin\recuperarContra\RecuperarContra.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 63, 0, 0, 0, 10, 73
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\nologin\recuperarContra\models\recover.schema.ts", "TypeScript", 0, 0, 7, 0, 0, 0, 0, 0, 0, 3, 10
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\nologin\recuperarContra\services\recuperarContraService.ts", "TypeScript", 0, 0, 7, 0, 0, 0, 0, 0, 0, 2, 9
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\nologin\register\Register.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 70, 0, 0, 7, 10, 87
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\nologin\register\components\RegisterComun.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 162, 0, 0, 1, 12, 175
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\nologin\register\register.schema.ts", "TypeScript", 0, 0, 120, 0, 0, 0, 0, 0, 8, 21, 149
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\nologin\restablecerContra\RestablecerContra.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 89, 0, 0, 0, 13, 102
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\nologin\restablecerContra\models\resetPassword.schema.ts", "TypeScript", 0, 0, 18, 0, 0, 0, 0, 0, 0, 2, 20
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\pages\nologin\restablecerContra\services\restablecerContraServices.ts", "TypeScript", 0, 0, 11, 0, 0, 0, 0, 0, 0, 2, 13
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\router\AppRouter.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 71, 0, 0, 10, 16, 97
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\router\ProtectedRoute.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 13, 0, 0, 4, 6, 23
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\router\RootRedirect.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 19, 0, 0, 5, 8, 32
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\router\ruta.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 145, 0, 0, 6, 4, 155
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\services\Cliente\Clientes\juridico.ts", "TypeScript", 0, 0, 26, 0, 0, 0, 0, 0, 0, 4, 30
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\services\Cliente\Clientes\natural.ts", "TypeScript", 0, 0, 30, 0, 0, 0, 0, 0, 0, 4, 34
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\services\ORDEN\componentes.ts", "TypeScript", 0, 0, 17, 0, 0, 0, 0, 0, 0, 2, 19
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\services\Select\SelectSearch.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 8, 0, 0, 4, 2, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\services\Select\localidadesSelectApi.ts", "TypeScript", 0, 0, 43, 0, 0, 0, 0, 0, 0, 3, 46
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\services\Select\usuariosSearch.ts", "TypeScript", 0, 0, 22, 0, 0, 0, 0, 0, 0, 2, 24
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\services\citasApi.ts", "TypeScript", 0, 0, 18, 0, 0, 0, 0, 0, 0, 4, 22
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\services\contactosApi.ts", "TypeScript", 0, 0, 46, 0, 0, 0, 0, 0, 26, 3, 75
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\services\direccionApi.ts", "TypeScript", 0, 0, 92, 0, 0, 0, 0, 0, 1, 3, 96
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\services\generalGetWithFilters.ts", "TypeScript", 0, 0, 64, 0, 0, 0, 0, 0, 43, 13, 120
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\services\loginApi.ts", "TypeScript", 0, 0, 81, 0, 0, 0, 0, 0, 37, 6, 124
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\themes\default.ts", "TypeScript", 0, 0, 31, 0, 0, 0, 0, 0, 1, 3, 35
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\themes\empresaX.ts", "TypeScript", 0, 0, 31, 0, 0, 0, 0, 0, 1, 3, 35
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\themes\empresaY.ts", "TypeScript", 0, 0, 31, 0, 0, 0, 0, 0, 1, 3, 35
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\themes\tecniTrack.ts", "TypeScript", 0, 0, 31, 0, 0, 0, 0, 0, 1, 4, 36
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\themes\types.ts", "TypeScript", 0, 0, 31, 0, 0, 0, 0, 0, 2, 3, 36
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\types\cita.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 1, 5, 14
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\types\cliente\Cita.ts", "TypeScript", 0, 0, 15, 0, 0, 0, 0, 0, 0, 1, 16
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\types\form.ts", "TypeScript", 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 2
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\types\modal.types.ts", "TypeScript", 0, 0, 39, 0, 0, 0, 0, 0, 0, 8, 47
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\types\nav.ts", "TypeScript", 0, 0, 17, 0, 0, 0, 0, 0, 0, 5, 22
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\types\usuario.ts", "TypeScript", 0, 0, 1, 0, 0, 0, 0, 0, 0, 4, 5
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\utils\parseError.ts", "TypeScript", 0, 0, 7, 0, 0, 0, 0, 0, 13, 5, 25
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\utils\parseFecha.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 0, 2, 10
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\validation\cita.schema.ts", "TypeScript", 0, 0, 42, 0, 0, 0, 0, 0, 1, 12, 55
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\validation\perfil.schema.ts", "TypeScript", 0, 0, 282, 0, 0, 0, 0, 0, 134, 57, 473
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\src\vite-env.d.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\swagger.json", "JSON", 0, 1353, 0, 0, 0, 0, 0, 0, 0, 0, 1353
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\tailwind.config.js", "JavaScript", 112, 0, 0, 0, 0, 0, 0, 0, 8, 11, 131
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\tsconfig.app.json", "JSON", 0, 23, 0, 0, 0, 0, 0, 0, 2, 3, 28
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\tsconfig.json", "JSON with Comments", 0, 0, 0, 7, 0, 0, 0, 0, 0, 1, 8
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\tsconfig.node.json", "JSON", 0, 19, 0, 0, 0, 0, 0, 0, 2, 3, 24
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\vercel.json", "JSON", 0, 8, 0, 0, 0, 0, 0, 0, 0, 1, 9
+"c:\Users\andre\practicas\proyecto\Mantplus\Frontend\mantenimiento-web\vite.config.ts", "TypeScript", 0, 0, 11, 0, 0, 0, 0, 0, 1, 2, 14
+"Total", "-", 165, 1450, 9229, 7, 12, 11666, 8, 54, 3818, 2267, 28676

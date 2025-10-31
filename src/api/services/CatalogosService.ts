@@ -5,6 +5,7 @@
 import type { ActualizarCatalogoDto } from '../models/ActualizarCatalogoDto';
 import type { CatalogoDtoApiResponse } from '../models/CatalogoDtoApiResponse';
 import type { CatalogoDtoIEnumerableApiResponse } from '../models/CatalogoDtoIEnumerableApiResponse';
+import type { CatalogoDtoPagedResponse } from '../models/CatalogoDtoPagedResponse';
 import type { CrearCatalogoDto } from '../models/CrearCatalogoDto';
 import type { ObjectApiResponse } from '../models/ObjectApiResponse';
 import type { StringIEnumerableApiResponse } from '../models/StringIEnumerableApiResponse';
@@ -13,13 +14,38 @@ import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 export class CatalogosService {
     /**
-     * @returns CatalogoDtoIEnumerableApiResponse OK
+     * @returns CatalogoDtoPagedResponse OK
      * @throws ApiError
      */
-    public static getApiCatalogosObtenerTodosCatalogos(): CancelablePromise<CatalogoDtoIEnumerableApiResponse> {
+    public static getApiCatalogosObtenerCatalogos({
+        termino,
+        tipo,
+        activo,
+        pagina,
+        limite,
+        ordenarPor,
+        direccionOrden,
+    }: {
+        termino?: string,
+        tipo?: string,
+        activo?: boolean,
+        pagina?: number,
+        limite?: number,
+        ordenarPor?: string,
+        direccionOrden?: string,
+    }): CancelablePromise<CatalogoDtoPagedResponse> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/Catalogos/obtener-todos-catalogos',
+            url: '/api/Catalogos/obtener-catalogos',
+            query: {
+                'termino': termino,
+                'tipo': tipo,
+                'activo': activo,
+                'pagina': pagina,
+                'limite': limite,
+                'ordenarPor': ordenarPor,
+                'direccionOrden': direccionOrden,
+            },
             errors: {
                 400: `Bad Request`,
             },
