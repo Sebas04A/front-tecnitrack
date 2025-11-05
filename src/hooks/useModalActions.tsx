@@ -1,6 +1,10 @@
 import { useCallback } from 'react'
 import { useModal } from './useModal'
-import { AlertModalProps, BaseModalProps, ConfirmModalProps } from '../types/modal.types'
+import {
+    AlertModalProps,
+    BaseModalProps,
+    ConfirmModalProps,
+} from '../components/common/modals/models/modal.types'
 import { ConfirmModal } from '../components/common/modals/ConfirmModal'
 import AlertModal from '../components/common/modals/AlertModal'
 import FormModal, { FormModalProps } from '../components/common/modals/FormModal'

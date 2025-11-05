@@ -1,6 +1,8 @@
 import React from 'react'
 import { FaEdit, FaEye, FaSort, FaSortDown, FaSortUp, FaTrash } from 'react-icons/fa'
+
 import { FieldValues } from 'react-hook-form'
+
 import { newActionCrud } from '../models/crud.types'
 
 const colorsBtnAcciones = {

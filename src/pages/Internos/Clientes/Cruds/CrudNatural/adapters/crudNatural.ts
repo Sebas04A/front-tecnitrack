@@ -11,8 +11,8 @@ const parseAdapterPersonaNaturalCrud = (perfil: ListarClientesNaturalesDto): Cli
         correo: perfil.correo ?? '',
         direccion: perfil.direccion ?? '',
         estado: perfil.activo ?? true,
-        fechaCreacion: perfil.fechaCreacion ? new Date(perfil.fechaCreacion) : new Date(),
-        // fechaNacimiento: parseFecha(perfil.),
+        fechaNacimiento: perfil.fechaCreacion ? new Date(perfil.fechaCreacion) : undefined,
+        // fechaNacimiento: perfil.fechaNacimiento ? new Date(perfil.fechaNacimiento) : undefined,
     }
 }
 export const parseAdapterPersonasNaturalCrud = (

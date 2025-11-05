@@ -62,7 +62,7 @@ const defaultValues: PerfilPersonaNaturalData = {
     apellidoCompleto: '',
     tipoIdentificacion: '',
     numeroIdentificacion: '',
-    fechaNacimiento: '',
+    fechaNacimiento: undefined,
     genero: '',
 }
 export default function CrudNatural() {
@@ -89,7 +89,7 @@ export default function CrudNatural() {
         []
     )
     function mostrarModal(row: ClienteNaturalCrud) {
-        console.warn('Mostrando modal para:', row)
+        console.log('Mostrando modal para:', row)
         modalAction.showEmptyModal({
             title: 'Información del cliente',
             children: (

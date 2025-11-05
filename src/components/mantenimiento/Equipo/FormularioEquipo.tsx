@@ -6,7 +6,7 @@ import { useModalActions } from '../../../hooks/useModalActions'
 import GenericForm from '../../form/GenericForm'
 import GenericTextarea from '../../form/Controls/GenericTextArea'
 
-import { EquipoSection } from './InformacionEquipo/components/InformacionEquipo'
+import { EquipoSection } from './components/InformacionEquipo'
 import { WindowProps } from '../MantenimientoIngreso'
 import {
     getInformacionActivo,
@@ -29,8 +29,8 @@ export default function FormularioEquipo({
 
     React.useEffect(() => {
         getInformacionActivoAsignado(orden.id!).then(data => {
-            console.log('Activo asociado a la orden:', data)
-            console.log(data.nombreComercial)
+            // console.log('Activo asociado a la orden:', data)
+            // console.log(data.nombreComercial)
             form.reset(data)
             setTimeout(() => form.reset({ ...data }), 1000) // pequeño retardo para evitar que se sobreescriba al seleccionar equipo
             setBlockForm(false)
@@ -43,7 +43,7 @@ export default function FormularioEquipo({
         if (equipoSeleccionado) {
             // bloquear el formulario si hay un equipo seleccionado
             getInformacionActivo(equipoSeleccionado).then(data => {
-                console.log('Activo Seleccionado:', { data })
+                // console.log('Activo Seleccionado:', { data })
                 form.reset({ ...data, equipo: equipoSeleccionado })
                 setTimeout(() => form.reset({ equipo: equipoSeleccionado, ...data }), 1000) // pequeño retardo para evitar que se sobreescriba al seleccionar equipo
                 setBlockForm(true)
@@ -139,8 +139,6 @@ export default function FormularioEquipo({
                     isReadOnly={readOnly}
                 />
             </GenericForm>
-
-            {/* <InspeccionForm /> */}
         </>
     )
 }

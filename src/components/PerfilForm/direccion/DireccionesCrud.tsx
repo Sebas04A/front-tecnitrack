@@ -1,9 +1,12 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import CrudContainer, { crudQueries } from '../../crud/CrudContainer'
 import { ColumnDef } from '../../crud/components/CrudTable'
+
+import { fetchDataCrudWithFilters } from '../../crud/helper/fetchWithFilters'
+
 import DireccionesForm from './components/DireccionesForm'
 
 import { DireccionData, direccionSchema } from './models/direccion.schema'
@@ -17,24 +20,11 @@ import {
     updateDireccion,
     updateDireccionCliente,
 } from './services/direccionApi'
-import { makeLocalCrudFetcher } from '../../crud/helper/crud-helpers'
-
-import { Option } from '../../../types/form'
-import { fetchDataCrudWithFilters } from '../../crud/helper/fetchWithFilters'
 
 interface DireccionesCrudProps {
     titulo?: string
     clienteId?: number
 }
-
-// Helper para comparar direcciones sin id
-const isSameDireccion = (a: DireccionData, b: DireccionData) =>
-    a.pais === b.pais &&
-    a.provincia === b.provincia &&
-    a.ciudad === b.ciudad &&
-    a.direccion === b.direccion &&
-    a.codigoPostal === b.codigoPostal &&
-    a.tipo === b.tipo
 
 const defaultValues: DireccionData = {
     pais: -1,
@@ -48,7 +38,7 @@ const defaultValues: DireccionData = {
 const schema = direccionSchema
 const resolver = yupResolver(schema)
 
-const DireccionesCrud: React.FC<DireccionesCrudProps> = ({ titulo = 'Direcciones', clienteId }) => {
+const DireccionesCrud: React.FC<DireccionesCrudProps> = ({ clienteId }) => {
     // console.warn('DireccionesCrud render clienteId:', clienteId)
     // clienteId === -1 && (clienteId = undefined)
     const esCrud = !!clienteId
@@ -61,9 +51,6 @@ const DireccionesCrud: React.FC<DireccionesCrudProps> = ({ titulo = 'Direcciones
     useEffect(() => {
         console.log('Direccion changed:', direccion)
     }, [direccion])
-    const [paises, setPaises] = useState<Option[]>([])
-    const [provincias, setProvincias] = useState<Option[]>([])
-    const [ciudades, setCiudades] = useState<Option[]>([])
 
     const columns: ColumnDef<DireccionData>[] = useMemo(
         () => [
@@ -75,14 +62,6 @@ const DireccionesCrud: React.FC<DireccionesCrudProps> = ({ titulo = 'Direcciones
         []
     )
 
-    // const fetchData = useMemo(
-    //     () =>
-    //         makeLocalCrudFetcher<DireccionData>({
-    //             getAll: esCrud ? () => getDireccionByCliente(clienteId) : getDirecciones,
-    //             searchKeys: ['pais', 'provincia', 'ciudad', 'direccion'],
-    //         }),
-    //     []
-    // )
     const fetchData = useMemo(
         () =>
             fetchDataCrudWithFilters<DireccionData, any>({
@@ -129,13 +108,10 @@ const DireccionesCrud: React.FC<DireccionesCrudProps> = ({ titulo = 'Direcciones
 
     return (
         <>
-            {/* Corregimos el tipo genérico para coincidir con DireccionData */}
             <CrudContainer<DireccionData, DireccionData>
                 formModalProp={{
                     form: DireccionesForm,
                     props: {
-                        // register: form.register,
-                        // errors: form.formState.errors,
                         watch: form.watch,
                         values: form.watch(),
                     },
@@ -158,5 +134,4 @@ const DireccionesCrud: React.FC<DireccionesCrudProps> = ({ titulo = 'Direcciones
         </>
     )
 }
-
 export default DireccionesCrud

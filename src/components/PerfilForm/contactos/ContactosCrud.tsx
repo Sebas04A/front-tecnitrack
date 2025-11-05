@@ -127,10 +127,10 @@ const ContactosCrud: React.FC<ContactosCrudProps> = ({
                 fetchData:
                     tipoPersona === 'Empresa'
                         ? esCrud
-                            ? params => getContactosEmpresaById(clienteId!)
+                            ? filters => getContactosEmpresaById({ clienteId: clienteId! })(filters)
                             : getContactosEmpresa
                         : esCrud
-                        ? filters => getContactosNaturalById({ filters, clienteId: clienteId! })
+                        ? filters => getContactosNaturalById({ clienteId: clienteId! })(filters)
                         : getContactosCliente,
             }),
         [tipoPersona]

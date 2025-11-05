@@ -1,14 +1,10 @@
 import React from 'react'
-import BaseModal from './BaseModal'
-import { IoCheckmarkCircle, IoInformationCircle, IoCloseCircle, IoWarning } from 'react-icons/io5'
-import { BaseModalProps } from '../../../types/modal.types'
 
-// Definimos las props, incluyendo las nuevas requeridas
-export interface AlertModalProps extends BaseModalProps {
-    title: string
-    message: string
-    type?: 'info' | 'success' | 'error' | 'warning'
-}
+import { IoCheckmarkCircle, IoInformationCircle, IoCloseCircle, IoWarning } from 'react-icons/io5'
+
+import { AlertModalProps, ModalTypes } from './models/modal.types'
+
+import BaseModal from './BaseModal'
 
 const AlertModal: React.FC<AlertModalProps> = ({
     isOpen,
@@ -17,10 +13,8 @@ const AlertModal: React.FC<AlertModalProps> = ({
     message,
     type = 'info',
 }) => {
-    // Ya no usamos el hook useModal, las props controlan todo.
-
     const config: Record<
-        'info' | 'success' | 'error' | 'warning',
+        ModalTypes,
         {
             icon: React.ReactNode
             bgGradient: string
@@ -54,11 +48,8 @@ const AlertModal: React.FC<AlertModalProps> = ({
     return (
         <BaseModal isOpen={isOpen} onClose={onClose} title={title} size='sm'>
             <div className={`text-center p-6 rounded-xl bg-gradient-to-br ${bgGradient}`}>
-                {/* ... (contenido del AlertModal no cambia) */}
-
                 <p className='text-gray-700 text-lg mb-8'>{message}</p>
 
-                {/* El botón ahora llama directamente a la prop onClose */}
                 <button
                     onClick={onClose}
                     className={`px-8 py-3 text-white font-semibold rounded-xl ... ${buttonClass}`}

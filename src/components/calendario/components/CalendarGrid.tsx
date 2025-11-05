@@ -1,4 +1,3 @@
-// src/components/citas/CalendarGrid.tsx
 import React from 'react'
 
 interface CalendarGridProps {

@@ -205,6 +205,8 @@ const ISO_DATE_RE = /^\d{2}-\d{2}-\d{4}$/
 
 const isValidISODateInPast = (s?: string) => {
     // if (!ISO_DATE_RE.test(s ?? '')) return false
+    console.log('Validando fecha ISO:', s)
+    if (!s) return true
     const [y, m, d] = (s as string).split('-').map(Number)
     const dt = new Date(Date.UTC(y, m - 1, d))
     console.log('Validando fecha:', y, m, d, dt)
@@ -250,7 +252,7 @@ export const personaNaturalSchema = yup.object({
         //     ISO_DATE_RE.test(v ?? '01-01-2023')
         // )
         .test('fecha-rango', 'Fecha inválida o en el futuro', v =>
-            isValidISODateInPast(v || '01-01-1990')
+            isValidISODateInPast(v ?? undefined)
         ),
     // .required('La fecha de nacimiento es obligatoria')
     // .test('mayor-de-18', 'Debe ser mayor de 18 años', v => getAge(v) >= 18) // ← activa si tu negocio lo requiere

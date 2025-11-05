@@ -5,10 +5,11 @@ import { FieldValues } from 'react-hook-form'
 import useDebouncedCallback from '../../hooks/useDebouncedCallback'
 import { useModalActions } from '../../hooks/useModalActions'
 
-import { FetchParams } from './helper/fetchWithFilters'
 import CrudTable, { SortState } from './components/CrudTable'
 import CrudPagination from './components/CrudPagination'
 import CrudToolbar from './components/CrudToolbar'
+
+import { FetchParams } from './helper/fetchWithFilters'
 import { CrudContainerRawProps } from './models/crud.types'
 
 export default function CrudCrudo<
@@ -34,6 +35,7 @@ export default function CrudCrudo<
 
     const [data, setData] = useState<TData[]>([])
     const [loading, setLoading] = useState(false)
+    const [search, setSearch] = useState('')
 
     const [pagination, setPagination] = useState<{
         currentPage: number
@@ -61,8 +63,6 @@ export default function CrudCrudo<
             return { key: null, dir: null }
         })
     }
-
-    const [search, setSearch] = useState('')
 
     const { debounced: debouncedSearch } = useDebouncedCallback((val: string) => {
         load(1, val)

@@ -10,7 +10,7 @@ import InspeccionForm from './Inspeccion/InspeccionForm'
 
 import InformacionGeneral from './InformacionGeneral/InformacionGeneral'
 import Orden from './Orden/Orden'
-import { BaseModalProps } from '../../types/modal.types'
+import { BaseModalProps } from '../common/modals/models/modal.types'
 import { useModalActions } from '../../hooks/useModalActions'
 
 import { OrdenData } from '../../pages/Internos/Ordenes/Crud/models/ordenData'

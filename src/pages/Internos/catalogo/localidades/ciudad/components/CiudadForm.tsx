@@ -20,6 +20,7 @@ interface CiudadesFormProps {
 
 const CiudadesForm: React.FC<CiudadesFormProps> = ({ register, errors, control, readOnly }) => {
     const [provinciaId, setProvinciaId] = React.useState<number | null>(null)
+    // console.log('Valores', control.getValues())
     return (
         <div className='grid gap-3'>
             <GenericTextInput
@@ -29,14 +30,15 @@ const CiudadesForm: React.FC<CiudadesFormProps> = ({ register, errors, control, 
                 errors={errors}
                 isReadOnly={readOnly}
             />
-            <GenericSelectState
+            <GenericSelect
                 name='paisId'
-                value={provinciaId ?? undefined}
-                label='País'
-                onChange={e => {
-                    const val = e.target.value ? parseInt(e.target.value) : null
-                    setProvinciaId(val)
-                }}
+                control={control}
+                // // value={provinciaId ?? undefined}
+                // label='País'
+                // onChange={e => {
+                //     const val = e.target.value ? parseInt(e.target.value) : null
+                //     setProvinciaId(val)
+                // }}
                 getOptions={obtenerPaisesSelect}
             />
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 // import { withModalData, WithModalDataProps } from '../components/modals'
 import { useModalActions } from '../../hooks/useModalActions'
 import { withModalData } from '../../hooks/withModalData'
-import { WithModalDataProps } from '../../types/modal.types'
+import { WithModalDataProps } from '../common/modals/models/modal.types'
 
 // Ejemplo de formulario conectado automáticamente
 interface User {

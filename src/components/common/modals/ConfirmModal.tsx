@@ -3,7 +3,7 @@ import {
     IoInformationCircleOutline,
     IoShieldCheckmarkOutline,
 } from 'react-icons/io5'
-import { ConfirmModalProps } from '../../../types/modal.types'
+import { ConfirmModalProps } from './models/modal.types'
 import BaseModal from './BaseModal'
 const variantConfig = {
     danger: {

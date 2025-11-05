@@ -55,6 +55,7 @@ export default function PersonaNaturalForm({
         handleSubmit,
         control,
         reset,
+        watch,
     } = useForm<Persona>({
         mode: 'onChange',
         resolver: resolver,
@@ -63,11 +64,18 @@ export default function PersonaNaturalForm({
             apellidoCompleto: '',
             tipoIdentificacion: '',
             numeroIdentificacion: '',
-            fechaNacimiento: '',
+            fechaNacimiento: undefined,
             genero: '',
             email: '',
         },
     })
+
+    useEffect(() => {
+        console.log('Watch values changed:', watch())
+    }, [watch])
+    useEffect(() => {
+        console.log('Errors changed:', errors)
+    }, [errors])
 
     useEffect(() => {
         console.log('Datos obtenidos desde padre:', data)
@@ -78,7 +86,7 @@ export default function PersonaNaturalForm({
             apellidoCompleto: newData?.apellidoCompleto || '',
             tipoIdentificacion: newData?.tipoIdentificacion || '',
             numeroIdentificacion: newData?.numeroIdentificacion || '',
-            fechaNacimiento: newData?.fechaNacimiento || '',
+            fechaNacimiento: newData?.fechaNacimiento || undefined,
             genero: newData?.genero || '',
         }
 
@@ -113,6 +121,9 @@ export default function PersonaNaturalForm({
             modalActions.closeModal(id)
             changeDirty(false)
 
+            if (!clienteIdNuevo)
+                throw new Error('No se obtuvo el ID del cliente después de guardar')
+            console.log('Datos guardados con éxito, ID del cliente:', clienteIdNuevo)
             onDatosGuardados(clienteIdNuevo)
         } catch (e) {
             modalActions.closeModal(id)

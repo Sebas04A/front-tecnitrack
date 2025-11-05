@@ -1,5 +1,5 @@
-import { ActivosService } from '../../../../../api'
-import { Option } from '../../../../../types/form'
+import { ActivosService } from '../../../../api'
+import { Option } from '../../../../types/form'
 
 export const obtenerTiposActivosSelect = async (): Promise<Option[]> => {
     const res = await ActivosService.getApiActivosObtenerTipos()

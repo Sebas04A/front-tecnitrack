@@ -1,5 +1,5 @@
 import React from 'react'
-import NavTitulo from './NavTitulo'
+import NavTitulo from './components/NavTitulo'
 
 export default function TituloPagina({ titulo, icon }: { titulo: string; icon?: React.ReactNode }) {
     console.log('Renderizando TituloPagina con titulo:', titulo, 'y icono:', icon)
@@ -12,20 +12,6 @@ export default function TituloPagina({ titulo, icon }: { titulo: string; icon?: 
             <div className='ml-auto mr-2 text-xl'>
                 <NavTitulo />
             </div>
-
-            {/* Barra de íconos */}
-            {/* <div className='flex space-x-4 text-gray-600'>
-                {actions.map((action, index) => (
-                    <a
-                        key={index}
-                        href={action.href}
-                        title={action.name}
-                        className='hover:text-blue-700 transition'
-                    >
-                        <FontAwesomeIcon icon={action.icon} size='lg' />
-                    </a>
-                ))}
-            </div> */}
         </div>
     )
 }

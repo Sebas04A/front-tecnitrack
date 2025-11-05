@@ -1,30 +1,30 @@
 import React, { useMemo } from 'react'
+
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import CrudContainer from '../../../../../components/crud/CrudContainer'
+import { ColumnDef } from '../../../../../components/crud/components/CrudTable'
+import { fetchDataCrudWithFilters } from '../../../../../components/crud/helper/fetchWithFilters'
 
-import ProvinciasForm from './components/ProvinciasForm'
 import { provinciaSchema, defaultProvinciaValues, ProvinciaFormData } from '../localidades.schema'
+
 import {
     getProvincias,
-    getProvinciaById,
     createProvincia,
     updateProvincia,
     deleteProvincia,
 } from './services/provinciasApi'
-import { makeLocalCrudFetcher } from '../../../../../components/crud/helper/crud-helpers'
 import { apiProvinciaToData } from './adapters/provincias'
-import { fetchDataCrudWithFilters } from '../../../../../components/crud/helper/fetchWithFilters'
 import { ProvinciaData } from './models/provincia.type'
-import { ColumnDef } from '../../../../../components/crud/components/CrudTable'
+import ProvinciasForm from './components/ProvinciasForm'
 
 interface ProvinciasCrudProps {
     titulo?: string
     provinciaId?: number
 }
 
-const ProvinciasCrud: React.FC<ProvinciasCrudProps> = ({ provinciaId }) => {
+const ProvinciasCrud: React.FC<ProvinciasCrudProps> = () => {
     const form = useForm<ProvinciaFormData>({
         mode: 'onChange',
         resolver: yupResolver(provinciaSchema),
@@ -39,20 +39,6 @@ const ProvinciasCrud: React.FC<ProvinciasCrudProps> = ({ provinciaId }) => {
         ],
         []
     )
-
-    // const fetchData = useMemo(
-    //     () =>
-    //         makeLocalCrudFetcher<ProvinciaData>({
-    //             getAll: async () => {
-    //                 const data = provinciaId
-    //                     ? [await getProvinciaById(provinciaId)]
-    //                     : await getProvincias()
-    //                 return data.map(apiProvinciaToData)
-    //             },
-    //             searchKeys: ['nombre', 'paisNombre'] as any,
-    //         }),
-    //     [provinciaId]
-    // )
     const fetchData = useMemo(
         () =>
             fetchDataCrudWithFilters<ProvinciaData, any>({

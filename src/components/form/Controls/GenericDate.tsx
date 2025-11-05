@@ -1,5 +1,5 @@
-import GenericInput from './GenericInput'
 import { FieldErrors, UseFormRegister } from 'react-hook-form'
+import GenericInput from './GenericInput'
 import { getNestedError } from '../utils/formError'
 
 type GenericDateProps = {

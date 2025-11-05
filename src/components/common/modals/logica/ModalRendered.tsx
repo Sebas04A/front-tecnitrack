@@ -1,9 +1,11 @@
 import React from 'react'
+
 import { useModal } from '../../../../hooks/useModal'
-// import { Z_INDEX_BASE } from '../../../../constants/modal'
+
 import BaseModal from '../BaseModal'
 
 const Z_INDEX_BASE = 100
+
 export const ModalRenderer: React.FC = () => {
     const { modals, closeModal } = useModal()
 
@@ -23,7 +25,6 @@ export const ModalRenderer: React.FC = () => {
                     </div>
                 )
             })}
-            {/* {getModals()} */}
         </>
     )
 }

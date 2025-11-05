@@ -1,15 +1,15 @@
 import { useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 
-import GenericRowForm from '../../../../../form/GenericRowForm'
-import GenericSelect from '../../../../../form/Controls/GenericSelect'
-import GenericTextInput from '../../../../../form/Controls/GenericTextInput'
+import GenericRowForm from '../../../form/GenericRowForm'
+import GenericSelect from '../../../form/Controls/GenericSelect'
+import GenericTextInput from '../../../form/Controls/GenericTextInput'
 
 import {
     obtenerMarcasActivosSelect,
     obtenerSubtiposActivosSelect,
     obtenerTiposActivosSelect,
-} from '../../services/equipo'
+} from '../services/equipo'
 
 export function SoloEquipoForm({
     // ordenId,

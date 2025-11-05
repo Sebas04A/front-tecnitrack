@@ -41,7 +41,7 @@ const GenericTextarea: React.FC<GenericTextareaProps> = ({
             placeholder={placeholder}
             required={required}
             rows={rows}
-            {...rest}
+            // {...rest}
         />
     )
 }

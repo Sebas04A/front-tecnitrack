@@ -1,5 +1,3 @@
-import { STYLE_BUTTON } from '../../../constants/component_styles'
-
 const GenericButton = ({
     icon,
     text,
@@ -48,5 +46,3 @@ const GenericButton = ({
 }
 
 export default GenericButton
-
-// className={`text-blue-500 hover:underline ${className}`}

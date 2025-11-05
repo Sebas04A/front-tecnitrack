@@ -1,4 +1,5 @@
 import { AiOutlineEdit, AiOutlineEye } from 'react-icons/ai'
+
 import { tabsInfoType } from './models/tabs.type'
 
 interface TabsNavigationProps<T> {

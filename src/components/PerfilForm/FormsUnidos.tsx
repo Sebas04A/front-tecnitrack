@@ -75,7 +75,7 @@ export default function FormsUnidos({
     const [data, setData] = useState<PerfilEmpresaData | PerfilPersonaNaturalData | null>()
     // dataProp ?? null
     function onDatosGuardados(id: number) {
-        if (esCrud && (id || id == -1)) throw new Error('Se necesita el cliente id')
+        if (esCrud && (!id || id == -1)) throw new Error('Se necesita el cliente id')
         setDatosYaGuardados(true)
         console.log('ID guardado', id)
         nextTab()

@@ -30,7 +30,7 @@ const columns: ColumnDef<ComponenteData>[] = [
     { key: 'condicion', header: 'Condición' },
     { key: 'severidad', header: 'Severidad' },
     { key: 'observaciones', header: 'Observaciones' },
-    { key: 'seguimiento', header: 'Requiere Seguimiento' },
+    { key: 'seguimiento', header: 'Requiere Seguimiento', render: value => (value ? 'Sí' : 'No') },
 ]
 const defaultValues = {
     componente: 'Tarjeta Madre',

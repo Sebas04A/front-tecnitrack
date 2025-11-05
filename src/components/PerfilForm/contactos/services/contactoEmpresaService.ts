@@ -3,24 +3,44 @@ import { ContactosEmpresaService, GestionClientesService } from '../../../../api
 import { ContactoEmpresaData } from '../models/contacto.schema'
 import { createApiSearchFunction } from '../../../../services/generalGetWithFilters'
 
-export const getContactosEmpresaById = async (
-    clienteId: number
-): Promise<ContactoEmpresaData[]> => {
-    // const res = await AdministradorService.getApiAdministradorObtenerContactosEmpresaCliente({
-    //     clienteId,
-    // })
-    const res = await GestionClientesService.getApiGestionClientesListarContactosEmpresa({
-        clienteId,
+// export const getContactosEmpresaById = async (
+//     clienteId: number
+// ): Promise<ContactoEmpresaData[]> => {
+//     // const res = await AdministradorService.getApiAdministradorObtenerContactosEmpresaCliente({
+//     //     clienteId,
+//     // })
+//     const res = await GestionClientesService.getApiGestionClientesListarContactosEmpresa({
+//         clienteId,
+//     })
+//     // const res = await GestionClientesService.getApiGestionClientesListarContactosEmpresa({
+//     //     clienteId,
+//     // })
+//     console.log('Datos obtenidos de contacto empresa por ID:', res)
+//     if (!res || !res.data || !res.data.data) {
+//         throw new Error('No se pudo obtener el contacto de la empresa')
+//     }
+//     return parseAdapterContactosEmpresa(res.data.data)
+// }
+export const getContactosEmpresaById = ({ clienteId }: { clienteId: number }) =>
+    createApiSearchFunction<ContactoEmpresaData, any, any, any>({
+        apiServiceCall: filters =>
+            GestionClientesService.getApiGestionClientesListarContactosEmpresa({
+                clienteId,
+                ...filters,
+            }),
+        sortKeyMapper: {},
+        filterAdapter: filters => {
+            return {
+                ...filters,
+            }
+        },
+        dataParser: data => {
+            if (!data) return []
+            return parseAdapterContactosEmpresa(data)
+        },
+        entityName: 'Contactos de Empresa',
     })
-    // const res = await GestionClientesService.getApiGestionClientesListarContactosEmpresa({
-    //     clienteId,
-    // })
-    console.log('Datos obtenidos de contacto empresa por ID:', res)
-    if (!res || !res.data || !res.data.data) {
-        throw new Error('No se pudo obtener el contacto de la empresa')
-    }
-    return parseAdapterContactosEmpresa(res.data.data)
-}
+
 // export const getContactosEmpresa = async (): Promise<ContactoEmpresaData[]> => {
 //     const response = await ContactosEmpresaService.getApiContactosEmpresaMisContactosEmpresa()
 //     if (!response || !response.data) {

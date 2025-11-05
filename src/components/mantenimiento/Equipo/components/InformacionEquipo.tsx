@@ -1,16 +1,16 @@
 import { useForm } from 'react-hook-form'
 
-import GenericSection from '../../../../form/GenericSection'
-import GenericSelectSearch from '../../../../form/Controls/GenericSelectSearch'
+import GenericSection from '../../../form/GenericSection'
+import GenericSelectSearch from '../../../form/Controls/GenericSelectSearch'
 
-import { buscarSelectActivo } from '../../services/activoApi'
-import { SoloEquipoForm } from './equipo/EquipoForm'
+import { buscarSelectActivo } from '../services/activoApi'
+import { SoloEquipoForm } from './EquipoForm'
 
 export function EquipoSection({
     ordenId,
     form,
     blockForm,
-    estaEditando,
+    // estaEditando,
     readOnly,
 }: {
     ordenId: number

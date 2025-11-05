@@ -101,7 +101,6 @@ export default function InformacionGeneral({
                     <GenericButton text='Siguiente' onClick={change} className='mt-4 ' />
                 </div>
             )}
-            {/* <GenericButton text='Siguiente' onClick={change} className='mt-4 ' /> */}
         </GenericForm>
     )
 }

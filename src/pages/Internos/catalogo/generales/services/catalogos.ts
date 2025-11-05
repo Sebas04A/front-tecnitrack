@@ -1,14 +1,11 @@
-import { adapterCatalogo, obtenerCatalogos, parseAdapterCatalogo } from '../adapters/catalogos'
-import { CatalogoDto, CatalogosService, CrearCatalogoDto } from '../../../../../api'
-import { makeLocalCrudFetcher } from '../../../../../components/crud/helper/crud-helpers'
-import {
-    fetchDataCrudWithFilters,
-    FetchParams,
-} from '../../../../../components/crud/helper/fetchWithFilters'
 import {
     ApiSearchParams,
     createApiSearchFunction,
 } from '../../../../../services/generalGetWithFilters'
+
+import { CatalogoDto, CatalogosService, CrearCatalogoDto } from '../../../../../api'
+
+import { adapterCatalogo, obtenerCatalogos, parseAdapterCatalogo } from '../adapters/catalogos'
 import { CatalogoFormData } from '../models/catalogo.schema'
 
 export async function getTiposCatalogos(): Promise<string[]> {

@@ -4,6 +4,11 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Resolver, useForm } from 'react-hook-form'
 
 import CrudContainer, { crudQueries } from '../../../../components/crud/CrudContainer'
+import {
+    fetchDataCrudWithFilters,
+    FetcherFunctionWithParams,
+} from '../../../../components/crud/helper/fetchWithFilters'
+import { ColumnDef } from '../../../../components/crud/components/CrudTable'
 
 import GenericSelectState from '../../../../components/form/Controls/GenericSelectState'
 
@@ -18,12 +23,8 @@ import {
     getTiposCatalogos,
     updateCatalogo,
 } from './services/catalogos'
-import { fetchDataCrudWithFilters } from '../../../../components/crud/helper/fetchWithFilters'
-import { ColumnDef } from '../../../../components/crud/components/CrudTable'
 
 const columns: ColumnDef<CatalogoDto>[] = [
-    // { header: 'ID', key: 'id' },
-    // { header: 'Tipo', key: 'tipo' },
     { header: 'Valor', key: 'valor', sortable: true },
     { header: 'Descripción', key: 'descripcion', sortable: true },
     {
@@ -35,7 +36,7 @@ const columns: ColumnDef<CatalogoDto>[] = [
 ]
 
 export default function CatalogosCrud() {
-    console.warn('RENDERIZANDO CATALOGOS CRUD')
+    // console.warn('RENDERIZANDO CATALOGOS CRUD')
     const [tipoCatalogo, setTipoCatalogo] = React.useState<string>('RolUsuario')
     const defaultValues: CatalogoFormData = {
         tipo: tipoCatalogo,
@@ -44,19 +45,10 @@ export default function CatalogosCrud() {
         activo: true,
         orden: 0,
     }
-
-    // let fetchData = useMemo(
-    //     () =>
-    //         makeLocalCrudFetcher<CatalogoFormData>({
-    //             getAll: () => getCatalogoLimpio(tipoCatalogo),
-    //             searchKeys: ['tipo', 'valor', 'descripcion'],
-    //         }),
-    //     [tipoCatalogo]
-    // )
-    let fetchData = useMemo(
+    let fetchData: FetcherFunctionWithParams<CatalogoFormData, any> = useMemo(
         () =>
             fetchDataCrudWithFilters({
-                fetchData: getCatalogoPorTipo(tipoCatalogo),
+                fetchData: filters => getCatalogoPorTipo(tipoCatalogo)(filters),
             }),
         [tipoCatalogo]
     )
@@ -89,39 +81,16 @@ export default function CatalogosCrud() {
         defaultValues: { tipo: tipoCatalogo ?? '' },
         resolver: yupResolver(catalogoSchema) as Resolver<CatalogoFormData>,
     })
+
     const {
         register,
-        handleSubmit,
-        reset,
-        setValue,
         formState: { errors },
-        control,
     } = form
-    useEffect(() => {
-        console.log('ERRORS EN CATALOGOS CRUD', errors)
-    }, [errors])
 
-    // Registrar el campo 'tipo' y mantenerlo sincronizado con tipoCatalogo sin mostrar el select en el formulario
-    // React.useEffect(() => {
-    //     register('tipo')
-    // }, [register])
+    // useEffect(() => {
+    //     console.log('ERRORS EN CATALOGOS CRUD', errors)
+    // }, [errors])
 
-    // React.useEffect(() => {
-    //     setValue('tipo', tipoCatalogo, {
-    //         shouldDirty: true,
-    //         shouldTouch: true,
-    //         shouldValidate: true,
-    //     })
-    // }, [tipoCatalogo, setValue])
-    function fetchTiposCatalogos() {
-        getTiposCatalogos()
-            .then(tipos => {
-                console.log('Tipos de catálogos disponibles:', tipos)
-            })
-            .catch(err => {
-                console.error('Error obteniendo tipos de catálogos:', err)
-            })
-    }
     const [opcionesTiposCatalogo, setOpcionesTiposCatalogo] = React.useState<
         { value: string; label: string }[]
     >([])
@@ -167,11 +136,7 @@ export default function CatalogosCrud() {
                 defaultValues={defaultValues}
                 isModalGrande={false}
                 autoLoadOptions={{ autoLoad: true, dependencies: [tipoCatalogo] }}
-            >
-                {/* Eliminado el select de "Tipo" del formulario; el valor se maneja oculto vía setValue */}
-                {/* Campo oculto para garantizar registro (opcional si ya registramos en useEffect) */}
-                {/* <input type='hidden' {...register('tipo')} value={tipoCatalogo} /> */}
-            </CrudContainer>
+            />
         </div>
     )
 }

@@ -1,15 +1,6 @@
-import {
-    ActualizarClienteNaturalDto,
-    CrearClienteNaturalDto,
-    GestionClientesService,
-    ListarClientesNaturalesDto,
-} from '../../../../../../api'
+import { GestionClientesService, ListarClientesNaturalesDto } from '../../../../../../api'
 import { ClienteNaturalCrud } from '../models/CrudNaturalModel'
 
-import {
-    PerfilPersonaNaturalCrudData,
-    PerfilPersonaNaturalData,
-} from '../../../../../../validation/perfil.schema'
 import { createApiSearchFunction } from '../../../../../../services/generalGetWithFilters'
 import {
     mapperPerfilNaturalDataToApi,

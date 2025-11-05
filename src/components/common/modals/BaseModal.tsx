@@ -1,8 +1,10 @@
 import React, { useEffect, useId, useRef } from 'react'
-import { IoClose } from 'react-icons/io5'
+
 import { motion, AnimatePresence } from 'framer-motion'
 import FocusTrap from 'focus-trap-react'
-import { BaseModalProps } from '../../../types/modal.types'
+import { IoClose } from 'react-icons/io5'
+
+import { BaseModalProps } from './models/modal.types'
 
 const backdropVariants = {
     hidden: { opacity: 0 },

@@ -7,6 +7,7 @@ export interface ClienteNaturalCrud {
     correo: string
     direccion: string
     estado: boolean
-    fechaCreacion: Date
+    // fechaCreacion: Date
+    fechaNacimiento?: Date
     [key: string]: unknown
 }

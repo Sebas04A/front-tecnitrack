@@ -1,5 +1,7 @@
 import { ReactNode, ComponentType } from 'react'
 
+export type ModalTypes = 'info' | 'success' | 'warning' | 'error'
+
 export interface BaseModalProps {
     isOpen: boolean
     onClose: () => void
@@ -33,12 +35,13 @@ export interface ConfirmModalProps extends BaseModalProps {
     onCancel?: () => void
     confirmText?: string
     cancelText?: string
-    type?: 'info' | 'success' | 'warning' | 'error'
+    type?: ModalTypes
 }
 
 export interface AlertModalProps extends BaseModalProps {
+    title: string
     message: string
-    type?: 'info' | 'success' | 'warning' | 'error'
+    type?: ModalTypes
 }
 
 export interface LoadingModalProps extends BaseModalProps {

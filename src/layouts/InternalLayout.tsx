@@ -5,7 +5,7 @@ import { FaBars } from 'react-icons/fa'
 
 import SideBar from '../components/layout/SideBar'
 import Footer from '../components/layout/Footer'
-import TituloPagina from '../components/common/TituloPagina'
+import TituloPagina from '../components/common/modals/titulo/TituloPagina'
 
 import { getNavItem, navItemsInterno } from '../router/ruta'
 

@@ -1,7 +1,8 @@
-import { p } from 'framer-motion/client'
 import { createElement } from 'react'
 import { UseFormRegister } from 'react-hook-form'
+
 import { Option } from '../../../types/form'
+
 type PropsBase = {
     label?: string
     placeholder?: string
@@ -38,8 +39,6 @@ export default function GenericInput({
     endContent,
     ...rest
 }: Props) {
-    // console.log(name, { mostrarEspacioError })
-
     const isSelect = type === 'select'
     const isTextarea = type === 'textarea'
     const Element = isSelect ? 'select' : isTextarea ? 'textarea' : 'input'

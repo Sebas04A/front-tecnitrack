@@ -4,7 +4,6 @@ import { Resolver, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import CrudContainer, { crudQueries } from '../../../components/crud/CrudContainer'
-import { makeLocalCrudFetcher } from '../../../components/crud/helper/crud-helpers'
 
 import { UsuarioInternoData, usuarioInternoSchema } from './models/usuarioInterno'
 import { createInterno, deleteInterno, getInternos, updateInterno } from './services/internos'
@@ -19,13 +18,13 @@ export default function CrudInternos() {
         id: -1,
         nombreCompleto: '',
         apellidoCompleto: '',
-        rol: 'Empleado',
+        rol: '',
         estadoString: 'Inactivo', // siempre Inactivo al crear
         email: '',
         genero: 'Masculino',
         usuario: '',
         contraseña: '',
-        fechaNacimiento: '2000-01-01',
+        fechaNacimiento: undefined,
         tipoIdentificacion: '',
         numeroIdentificacion: '',
     }
@@ -84,7 +83,8 @@ export default function CrudInternos() {
     }
     useEffect(() => {
         console.log(form.formState.errors)
-    }, [form.formState.errors])
+        console.log(form.watch())
+    }, [form.formState.errors, form.watch()])
 
     return (
         <div>

@@ -3,31 +3,20 @@ import { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { makeLocalCrudFetcher } from '../../../../../components/crud/helper/crud-helpers'
+import { fetchDataCrudWithFilters } from '../../../../../components/crud/helper/fetchWithFilters'
+import { ColumnDef } from '../../../../../components/crud/components/CrudTable'
 import CrudContainer, { crudQueries } from '../../../../../components/crud/CrudContainer'
 
 import { apiToData, PaisData } from './models/paises'
-import {
-    createPais,
-    deletePais,
-    getPaisById,
-    getPaises,
-    getPaisesCrud,
-    updatePais,
-} from './services/paisApi'
+import { createPais, deletePais, getPaisesCrud, updatePais } from './services/paisApi'
 import PaisesForm from './components/PaisForm'
 import { PaisFormData, defaultPaisValues, paisSchema } from './models/paises.schema'
-import {
-    fetchDataCrudWithFilters,
-    FetchParams,
-} from '../../../../../components/crud/helper/fetchWithFilters'
-import { ColumnDef } from '../../../../../components/crud/components/CrudTable'
 
 interface PaisesCrudProps {
     titulo?: string
     paisId?: number
 }
-export const PaisesCrud: React.FC<PaisesCrudProps> = ({ titulo, paisId }) => {
+export const PaisesCrud: React.FC<PaisesCrudProps> = ({ titulo }) => {
     const form = useForm<PaisFormData>({
         mode: 'onChange',
         resolver: yupResolver(paisSchema),
@@ -42,17 +31,6 @@ export const PaisesCrud: React.FC<PaisesCrudProps> = ({ titulo, paisId }) => {
         ],
         []
     )
-    // const fetchData = useMemo(
-    //     () =>
-    //         makeLocalCrudFetcher<PaisData>({
-    //             getAll: async () => {
-    //                 const data = paisId ? [await getPaisById(paisId)] : await getPaises()
-    //                 return data.map(apiToData)
-    //             },
-    //             searchKeys: ['nombre', 'codigoISO', 'codigoTelefonico'] as any,
-    //         }),
-    //     [paisId]
-    // )
     const fetchData = useMemo(
         () =>
             fetchDataCrudWithFilters<PaisData, any>({

@@ -1,5 +1,4 @@
-import React from 'react'
-import { BaseModalProps } from '../../../types/modal.types'
+import { BaseModalProps } from './models/modal.types'
 import BaseModal from './BaseModal'
 
 export default function EmptyModal({

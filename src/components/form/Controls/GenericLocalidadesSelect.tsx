@@ -6,7 +6,6 @@ import {
     obtenerPaisesSelect,
     obtenerProvinciasPorPaisSelect,
 } from '../../../services/Select/localidadesSelectApi'
-import { use } from 'framer-motion/m'
 
 // Define el tipo para el valor que manejará el componente
 export interface LocalidadesValue {

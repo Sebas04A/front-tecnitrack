@@ -1,5 +1,5 @@
 import React, { createContext, useState, useCallback, ReactNode, useEffect, useMemo } from 'react'
-import { ModalConfig, ModalContextType } from '../types/modal.types'
+import { ModalConfig, ModalContextType } from '../components/common/modals/models/modal.types'
 import { ModalRenderer } from '../components/common/modals/logica/ModalRendered'
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined)

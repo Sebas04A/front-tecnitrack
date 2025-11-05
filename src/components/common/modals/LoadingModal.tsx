@@ -1,4 +1,4 @@
-import { LoadingModalProps } from '../../../types/modal.types'
+import { LoadingModalProps } from './models/modal.types'
 import BaseModal from './BaseModal'
 
 export const LoadingModal: React.FC<LoadingModalProps> = ({

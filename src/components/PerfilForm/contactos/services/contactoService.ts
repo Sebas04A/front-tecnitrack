@@ -49,20 +49,25 @@ export async function deleteContactoClienteAdmin(contactoId: number) {
     })
 }
 
-export const getContactosNaturalById = createApiSearchFunction<ContactoClienteData, any, any, any>({
-    apiServiceCall: GestionClientesService.getApiGestionClientesListarClientesNaturales,
-    sortKeyMapper: {},
-    filterAdapter: filters => {
-        return {
-            ...filters,
-        }
-    },
-    dataParser: data => {
-        if (!data) return []
-        return parseAdapterContactosCliente(data)
-    },
-    entityName: 'Contactos Cliente',
-})
+export const getContactosNaturalById = ({ clienteId }: { clienteId: number }) =>
+    createApiSearchFunction<ContactoClienteData, any, any, any>({
+        apiServiceCall: filters =>
+            GestionClientesService.getApiGestionClientesListarContactosDirectos({
+                clienteId,
+                ...filters,
+            }),
+        sortKeyMapper: {},
+        filterAdapter: filters => {
+            return {
+                ...filters,
+            }
+        },
+        dataParser: data => {
+            if (!data) return []
+            return parseAdapterContactosCliente(data)
+        },
+        entityName: 'Contactos Cliente',
+    })
 export const getContactosCliente = createApiSearchFunction<ContactoClienteData, any, any, any>({
     apiServiceCall: ContactosDirectosService.getApiContactosDirectosMisContactos,
     sortKeyMapper: {},

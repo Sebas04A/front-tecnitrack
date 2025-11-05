@@ -1,6 +1,7 @@
 import React from 'react'
-import GenericButton from '../../form/Controls/GenericButton'
 import { FaPlus } from 'react-icons/fa'
+
+import GenericButton from '../../form/Controls/GenericButton'
 import GenericTextInput from '../../form/Controls/GenericTextInput'
 
 interface CrudToolbarProps {
@@ -26,13 +27,6 @@ export const CrudToolbar: React.FC<CrudToolbarProps> = ({
                         onChange={e => onSearch(e.target.value)}
                         className='p-3 py-4'
                     />
-
-                    // <input
-                    //     type='text'
-                    //     placeholder={searchPlaceholder}
-                    //     className='w-full sm:max-w-xs px-3 py-2 rounded-lg bg-background-accent-auto border border-light text-sm focus:outline-none focus:ring-2 focus:ring-primary-auto'
-                    //     onChange={e => onSearch(e.target.value)}
-                    // />
                 )}
             </div>
             <div className='flex gap-2'>

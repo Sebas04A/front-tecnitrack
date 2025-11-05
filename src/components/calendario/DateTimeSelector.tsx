@@ -1,6 +1,9 @@
-import React, { useEffect, useMemo} from 'react'
+import React, { useEffect, useMemo } from 'react'
+
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
+
 import { useCitas } from '../../hooks/useCitas'
+
 import { CalendarGrid } from './components/CalendarGrid'
 import { TimeSlots } from './components/TimeSlots'
 
@@ -62,7 +65,6 @@ const DateTimeSelector: React.FC<DateTimeSelectorProps> = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-   
     useEffect(() => {
         const fecha = getFechaHoraSeleccionada()
         const fechaInfo = {
@@ -77,8 +79,6 @@ const DateTimeSelector: React.FC<DateTimeSelectorProps> = ({
         console.log(fecha)
         if (!fecha) return
         onSlotSelect && onSlotSelect(fecha)
-
-       
     }, [selectedDate, selectedSlot])
 
     return (

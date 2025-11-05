@@ -1,16 +1,12 @@
-// components/modals/FormModal.tsx
-
 import React from 'react'
-import BaseModal from './BaseModal'
-import { BaseModalProps } from '../../../types/modal.types'
-import GenericButton from '../../form/Controls/GenericButton'
+
 import FormsButtons from '../../form/formsButtons'
 import GenericForm from '../../form/GenericForm'
 
-export interface FormModalProps extends BaseModalProps {
-    // Props requeridas para el control y contenido
+import BaseModal from './BaseModal'
+import { BaseModalProps } from './models/modal.types'
 
-    // Props para las acciones del formulario
+export interface FormModalProps extends BaseModalProps {
     error?: string
     onSubmit?: () => void
     onCancel?: () => void
@@ -83,9 +79,6 @@ const FormModal: React.FC<FormModalProps> = ({
     return (
         <BaseModal isOpen={isOpen} onClose={handleCancel} title={title} size={size} noPadding>
             <div className='flex flex-col gap-6 p-4'>
-                {/* <CatalogoForm /> */}
-                {/* El contenido del formulario (pasado como children) se renderiza aquí */}
-                {/* <div>{children}</div> */}
                 <GenericForm error={props?.error}>
                     {ChildComponent && <ChildComponent {...props} />}
                 </GenericForm>

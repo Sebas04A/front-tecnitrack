@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { ModalContext } from '../context/ModalContext'
-import { ModalContextType } from '../types/modal.types'
+import { ModalContextType } from '../components/common/modals/models/modal.types'
 
 export const useModal = (): ModalContextType => {
     const context = useContext(ModalContext)

@@ -1,5 +1,4 @@
-import React from 'react'
-import { getTitleNavItems } from '../../router/ruta'
+import { getTitleNavItems } from '../../../../../router/ruta'
 import { NavLink } from 'react-router-dom'
 
 export default function NavTitulo() {

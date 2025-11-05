@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
-import DateTimeSelector, { DateTimeSelection } from '../../calendario/DateTimeSelector'
+
 import { useModalActions } from '../../../hooks/useModalActions'
+
+import DateTimeSelector, { DateTimeSelection } from '../../calendario/DateTimeSelector'
+
 import BaseModal from './BaseModal'
 
 export function CalendarioModal({
@@ -15,9 +18,11 @@ export function CalendarioModal({
     onConfirm: (date: Date) => void
 }) {
     const modalActions = useModalActions()
+
     useEffect(() => {
         setFechaSeleccionada(initialDate ?? null)
     }, [initialDate])
+
     const [fechaSeleccionada, setFechaSeleccionada] = useState<Date | null>(null)
     function handleSelectionChange(selection: DateTimeSelection) {
         setFechaSeleccionada(selection.fecha ?? null)

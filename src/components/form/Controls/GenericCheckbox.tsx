@@ -91,5 +91,4 @@ const GenericCheckbox: React.FC<GenericCheckboxProps> = ({
         </div>
     )
 }
-
 export default GenericCheckbox

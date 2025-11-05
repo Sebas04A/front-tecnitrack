@@ -1,8 +1,7 @@
-// src/components/citas/TimeSlots.tsx
 import React from 'react'
 
 interface TimeSlotsProps {
-    now: Date // ❗ NUEVO: Prop para la fecha y hora actual
+    now: Date
     selectedDate: Date | null
     horasDisponibles: string[]
     horasOcupadas: Set<string>
@@ -38,7 +37,7 @@ export const TimeSlots: React.FC<TimeSlotsProps> = ({
                 {horasDisponibles.map(hora => {
                     const isOcupada = horasOcupadas.has(hora)
 
-                    // ❗ LÓGICA ACTUALIZADA: para deshabilitar horas pasadas
+                    // LÓGICA ACTUALIZADA: para deshabilitar horas pasadas
                     let isPast = false
                     if (isToday) {
                         const [hour, minute] = hora.split(':').map(Number)

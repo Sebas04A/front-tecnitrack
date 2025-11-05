@@ -1,26 +1,24 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+
+import { Resolver, SubmitHandler, useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 import GenericForm from '../../../components/form/GenericForm.tsx'
 import GenericTextInput from '../../../components/form/Controls/GenericTextInput.tsx'
 import GenericButton from '../../../components/form/Controls/GenericButton.tsx'
 import GenericLink from '../../../components/form/Controls/GenericLink.tsx'
 
-import { Resolver, SubmitHandler, useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-
+import { useModalActions } from '../../../hooks/useModalActions.tsx'
 import { parseAxiosError } from '../../../utils/parseError.ts'
 
-import { Modal } from '../../../components/common/Modal.tsx'
-
-import { useNavigate } from 'react-router-dom'
+import { resetPasswordRequest } from './services/restablecerContraServices.ts'
 
 import { ResetPasswordFormData, resetPasswordSchema } from './models/resetPassword.schema.ts'
-import { resetPasswordRequest } from './services/restablecerContraServices.ts'
 
 export default function RestablecerContra() {
     const [token, setToken] = useState<string | null>(null)
     const [error, setError] = useState<string>('')
-    const [message, setMessage] = useState<string>('')
 
     const navigate = useNavigate()
 
@@ -44,13 +42,21 @@ export default function RestablecerContra() {
         defaultValues: { password: '', confirmPassword: '' },
     })
 
+    const modalActions = useModalActions()
+
     const onSubmit: SubmitHandler<ResetPasswordFormData> = async ({ password }) => {
         setError('')
-        setMessage('')
+
         try {
             if (!token) throw new Error('Token inválido o ausente')
             const res = await resetPasswordRequest(token, password)
-            setMessage(res)
+            modalActions.showConfirm({
+                title: 'Éxito',
+                message: res,
+                onConfirm: () => navigate('/login'),
+                confirmText: 'Ir a Iniciar Sesión',
+            })
+
             reset()
         } catch (err) {
             setError(parseAxiosError(err))
@@ -87,15 +93,6 @@ export default function RestablecerContra() {
                     <GenericLink to='/login' text='Volver a iniciar sesión' />
                 </div>
             </GenericForm>
-            <Modal
-                isOpen={!!message}
-                onClose={() => setMessage('')}
-                title='Éxito'
-                onAccept={() => navigate('/login')}
-                acceptText='Ir a Iniciar Sesión'
-            >
-                {message && <p className=' text-center'>{message}</p>}
-            </Modal>
         </>
     )
 }
