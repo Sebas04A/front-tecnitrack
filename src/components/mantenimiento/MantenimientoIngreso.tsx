@@ -96,11 +96,11 @@ export default function MantenimientoIngreso({
         })
     }
     function handleSave() {
-        modalActions.showAlert({
-            title: 'Guardado',
-            message: 'Los datos se han guardado correctamente.',
-            type: 'success',
-        })
+        // modalActions.showAlert({
+        //     title: 'Guardado',
+        //     message: 'Los datos se han guardado correctamente.',
+        //     type: 'success',
+        // })
         changeNextTab()
     }
     function changeNextTab() {

@@ -71,7 +71,8 @@ export default function ComponentesCrud({
             return res
         },
         deleteQuery: async id => {
-            const res = await deleteEstadosComponentes(Number(id))
+            console.log('Eliminando componente con id:', id)
+            const res = await deleteEstadosComponentes(id.id)
             return res
         },
     }
