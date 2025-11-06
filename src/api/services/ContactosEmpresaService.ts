@@ -4,14 +4,14 @@
 /* eslint-disable */
 import type { ContactosEmpresaRequest } from '../models/ContactosEmpresaRequest';
 import type { ContactosEmpresaResponseApiResponse } from '../models/ContactosEmpresaResponseApiResponse';
-import type { ContactosEmpresaResponsePagedResponseApiResponse } from '../models/ContactosEmpresaResponsePagedResponseApiResponse';
+import type { ContactosEmpresaResponsePagedResponse } from '../models/ContactosEmpresaResponsePagedResponse';
 import type { ObjectApiResponse } from '../models/ObjectApiResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 export class ContactosEmpresaService {
     /**
-     * @returns ContactosEmpresaResponsePagedResponseApiResponse OK
+     * @returns ContactosEmpresaResponsePagedResponse OK
      * @throws ApiError
      */
     public static getApiContactosEmpresaMisContactosEmpresa({
@@ -28,7 +28,7 @@ export class ContactosEmpresaService {
         limite?: number,
         ordenarPor?: string,
         direccionOrden?: string,
-    }): CancelablePromise<ContactosEmpresaResponsePagedResponseApiResponse> {
+    }): CancelablePromise<ContactosEmpresaResponsePagedResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/contactos-empresa/mis-contactos-empresa',

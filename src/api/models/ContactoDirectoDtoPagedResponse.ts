@@ -5,11 +5,7 @@
 import type { ContactoDirectoDto } from './ContactoDirectoDto';
 import type { PaginationInfo } from './PaginationInfo';
 export type ContactoDirectoDtoPagedResponse = {
-    success?: boolean;
     data?: Array<ContactoDirectoDto> | null;
-    message?: string | null;
-    timestamp?: string;
-    errors?: Array<string> | null;
     pagination?: PaginationInfo;
 };
 

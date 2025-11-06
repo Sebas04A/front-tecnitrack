@@ -4,7 +4,7 @@
 /* eslint-disable */
 import type { DireccionDetalleResponseApiResponse } from '../models/DireccionDetalleResponseApiResponse';
 import type { DireccionRequest } from '../models/DireccionRequest';
-import type { DireccionResponsePagedResponseApiResponse } from '../models/DireccionResponsePagedResponseApiResponse';
+import type { DireccionResponsePagedResponse } from '../models/DireccionResponsePagedResponse';
 import type { ObjectApiResponse } from '../models/ObjectApiResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -80,7 +80,7 @@ export class DireccionesService {
         });
     }
     /**
-     * @returns DireccionResponsePagedResponseApiResponse OK
+     * @returns DireccionResponsePagedResponse OK
      * @throws ApiError
      */
     public static getApiDireccionesMisDirecciones({
@@ -97,7 +97,7 @@ export class DireccionesService {
         limite?: number,
         ordenarPor?: string,
         direccionOrden?: string,
-    }): CancelablePromise<DireccionResponsePagedResponseApiResponse> {
+    }): CancelablePromise<DireccionResponsePagedResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/Direcciones/mis-direcciones',

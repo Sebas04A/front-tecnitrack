@@ -10,9 +10,9 @@ import type { ActualizarDireccionDto } from '../models/ActualizarDireccionDto';
 import type { ClienteEmpresaDtoApiResponse } from '../models/ClienteEmpresaDtoApiResponse';
 import type { ClienteNaturalDtoApiResponse } from '../models/ClienteNaturalDtoApiResponse';
 import type { ContactoDirectoDtoApiResponse } from '../models/ContactoDirectoDtoApiResponse';
-import type { ContactoDirectoDtoPagedResponseApiResponse } from '../models/ContactoDirectoDtoPagedResponseApiResponse';
+import type { ContactoDirectoDtoPagedResponse } from '../models/ContactoDirectoDtoPagedResponse';
 import type { ContactoEmpresaDtoApiResponse } from '../models/ContactoEmpresaDtoApiResponse';
-import type { ContactoEmpresaDtoPagedResponseApiResponse } from '../models/ContactoEmpresaDtoPagedResponseApiResponse';
+import type { ContactoEmpresaDtoPagedResponse } from '../models/ContactoEmpresaDtoPagedResponse';
 import type { CrearClienteEmpresaDto } from '../models/CrearClienteEmpresaDto';
 import type { CrearClienteEmpresaResponseDtoApiResponse } from '../models/CrearClienteEmpresaResponseDtoApiResponse';
 import type { CrearClienteNaturalDto } from '../models/CrearClienteNaturalDto';
@@ -24,7 +24,7 @@ import type { DireccionDtoApiResponse } from '../models/DireccionDtoApiResponse'
 import type { EstadoClienteResponseDtoApiResponse } from '../models/EstadoClienteResponseDtoApiResponse';
 import type { ListarClientesEmpresaDtoPagedResponse } from '../models/ListarClientesEmpresaDtoPagedResponse';
 import type { ListarClientesNaturalesDtoPagedResponse } from '../models/ListarClientesNaturalesDtoPagedResponse';
-import type { ListarDireccionesDtoPagedResponseApiResponse } from '../models/ListarDireccionesDtoPagedResponseApiResponse';
+import type { ListarDireccionesDtoPagedResponse } from '../models/ListarDireccionesDtoPagedResponse';
 import type { ObjectApiResponse } from '../models/ObjectApiResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -57,7 +57,7 @@ export class GestionClientesService {
         });
     }
     /**
-     * @returns ContactoEmpresaDtoPagedResponseApiResponse OK
+     * @returns ContactoEmpresaDtoPagedResponse OK
      * @throws ApiError
      */
     public static getApiGestionClientesListarContactosEmpresa({
@@ -76,7 +76,7 @@ export class GestionClientesService {
         limite?: number,
         ordenarPor?: string,
         direccionOrden?: string,
-    }): CancelablePromise<ContactoEmpresaDtoPagedResponseApiResponse> {
+    }): CancelablePromise<ContactoEmpresaDtoPagedResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/gestion-clientes/listar-contactos-empresa/{clienteId}',
@@ -197,7 +197,7 @@ export class GestionClientesService {
         });
     }
     /**
-     * @returns ContactoDirectoDtoPagedResponseApiResponse OK
+     * @returns ContactoDirectoDtoPagedResponse OK
      * @throws ApiError
      */
     public static getApiGestionClientesListarContactosDirectos({
@@ -216,7 +216,7 @@ export class GestionClientesService {
         limite?: number,
         ordenarPor?: string,
         direccionOrden?: string,
-    }): CancelablePromise<ContactoDirectoDtoPagedResponseApiResponse> {
+    }): CancelablePromise<ContactoDirectoDtoPagedResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/gestion-clientes/listar-contactos-directos/{clienteId}',
@@ -337,7 +337,7 @@ export class GestionClientesService {
         });
     }
     /**
-     * @returns ListarDireccionesDtoPagedResponseApiResponse OK
+     * @returns ListarDireccionesDtoPagedResponse OK
      * @throws ApiError
      */
     public static getApiGestionClientesListarDirecciones({
@@ -356,7 +356,7 @@ export class GestionClientesService {
         limite?: number,
         ordenarPor?: string,
         direccionOrden?: string,
-    }): CancelablePromise<ListarDireccionesDtoPagedResponseApiResponse> {
+    }): CancelablePromise<ListarDireccionesDtoPagedResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/gestion-clientes/listar-direcciones/{clienteId}',

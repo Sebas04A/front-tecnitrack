@@ -5,11 +5,7 @@
 import type { ActivoDto } from './ActivoDto';
 import type { PaginationInfo } from './PaginationInfo';
 export type ActivoDtoPagedResponse = {
-    success?: boolean;
     data?: Array<ActivoDto> | null;
-    message?: string | null;
-    timestamp?: string;
-    errors?: Array<string> | null;
     pagination?: PaginationInfo;
 };
 

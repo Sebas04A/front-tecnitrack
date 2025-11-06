@@ -9,7 +9,7 @@ import {
 } from '../services/loginApi'
 import { AuthContext, User } from './auth-context'
 import { setupApi } from '../api/setupApi'
-import { rolType } from '../types/usuario'
+
 import {
     RegisterEmpresaFormData,
     RegisterNaturalFormData,
@@ -20,6 +20,7 @@ const storageNames = {
     rol: 'rol',
     token: 'auth_token',
 }
+type rolType = 'interno' | 'usuario'
 
 export function AuthProvider({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<User | null>(null)

@@ -4,14 +4,14 @@
 /* eslint-disable */
 import type { ContactoDirectoRequest } from '../models/ContactoDirectoRequest';
 import type { ContactoDirectoResponseApiResponse } from '../models/ContactoDirectoResponseApiResponse';
-import type { ContactoDirectoResponsePagedResponseApiResponse } from '../models/ContactoDirectoResponsePagedResponseApiResponse';
+import type { ContactoDirectoResponsePagedResponse } from '../models/ContactoDirectoResponsePagedResponse';
 import type { ObjectApiResponse } from '../models/ObjectApiResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 export class ContactosDirectosService {
     /**
-     * @returns ContactoDirectoResponsePagedResponseApiResponse OK
+     * @returns ContactoDirectoResponsePagedResponse OK
      * @throws ApiError
      */
     public static getApiContactosDirectosMisContactos({
@@ -28,7 +28,7 @@ export class ContactosDirectosService {
         limite?: number,
         ordenarPor?: string,
         direccionOrden?: string,
-    }): CancelablePromise<ContactoDirectoResponsePagedResponseApiResponse> {
+    }): CancelablePromise<ContactoDirectoResponsePagedResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/contactos-directos/mis-contactos',

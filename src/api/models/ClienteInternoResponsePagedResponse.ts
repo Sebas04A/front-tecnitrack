@@ -5,11 +5,7 @@
 import type { ClienteInternoResponse } from './ClienteInternoResponse';
 import type { PaginationInfo } from './PaginationInfo';
 export type ClienteInternoResponsePagedResponse = {
-    success?: boolean;
     data?: Array<ClienteInternoResponse> | null;
-    message?: string | null;
-    timestamp?: string;
-    errors?: Array<string> | null;
     pagination?: PaginationInfo;
 };
 

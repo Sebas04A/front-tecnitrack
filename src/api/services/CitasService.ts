@@ -6,7 +6,7 @@ import type { CitaRequest } from '../models/CitaRequest';
 import type { CitaResponseApiResponse } from '../models/CitaResponseApiResponse';
 import type { CitaResponseListApiResponse } from '../models/CitaResponseListApiResponse';
 import type { EditarCitaRequest } from '../models/EditarCitaRequest';
-import type { MisCitasResponsePagedResponseApiResponse } from '../models/MisCitasResponsePagedResponseApiResponse';
+import type { MisCitasResponsePagedResponse } from '../models/MisCitasResponsePagedResponse';
 import type { ObjectApiResponse } from '../models/ObjectApiResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -48,7 +48,7 @@ export class CitasService {
         });
     }
     /**
-     * @returns MisCitasResponsePagedResponseApiResponse OK
+     * @returns MisCitasResponsePagedResponse OK
      * @throws ApiError
      */
     public static getApiCitasMisCitas({
@@ -69,7 +69,7 @@ export class CitasService {
         limite?: number,
         ordenarPor?: string,
         direccionOrden?: string,
-    }): CancelablePromise<MisCitasResponsePagedResponseApiResponse> {
+    }): CancelablePromise<MisCitasResponsePagedResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/Citas/mis-citas',
