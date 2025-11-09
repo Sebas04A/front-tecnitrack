@@ -1,4 +1,8 @@
-import { ClientesEmpresaRequest, ClientesEmpresaResponse } from '../../../../../api'
+import {
+    ClienteEmpresaDto,
+    ClientesEmpresaRequest,
+    ClientesEmpresaResponse,
+} from '../../../../../api'
 import { PerfilEmpresaData } from '../../../../../validation/perfil.schema'
 
 export const adapterPerfilJuridico = (data: PerfilEmpresaData) => {
@@ -16,7 +20,7 @@ export const adapterPerfilJuridico = (data: PerfilEmpresaData) => {
     }
     return requestBody
 }
-export const parseAdapterPerfilJuridico = (api: ClientesEmpresaResponse): PerfilEmpresaData => {
+export const parseAdapterPerfilJuridico = (api: ClienteEmpresaDto): PerfilEmpresaData => {
     return {
         RUC: api.numeroIdentificacion ?? '',
         razonSocial: api.razonSocial ?? '',

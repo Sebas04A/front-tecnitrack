@@ -72,7 +72,8 @@ export default function PersonaJuridicaForm({
             numeroSucursal: data?.numeroSucursal ?? '',
             nombreSucursal: data?.nombreSucursal ?? '',
             telefonoEmpresa: data?.telefonoEmpresa ?? '',
-            emailEmpresa: data?.emailEmpresa ?? esCrud ? '' : user?.usuario ?? '',
+            emailEmpresa: data?.emailEmpresa ?? (esCrud ? '' : user?.usuario ?? ''),
+            // emailEmpresa: data?.emailEmpresa ?? esCrud ? '' : user?.usuario ?? '',
             emailSecundario: data?.emailSecundario ?? '',
             telefonoSecundario: data?.telefonoSecundario ?? '',
             nombreRepresentanteLegal: data?.nombreRepresentanteLegal ?? '',
@@ -227,7 +228,7 @@ export default function PersonaJuridicaForm({
                         type='email'
                         register={register}
                         errors={errors}
-                        isReadOnly={!estaEditando || !esCrud}
+                        isReadOnly={estaEditando || !esCrud}
                         mostrarEspacioError={true}
                         required
                     />

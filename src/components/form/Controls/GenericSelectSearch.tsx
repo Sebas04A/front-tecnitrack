@@ -74,6 +74,7 @@ export default function GenericSelectSearch<T extends FieldValues>({
     renderNoOptions,
     renderLoading,
 }: Props<T>) {
+    console.warn('Renderizando GenericSelectSearch', { name })
     // --- Estados y Refs Internos ---
     const [isOpen, setIsOpen] = useState(false)
     const [searchQuery, setSearchQuery] = useState('')
@@ -175,12 +176,14 @@ export default function GenericSelectSearch<T extends FieldValues>({
 
                 // --- Manejadores de Eventos ---
                 const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+                    console.log('handleSearchChange', e.target.value)
+
                     const query = e.target.value
                     setSearchQuery(query)
                     onSearchChange?.(query)
-                    if (query !== selectedOption?.label) {
-                        field.onChange('') // Limpia el valor si el usuario escribe algo nuevo
-                    }
+                    // if (query !== selectedOption?.label) {
+                    //     field.onChange('') // Limpia el valor si el usuario escribe algo nuevo
+                    // }
                     if (!isOpen) setIsOpen(true)
                     debouncedFetch(query)
                 }

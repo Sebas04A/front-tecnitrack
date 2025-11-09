@@ -154,7 +154,7 @@ export function CitasFilters({
                         }}
                         // isClearable={true} // Permite borrar la selección
                         placeholderText='Selecciona un rango de fechas'
-                        className='w-full p-2 border border-gray-300 rounded-md h-[3rem] bg-background-auto  border-gray-300' // Adapta las clases a tu diseño
+                        className='w-full p-2 border-2 border-gray-300 rounded-md h-[3rem] bg-background-auto  border-gray-300' // Adapta las clases a tu diseño
                     />
                 </div>
                 <GenericDate

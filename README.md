@@ -286,7 +286,7 @@ export const CrudClientes = () => {
   * **Ubicación:** `src/components/crud/CrudCrudo.tsx`
   * **Propósito:** Es el componente que contiene **toda la lógica visual y de carga de datos** del CRUD. Su responsabilidad es manejar el **`fetch` de datos, los filtros (`FiltersComponent`), la carga (estado `loading`) y renderizar la UI** (Tabla, Toolbar, Paginación).
   * **Cuándo usarlo:** Úsalo directamente **solo si la lógica de creación/edición no es la estándar** (ej. no usa un modal, o necesitas un control muy granular sobre el *fetch* y los filtros, separado de la lógica de formulario que provee `CrudContainer`).
-  * **Nota sobre Mejoras:** El componente `CrudCrudo` es monolítico. Una futura mejora sería dividirlo en componentes más pequeños y hooks especializados (ej. `useCrudTable`, `useCrudModal`) para facilitar el mantenimiento.
+  * **Nota sobre Mejoras:** El componente `CrudCrudo` y `Crud Container` son monolíticos. Una futura mejora sería dividirlo en componentes más pequeños y hooks especializados (ej. `useCrudTable`, `useCrudModal`) para facilitar el mantenimiento.
 
 #### Props Clave (Diferencias con `CrudContainer`)
 
@@ -474,6 +474,96 @@ const Header = () => {
 }
 ```
 
+### 5.6. Búsqueda Genérica con `createApiSearchFunction`
+
+  * **Ubicación:** `src/services/generalGetWithFilters.ts`
+  * **Propósito:** Es una "fábrica" que crea una función de búsqueda de datos estandarizada. Simplifica la implementación de la lógica de paginación, ordenamiento y filtrado para los CRUDs.
+  * **Cuándo usarlo:** Es la forma recomendada de crear la función `fetchData` que se pasa a `CrudContainer`. Úsalo siempre que el endpoint de la API soporte paginación y filtros.
+  * **Cómo funciona:** Le das un objeto de configuración y te devuelve una función de búsqueda lista para usar.
+
+#### Configuración Clave
+
+| Prop | Descripción |
+| :--- | :--- |
+| `apiServiceCall` | La función del servicio que llama a la API (ej. `ProductosService.getProductos`). |
+| `sortKeyMapper` | Mapea nombres de columnas del frontend a los del backend para ordenar (si son diferentes). |
+| `filterAdapter` | Adapta los filtros del formulario del frontend a los que espera la API. |
+| `dataParser` | Transforma los datos de la API (DTOs) al formato que usará la tabla en el frontend. |
+| `entityName` | Nombre de la entidad para logging (ej. "Productos"). |
+
+#### Ejemplo de Uso Genérico (Buscando Productos)
+
+Imagina que tienes un módulo para gestionar `Productos`. Así crearías la función para buscarlos:
+
+```typescript
+// En: src/pages/Internos/Productos/services/productosService.ts
+
+import { createApiSearchFunction } from 'src/services/generalGetWithFilters';
+import { ProductosService, ProductoDto } from 'src/api';
+import { IProductoTabla } from '../models/producto.model';
+import { adaptarProductoApiParaTabla } from '../adapters/productos.adapter';
+
+// Filtros que el usuario puede usar en la UI
+interface IProductosFilters {
+    categoriaId?: number;
+    mostrarInactivos?: boolean;
+}
+
+// Se crea la función de búsqueda específica para productos
+export const buscarProductos = createApiSearchFunction<IProductoTabla, ProductoDto, IProductosFilters, any>({
+    // 1. La llamada a la API
+    apiServiceCall: ProductosService.getApiProductosBuscar,
+
+    // 2. Mapeo de claves para ordenar (si es necesario)
+    sortKeyMapper: { 'nombreProducto': 'nombre' },
+
+    // 3. Adaptador de filtros
+    filterAdapter: (filters) => ({
+        categoria: filters?.categoriaId,
+        incluirInactivos: filters?.mostrarInactivos ?? false,
+    }),
+
+    // 4. Parser para adaptar los datos a la tabla
+    dataParser: (apiData) => apiData.map(adaptarProductoApiParaTabla),
+
+    // 5. Nombre para logs
+    entityName: 'Productos',
+});
+```
+
+#### Integración con `CrudContainer`
+
+En tu página, simplemente pasas la función recién creada a `crudQueries`.
+
+```tsx
+// En: src/pages/Internos/Productos/ProductosPage.tsx
+
+import { buscarProductos } from './services/productosService';
+
+const ProductosPage = () => {
+    // ... (definición de columnas, formulario, etc.)
+
+    const crudQueries = {
+        fetchData: buscarProductos, // <-- ¡Así de simple!
+        createQuery: ...,
+        editQuery: ...,
+        deleteQuery: ...,
+    };
+
+    return (
+        <CrudContainer
+            title="Gestión de Productos"
+            crudQueries={crudQueries}
+            FiltersComponent={<FiltrosProductos />} // Componente con filtros de categoría, etc.
+            // ... otras props
+        />
+    );
+}
+```
+
+Este enfoque centraliza la lógica de búsqueda, la hace reutilizable y mantiene el código de tus páginas más limpio.
+
+<!-- end list -->
 ## 6\. Temas y Estilos (Theming)
 
 El proyecto utiliza un sistema de temas (Theming) robusto y centralizado sobre **TailwindCSS**.
@@ -542,7 +632,4 @@ El sistema de temas (`src/themes/types.ts`) define la siguiente paleta semántic
   * `surface-variant` / `on-surface-variant`
   * `outline`
 
-<!-- end list -->
-
-```
-```
+-----

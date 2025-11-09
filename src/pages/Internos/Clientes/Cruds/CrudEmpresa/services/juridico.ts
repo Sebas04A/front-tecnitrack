@@ -38,7 +38,9 @@ export async function getPerfilJuridicoById(clienteId: number): Promise<PerfilEm
     if (!data || !data.data) {
         throw new Error('No se encontraron datos del perfil jurídico')
     }
-    return parseAdapterPerfilJuridico(data.data)
+    const perfilJuridico = parseAdapterPerfilJuridico(data.data)
+    console.log('Datos parseados del perfil jurídico por ID:', perfilJuridico)
+    return perfilJuridico
 }
 export async function crearPerfilJuridicoAdmin(data: PerfilEmpresaData): Promise<number> {
     // const requestBody = adapterPerfilJuridico(data)

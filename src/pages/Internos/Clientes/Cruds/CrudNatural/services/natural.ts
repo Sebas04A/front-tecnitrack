@@ -13,7 +13,11 @@ export const buscarPerfilesNaturales = createApiSearchFunction<
     any,
     any
 >({
-    apiServiceCall: GestionClientesService.getApiGestionClientesListarClientesNaturales,
+    apiServiceCall: filters =>
+        GestionClientesService.getApiGestionClientesListarClientesNaturales({
+            soloActivos: false,
+            ...filters,
+        }),
     sortKeyMapper: mapperPerfilNaturalDataToApi,
     dataParser: parseAdapterPersonasNaturalCrud,
     filterAdapter: (filters: any) => filters,
